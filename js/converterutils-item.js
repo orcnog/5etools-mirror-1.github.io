@@ -397,7 +397,7 @@ class ItemMiscTag {
 
 class ItemSpellcastingFocusTag {
 	static tryRun (it, opts) {
-		const focusClasses = new Set(it.focus || []);
+		const focusClasses = new Set(typeof it.focus === 'boolean' ? [] : it.focus || []);
 		ItemSpellcastingFocusTag._RE_CLASS_NAMES = ItemSpellcastingFocusTag._RE_CLASS_NAMES || new RegExp(`(${Parser.ITEM_SPELLCASTING_FOCUS_CLASSES.join("|")})`, "gi");
 
 		let isMiscFocus = false;

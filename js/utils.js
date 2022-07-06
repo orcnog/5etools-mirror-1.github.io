@@ -4008,17 +4008,19 @@ DataUtil = {
 
 			DataUtil.item._pLoadingRawJson = (async () => {
 				const urlItems = `${Renderer.get().baseUrl}data/items.json`;
+				const urlSw5eItems = `${Renderer.get().baseUrl}data/items-sw5e.json`;
 				const urlItemsBase = `${Renderer.get().baseUrl}data/items-base.json`;
 				const urlVariants = `${Renderer.get().baseUrl}data/magicvariants.json`;
 
-				const [dataItems, dataItemsBase, dataVariants] = await Promise.all([
+				const [dataItems, dataItemsSw5e, dataItemsBase, dataVariants] = await Promise.all([
 					DataUtil.loadJSON(urlItems),
+					DataUtil.loadJSON(urlSw5eItems),
 					DataUtil.loadJSON(urlItemsBase),
 					DataUtil.loadJSON(urlVariants),
 				]);
 
 				DataUtil.item._loadedRawJson = {
-					item: MiscUtil.copy(dataItems.item),
+					item: MiscUtil.copy(dataItems.item.concat(dataItemsSw5e.item)),
 					itemGroup: MiscUtil.copy(dataItems.itemGroup),
 					variant: MiscUtil.copy(dataVariants.variant),
 					baseitem: MiscUtil.copy(dataItemsBase.baseitem),

@@ -6954,6 +6954,7 @@ Renderer.item = {
 
 		// allows URLs to be overridden (used by roll20 script)
 		const itemUrl = urls.items || `${Renderer.get().baseUrl}data/items.json`;
+		const itemSw5eUrl = urls.items || `${Renderer.get().baseUrl}data/items-sw5e.json`;
 		const baseItemUrl = urls.baseitems || `${Renderer.get().baseUrl}data/items-base.json`;
 		const magicVariantUrl = urls.magicvariants || `${Renderer.get().baseUrl}data/magicvariants.json`;
 
@@ -6978,7 +6979,8 @@ Renderer.item = {
 
 		async function pLoadItems () {
 			const itemData = await DataUtil.loadJSON(itemUrl);
-			const items = itemData.item;
+			const itemSw5eData = await DataUtil.loadJSON(itemSw5eUrl);
+			const items = itemData.item.concat(itemSw5eData.item);
 			itemData.itemGroup.forEach(it => it._isItemGroup = true);
 			return [...items, ...itemData.itemGroup];
 		}

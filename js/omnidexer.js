@@ -412,6 +412,18 @@ class IndexableFileItems extends IndexableFile {
 	}
 }
 
+class IndexableFileItemsSw5e extends IndexableFile {
+	constructor () {
+		super({
+			category: Parser.CAT_ID_ITEM,
+			file: "items-sw5e.json",
+			listProp: "item",
+			baseUrl: "items.html",
+			isHover: true,
+		});
+	}
+}
+
 class IndexableFileItemGroups extends IndexableFile {
 	constructor () {
 		super({
@@ -1176,6 +1188,7 @@ Omnidexer.TO_INDEX = [
 	new IndexableFileItemsBase(),
 
 	new IndexableFileItems(),
+	new IndexableFileItemsSw5e(),
 	new IndexableFileItemGroups(),
 	new IndexableFileMagicVariants(),
 

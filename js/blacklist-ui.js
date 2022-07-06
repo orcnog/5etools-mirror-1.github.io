@@ -25,6 +25,7 @@ class BlacklistUtil {
 		"items-base.json",
 		"magicvariants.json",
 		"items.json",
+		"items-sw5e.json",
 		"objects.json",
 		"optionalfeatures.json",
 		"psionics.json",
