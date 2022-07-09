@@ -33,6 +33,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -703,6 +704,7 @@
 			"weight": 8,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"FXD",
 				"POW",
@@ -1208,6 +1210,7 @@
 			"weight": 18.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"AUT",
 				"PEN",
@@ -1241,6 +1244,7 @@
 			"weight": 17,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"PEN",
 				"RNG",
@@ -1697,6 +1701,7 @@
 			"weight": 15,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -1867,6 +1872,7 @@
 			"weight": 19,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -2117,6 +2123,7 @@
 			"weight": 16,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"PEN",
 				"POW",
@@ -2637,6 +2644,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"AUT",
 				"BST",
@@ -2666,6 +2674,7 @@
 			"weight": 5.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -2693,6 +2702,7 @@
 			"value": 1750,
 			"weight": 2.5,
 			"property": [
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -2720,8 +2730,8 @@
 			"value": 5250,
 			"weight": 7.5,
 			"property": [
-				"AF",
 				"2H",
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -3141,6 +3151,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"STR",
@@ -3291,6 +3302,7 @@
 			"weight": 11,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -3893,6 +3905,7 @@
 			"weight": 8.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"AUT",
 				"POW",
@@ -4025,6 +4038,7 @@
 			"weight": 10.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"AUT",
 				"RNG",
@@ -5430,6 +5444,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RNG",
 				"MIG",
 				"SIL"
@@ -6367,6 +6382,7 @@
 			"weight": 12.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -6468,6 +6484,7 @@
 			"weight": 10.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -6500,6 +6517,7 @@
 			"weight": 6,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"VSC"
@@ -6546,6 +6564,7 @@
 			"value": 7500,
 			"weight": 2,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"VSC"
@@ -6709,6 +6728,7 @@
 			"weight": 7.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"RAP",
@@ -8335,6 +8355,7 @@
 			"weight": 8.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -8366,6 +8387,7 @@
 			"value": 7500,
 			"weight": 4.5,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -8398,6 +8420,7 @@
 			"weight": 13.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -8430,6 +8453,7 @@
 			"weight": 15,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -9644,6 +9668,7 @@
 			"weight": 4.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"MIG"
@@ -9673,6 +9698,7 @@
 			"weight": 4,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"FXD",
 				"POW",
@@ -11537,6 +11563,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"S",
 				"RNG",
@@ -12763,6 +12790,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"S",
 				"RNG",
@@ -13863,6 +13891,7 @@
 			"value": 15500,
 			"weight": 10,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -13898,6 +13927,7 @@
 			"value": 5000,
 			"weight": 0.5,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"POW",
@@ -13929,6 +13959,7 @@
 			"weight": 10.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"SLG",
@@ -14255,6 +14286,7 @@
 			"weight": 10,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"RAP",
@@ -14287,6 +14319,7 @@
 			"weight": 15.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -14319,6 +14352,7 @@
 			"value": 7750,
 			"weight": 7.5,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"RAP",
@@ -14393,6 +14427,7 @@
 			"value": 3000,
 			"weight": 4,
 			"property": [
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -14421,6 +14456,7 @@
 			"weight": 11,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -14475,6 +14511,7 @@
 			"weight": 9.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -14508,6 +14545,7 @@
 			"value": 3750,
 			"weight": 3.5,
 			"property": [
+				"AF",
 				"RLD",
 				"RNG",
 				"RAP",
@@ -14651,6 +14689,7 @@
 			"value": 2250,
 			"weight": 0.5,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"HID",
@@ -14903,6 +14942,7 @@
 			"weight": 11,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"SLG",
@@ -15029,6 +15069,7 @@
 			"dmgType": "Unknown",
 			"ammunition": true,
 			"property": [
+				"AF",
 				"MOD"
 			]
 		},
@@ -15137,6 +15178,7 @@
 			"weight": 7.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -15170,6 +15212,7 @@
 			"value": 12500,
 			"weight": 3.5,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -15204,6 +15247,7 @@
 			"weight": 9.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -15238,6 +15282,7 @@
 			"weight": 14.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -16261,6 +16306,7 @@
 			"weight": 16.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -16295,6 +16341,7 @@
 			"weight": 5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -16322,6 +16369,7 @@
 			"value": 2500,
 			"weight": 1,
 			"property": [
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -16350,6 +16398,7 @@
 			"weight": 8,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW"
 			],
@@ -17019,6 +17068,7 @@
 			"value": 2500,
 			"weight": 0.5,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"POW"
@@ -17048,6 +17098,7 @@
 			"weight": 6,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"AUT",
 				"POW",
@@ -17095,6 +17146,7 @@
 			"value": 2500,
 			"weight": 1,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"RNG",
@@ -17453,6 +17505,7 @@
 			"weight": 14,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -17488,6 +17541,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"AUT",
 				"PEN",
@@ -17521,6 +17575,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"PEN",
 				"POW",
@@ -17550,6 +17605,7 @@
 			"weight": 7,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"PEN",
 				"POW",
@@ -17581,6 +17637,7 @@
 			"value": 5500,
 			"weight": 2,
 			"property": [
+				"AF",
 				"RLD",
 				"PEN",
 				"POW"
@@ -18166,6 +18223,7 @@
 			"weight": 12,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR"
@@ -19982,6 +20040,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG"
 			],
@@ -20307,6 +20366,7 @@
 				"The needler includes a specialized compartment for poison. One dose of poison, when installed in this compartment, retains its potency for 1 hour before drying. One dose of poison is effective for the next 10 shots fired by the weapon."
 			],
 			"property": [
+				"AF",
 				"S",
 				"RNG",
 				"SLG",
@@ -20641,6 +20701,7 @@
 			"weight": 11,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -23492,6 +23553,7 @@
 			"weight": 12.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -23528,6 +23590,7 @@
 			"weight": 14,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"S",
 				"POW",
@@ -23561,6 +23624,7 @@
 			"weight": 16,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"SLG",
@@ -24724,6 +24788,7 @@
 			"weight": 9,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -25268,6 +25333,7 @@
 			"value": 6250,
 			"weight": 6.5,
 			"property": [
+				"AF",
 				"RLD",
 				"RNG",
 				"RAP",
@@ -25617,6 +25683,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"S",
 				"RNG",
@@ -25647,6 +25714,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"STR"
@@ -26053,6 +26121,7 @@
 			"weight": 12.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"AUT",
 				"POW",
@@ -26266,6 +26335,7 @@
 			"weight": 9.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -26298,6 +26368,7 @@
 			"value": 6250,
 			"weight": 2,
 			"property": [
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -26511,6 +26582,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"STR",
@@ -26589,6 +26661,7 @@
 			"weight": 14,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -26625,6 +26698,7 @@
 			"weight": 9.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"SLG",
@@ -26656,6 +26730,7 @@
 			"value": 3750,
 			"weight": 2,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"RNG",
@@ -27127,6 +27202,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RNG",
 				"MIG",
 				"SIL"
@@ -27152,6 +27228,7 @@
 			"weight": 6.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -27231,6 +27308,7 @@
 				"Mounted by the shoulder slot, a shoulder blaster does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon."
 			],
 			"property": [
+				"AF",
 				"RLD",
 				"S",
 				"POW",
@@ -27262,6 +27340,7 @@
 				"Mounted by the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon."
 			],
 			"property": [
+				"AF",
 				"BF",
 				"RLD",
 				"S",
@@ -27770,6 +27849,7 @@
 			"value": 3250,
 			"weight": 3,
 			"property": [
+				"AF",
 				"RLD",
 				"RNG",
 				"RAP",
@@ -27803,6 +27883,7 @@
 			"weight": 7.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG",
 				"SLG"
@@ -27832,6 +27913,7 @@
 			"weight": 13.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -27941,6 +28023,7 @@
 			"value": 10750,
 			"weight": 4,
 			"property": [
+				"AF",
 				"RLD",
 				"RNG",
 				"RAP",
@@ -28127,6 +28210,7 @@
 			"weight": 13.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR"
@@ -28157,6 +28241,7 @@
 			"weight": 16.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"AUT",
@@ -28192,6 +28277,7 @@
 			"weight": 9,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -28222,6 +28308,7 @@
 			"value": 6750,
 			"weight": 7,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -28252,6 +28339,7 @@
 			"value": 3750,
 			"weight": 2,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"DSR"
@@ -28739,6 +28827,7 @@
 			"weight": 6,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"SIL"
@@ -29350,6 +29439,7 @@
 			"value": 6250,
 			"weight": 4,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"AUT",
@@ -29645,6 +29735,7 @@
 			"weight": 12.5,
 			"property": [
 				"2H",
+				"AF",
 				"BF",
 				"RLD",
 				"BST",
@@ -29679,6 +29770,7 @@
 			"weight": 9.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"SWI"
@@ -29708,6 +29800,7 @@
 			"weight": 15.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"STR",
@@ -29739,6 +29832,7 @@
 			"weight": 7.5,
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"POW",
 				"SWI"
@@ -29767,6 +29861,7 @@
 			"value": 6750,
 			"weight": 4.5,
 			"property": [
+				"AF",
 				"RLD",
 				"POW",
 				"SWI"
@@ -30674,6 +30769,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"RNG"
 			],
@@ -30891,6 +30987,7 @@
 				"The tranquilizer rifle includes a specialized compartment for poison. One dose of poison, when installed in this compartment, retains its potency for 1 hour before drying. One dose of poison is effective for the next 4 shots fired by the weapon. Additionally, creatures reduced to 0 hit points by this weapon are immediately stabilized, unless that damage would instantly kill them."
 			],
 			"property": [
+				"AF",
 				"RLD",
 				"S",
 				"RNG",
@@ -31286,6 +31383,7 @@
 			],
 			"property": [
 				"2H",
+				"AF",
 				"RLD",
 				"S",
 				"RNG",
@@ -33747,6 +33845,7 @@
 				"Rather than traditional power cells, the wrist launcher fires specialized projectiles in the form of darts, small missiles, or specialized canisters."
 			],
 			"property": [
+				"AF",
 				"RLD",
 				"S",
 				"FXD",
@@ -33835,6 +33934,7 @@
 			"value": 2000,
 			"weight": 0.5,
 			"property": [
+				"AF",
 				"L",
 				"RLD",
 				"DSG",
@@ -34017,6 +34117,7 @@
 			"value": 2500,
 			"weight": 4.5,
 			"property": [
+				"AF",
 				"RLD",
 				"POW"
 			],
