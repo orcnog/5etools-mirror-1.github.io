@@ -32,10 +32,9 @@
 				"Whenever you deal damage with this weapon and roll the maximum on the weapon damage die, the creature hit becomes shocked until the end of its next turn."
 			],
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
 				"POW",
 				"RAP",
@@ -703,9 +702,9 @@
 			"value": 7000,
 			"weight": 8,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"FXD",
 				"POW",
 				"RAP",
@@ -1209,9 +1208,9 @@
 			"value": 25000,
 			"weight": 18.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"PEN",
 				"POW",
@@ -1243,11 +1242,10 @@
 			"value": 19000,
 			"weight": 17,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"PEN",
-				"RNG",
 				"SLG",
 				"STR"
 			],
@@ -1700,10 +1698,9 @@
 			"value": 15500,
 			"weight": 15,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
 				"POW",
 				"STR"
@@ -1750,8 +1747,8 @@
 				"This specialized gungan club can be used to throw grenades or similar objects at long distances. If you are wielding this weapon, as part of the action to throw a grenade, you can instead throw it using an atlatl you are holding. The grenade can be thrown at a short distance of 30ft and a long distance of 120ft. When throwing a grenade at long range, creatures within the radius of the grenade's explosion have advantage on the saving throw.  If you lack proficiency in the atlatl, you must roll the damage dice twice and take the lesser total."
 			],
 			"property": [
-				"L",
-				"S",
+				"SWL",
+				"SWS",
 				"DSG"
 			],
 			"weapon": true,
@@ -1871,10 +1868,9 @@
 			"value": 27500,
 			"weight": 19,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -2122,9 +2118,9 @@
 			"value": 18500,
 			"weight": 16,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"PEN",
 				"POW",
 				"STR"
@@ -2408,7 +2404,7 @@
 			"value": 18000,
 			"weight": 2.5,
 			"property": [
-				"V",
+				"SWV",
 				"HID",
 				"LUM",
 				"BIT"
@@ -2643,12 +2639,10 @@
 				"Before firing the blaster cannon, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the blaster cannon as an action or bonus action."
 			],
 			"property": [
-				"2H",
 				"AF",
-				"BF",
+				"SW2",
 				"AUT",
 				"BST",
-				"RNG",
 				"RAP",
 				"STR"
 			],
@@ -2673,9 +2667,9 @@
 			"value": 4250,
 			"weight": 5.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW"
 			],
 			"weapon": true,
@@ -2730,9 +2724,9 @@
 			"value": 5250,
 			"weight": 7.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW"
 			],
 			"weapon": true,
@@ -2759,7 +2753,7 @@
 			"value": 18000,
 			"weight": 2.5,
 			"property": [
-				"V",
+				"SWV",
 				"HID",
 				"LUM",
 				"COR"
@@ -2865,7 +2859,7 @@
 			"weapon": true,
 			"weaponCategory": "Simple",
 			"dmg1": "1d6",
-			"dmgType": "Unknown",
+			"dmgType": "Special",
 			"firearm": true,
 			"ammoType": "energy cell",
 			"entries": [
@@ -2874,13 +2868,13 @@
 				"{@b {@i Staff.}} While in this mode, the weapon gains the shocking property."
 			],
 			"property": [
-				"MOD",
-				"RLD"
+				"MOD"
 			],
 			"foundryType": "weapon",
 			"reload": 6,
 			"range": "100/400",
-			"ammunition": true
+			"ammunition": true,
+			"modal": "{@item blaster rifle|orcnogSW5e} and {@item tech-staff|orcnogSW5e}"
 		},
 		{
 			"name": "Bolas",
@@ -2896,10 +2890,9 @@
 				"Due to their unwieldy nature, bolas make ineffective melee weapons. Melee attack rolls made with them are made at disadvantage."
 			],
 			"property": [
-				"L",
-				"S",
-				"T",
-				"RNG"
+				"SWT",
+				"SWL",
+				"SWS"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -3150,10 +3143,9 @@
 				"Rather than traditional power cells, the bolt-thrower fires specialized projectiles in the form of bolts."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"STR",
 				"SIL"
 			],
@@ -3301,12 +3293,11 @@
 			"value": 11500,
 			"weight": 11,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
-				"RLD",
 				"BST",
+				"RLD",
 				"POW",
+				"SW2",
 				"STR"
 			],
 			"weapon": true,
@@ -3508,9 +3499,9 @@
 			"value": 18000,
 			"weight": 2.5,
 			"property": [
-				"V",
 				"HID",
 				"LUM",
+				"SWV",
 				"BRT"
 			],
 			"weapon": true,
@@ -3534,9 +3525,9 @@
 			"value": 10000,
 			"weight": 2.75,
 			"property": [
-				"V",
 				"DEX",
 				"LUM",
+				"SWV",
 				"DIR"
 			],
 			"weapon": true,
@@ -3731,12 +3722,12 @@
 			"value": 29000,
 			"weight": 7.25,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
 				"R",
 				"DEX",
 				"LUM",
 				"BRU",
+				"SW2",
 				"KEN"
 			],
 			"weapon": true,
@@ -3904,12 +3895,12 @@
 			"value": 9250,
 			"weight": 8.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
 				"AUT",
 				"POW",
 				"RAP",
+				"SW2",
 				"STR"
 			],
 			"weapon": true,
@@ -3968,9 +3959,9 @@
 				"This specialized gungan staff can be used to throw grenades or similar objects at long distances. If you are wielding this weapon, as part of the action to throw a grenade, you can instead throw it using a cesta you are holding. The grenade can be thrown at a short distance of 60ft and a long distance of 240ft. When throwing a grenade at long range, creatures within the radius of the grenade's explosion have advantage on the saving throw. If you lack proficiency in the cesta, you must roll the damage dice twice and take the lesser total."
 			],
 			"property": [
-				"F",
-				"S",
-				"V",
+				"SWF",
+				"SWV",
+				"SWS",
 				"DSG"
 			],
 			"weapon": true,
@@ -3990,7 +3981,7 @@
 			"value": 3500,
 			"weight": 3.75,
 			"property": [
-				"F",
+				"SWF",
 				"R",
 				"DSA"
 			],
@@ -4013,7 +4004,7 @@
 			"value": 8000,
 			"weight": 3.5,
 			"property": [
-				"F",
+				"SWF",
 				"R",
 				"LUM",
 				"DSA"
@@ -4037,14 +4028,13 @@
 			"value": 13250,
 			"weight": 10.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
 				"AUT",
-				"RNG",
 				"RAP",
 				"SLG",
 				"STR",
+				"SW2",
 				"VSC"
 			],
 			"weapon": true,
@@ -4074,9 +4064,8 @@
 			"value": 1750,
 			"weight": 3,
 			"property": [
-				"F",
-				"T",
-				"RNG",
+				"SWT",
+				"SWF",
 				"RET"
 			],
 			"weapon": true,
@@ -4967,7 +4956,7 @@
 			"value": 23000,
 			"weight": 3.5,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX",
 				"LUM"
 			],
@@ -5443,9 +5432,8 @@
 				"Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
 			],
 			"property": [
-				"2H",
 				"AF",
-				"RNG",
+				"SW2",
 				"MIG",
 				"SIL"
 			],
@@ -6291,7 +6279,7 @@
 			"value": 16500,
 			"weight": 5.25,
 			"property": [
-				"H",
+				"SWH",
 				"R",
 				"DEX",
 				"DBL",
@@ -6353,8 +6341,8 @@
 			"value": 7250,
 			"weight": 3.25,
 			"property": [
-				"H",
-				"V",
+				"SWH",
+				"SWV",
 				"DEX",
 				"LUM",
 				"DEF"
@@ -6381,10 +6369,9 @@
 			"value": 33000,
 			"weight": 12.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -6483,9 +6470,9 @@
 			"value": 24000,
 			"weight": 10.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"VSC"
@@ -6516,9 +6503,9 @@
 			"value": 12500,
 			"weight": 6,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"VSC"
 			],
@@ -6727,10 +6714,9 @@
 			"value": 8250,
 			"weight": 7.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"RAP",
 				"SLG",
 				"STR"
@@ -7941,7 +7927,7 @@
 			"value": 5500,
 			"weight": 7,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"DIR"
 			],
@@ -7967,7 +7953,7 @@
 			"value": 3000,
 			"weight": 3.75,
 			"property": [
-				"H",
+				"SWH",
 				"DEX",
 				"DIR"
 			],
@@ -8066,8 +8052,8 @@
 			"value": 1250,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"DSG",
 				"DSA"
 			],
@@ -8354,9 +8340,9 @@
 			"value": 14500,
 			"weight": 8.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DSN"
@@ -8419,9 +8405,9 @@
 			"value": 29000,
 			"weight": 13.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DSN"
@@ -8452,9 +8438,9 @@
 			"value": 33000,
 			"weight": 15,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DSN"
@@ -8485,7 +8471,7 @@
 			"value": 4250,
 			"weight": 2.5,
 			"property": [
-				"F",
+				"SWF",
 				"DSR",
 				"SHO"
 			],
@@ -8547,8 +8533,8 @@
 			"value": 4000,
 			"weight": 3.5,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"DBL"
 			],
 			"weapon": true,
@@ -8570,7 +8556,7 @@
 			"value": 7250,
 			"weight": 2.25,
 			"property": [
-				"F",
+				"SWF",
 				"DBL",
 				"LUM"
 			],
@@ -8593,8 +8579,8 @@
 			"value": 7000,
 			"weight": 1.75,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"DBL",
 				"LUM"
 			],
@@ -8617,7 +8603,7 @@
 			"value": 4500,
 			"weight": 5.5,
 			"property": [
-				"F",
+				"SWF",
 				"DBL"
 			],
 			"weapon": true,
@@ -8692,7 +8678,7 @@
 			"value": 12500,
 			"weight": 3,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"HID",
 				"LUM",
@@ -8851,7 +8837,7 @@
 			"value": 6000,
 			"weight": 5,
 			"property": [
-				"F",
+				"SWF",
 				"DBL",
 				"SON"
 			],
@@ -9223,8 +9209,8 @@
 			"value": 2750,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"SHO"
 			],
 			"weapon": true,
@@ -9247,9 +9233,9 @@
 			"value": 9500,
 			"weight": 8.75,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
 				"DEX",
+				"SW2",
 				"SHO"
 			],
 			"weapon": true,
@@ -9273,8 +9259,8 @@
 			"value": 6500,
 			"weight": 6,
 			"property": [
-				"2H",
 				"DSR",
+				"SW2",
 				"SHO"
 			],
 			"weapon": true,
@@ -9297,7 +9283,7 @@
 			"value": 6000,
 			"weight": 5,
 			"property": [
-				"F",
+				"SWF",
 				"DBL",
 				"SHO"
 			],
@@ -9321,9 +9307,9 @@
 			"value": 12500,
 			"weight": 10,
 			"property": [
-				"2H",
 				"R",
 				"DEX",
+				"SW2",
 				"SHO"
 			],
 			"weapon": true,
@@ -9667,9 +9653,9 @@
 			"value": 4750,
 			"weight": 4.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"MIG"
 			],
@@ -9697,9 +9683,9 @@
 			"value": 4250,
 			"weight": 4,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"FXD",
 				"POW",
 				"DSR",
@@ -11562,11 +11548,10 @@
 				"The flechette cannon does not make attack rolls. Rather than traditional power cells, the flechette cannon uses specialized projector tanks, which, when fired, spray an area with the contents of the tank. Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the flechette cannon�s strength requirement, creatures have advantage on their saving throws. If you lack proficiency in the flechette cannon, you must roll the damage dice twice and take the lesser total."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"S",
-				"RNG",
+				"SW2",
+				"SWS",
 				"STR"
 			],
 			"weapon": true,
@@ -12684,7 +12669,7 @@
 			"value": 17250,
 			"weight": 3.25,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX",
 				"LUM"
 			],
@@ -12789,11 +12774,10 @@
 				"Rather than traditional power cells, the grenade launcher fires grenades. When firing a grenade at long range, or if you don�t meet the grenade launcher�s strength requirement, creatures within the radius of the grenade�s explosion have advantage on the saving throw. If you lack proficiency in the grenade launcher, you must roll the damage dice twice and take the lesser total."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"S",
-				"RNG",
+				"SW2",
+				"SWS",
 				"STR"
 			],
 			"weapon": true,
@@ -13842,8 +13826,8 @@
 			"value": 3750,
 			"weight": 1.25,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"HID",
 				"DEF"
 			],
@@ -13928,7 +13912,7 @@
 			"weight": 0.5,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
 				"POW",
 				"KEN"
@@ -13958,10 +13942,9 @@
 			"value": 13000,
 			"weight": 10.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"SLG",
 				"STR",
 				"BRU"
@@ -14285,9 +14268,9 @@
 			"value": 10250,
 			"weight": 10,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"RAP",
 				"STR"
@@ -14318,10 +14301,9 @@
 			"value": 17500,
 			"weight": 15.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
 				"POW",
 				"STR"
@@ -14455,10 +14437,9 @@
 			"value": 12250,
 			"weight": 11,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -14510,12 +14491,10 @@
 			"value": 11250,
 			"weight": 9.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
-				"RNG",
 				"SLG",
 				"STR"
 			],
@@ -14547,7 +14526,6 @@
 			"property": [
 				"AF",
 				"RLD",
-				"RNG",
 				"RAP",
 				"SLG"
 			],
@@ -14623,8 +14601,8 @@
 			"value": 750,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"FXD",
 				"HID"
 			],
@@ -14690,7 +14668,7 @@
 			"weight": 0.5,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
 				"HID",
 				"POW"
@@ -14881,7 +14859,7 @@
 			"value": 2250,
 			"weight": 3.75,
 			"property": [
-				"F",
+				"SWF",
 				"DSA"
 			],
 			"weapon": true,
@@ -14941,10 +14919,9 @@
 			"value": 10000,
 			"weight": 11,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"SLG",
 				"STR"
 			],
@@ -15066,12 +15043,12 @@
 				null
 			],
 			"foundryType": "weapon",
-			"dmgType": "Unknown",
+			"dmgType": "Special",
 			"ammunition": true,
 			"property": [
-				"AF",
 				"MOD"
-			]
+			],
+			"modal": "{@item blaster rifle|orcnogSW5e}, {@item grenade launcher|orcnogSW5e}, and {@item sniper rifle|orcnogSW5e}"
 		},
 		{
 			"name": "Impermeable Armoring",
@@ -15177,9 +15154,9 @@
 			"value": 16500,
 			"weight": 7.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DIR",
@@ -15246,9 +15223,9 @@
 			"value": 19500,
 			"weight": 9.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DIR",
@@ -15281,9 +15258,9 @@
 			"value": 33000,
 			"weight": 14.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DIR",
@@ -16305,10 +16282,9 @@
 			"value": 38000,
 			"weight": 16.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -16340,9 +16316,9 @@
 			"value": 7500,
 			"weight": 5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW"
 			],
 			"weapon": true,
@@ -16397,9 +16373,9 @@
 			"value": 11500,
 			"weight": 8,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW"
 			],
 			"weapon": true,
@@ -16458,7 +16434,7 @@
 			"value": 6500,
 			"weight": 7,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"KEN"
 			],
@@ -17069,7 +17045,7 @@
 			"weight": 0.5,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
 				"POW"
 			],
@@ -17097,9 +17073,9 @@
 			"value": 6250,
 			"weight": 6,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"POW",
 				"RAP"
@@ -17147,9 +17123,8 @@
 			"weight": 1,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
-				"RNG",
 				"SLG"
 			],
 			"weapon": true,
@@ -17176,8 +17151,8 @@
 			"value": 15500,
 			"weight": 3.75,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
+				"SW2",
 				"DEX",
 				"LUM"
 			],
@@ -17201,7 +17176,7 @@
 			"value": 4000,
 			"weight": 1.25,
 			"property": [
-				"L",
+				"SWL",
 				"HID",
 				"LUM"
 			],
@@ -17224,8 +17199,8 @@
 			"value": 3750,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"HID",
 				"LUM"
 			],
@@ -17248,8 +17223,8 @@
 			"value": 13000,
 			"weight": 3.75,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
+				"SW2",
 				"DEX",
 				"LUM"
 			],
@@ -17297,12 +17272,11 @@
 			"value": 4250,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
-				"T",
+				"SWT",
+				"SWF",
+				"SWL",
 				"HID",
-				"LUM",
-				"RNG"
+				"LUM"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -17323,7 +17297,7 @@
 			"value": 6500,
 			"weight": 1.5,
 			"property": [
-				"L",
+				"SWL",
 				"FXD",
 				"LUM",
 				"DSR"
@@ -17347,7 +17321,7 @@
 			"value": 4750,
 			"weight": 1.5,
 			"property": [
-				"F",
+				"SWF",
 				"HID",
 				"LUM"
 			],
@@ -17370,8 +17344,8 @@
 			"value": 20500,
 			"weight": 5.75,
 			"property": [
-				"2H",
 				"R",
+				"SW2",
 				"DEX",
 				"LUM",
 				"BRU"
@@ -17397,7 +17371,7 @@
 			"value": 9250,
 			"weight": 2.75,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"HID",
 				"LUM",
@@ -17425,8 +17399,8 @@
 			"value": 12750,
 			"weight": 4.25,
 			"property": [
-				"2H",
 				"R",
+				"SW2",
 				"DEX",
 				"LUM"
 			],
@@ -17450,7 +17424,7 @@
 			"value": 30500,
 			"weight": 4.5,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX",
 				"LUM",
 				"PRC",
@@ -17478,11 +17452,10 @@
 			"value": 5750,
 			"weight": 2,
 			"property": [
-				"F",
-				"T",
+				"SWT",
+				"SWF",
 				"HID",
 				"LUM",
-				"RNG",
 				"RET"
 			],
 			"weapon": true,
@@ -17504,9 +17477,9 @@
 			"value": 18000,
 			"weight": 14,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"PRC"
@@ -17540,9 +17513,9 @@
 				"Whenever you deal damage with this weapon and roll the maximum on the weapon damage die, the creature hit becomes shocked until the end of its next turn."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"PEN",
 				"POW",
@@ -17574,9 +17547,9 @@
 				"Whenever you deal damage with this weapon and roll the maximum on the weapon damage die, the creature hit becomes shocked until the end of its next turn."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"PEN",
 				"POW",
 				"STR"
@@ -17604,9 +17577,9 @@
 			"value": 11500,
 			"weight": 7,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"PEN",
 				"POW",
 				"STR"
@@ -17667,7 +17640,7 @@
 			"value": 4500,
 			"weight": 2.25,
 			"property": [
-				"V",
+				"SWV",
 				"HID",
 				"LUM"
 			],
@@ -18109,9 +18082,9 @@
 				"When you would make a Strength ({@skill Athletics}) check to attempt to grapple a creature while wielding a weapon with the grappling property, you can instead make a melee weapon attack with it. If the attack hits, the creature becomes {@condition grappled} by you, and it takes damage equal to your Strength modifier of the same type as the weapon's damage."
 			],
 			"property": [
-				"2H",
 				"R",
-				"S"
+				"SW2",
+				"SWS"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -18222,9 +18195,9 @@
 			"value": 11000,
 			"weight": 12,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR"
 			],
@@ -18253,7 +18226,7 @@
 			"value": 5500,
 			"weight": 2.25,
 			"property": [
-				"V",
+				"SWV",
 				"HID",
 				"LUM"
 			],
@@ -20039,10 +20012,9 @@
 				"The mortar launcher requires the use of a tripod, which is included in the price. Over the course of 1 minute, you can deploy or collapse the mortar launcher on the tripod. While deployed, your speed is reduced to 0."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG"
+				"SW2"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -20367,8 +20339,7 @@
 			],
 			"property": [
 				"AF",
-				"S",
-				"RNG",
+				"SWS",
 				"SLG",
 				"PRC",
 				"SIL"
@@ -20420,11 +20391,10 @@
 				"A Large or smaller creature hit by a net is {@condition restrained} until it is freed. A net has no effect on formless or Huge or larger creatures. A creature can use its action to make a DC 13 Strength check, freeing itself or another creature within its reach on a success. The net has an AC of 10, 5 hit points, and immunity to all damage not dealt by melee weapons. Destroying the net frees the creature without harming it and immediately ends the net's effects. While a creature is {@condition restrained} by a net, you can make no further attacks with it."
 			],
 			"property": [
-				"F",
-				"L",
-				"S",
-				"T",
-				"RNG"
+				"SWT",
+				"SWF",
+				"SWL",
+				"SWS"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -20588,7 +20558,7 @@
 			"value": 7250,
 			"property": [
 				"R",
-				"S",
+				"SWS",
 				"SHO"
 			],
 			"weapon": true,
@@ -20700,9 +20670,9 @@
 			"value": 10750,
 			"weight": 11,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"SIL"
@@ -21862,7 +21832,7 @@
 			"value": 10250,
 			"weight": 1.75,
 			"property": [
-				"L",
+				"SWL",
 				"DEX",
 				"DSG",
 				"HID",
@@ -22099,8 +22069,8 @@
 			"value": 16750,
 			"weight": 5.25,
 			"property": [
-				"2H",
 				"R",
+				"SW2",
 				"DEX",
 				"LUM"
 			],
@@ -23552,10 +23522,9 @@
 			"value": 33000,
 			"weight": 12.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -23589,10 +23558,10 @@
 			"value": 15750,
 			"weight": 14,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"S",
+				"SW2",
+				"SWS",
 				"POW",
 				"STR",
 				"DSN"
@@ -23623,10 +23592,9 @@
 			"value": 19000,
 			"weight": 16,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"SLG",
 				"STR",
 				"PRC"
@@ -24787,10 +24755,9 @@
 			"value": 10250,
 			"weight": 9,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -25272,7 +25239,7 @@
 				"The retrosaber is an ancient type of lightweapon that requires a power cell to function. Once four attacks have been made with a retrosaber, a character must replace the power cell using an action or bonus action. You must have one free hand to replace the power cell."
 			],
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"DIR"
 			],
@@ -25335,7 +25302,6 @@
 			"property": [
 				"AF",
 				"RLD",
-				"RNG",
 				"RAP",
 				"SLG",
 				"STR"
@@ -25546,7 +25512,7 @@
 			"value": 2500,
 			"weight": 1.5,
 			"property": [
-				"L",
+				"SWL",
 				"DEF"
 			],
 			"weapon": true,
@@ -25569,7 +25535,7 @@
 			"value": 4250,
 			"weight": 1,
 			"property": [
-				"L",
+				"SWL",
 				"DEF",
 				"SHO"
 			],
@@ -25682,11 +25648,10 @@
 				"Rather than traditional power cells, the rocket launcher fires specialized projectiles in the form of rockets. When firing a rocket at long range, or if you don�t meet the rocket launcher�s strength requirement, creatures within the radius of the rocket�s explosion have advantage on the saving throw."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"S",
-				"RNG",
+				"SW2",
+				"SWS",
 				"STR"
 			],
 			"weapon": true,
@@ -25713,10 +25678,9 @@
 				"Rather than traditional power cells, the rocket rifle fires specialized projectiles in the form of small missiles."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"STR"
 			],
 			"weapon": true,
@@ -26120,9 +26084,9 @@
 			"value": 15000,
 			"weight": 12.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"POW",
 				"RAP",
@@ -26201,7 +26165,7 @@
 			"value": 4750,
 			"weight": 1.5,
 			"property": [
-				"F",
+				"SWF",
 				"FXD",
 				"LUM"
 			],
@@ -26224,7 +26188,7 @@
 			"value": 9500,
 			"weight": 2.75,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"HID",
 				"LUM",
@@ -26252,10 +26216,9 @@
 			"value": 4500,
 			"weight": 2,
 			"property": [
-				"T",
-				"V",
-				"LUM",
-				"RNG"
+				"SWT",
+				"SWV",
+				"LUM"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -26277,7 +26240,7 @@
 			"value": 7500,
 			"weight": 3.5,
 			"property": [
-				"F",
+				"SWF",
 				"R",
 				"HID",
 				"LUM"
@@ -26334,10 +26297,9 @@
 			"value": 11750,
 			"weight": 9.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
 				"POW",
 				"STR"
@@ -26369,10 +26331,8 @@
 			"weight": 2,
 			"property": [
 				"AF",
-				"BF",
 				"RLD",
 				"BST",
-				"RNG",
 				"SLG",
 				"STR"
 			],
@@ -26581,10 +26541,9 @@
 				"Before firing the sentry gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the sentry gun as an action or bonus action."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"STR",
 				"BRU",
 				"KEN"
@@ -26660,13 +26619,11 @@
 			"value": 16250,
 			"weight": 14,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
-				"RNG",
 				"SLG",
 				"STR",
 				"SIL"
@@ -26697,10 +26654,9 @@
 			"value": 7500,
 			"weight": 9.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"SLG",
 				"STR",
 				"SIL"
@@ -26731,9 +26687,8 @@
 			"weight": 2,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
-				"RNG",
 				"SLG",
 				"STR",
 				"SIL"
@@ -27201,9 +27156,8 @@
 				"Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
 			],
 			"property": [
-				"2H",
 				"AF",
-				"RNG",
+				"SW2",
 				"MIG",
 				"SIL"
 			],
@@ -27227,12 +27181,10 @@
 			"value": 7250,
 			"weight": 6.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
-				"RNG",
 				"SLG",
 				"STR"
 			],
@@ -27281,8 +27233,8 @@
 			"value": 4500,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"HID",
 				"LUM"
 			],
@@ -27310,7 +27262,7 @@
 			"property": [
 				"AF",
 				"RLD",
-				"S",
+				"SWS",
 				"POW",
 				"RAP",
 				"SMT"
@@ -27341,9 +27293,8 @@
 			],
 			"property": [
 				"AF",
-				"BF",
 				"RLD",
-				"S",
+				"SWS",
 				"AUT",
 				"BST",
 				"POW",
@@ -27467,7 +27418,7 @@
 			"value": 7000,
 			"weight": 1,
 			"property": [
-				"L",
+				"SWL",
 				"DEX",
 				"HID",
 				"LUM",
@@ -27656,7 +27607,7 @@
 			"value": 9250,
 			"weight": 2.75,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"HID",
 				"KEN"
@@ -27851,7 +27802,6 @@
 			"property": [
 				"AF",
 				"RLD",
-				"RNG",
 				"RAP",
 				"SLG",
 				"STR"
@@ -27882,10 +27832,9 @@
 			"value": 5250,
 			"weight": 7.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG",
+				"SW2",
 				"SLG"
 			],
 			"weapon": true,
@@ -27912,13 +27861,11 @@
 			"value": 22500,
 			"weight": 13.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
-				"RNG",
 				"RAP",
 				"SLG",
 				"STR",
@@ -28025,7 +27972,6 @@
 			"property": [
 				"AF",
 				"RLD",
-				"RNG",
 				"RAP",
 				"SLG",
 				"STR",
@@ -28209,9 +28155,9 @@
 			"value": 13000,
 			"weight": 13.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR"
 			],
@@ -28240,10 +28186,9 @@
 			"value": 21000,
 			"weight": 16.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"AUT",
 				"BST",
 				"POW",
@@ -28276,9 +28221,9 @@
 			"value": 8750,
 			"weight": 9,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"DSR"
@@ -28633,7 +28578,7 @@
 			"value": 11500,
 			"weight": 2,
 			"property": [
-				"L",
+				"SWL",
 				"DBL",
 				"LUM"
 			],
@@ -28826,9 +28771,9 @@
 			"value": 5000,
 			"weight": 6,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"SIL"
 			],
@@ -29440,7 +29385,7 @@
 			"weight": 4,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
 				"AUT",
 				"POW",
@@ -29472,8 +29417,8 @@
 			"age": "futuristic",
 			"value": 18750,
 			"property": [
-				"S",
-				"V",
+				"SWV",
+				"SWS",
 				"DEX",
 				"HID",
 				"BRT"
@@ -29734,10 +29679,9 @@
 			"value": 33500,
 			"weight": 12.5,
 			"property": [
-				"2H",
 				"AF",
-				"BF",
 				"RLD",
+				"SW2",
 				"BST",
 				"POW",
 				"STR",
@@ -29769,9 +29713,9 @@
 			"value": 10250,
 			"weight": 9.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"SWI"
 			],
@@ -29799,9 +29743,9 @@
 			"value": 18000,
 			"weight": 15.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"STR",
 				"SWI"
@@ -29831,9 +29775,9 @@
 			"value": 9250,
 			"weight": 7.5,
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
+				"SW2",
 				"POW",
 				"SWI"
 			],
@@ -30056,9 +30000,8 @@
 			"value": 750,
 			"weight": 1,
 			"property": [
-				"L",
-				"T",
-				"RNG"
+				"SWT",
+				"SWL"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -30079,8 +30022,8 @@
 			"value": 1000,
 			"weight": 1.5,
 			"property": [
-				"F",
-				"L"
+				"SWF",
+				"SWL"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -30101,7 +30044,7 @@
 			"value": 6500,
 			"weight": 5.25,
 			"property": [
-				"L",
+				"SWL",
 				"DEX",
 				"DBL"
 			],
@@ -30768,10 +30711,9 @@
 				"The torpedo launcher requires the use of a tripod, which is included in the price. Over the course of 1 minute, you can deploy or collapse the torpedo launcher on the tripod. While deployed, your speed is reduced to 0."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"RNG"
+				"SW2"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -30989,8 +30931,7 @@
 			"property": [
 				"AF",
 				"RLD",
-				"S",
-				"RNG",
+				"SWS",
 				"SLG",
 				"SIL"
 			],
@@ -31382,11 +31323,10 @@
 				"Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the vapor projector�s strength requirement, creatures have advantage on their saving throws. If you lack proficiency in the vapor projector, you must roll the damage dice twice and take the lesser total."
 			],
 			"property": [
-				"2H",
 				"AF",
 				"RLD",
-				"S",
-				"RNG",
+				"SW2",
+				"SWS",
 				"STR"
 			],
 			"weapon": true,
@@ -31661,8 +31601,8 @@
 			"value": 9500,
 			"weight": 9.25,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
+				"SW2",
 				"DEX"
 			],
 			"weapon": true,
@@ -31703,8 +31643,8 @@
 			"value": 12000,
 			"weight": 10,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
+				"SW2",
 				"DEX",
 				"BRU"
 			],
@@ -31729,7 +31669,7 @@
 			"value": 2000,
 			"weight": 5,
 			"property": [
-				"V"
+				"SWV"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -31751,9 +31691,9 @@
 			"value": 18500,
 			"weight": 13.25,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
 				"R",
+				"SW2",
 				"DEX",
 				"BRU",
 				"KEN"
@@ -31780,8 +31720,8 @@
 			"value": 500,
 			"weight": 0.75,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"FXD"
 			],
 			"weapon": true,
@@ -31803,7 +31743,7 @@
 			"value": 17000,
 			"weight": 10.5,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX"
 			],
 			"weapon": true,
@@ -31848,7 +31788,7 @@
 			"value": 500,
 			"weight": 3,
 			"property": [
-				"H"
+				"SWH"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -31869,10 +31809,9 @@
 			"value": 500,
 			"weight": 0.5,
 			"property": [
-				"F",
-				"L",
-				"T",
-				"RNG"
+				"SWT",
+				"SWF",
+				"SWL"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -31893,10 +31832,9 @@
 			"value": 50,
 			"weight": 0.5,
 			"property": [
-				"F",
-				"S",
-				"T",
-				"RNG"
+				"SWT",
+				"SWF",
+				"SWS"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -31939,8 +31877,8 @@
 			"value": 12000,
 			"weight": 10,
 			"property": [
-				"2H",
 				"R",
+				"SW2",
 				"DEX",
 				"BRU"
 			],
@@ -31965,8 +31903,8 @@
 			"value": 6000,
 			"weight": 7.5,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
+				"SW2",
 				"VSC"
 			],
 			"weapon": true,
@@ -31989,7 +31927,7 @@
 			"value": 4500,
 			"weight": 5.75,
 			"property": [
-				"V",
+				"SWV",
 				"DEX",
 				"PRC"
 			],
@@ -32015,8 +31953,8 @@
 			"value": 2250,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"PRC"
 			],
 			"weapon": true,
@@ -32039,7 +31977,7 @@
 			"value": 750,
 			"weight": 1.25,
 			"property": [
-				"L",
+				"SWL",
 				"HID"
 			],
 			"weapon": true,
@@ -32065,7 +32003,7 @@
 			],
 			"property": [
 				"R",
-				"S",
+				"SWS",
 				"DEX"
 			],
 			"weapon": true,
@@ -32085,8 +32023,8 @@
 			"value": 7000,
 			"weight": 7,
 			"property": [
-				"2H",
-				"H",
+				"SWH",
+				"SW2",
 				"DEX"
 			],
 			"weapon": true,
@@ -32109,8 +32047,8 @@
 			"value": 22000,
 			"weight": 12,
 			"property": [
-				"2H",
-				"V",
+				"SW2",
+				"SWV",
 				"DEX",
 				"PRC"
 			],
@@ -32136,8 +32074,8 @@
 			"value": 9500,
 			"weight": 9.25,
 			"property": [
-				"2H",
 				"R",
+				"SW2",
 				"DEX"
 			],
 			"weapon": true,
@@ -32160,7 +32098,7 @@
 			"value": 1500,
 			"weight": 3.5,
 			"property": [
-				"F"
+				"SWF"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -32181,7 +32119,7 @@
 			"value": 3000,
 			"weight": 1.75,
 			"property": [
-				"L",
+				"SWL",
 				"DEX",
 				"KEN"
 			],
@@ -32229,8 +32167,7 @@
 			"value": 1250,
 			"weight": 4,
 			"property": [
-				"V",
-				"RNG"
+				"SWV"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -32252,7 +32189,7 @@
 			"value": 5000,
 			"weight": 4.25,
 			"property": [
-				"V"
+				"SWV"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -32274,10 +32211,9 @@
 			"value": 2500,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
-				"T",
-				"RNG",
+				"SWT",
+				"SWF",
+				"SWL",
 				"KEN"
 			],
 			"weapon": true,
@@ -32300,7 +32236,7 @@
 			"value": 11500,
 			"weight": 9.25,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX"
 			],
 			"weapon": true,
@@ -32323,8 +32259,8 @@
 			"value": 2250,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"DEF"
 			],
 			"weapon": true,
@@ -32347,7 +32283,7 @@
 			"value": 2750,
 			"weight": 3.5,
 			"property": [
-				"F",
+				"SWF",
 				"R"
 			],
 			"weapon": true,
@@ -32755,9 +32691,8 @@
 			"value": 3500,
 			"weight": 3.25,
 			"property": [
-				"T",
+				"SWT",
 				"DSG",
-				"RNG",
 				"RET",
 				"DEF"
 			],
@@ -32781,7 +32716,7 @@
 			"value": 21750,
 			"weight": 4.25,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX",
 				"VSC"
 			],
@@ -32806,7 +32741,7 @@
 			"value": 16500,
 			"weight": 10.75,
 			"property": [
-				"2H",
+				"SW2",
 				"DEX",
 				"VSC"
 			],
@@ -33847,9 +33782,8 @@
 			"property": [
 				"AF",
 				"RLD",
-				"S",
-				"FXD",
-				"RNG"
+				"SWS",
+				"FXD"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -33886,8 +33820,8 @@
 			"value": 3750,
 			"weight": 1,
 			"property": [
-				"F",
-				"L",
+				"SWF",
+				"SWL",
 				"FXD",
 				"LUM"
 			],
@@ -33910,7 +33844,7 @@
 			"value": 2750,
 			"weight": 1.75,
 			"property": [
-				"L",
+				"SWL",
 				"FXD",
 				"PRC"
 			],
@@ -33935,7 +33869,7 @@
 			"weight": 0.5,
 			"property": [
 				"AF",
-				"L",
+				"SWL",
 				"RLD",
 				"DSG",
 				"FXD",
