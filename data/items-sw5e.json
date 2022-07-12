@@ -606,7 +606,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"As an action, you can activate this augmentation to cast the {@i infiltrate} tech power targeting yourself. Intelligence is your tech casting ability for this power, and if you cast it using this augmentation, it does not require concentration.",
+				"As an action, you can activate this augmentation to cast the {@spell infiltrate|orcnogSW5e} tech power targeting yourself. Intelligence is your tech casting ability for this power, and if you cast it using this augmentation, it does not require concentration.",
 				"{@b Side Effect:} While this augmentation is active, your speed is reduced by 10. Additionally, it fails to activate if you are submerged in water or other liquids.",
 				"{@i This internal augmentation can be activated to project a distortion field that bends visual light.}"
 			],
@@ -1049,7 +1049,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"You know the {@i detect enhancement} and {@i toxin scan} tech powers. You can cast each power once per day. Intelligence is your techcasting ability for these powers. You do not require use of a wristpad for these powers."
+				"You know the {@spell detect enhancement} and {@i toxin scan|orcnogSW5e} tech powers. You can cast each power once per day. Intelligence is your techcasting ability for these powers. You do not require use of a wristpad for these powers."
 			],
 			"foundryType": "equipment"
 		},
@@ -2225,7 +2225,7 @@
 			"value": 500,
 			"weight": 6,
 			"entries": [
-				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 14 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. Breaking the binders requires a DC 20 Strength check. Escaping them requires a DC 20 Dexterity check. A set of binders comes with one key. Without the key, unlocking the binders requires a DC 15 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 10 and 15 hit points. Destroying the binders frees the creature without harming it."
+				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 14 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. Breaking the binders requires a DC 20 Strength check. Escaping them requires a DC 20 Dexterity check. A set of binders comes with one key. Without the key, unlocking the binders requires a DC 15 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 10 and 15 hit points. Destroying the binders frees the creature without harming it."
 			],
 			"foundryType": "equipment"
 		},
@@ -2237,7 +2237,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 24 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 30 Strength check. Escaping them requires a DC 30 Dexterity check. Without the key, unlocking the binders requires a DC 30 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 15 and 90 hit points. Destroying the binders frees the creature without harming it."
+				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 24 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 30 Strength check. Escaping them requires a DC 30 Dexterity check. Without the key, unlocking the binders requires a DC 30 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 15 and 90 hit points. Destroying the binders frees the creature without harming it."
 			],
 			"foundryType": "equipment"
 		},
@@ -2249,7 +2249,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 22 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 28 Strength check. Escaping them requires a DC 28 Dexterity check. Without the key, unlocking the binders requires a DC 27 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 14 and 75 hit points. Destroying the binders frees the creature without harming it."
+				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 22 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 28 Strength check. Escaping them requires a DC 28 Dexterity check. Without the key, unlocking the binders requires a DC 27 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 14 and 75 hit points. Destroying the binders frees the creature without harming it."
 			],
 			"foundryType": "equipment"
 		},
@@ -2261,7 +2261,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 16 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 22 Strength check. Escaping them requires a DC 22 Dexterity check. Without the key, unlocking the binders requires a DC 18 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 11 and 30 hit points. Destroying the binders frees the creature without harming it."
+				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 16 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 22 Strength check. Escaping them requires a DC 22 Dexterity check. Without the key, unlocking the binders requires a DC 18 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 11 and 30 hit points. Destroying the binders frees the creature without harming it."
 			],
 			"foundryType": "equipment"
 		},
@@ -2273,7 +2273,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 18 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 24 Strength check. Escaping them requires a DC 24 Dexterity check. Without the key, unlocking the binders requires a DC 21 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 12 and 45 hit points. Destroying the binders frees the creature without harming it."
+				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 18 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 24 Strength check. Escaping them requires a DC 24 Dexterity check. Without the key, unlocking the binders requires a DC 21 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 12 and 45 hit points. Destroying the binders frees the creature without harming it."
 			],
 			"foundryType": "equipment"
 		},
@@ -2285,7 +2285,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 20 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 26 Strength check. Escaping them requires a DC 26 Dexterity check. Without the key, unlocking the binders requires a DC 24 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 13 and 60 hit points. Destroying the binders frees the creature without harming it."
+				"Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 20 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. A set of binders comes with one key. Breaking the binders requires a DC 26 Strength check. Escaping them requires a DC 26 Dexterity check. Without the key, unlocking the binders requires a DC 24 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 13 and 60 hit points. Destroying the binders frees the creature without harming it."
 			],
 			"foundryType": "equipment"
 		},
@@ -3789,7 +3789,7 @@
 			"age": "futuristic",
 			"value": 7500,
 			"entries": [
-				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@item security kit|orcnogSW5e} to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside."
+				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@skill security kit|orcnogSW5e} check to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside."
 			],
 			"foundryType": "backpack"
 		},
@@ -3801,7 +3801,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 30 {@item security kit|orcnogSW5e} to force open. It stores 10 lb., not exceeding 3/8 cubic foot, has an AC of 15, and 90 hit points. Destroying the camtono risks damaging any goods stored inside."
+				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 30 {@skill security kit|orcnogSW5e} check to force open. It stores 10 lb., not exceeding 3/8 cubic foot, has an AC of 15, and 90 hit points. Destroying the camtono risks damaging any goods stored inside."
 			],
 			"foundryType": "equipment"
 		},
@@ -3813,7 +3813,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 27 {@item security kit|orcnogSW5e} to force open. It stores 9 lb., not exceeding 3/8 cubic foot, has an AC of 14, and 75 hit points. Destroying the camtono risks damaging any goods stored inside."
+				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 27 {@skill security kit|orcnogSW5e} check to force open. It stores 9 lb., not exceeding 3/8 cubic foot, has an AC of 14, and 75 hit points. Destroying the camtono risks damaging any goods stored inside."
 			],
 			"foundryType": "equipment"
 		},
@@ -3825,7 +3825,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 18 {@item security kit|orcnogSW5e} to force open. It stores 6 lb., not exceeding 1/4 cubic foot, has an AC of 11, and 30 hit points. Destroying the camtono risks damaging any goods stored inside."
+				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 18 {@skill security kit|orcnogSW5e} check to force open. It stores 6 lb., not exceeding 1/4 cubic foot, has an AC of 11, and 30 hit points. Destroying the camtono risks damaging any goods stored inside."
 			],
 			"foundryType": "equipment"
 		},
@@ -3837,7 +3837,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 21 {@item security kit|orcnogSW5e} to force open. It stores 7 lb., not exceeding 1/4 cubic foot, has an AC of 12, and 45 hit points. Destroying the camtono risks damaging any goods stored inside."
+				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 21 {@skill security kit|orcnogSW5e} check to force open. It stores 7 lb., not exceeding 1/4 cubic foot, has an AC of 12, and 45 hit points. Destroying the camtono risks damaging any goods stored inside."
 			],
 			"foundryType": "equipment"
 		},
@@ -3849,7 +3849,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 24 {@item security kit|orcnogSW5e} to force open. It stores 8 lb., not exceeding 3/8 cubic foot, has an AC of 13, and 60 hit points. Destroying the camtono risks damaging any goods stored inside."
+				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 24 {@skill security kit|orcnogSW5e} check to force open. It stores 8 lb., not exceeding 3/8 cubic foot, has an AC of 13, and 60 hit points. Destroying the camtono risks damaging any goods stored inside."
 			],
 			"foundryType": "equipment"
 		},
@@ -4685,7 +4685,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"You have a +1 bonus to attack and damage rolls with this weapon. Additionally, it has the disarming property, and when a creature tries to reduce the damage of a shot from this weapon with a feature or power, such as monk�s Deflect Missiles or the {@i saber reflect} force power, they have disadvantage on the reduction roll. Lastly, on a hit, if the target is wearing heavy armor, it deals an additional {@damage 1d6} lightning damage.",
+				"You have a +1 bonus to attack and damage rolls with this weapon. Additionally, it has the disarming property, and when a creature tries to reduce the damage of a shot from this weapon with a feature or power, such as monk�s Deflect Missiles or the {@spell saber reflect|orcnogSW5e} force power, they have disadvantage on the reduction roll. Lastly, on a hit, if the target is wearing heavy armor, it deals an additional {@damage 1d6} lightning damage.",
 				"{@i The proprietary Charric pistol was the standard issue weapon of all of the soldiers in the Chiss Expansionary Defense Force.}"
 			],
 			"foundryType": "weapon",
@@ -4705,7 +4705,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"You have a +2 bonus to attack and damage rolls with this weapon. Additionally, it has the disarming property, and when a creature tries to reduce the damage of a shot from this weapon with a feature or power, such as monk�s Deflect Missiles or the {@i saber reflect} force power, they have disadvantage on the reduction roll. Lastly, on a hit, if the target is wearing heavy armor, it deals an additional {@damage 1d8} lightning damage.",
+				"You have a +2 bonus to attack and damage rolls with this weapon. Additionally, it has the disarming property, and when a creature tries to reduce the damage of a shot from this weapon with a feature or power, such as monk�s Deflect Missiles or the {@spell saber reflect|orcnogSW5e} force power, they have disadvantage on the reduction roll. Lastly, on a hit, if the target is wearing heavy armor, it deals an additional {@damage 1d8} lightning damage.",
 				"{@i The proprietary Charric rifle was the standard issue weapon of all of the soldiers in the Chiss Expansionary Defense Force.}"
 			],
 			"foundryType": "weapon",
@@ -5455,7 +5455,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"When you make an Intelligence ({@item slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll both of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll both of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "consumable"
 		},
@@ -5467,7 +5467,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"When you make an Intelligence ({@item slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "consumable"
 		},
@@ -5479,7 +5479,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"When you make an Intelligence ({@item slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll one of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll one of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "consumable"
 		},
@@ -5493,7 +5493,7 @@
 			"value": 1450,
 			"weight": 0.5,
 			"entries": [
-				"When you make an Intelligence ({@item slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to reroll the check. You must use the new roll. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill security kit|orcnogSW5e}) check, you can use the spike (no action required) to reroll the check. You must use the new roll. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "equipment"
 		},
@@ -6204,7 +6204,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 30 {@item slicer's kit|orcnogSW5e} check."
+				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 30 {@skill slicer's kit|orcnogSW5e} check."
 			],
 			"foundryType": "equipment"
 		},
@@ -6216,7 +6216,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 27 {@item slicer's kit|orcnogSW5e} check."
+				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 27 {@skill slicer's kit|orcnogSW5e} check."
 			],
 			"foundryType": "equipment"
 		},
@@ -6228,7 +6228,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 18 {@item slicer's kit|orcnogSW5e} check."
+				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 18 {@skill slicer's kit|orcnogSW5e} check."
 			],
 			"foundryType": "equipment"
 		},
@@ -6240,7 +6240,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 21 {@item slicer's kit|orcnogSW5e} check."
+				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 21 {@skill slicer's kit|orcnogSW5e} check."
 			],
 			"foundryType": "equipment"
 		},
@@ -6252,7 +6252,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 24 {@item slicer's kit|orcnogSW5e} check."
+				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 24 {@skill slicer's kit|orcnogSW5e} check."
 			],
 			"foundryType": "equipment"
 		},
@@ -6264,7 +6264,7 @@
 			"rarity": "none",
 			"age": "futuristic",
 			"entries": [
-				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 15 {@item slicer's kit|orcnogSW5e} check."
+				"The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of credits, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 15 {@skill slicer's kit|orcnogSW5e} check."
 			],
 			"value": 1000,
 			"foundryType": "equipment"
@@ -6777,14 +6777,14 @@
 					"items": [
 						"{@item Security kit|orcnogSW5e}",
 						"Artisan tools (one set, chosen at the time this augmentation is installed)",
-						"Commlink",
-						"Fusion cutter",
-						"Grappling hook (with 50 feet of fibercord cable)",
-						"Hydrospanner",
-						"Traumakit",
-						"Repair kit",
-						"Hidden blade {@i (martial vibroweapon)}",
-						"Hold out {@i (simple blaster)}",
+						"{@item Commlink|orcnogSW5e}",
+						"{@item Fusion cutter|orcnogSW5e}",
+						"{@item Grappling hook|orcnogSW5e} (with 50 feet of fibercord cable)",
+						"{@item Hydrospanner|orcnogSW5e}",
+						"{@item Traumakit|orcnogSW5e}",
+						"{@item Repair kit|orcnogSW5e}",
+						"{@item Hidden blade|orcnogSW5e} {@i (martial vibroweapon)}",
+						"{@item Hold out|orcnogSW5e} {@i (simple blaster)}",
 						"{@item Medium shield generator|orcnogSW5e} {@i (medium armor)}"
 					]
 				},
@@ -7016,7 +7016,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"This datacron contains a single at-will tech power. After tinkering with the datacron for at least 2 hours, a techcaster with a Max Power Level of 1st or higher can make a DC 10 techcasting ability check with proficiency. On a success, they learn the contained tech power, which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
+				"This datacron contains a single at-will tech power. After tinkering with the datacron for at least 2 hours, a techcaster with a Max Power Level of 1st or higher can make a DC 10 techcasting ability check with proficiency. On a success, they learn the {@spell contained|orcnogSW5e} tech power, which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
 				"{@i Datacrons are encrypted storage devices that contain an interactive projection, and are used to store high-value, sensitive information.}"
 			],
 			"foundryType": "equipment"
@@ -7029,7 +7029,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"This datacron contains a single 1st-level tech power. After tinkering with the datacron for at least 4 hours, a techcaster with a Max Power Level of 1st or higher can make a DC 14 techcasting ability check with proficiency. On a success, they learn the contained tech power, which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
+				"This datacron contains a single 1st-level tech power. After tinkering with the datacron for at least 4 hours, a techcaster with a Max Power Level of 1st or higher can make a DC 14 techcasting ability check with proficiency. On a success, they learn the {@spell contained|orcnogSW5e} tech power, which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
 				"{@i Datacrons are encrypted storage devices that contain an interactive projection, and are used to store high-value, sensitive information.}"
 			],
 			"foundryType": "equipment"
@@ -7042,7 +7042,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"This datacron contains a single 3rd-level tech power, or multiple powers of 1st-2nd level with a combined level no greater than 3. After tinkering with the datacron for at least 8 hours, a techcaster with a Max Power Level of 3rd or higher can make a DC 18 techcasting ability check with proficiency. On a success, they learn the contained tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
+				"This datacron contains a single 3rd-level tech power, or multiple powers of 1st-2nd level with a combined level no greater than 3. After tinkering with the datacron for at least 8 hours, a techcaster with a Max Power Level of 3rd or higher can make a DC 18 techcasting ability check with proficiency. On a success, they learn the {@spell contained|orcnogSW5e} tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
 				"{@i Datacrons are encrypted storage devices that contain an interactive projection, and are used to store high-value, sensitive information.}"
 			],
 			"foundryType": "equipment"
@@ -7055,7 +7055,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"This datacron contains a single 5th-level tech power, or multiple powers of 1st-4th level with a combined level no greater than 5. After tinkering with the datacron for at least 16 hours, a techcaster with a Max Power Level of 5th or higher can make a DC 22 techcasting ability check with proficiency. On a success, they learn the contained tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
+				"This datacron contains a single 5th-level tech power, or multiple powers of 1st-4th level with a combined level no greater than 5. After tinkering with the datacron for at least 16 hours, a techcaster with a Max Power Level of 5th or higher can make a DC 22 techcasting ability check with proficiency. On a success, they learn the {@spell contained|orcnogSW5e} tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
 				"{@i Datacrons are encrypted storage devices that contain an interactive projection, and are used to store high-value, sensitive information.}"
 			],
 			"foundryType": "equipment"
@@ -7068,7 +7068,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"This datacron contains a single 7th-level tech power, or multiple powers of 1st-6th level with a combined level no greater than 7. After tinkering with the datacron for at least 40 hours, a techcaster with a Max Power Level of 7th or higher can make a DC 26 techcasting ability check with proficiency. On a success, they learn the contained tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
+				"This datacron contains a single 7th-level tech power, or multiple powers of 1st-6th level with a combined level no greater than 7. After tinkering with the datacron for at least 40 hours, a techcaster with a Max Power Level of 7th or higher can make a DC 26 techcasting ability check with proficiency. On a success, they learn the {@spell contained|orcnogSW5e} tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
 				"{@i Datacrons are encrypted storage devices that contain an interactive projection, and are used to store high-value, sensitive information.}"
 			],
 			"foundryType": "equipment"
@@ -7081,7 +7081,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"This datacron contains a single 9th-level tech power, or multiple powers of 1st-8th level with a combined level no greater than 9. After tinkering with the datacron for at least 80 hours, a techcaster with a Max Power Level of 9th or higher can make a DC 30 techcasting ability check with proficiency. On a success, they learn the contained tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
+				"This datacron contains a single 9th-level tech power, or multiple powers of 1st-8th level with a combined level no greater than 9. After tinkering with the datacron for at least 80 hours, a techcaster with a Max Power Level of 9th or higher can make a DC 30 techcasting ability check with proficiency. On a success, they learn the {@spell contained|orcnogSW5e} tech power(s), which does not count against their tech powers known. On a failure, the power is not learned and the techcaster can't try again for 24 hours.",
 				"{@i Datacrons are encrypted storage devices that contain an interactive projection, and are used to store high-value, sensitive information.}"
 			],
 			"foundryType": "equipment"
@@ -14723,7 +14723,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"This holocron contains a single 5th-level force power, or multiple powers of 1st-4th level with a combined level no greater than 5. After meditating with the holocron for at least 16 hours, a forcecaster with a Max Power Level of 5th or higher can make a DC 22 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 5th-level force power, or multiple powers of 1st-4th level with a combined level no greater than 5. After meditating with the holocron for at least 16 hours, a forcecaster with a Max Power Level of 5th or higher can make a DC 22 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			],
 			"foundryType": "equipment"
@@ -14736,7 +14736,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"This holocron contains a single 9th-level force power, or multiple powers of 1st-8th level with a combined level no greater than 9. After meditating with the holocron for at least 80 hours, a forcecaster with a Max Power Level of 9th or higher can make a DC 30 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 9th-level force power, or multiple powers of 1st-8th level with a combined level no greater than 9. After meditating with the holocron for at least 80 hours, a forcecaster with a Max Power Level of 9th or higher can make a DC 30 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			],
 			"foundryType": "equipment"
@@ -14749,7 +14749,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"This holocron contains a single 1st-level force power. After meditating with the holocron for at least 4 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 14 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the contained force power, which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 1st-level force power. After meditating with the holocron for at least 4 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 14 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power, which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			],
 			"foundryType": "equipment"
@@ -14762,7 +14762,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"This holocron contains a single 3rd-level force power, or multiple powers of 1st-2nd level with a combined level no greater than 3. After meditating with the holocron for at least 8 hours, a forcecaster with a Max Power Level of 3rd or higher can make a DC 18 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 3rd-level force power, or multiple powers of 1st-2nd level with a combined level no greater than 3. After meditating with the holocron for at least 8 hours, a forcecaster with a Max Power Level of 3rd or higher can make a DC 18 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			],
 			"foundryType": "equipment"
@@ -14775,7 +14775,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"This holocron contains a single 7th-level force power, or multiple powers of 1st-6th level with a combined level no greater than 7. After meditating with the holocron for at least 40 hours, a forcecaster with a Max Power Level of 7th or higher can make a DC 26 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 7th-level force power, or multiple powers of 1st-6th level with a combined level no greater than 7. After meditating with the holocron for at least 40 hours, a forcecaster with a Max Power Level of 7th or higher can make a DC 26 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			],
 			"foundryType": "equipment"
@@ -14788,7 +14788,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"This holocron contains a single at-will force power. After meditating with the holocron for at least 2 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 10 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the contained force power, which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single at-will force power. After meditating with the holocron for at least 2 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 10 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power, which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			],
 			"foundryType": "equipment"
@@ -15475,7 +15475,7 @@
 			"age": "futuristic",
 			"entries": [
 				"This augmentation replaces a hand.",
-				"This implant appears to be a standard cybernetic mechanical arm, but conceals a {@item security kit|orcnogSW5e} and a {@item slicer's kit|orcnogSW5e}. Additionally, you can also use an action to cast {@i release} at 2nd level without expending tech points or use of a tech focus. Intelligence is your techcasting ability for this power. Once you've done so, you can't do so again until you complete a long rest.",
+				"This implant appears to be a standard cybernetic mechanical arm, but conceals a {@item security kit|orcnogSW5e} and a {@item slicer's kit|orcnogSW5e}. Additionally, you can also use an action to cast {@spell release|orcnogSW5e} at 2nd level without expending tech points or use of a tech focus. Intelligence is your techcasting ability for this power. Once you've done so, you can't do so again until you complete a long rest.",
 				"{@b Side Effect:} This hand can no longer wield items that weigh more than 7 lbs.",
 				"{@i This fully cybernetic hand replacement contains a hidden array of infiltration tools optimized for defeating a wide variety of security barriers.}"
 			],
@@ -16070,7 +16070,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"You become a valid target for the {@i tracker droid interface} tech power."
+				"You become a valid target for the {@spell tracker droid interface|orcnogSW5e} tech power."
 			],
 			"foundryType": "equipment"
 		},
@@ -16082,7 +16082,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"While you are interfaced via the {@i tracker droid interface} tech power, whenever your handler has advantage on an ability check or attack roll granted by you taking the {@action Help} action, they can reroll one of the dice once."
+				"While you are interfaced via the {@spell tracker droid interface|orcnogSW5e} tech power, whenever your handler has advantage on an ability check or attack roll granted by you taking the {@action Help} action, they can reroll one of the dice once."
 			],
 			"foundryType": "equipment"
 		},
@@ -16094,7 +16094,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"While you are interfaced via the {@i tracker droid interface} tech power, whenever your handler makes an ability check using tools with which the you are also proficient, they have advantage on the check. If they already have advantage, they can instead reroll one of the dice once."
+				"While you are interfaced via the {@spell tracker droid interface|orcnogSW5e} tech power, whenever your handler makes an ability check using tools with which the you are also proficient, they have advantage on the check. If they already have advantage, they can instead reroll one of the dice once."
 			],
 			"foundryType": "equipment"
 		},
@@ -16106,7 +16106,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"While you are interfaced via the {@i tracker droid interface} tech power, when you are within 5 feet of a target, your handler does not provoke opportunity attacks when moving out of that creature's reach."
+				"While you are interfaced via the {@spell tracker droid interface|orcnogSW5e} tech power, when you are within 5 feet of a target, your handler does not provoke opportunity attacks when moving out of that creature's reach."
 			],
 			"foundryType": "equipment"
 		},
@@ -16118,7 +16118,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"While you are interfaced via the {@i tracker droid interface} tech power, when your handler restores hit points to a creature that is within 5 feet of you, they can roll the dice twice and take either total."
+				"While you are interfaced via the {@spell tracker droid interface|orcnogSW5e} tech power, when your handler restores hit points to a creature that is within 5 feet of you, they can roll the dice twice and take either total."
 			],
 			"foundryType": "equipment"
 		},
@@ -16130,7 +16130,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"While you are interfaced via the {@i tracker droid interface} tech power, when your handler makes a Wisdom ({@skill Survival}) check to track a target, and you are also tracking that target, your handler gains advantage on the check. If they already have advantage, they can instead reroll one of the dice once."
+				"While you are interfaced via the {@spell tracker droid interface|orcnogSW5e} tech power, when your handler makes a Wisdom ({@skill Survival}) check to track a target, and you are also tracking that target, your handler gains advantage on the check. If they already have advantage, they can instead reroll one of the dice once."
 			],
 			"foundryType": "equipment"
 		},
@@ -16402,7 +16402,7 @@
 			"entries": [
 				"This augmentation replaces a hand.",
 				"Your unarmed strikes with this arm deal {@damage 1d4} ion damage, and your carrying capacity and the weight you can push, drag, or lift doubles. If it would already double, it instead triples. Additionally, you deal double damage to energy-based structures with your unarmed strikes.",
-				"{@b Side Effect:} You can no longer wield weapons with electronic components, such as blasters, vibroweapons, or lightweapons. Additionally, if this hand interacts with a small electronic device, such as a datapad or commlink, it is immediately disabled.",
+				"{@b Side Effect:} You can no longer wield weapons with electronic components, such as blasters, vibroweapons, or lightweapons. Additionally, if this hand interacts with a small electronic device, such as a {@item datapad|orcnogSW5e} or {@item commlink|orcnogSW5e}, it is immediately disabled.",
 				"{@i This cybernetic arm replacement increases a user's physical strength and can be overloaded to release a unique field resonance discharge that is particularly effective against containment fields and makes holding on to hydrospanners a breeze.}"
 			],
 			"foundryType": "equipment"
@@ -18248,7 +18248,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"When a creature tries to reduce the damage of a shot from this weapon with a feature or power, such as monk's Deflect Missiles or the {@i saber reflect} force power, they have disadvantage on the reduction roll."
+				"When a creature tries to reduce the damage of a shot from this weapon with a feature or power, such as monk's Deflect Missiles or the {@spell saber reflect|orcnogSW5e} force power, they have disadvantage on the reduction roll."
 			],
 			"foundryType": "equipment"
 		},
@@ -26422,7 +26422,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"When you make an Intelligence ({@item security kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll both of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill security kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll both of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "consumable"
 		},
@@ -26434,7 +26434,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"When you make an Intelligence ({@item security kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill security kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "consumable"
 		},
@@ -26446,7 +26446,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"When you make an Intelligence ({@item security kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll one of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill security kit|orcnogSW5e}) check, you can use the spike (no action required) to gain advantage on the check, and then you can reroll one of the dice once. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "consumable"
 		},
@@ -26474,7 +26474,7 @@
 			"value": 1500,
 			"weight": 0.5,
 			"entries": [
-				"When you make an Intelligence ({@item security kit|orcnogSW5e}) check, you can use the spike (no action required) to reroll the check. You must use the new roll. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill security kit|orcnogSW5e}) check, you can use the spike (no action required) to reroll the check. You must use the new roll. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			],
 			"foundryType": "equipment"
 		},
@@ -26522,7 +26522,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"You learn the {@i alarm} tech power. You can cast it once, without the use of a wristpad and without spending tech points, and you regain the ability to do so when you finish a long rest. Intelligence is your techcasting ability for this power.",
+				"You learn the {@spell alarm|orcnogSW5e} tech power. You can cast it once, without the use of a wristpad and without spending tech points, and you regain the ability to do so when you finish a long rest. Intelligence is your techcasting ability for this power.",
 				"{@i This part equips a droid with a small rotating sensory dish.}"
 			],
 			"foundryType": "equipment",
@@ -27689,7 +27689,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"While you wear these boots, you can use a bonus action to activate or deactivate their overdrive mode. If you do, you gain the effect of the {@i tactical advantage} tech power for 1 minute. Once you've used this feature, you must complete a long rest before you can use it again."
+				"While you wear these boots, you can use a bonus action to activate or deactivate their overdrive mode. If you do, you gain the effect of the {@spell tactical advantage|orcnogSW5e} tech power for 1 minute. Once you've used this feature, you must complete a long rest before you can use it again."
 			],
 			"foundryType": "equipment",
 			"reqAttune": true,
@@ -32501,7 +32501,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"This armor has 3 charges. As an action, you can spend 1 or more charges to cast the {@i voltaic shielding} tech power, 1 charge per level. All expended charges are regained after you complete a long rest.",
+				"This armor has 3 charges. As an action, you can spend 1 or more charges to cast the {@spell voltaic shielding|orcnogSW5e} tech power, 1 charge per level. All expended charges are regained after you complete a long rest.",
 				"{@i This proprietary armor made by the renowned engineer Viir Agathys includes integrated access to his signature tech power.}"
 			],
 			"foundryType": "equipment",
@@ -32516,7 +32516,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"This armor has 3 charges. As an action, you can spend 1 or more charges to cast the {@i voltaic shielding} tech power, 1 charge per level. All expended charges are regained after you complete a long rest.",
+				"This armor has 3 charges. As an action, you can spend 1 or more charges to cast the {@spell voltaic shielding|orcnogSW5e} tech power, 1 charge per level. All expended charges are regained after you complete a long rest.",
 				"{@i This armoring grants access to renowned engineer Viir Agathys's signature tech power.}"
 			],
 			"foundryType": "equipment",
@@ -33803,7 +33803,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"You craft a {@item wrist-mounted grappling hook|orcnogSW5e} weapon attached to a tightly coiled cord. With this grappler, you can make a ranged weapon attack with a range of 30/60. On a hit, it deals {@damage 1d4} kinetic damage. This attack can target a surface, object, or creature.",
+				"You craft a wrist-mounted grappling hook weapon attached to a tightly coiled cord. With this grappler, you can make a ranged weapon attack with a range of 30/60. On a hit, it deals {@damage 1d4} kinetic damage. This attack can target a surface, object, or creature.",
 				"A creature struck by this attack is impaled by the hook. As an action, a creature can attempt to remove the hook. Removing the hook requires a DC 13 Strength check. While the hook is stuck in the target, you are connected to the target by a 60 foot cable.",
 				"While the hook is deployed, you can use your bonus action to activate the reel, pulling yourself to the location if the target is your size or larger. A creature or object smaller than you is pulled to you. Alternatively, you can opt to release the cable (no action required).",
 				"Once you've used this feature, you can't use it again until you recover and reinsert the hook as an action."
