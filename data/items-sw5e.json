@@ -17,6 +17,10 @@
 			"weapon": true,
 			"weaponCategory": "Simple",
 			"baseItem": "bo-rifle|orcnogSW5e",
+            "property": [
+                "SHO"
+            ],
+            "shocking": 15,
 			"bonusWeapon": "+2"
 		},
 		{
@@ -462,7 +466,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Piloting increases by one step (to trained, from trained to proficient, from proficient to expertise, from expertise to mastery, from mastery to high mastery, or from high mastery to grand mastery)."
+				"Your level of proficiency in {@skill Piloting} increases by one step (to trained, from trained to proficient, from proficient to expertise, from expertise to mastery, from mastery to high mastery, or from high mastery to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -474,7 +478,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Piloting increases by four steps (to mastery, from trained to high mastery, or from proficient to grand mastery)."
+				"Your level of proficiency in {@skill Piloting} increases by four steps (to mastery, from trained to high mastery, or from proficient to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -486,7 +490,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Piloting increases by five steps (to high mastery or from trained to grand mastery)."
+				"Your level of proficiency in {@skill Piloting} increases by five steps (to high mastery or from trained to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -498,7 +502,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"You gain grand mastery in Piloting."
+				"You gain grand mastery in {@skill Piloting}."
 			],
 			"foundryType": "equipment"
 		},
@@ -510,7 +514,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Piloting increases by three steps (to expertise, from trained to mastery, from proficient to high mastery, or from expertise to grand mastery)."
+				"Your level of proficiency in {@skill Piloting} increases by three steps (to expertise, from trained to mastery, from proficient to high mastery, or from expertise to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -522,7 +526,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Piloting increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
+				"Your level of proficiency in {@skill Piloting} increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -1369,7 +1373,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"You gain proficiency in all simple and martial weapons, all armor, and the Piloting skill. Additionally, when you make an Intelligence check to recall or discern information about a weapon, piece of armor, or a military vehicle that this library contains information on, you are considered proficient in the check.",
+				"You gain proficiency in all simple and martial weapons, all armor, and the {@skill Piloting} skill. Additionally, when you make an Intelligence check to recall or discern information about a weapon, piece of armor, or a military vehicle that this library contains information on, you are considered proficient in the check.",
 				"{@b Side Effect:} This aggressively effective library can make it difficult to focus in stressful situations. You have disadvantage on Constitution saving throws to maintain concentration. Additionally, you have disadvantage on ability checks while concentrating on a power.",
 				"{@i This small and unassuming electronic module installed in the parietal lobe contains a massive library of information pertaining to weapons, armor, droids, and every other defense system known to the galaxy at large. Even rare or obscure pieces of technology are described here, offering a unique perspective on the universe - if you can handle it.}"
 			],
@@ -6990,7 +6994,7 @@
 			"age": "futuristic",
 			"value": 50,
 			"entries": [
-				"A datacard or data disk is a flat, hand-held device used in conjunction with a datapad to store information."
+				"A datacard or data disk is a flat, hand-held device used in conjunction with a {@item datapad|orcnogSW5e} to store information."
 			],
 			"foundryType": "equipment"
 		},
@@ -7004,7 +7008,7 @@
 			"value": 10000,
 			"weight": 2,
 			"entries": [
-				"A datacron is a type of holocron that can be accessed by non-Force-sensitives and are mainly used to store encrypted data. They are complete with an interactive projection to access the infor-mation."
+				"A datacron is a type of @{item holocron|orcnogSW5e} that can be accessed by non-Force-sensitives and are mainly used to store encrypted data. They are complete with an interactive projection to access the information."
 			],
 			"foundryType": "equipment"
 		},
@@ -8861,6 +8865,10 @@
 			"entries": [
 				"As an action, you can apply this calibrator to one vibroweapon or pair of handwraps within 5 feet, granting it a +1 bonus to attack and damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 14 property. If it already has the shocking property, its shocking number increases by 2, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 14,
 			"foundryType": "consumable",
 			"bonusWeapon": "+1"
 		},
@@ -8874,6 +8882,10 @@
 			"entries": [
 				"As an action, you can apply this calibrator to one vibroweapon or pair of handwraps within 5 feet, granting it a +3 bonus to attack and damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 16 property. If it already has the shocking property, its shocking number increases by 4, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 16,
 			"foundryType": "consumable",
 			"bonusWeapon": "+3"
 		},
@@ -8887,6 +8899,10 @@
 			"entries": [
 				"As an action, you can apply this calibrator to one vibroweapon or pair of handwraps within 5 feet, granting it a +3 bonus to attack rolls and dealing an additional {@damage 1d10} damage for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 18 property. If it already has the shocking property, its shocking number increases to 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 18,
 			"foundryType": "consumable",
 			"bonusWeaponAttack": "+3"
 		},
@@ -8900,6 +8916,10 @@
 			"entries": [
 				"As an action, you can apply this calibrator to one vibroweapon or pair of handwraps within 5 feet, granting it a +3 bonus to attack rolls and dealing an additional {@damage 1d8} damage for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 17 property. If it already has the shocking property, its shocking number increases by 5, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 17,
 			"foundryType": "consumable",
 			"bonusWeaponAttack": "+3"
 		},
@@ -8913,6 +8933,10 @@
 			"entries": [
 				"As an action, you can apply this calibrator to one vibroweapon or pair of handwraps within 5 feet, granting it a +2 bonus to attack and damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 15 property. If it already has the shocking property, its shocking number increases by 3, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 15,
 			"foundryType": "consumable",
 			"bonusWeapon": "+2"
 		},
@@ -8991,6 +9015,10 @@
 			"entries": [
 				"As an action, you can apply this collimator to one lightweapon within 5 feet, granting it a +1 bonus to attack and damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 14 property. If it already has the shocking property, its shocking number increases by 2, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 14,
 			"foundryType": "consumable",
 			"bonusWeapon": "+1"
 		},
@@ -9004,6 +9032,10 @@
 			"entries": [
 				"As an action, you can apply this collimator to one lightweapon within 5 feet, granting it a +3 bonus to attack and damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 16 property. If it already has the shocking property, its shocking number increases by 4, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 16,
 			"foundryType": "consumable",
 			"bonusWeapon": "+3"
 		},
@@ -9017,6 +9049,10 @@
 			"entries": [
 				"As an action, you can apply this collimator to one lightweapon within 5 feet, granting it a +3 bonus to attack rolls and dealing an additional {@damage 1d10} damage for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 18 property. If it already has the shocking property, its shocking number increases to 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 18,
 			"foundryType": "consumable",
 			"bonusWeaponAttack": "+3"
 		},
@@ -9030,6 +9066,10 @@
 			"entries": [
 				"As an action, you can apply this collimator to one lightweapon within 5 feet, granting it a +3 bonus to attack rolls and dealing an additional {@damage 1d8} damage for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 17 property. If it already has the shocking property, its shocking number increases by 5, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 17,
 			"foundryType": "consumable",
 			"bonusWeaponAttack": "+3"
 		},
@@ -9043,6 +9083,10 @@
 			"entries": [
 				"As an action, you can apply this collimator to one lightweapon within 5 feet, granting it a +2 bonus to attack and damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 15 property. If it already has the shocking property, its shocking number increases by 3, to a maximum of 18. Lastly, if the weapon is not enhanced, it becomes enhanced for the duration."
 			],
+			"property": [
+				"SHO"
+			],
+            "shocking": 15,
 			"foundryType": "consumable",
 			"bonusWeapon": "+2"
 		},
@@ -9143,8 +9187,10 @@
 				"As an action, you can apply this calibrator to one vibroweapon or pair of handwraps within 5 feet, granting it a +1 bonus to damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 13 property. If it already has the shocking property, its shocking number increases by 1, to a maximum of 18."
 			],
 			"property": [
-				"AF"
+				"AF",
+                "SHO"
 			],
+            "shocking": 14,
 			"foundryType": "consumable",
 			"bonusWeaponDamage": "+1"
 		},
@@ -9177,8 +9223,10 @@
 				"As an action, you can apply this collimator to one lightweapon within 5 feet, granting it a +1 bonus to damage rolls for 1 minute. This bonus is in addition to any bonuses granted by the weapon. Additionally, for the duration, the weapon gains the shocking 13 property. If it already has the shocking property, its shocking number increases by 1, to a maximum of 18."
 			],
 			"property": [
-				"AF"
+				"AF",
+                "SHO"
 			],
+            "shocking": 14,
 			"foundryType": "consumable",
 			"bonusWeaponDamage": "+1"
 		},
@@ -14204,7 +14252,7 @@
 			"value": 2000,
 			"weight": 1,
 			"entries": [
-				"A headcomm can be installed in a helmet or worn independently. It functions as a hands-free commlink."
+				"A headcomm can be installed in a helmet or worn independently. It functions as a hands-free @{item commlink|orcnogSW5e}."
 			],
 			"foundryType": "equipment"
 		},
@@ -16418,6 +16466,10 @@
 				"You have a +1 bonus to attack and damage rolls with this enhanced weapon. Additionally, while it is in staff mode, the save DC for its shocking property increases to 14.",
 				"{@i This more recent and less artfully designed model of bo-rifle comes with a bayonet attached to the top edge.}"
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 14,
 			"foundryType": "weapon",
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -17801,7 +17853,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Lore increases by one step (to trained, from trained to proficient, from proficient to expertise, from expertise to mastery, from mastery to high mastery, or from high mastery to grand mastery)."
+				"Your level of proficiency in {@skill Lore} increases by one step (to trained, from trained to proficient, from proficient to expertise, from expertise to mastery, from mastery to high mastery, or from high mastery to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -17813,7 +17865,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Lore increases by four steps (to mastery, from trained to high mastery, or from proficient to grand mastery)."
+				"Your level of proficiency in {@skill Lore} increases by four steps (to mastery, from trained to high mastery, or from proficient to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -17825,7 +17877,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Lore increases by five steps (to high mastery or from trained to grand mastery)."
+				"Your level of proficiency in {@skill Lore} increases by five steps (to high mastery or from trained to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -17837,7 +17889,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"You gain grand mastery in Lore."
+				"You gain grand mastery in {@skill Lore}."
 			],
 			"foundryType": "equipment"
 		},
@@ -17849,7 +17901,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Lore increases by three steps (to expertise, from trained to mastery, from proficient to high mastery, or from expertise to grand mastery)."
+				"Your level of proficiency in {@skill Lore} increases by three steps (to expertise, from trained to mastery, from proficient to high mastery, or from expertise to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -17861,7 +17913,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Lore increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
+				"Your level of proficiency in {@skill Lore} increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -18116,7 +18168,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"This helmet comes equipped with a headcomm and holorecorder. Additionally, while wearing this helmet, you have {@sense darkvision} out to 60 feet.",
+				"This helmet comes equipped with a @{item headcomm|orcnogSW5e} and holorecorder. Additionally, while wearing this helmet, you have {@sense darkvision} out to 60 feet.",
 				"{@b {@i Mandalorian Vestments.}} While wearing and attuned to this helmet and Mandalorian Beskar'gam, you have advantage on Wisdom ({@skill Perception}) checks that rely on sight within 60 feet. While wearing and attuned to this helmet, Mandalorian Beskar'gam, and Mandalorian Shuk'orok, you have advantage on Intelligence ({@skill Investigation}) checks within 5 feet.",
 				"{@i Featuring the iconic T-shaped visor of the Mandalorians, this helmet strikes fear into the hearts of the unwary.}"
 			],
@@ -22131,7 +22183,7 @@
 			"value": 8000,
 			"weight": 1,
 			"entries": [
-				"A pocket scrambler is a simple add-on to any commlink that automatically encodes any messages sent out. The transmitted message can only be read by a device equipped with a matched scrambler."
+				"A pocket scrambler is a simple add-on to any @{item commlink|orcnogSW5e} that automatically encodes any messages sent out. The transmitted message can only be read by a device equipped with a matched scrambler."
 			],
 			"foundryType": "equipment"
 		},
@@ -27080,6 +27132,10 @@
 			"entries": [
 				"This weapon gains the shocking 13 property. If it already has the shocking property, its shocking number increases by 1, to a maximum of 18."
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 13,
 			"foundryType": "equipment"
 		},
 		{
@@ -27092,6 +27148,10 @@
 			"entries": [
 				"This weapon gains the shocking 14 property. If it already has the shocking property, its shocking number increases by 2, to a maximum of 18."
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 14,
 			"foundryType": "equipment"
 		},
 		{
@@ -27104,6 +27164,10 @@
 			"entries": [
 				"This weapon gains the shocking 15 property. If it already has the shocking property, its shocking number increases by 3, to a maximum of 18."
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 15,
 			"foundryType": "equipment"
 		},
 		{
@@ -27116,6 +27180,10 @@
 			"entries": [
 				"This weapon gains the shocking 16 property. If it already has the shocking property, its shocking number increases by 4, to a maximum of 18."
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 15,
 			"foundryType": "equipment"
 		},
 		{
@@ -27128,6 +27196,10 @@
 			"entries": [
 				"This weapon gains the shocking 17 property. If it already has the shocking property, its shocking number increases by 5, to a maximum of 18."
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 17,
 			"foundryType": "equipment"
 		},
 		{
@@ -27140,6 +27212,10 @@
 			"entries": [
 				"This weapon gains the shocking 18 property. If it already has the shocking property, its shocking number increases to 18."
 			],
+            "property": [
+                "SHO"
+            ],
+            "shocking": 18,
 			"foundryType": "equipment"
 		},
 		{
@@ -29529,8 +29605,8 @@
 			"age": "futuristic",
 			"entries": [
 				"This augmentation replaces your face.",
-				"This implant includes a headcomm with a scrambler that automatically encodes messages sent to a specified recipient commlink or receiver.",
-				"{@b Side Effect:} You can not use portable personal devices used for communication or jamming, such as a commlink or holotrace device, due to interference with this implant.",
+				"This implant includes a @{item headcomm|orcnogSW5e} with a scrambler that automatically encodes messages sent to a specified recipient @{item commlink|orcnogSW5e} or receiver.",
+				"{@b Side Effect:} You can not use portable personal devices used for communication or jamming, such as a @{item commlink|orcnogSW5e} or @{item holotrace device|orcnogSW5e}, due to interference with this implant.",
 				"{@i This augmentation appears as a crescent around one eye paired with two small dots above the eyebrow.}"
 			],
 			"foundryType": "equipment"
@@ -29563,12 +29639,12 @@
 				{
 					"type": "list",
 					"items": [
-						"{@b Communications Mode:} This communications suite includes a headcomm with a scrambler that automatically encodes messages sent to a specified recipient commlink or receiver. While this mode is active, you cannot be {@condition deafened}.",
-						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a comm jammer, a holotrace device and pocket scrambler.",
-						"{@b Respirator Mode:} This includes a basic respirator that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage."
+						"{@b Communications Mode:} This communications suite includes a @{item headcomm|orcnogSW5e} with a scrambler that automatically encodes messages sent to a specified recipient @{item commlink|orcnogSW5e} or receiver. While this mode is active, you cannot be {@condition deafened}.",
+						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a @{item comm jammer|orcnogSW5e}, a @{item holotrace device|orcnogSW5e} and {@item pocket scrambler|orcnogSW5e}.",
+						"{@b Respirator Mode:} This includes a basic {@item respirator|orcnogSW5e} that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage."
 					]
 				},
-				"{@b Side Effect:} This complex interface causes significant interference with other communication devices, rendering them impossible to use. While this implant is installed, you can not use any portable device used for communication or jamming, such as a commlink or holotrace device.",
+				"{@b Side Effect:} This complex interface causes significant interference with other communication devices, rendering them impossible to use. While this implant is installed, you can not use any portable device used for communication or jamming, such as a @{item commlink|orcnogSW5e} or @{item holotrace device|orcnogSW5e}.",
 				"{@i Frequently used by scouts and corporate espionage specialists, this imposing implant covers nearly the entire left half of the face, and includes a series of tools for long-term survival in hostile conditions.}"
 			],
 			"foundryType": "equipment"
@@ -29583,16 +29659,15 @@
 			"entries": [
 				"This augmentation replaces your eyes and face.",
 				"This implant contains several improved tools for long-term survival and reconnaissance. As a bonus action, you can activate one of the below modes that enable you to use several of these tools at once. Only one mode can be active at a time.",
-				"{@i}_",
 				{
 					"type": "list",
 					"items": [
-						"{@b Communications Mode:} This communications suite includes a headcomm with a scrambler that automatically encodes messages sent to a specified recipient commlink or receiver. While this mode is active, you cannot be {@condition deafened}. Additionally, if you listen to any spoken language for 10 minutes, the software in this package will begin to attempt to decipher it. Make an Intelligence ({@skill Lore}) check, DC determined by the GM depending on the rarity of the language. On a success, you can understand the spoken form of this language, and speak it if your species' vocal capabilities allow for it.",
-						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a comm jammer, a holotrace device and pocket scrambler. Additionally, you can attempt to listen in on nearby audio communications chatter such as from a comlink or holocomm as an action. Make an Intelligence ({@skill Technology}) check, DC determined by the GM depending on the sophistication of the technology. On a success, you can hear electronic communications originating from within 100 feet.",
-						"{@b Respirator Mode:} This includes a basic respirator that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage. Additionally, you do not need air to breathe, allowing you to survive even in vacuum for up to 1 hour."
+						"{@b Communications Mode:} This communications suite includes a @{item headcomm|orcnogSW5e} with a scrambler that automatically encodes messages sent to a specified recipient @{item commlink|orcnogSW5e} or receiver. While this mode is active, you cannot be {@condition deafened}. Additionally, if you listen to any spoken language for 10 minutes, the software in this package will begin to attempt to decipher it. Make an Intelligence ({@skill Lore}) check, DC determined by the GM depending on the rarity of the language. On a success, you can understand the spoken form of this language, and speak it if your species' vocal capabilities allow for it.",
+						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a @{item comm jammer|orcnogSW5e}, a @{item holotrace device|orcnogSW5e} and pocket scrambler. Additionally, you can attempt to listen in on nearby audio communications chatter such as from a @{item commlink|orcnogSW5e} or {@item holocomm|orcnogSW5e} as an action. Make an Intelligence ({@skill Technology}) check, DC determined by the GM depending on the sophistication of the technology. On a success, you can hear electronic communications originating from within 100 feet.",
+						"{@b Respirator Mode:} This includes a basic {@item respirator|orcnogSW5e} that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage. Additionally, you do not need air to breathe, allowing you to survive even in vacuum for up to 1 hour."
 					]
 				},
-				"{@b Side Effect:} This complex interface causes significant interference with other communication devices, rendering them impossible to use. While this implant is installed, you can not use any portable device used for communication or jamming, such as a commlink or holotrace device.",
+				"{@b Side Effect:} This complex interface causes significant interference with other communication devices, rendering them impossible to use. While this implant is installed, you can not use any portable device used for communication or jamming, such as a @{item commlink|orcnogSW5e} or @{item holotrace device|orcnogSW5e}.",
 				"{@i This sleek, stark white device adorned with a small antenna attaches to the back of the otherwise bulky S3 module.}"
 			],
 			"foundryType": "equipment"
@@ -30066,7 +30141,7 @@
 			"rarity": "common",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Technology increases by one step (to trained, from trained to proficient, from proficient to expertise, from expertise to mastery, from mastery to high mastery, or from high mastery to grand mastery)."
+				"Your level of proficiency in {@skill Technology} increases by one step (to trained, from trained to proficient, from proficient to expertise, from expertise to mastery, from mastery to high mastery, or from high mastery to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -30078,7 +30153,7 @@
 			"rarity": "very rare",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Technology increases by four steps (to mastery, from trained to high mastery, or from proficient to grand mastery)."
+				"Your level of proficiency in {@skill Technology} increases by four steps (to mastery, from trained to high mastery, or from proficient to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -30090,7 +30165,7 @@
 			"rarity": "legendary",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Technology increases by five steps (to high mastery or from trained to grand mastery)."
+				"Your level of proficiency in {@skill Technology} increases by five steps (to high mastery or from trained to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -30102,7 +30177,7 @@
 			"rarity": "artifact",
 			"age": "futuristic",
 			"entries": [
-				"You gain grand mastery in Technology."
+				"You gain grand mastery in {@skill Technology}."
 			],
 			"foundryType": "equipment"
 		},
@@ -30114,7 +30189,7 @@
 			"rarity": "rare",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Technology increases by three steps (to expertise, from trained to mastery, from proficient to high mastery, or from expertise to grand mastery)."
+				"Your level of proficiency in {@skill Technology} increases by three steps (to expertise, from trained to mastery, from proficient to high mastery, or from expertise to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -30126,7 +30201,7 @@
 			"rarity": "uncommon",
 			"age": "futuristic",
 			"entries": [
-				"Your level of proficiency in Technology increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
+				"Your level of proficiency in {@skill Technology} increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
 			],
 			"foundryType": "equipment"
 		},
@@ -33899,7 +33974,7 @@
 			"value": 6000,
 			"weight": 2,
 			"entries": [
-				"A wristpad is a harness with an integrated datapad and holoprojector interface that fits on the forearm and includes self-charging battery packs."
+				"A wristpad is a harness with an integrated @{item datapad|orcnogSW5e} and holoprojector interface that fits on the forearm and includes self-charging battery packs."
 			],
 			"foundryType": "equipment"
 		},
