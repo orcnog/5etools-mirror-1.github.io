@@ -40,21 +40,6 @@ async function doSw5ePageInit () {
     const prevRightInput = await StorageUtil.pGetForPage(ConverterUi.STORAGE_RIGHT);
     if (prevRightInput) editRight.setValue(prevRightInput, -1);
     editRight.on("change", () => saveRightDebounced());
-
-    $('.viewport-wrapper').append('<button id="testX" class="sw5e-convert-btn sw5e-button btn btn-sm btn-default"/>Test</button>');
-    $('#testX').on('click', function () {
-        var newItem = {
-            'name': 'Anthony',
-            'source': '',
-            'page': 0,
-            'type': 'G',
-            'entries': ["Ho yeah. You can cast Power Word Kill like a fuckin boss."]
-        };
-        ItemParser._doItemPostProcess(newItem, {
-            cbWarning: ()=>{console.log('cbWarning')},
-            cbOutput: ()=>{console.log('cbOutput')}
-        });
-    });
 }
 
 /**
@@ -139,7 +124,8 @@ function handle_convert_textareas_JSON() {
     const rightObj = parse(rightString);
     // Main function
     const convertedAndMerged = convertAndMerge(leftObj, rightObj, conversionType);
-    editMerged.setValue(stringify(convertedAndMerged));
+    const convertedMergedStringified = patchJsonResults(stringify(convertedAndMerged), conversionType);
+    editMerged.setValue(convertedMergedStringified);
     editMerged.focus();
     $('#convert_textareas').removeClass('thinking');
 }
@@ -181,6 +167,23 @@ function convertAndMerge(srcObj, destObj, conversionType) {
     const mergedObj = merge5eToolsObjects(destObj, convertedSrcObj, config);
 
     return mergedObj;
+}
+
+/**
+ * @function
+ * @description Patch a stringified object with manual updates, defined in the convert[Type].js file
+ * @param {Object} srcJson source object stringified JSON
+ * @param {String} conversionType sw5eapi database name, ex: "enhancedItem"
+ * @return {String} hopefully a patched JSON string
+ */
+function patchJsonResults(srcJson, conversionType) {
+    const config = getConfig(conversionType);
+    if (typeof config !== 'object' || typeof config.patchManualChanges !== 'function') {
+        return null;
+    }
+    // Patch the stringified JSON object with manual updates
+    const patchedJson = config.patchManualChanges(srcJson);
+    return patchedJson;
 }
 
 function getConfig(conversionType) {

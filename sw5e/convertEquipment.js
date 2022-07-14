@@ -1059,5 +1059,233 @@ const equipmentConfig = {
     },
 
     // Whether the merged entities should be reordered in alphabetical order in the returned merged object
-    alphabetizeByKey: true
+    alphabetizeByKey: true,
+
+    /**
+     * @function
+     * @param {String} json the stringified main "items" object
+     * @return {String} the stringified object with manual replacements made
+     */
+    patchManualChanges: function (json) {
+        // if this ceases to work... try the more fragile method: after conversion, run:
+        // git apply -v --ignore-space-change --ignore-whitespace patch/items-fix.patch
+        const manualChanges = [
+            {
+                "find": "An ammo {@item pouch|orcnogSW5e} is a small {@item pouch|orcnogSW5e}, usually worn around the waist or {@item chest|orcnogSW5e}, which holds 20 {@item slug cartridge|orcnogSW5e}. When you reload a weapon, you can draw as much ammunition needed from this {@item pouch|orcnogSW5e} without using an object interaction to do so. Instead of {@item slug cartridge|orcnogSW5e}, you can instead store a {@item power cell|orcnogSW5e} which takes up the space of 10 cartridges.",
+                "repl": "An ammo pouch is a small pouch, usually worn around the waist or chest, which holds 20 {@item slug cartridge|orcnogSW5e|slug cartridges}. When you reload a weapon, you can draw as much ammunition needed from this pouch without using an object interaction to do so. Instead of {@item slug cartridge|orcnogSW5e|slug cartridges}, you can instead store a {@item power cell|orcnogSW5e} which takes up the space of 10 cartridges."
+            },
+			{
+				"find": "This belt has slots to hold 60 {@item slug cartridge|orcnogSW5e}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|orcnogSW5e}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|orcnogSW5e} takes an action.",
+				"repl": "This belt has slots to hold 60 {@item slug cartridge|orcnogSW5e|slug cartridges}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|orcnogSW5e|slug cartridges}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|orcnogSW5e|slug cartridges} takes an action."
+			},
+			{
+				"find": "An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|orcnogSW5e}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|orcnogSW5e} affecting them or to give them advantage on saving throws against {@item poison|orcnogSW5e} for 1 hour. It confers no benefit to droids or constructs.",
+				"repl": "An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|orcnogSW5e|poisons}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|orcnogSW5e} affecting them or to give them advantage on saving throws against {@item poison|orcnogSW5e} for 1 hour. It confers no benefit to droids or constructs."
+			},
+			{
+				"find": "Arrows are ammunition used in bow weapons. When you would use {@item poison|orcnogSW5e} to coat a weapon or {@item slug cartridge|orcnogSW5e} you can instead coat an arrow with the {@item poison|orcnogSW5e}. Once a {@condition poisoned} arrow hits a target, it no longer gives a bonus.",
+				"repl": "Arrows are ammunition used in bow weapons. When you would use {@item poison|orcnogSW5e} to coat a weapon or {@item slug cartridge|orcnogSW5e}, you can instead coat an arrow with the {@item poison|orcnogSW5e}. Once a poisoned arrow hits a target, it no longer gives a bonus."
+			},
+			{
+				"find": "A combustive {@item arrow|orcnogSW5e} is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the {@item arrow|orcnogSW5e} hits another creature, object, or surface it detonates. Each creature within 5ft of the {@item arrow|orcnogSW5e} detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the {@item arrow|orcnogSW5e} hits a target, it no longer gives a bonus.",
+				"repl": "A combustive arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
+			},
+			{
+				"find": "An electroshock {@item arrow|orcnogSW5e} is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When you hit a creature with this {@item arrow|orcnogSW5e}, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the {@item arrow|orcnogSW5e} hits a target, it no longer gives a bonus.",
+				"repl": "An electroshock arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
+			},
+			{
+				"find": "A noisemaker {@item arrow|orcnogSW5e} is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the {@item arrow|orcnogSW5e} hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the {@item arrow|orcnogSW5e} hits a target, it no longer gives a bonus.",
+				"repl": "A noisemaker arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
+			},
+			{
+				"find": "A bandolier is worn across the {@item chest|orcnogSW5e}. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|orcnogSW5e}. Once per turn, drawing an item from a bandolier does not require your object interaction.",
+				"repl": "A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|orcnogSW5e}. Once per turn, drawing an item from a bandolier does not require your object interaction."
+			},
+			{
+				"find": "Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 14 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. Breaking the binders requires a DC 20 Strength check. Escaping them requires a DC 20 Dexterity check. A set of binders comes with one key. Without the key, unlocking the binders requires a DC 15 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 10 and 15 hit points. Destroying the binders frees the creature without harming it.",
+				"repl": "Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 14 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. Breaking the binders requires a DC 20 Strength check. Escaping them requires a DC 20 Dexterity check. A set of binders comes with one key. Without the key, unlocking the binders requires a DC 15 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 10 and 15 hit points. Destroying the binders frees the creature without harming it."
+			},
+            {   "find": "Rather than traditional {@item power cell|orcnogSW5e}, the blaster cannon uses a specialized {@item power generator|orcnogSW5e} that allows it to fire continuously for 10 minutes. Replacing a {@item power generator|orcnogSW5e} takes an action.",
+                "repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the blaster cannon uses a specialized {@item power generator|orcnogSW5e} that allows it to fire continuously for 10 minutes. Replacing a {@item power generator|orcnogSW5e} takes an action."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the {@item bolt-thrower|orcnogSW5e} fires specialized projectiles in the form of bolts.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the {@item bolt-thrower|orcnogSW5e} fires specialized projectiles in the form of bolts."
+			},
+			{
+				"find": "This {@item bolt|orcnogSW5e}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 2d4} sonic damage on a failed save.",
+				"repl": "This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 2d4} sonic damage on a failed save."
+			},
+			{
+				"find": "This {@item bolt|orcnogSW5e}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 2d4} lightning damage on a failed save.",
+				"repl": "This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 2d4} lightning damage on a failed save."
+			},
+			{
+				"find": "This {@item bolt|orcnogSW5e}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 2d4} psychic damage on a failed save.",
+				"repl": "This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 2d4} psychic damage on a failed save."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the {@item bolt|orcnogSW5e}-thrower fires specialized projectiles in the form of {@item bolt|orcnogSW5e}.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the bolt-thrower fires specialized projectiles in the form of {@item bolt|orcnogSW5e|bolts}."
+			},
+			{
+				"find": "A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@item security kit|orcnogSW5e} to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside.",
+				"repl": "A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@skill security kit|orcnogSW5e} check to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside."
+			},
+			{
+				"find": "Composite armor is a type of armored suit that offers a good balance of mobility and protection against most types of weapons. The micro-hydraulics of this type of powered armor provide the operator with protection, but are more bulky than mesh or {@item weave armor|orcnogSW5e}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use.",
+				"repl": "Composite armor is a type of armored suit that offers a good balance of mobility and protection against most types of weapons. The micro-hydraulics of this type of powered armor provide the operator with protection, but are more bulky than mesh or {@item weave armor|orcnogSW5e|weave armors}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the compound bow fires specialized projectiles in the form of {@item arrow|orcnogSW5e}. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one {@item arrow|orcnogSW5e}.",
+                "repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the compound bow fires specialized projectiles in the form of {@item arrow|orcnogSW5e|arrows}. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one {@item arrow|orcnogSW5e}."
+			},
+			{
+				"find": "When you make an Intelligence ({@item slicer's kit|orcnogSW5e}) check,",
+				"repl": "When you make an Intelligence ({@skill slicer's kit|orcnogSW5e}) check,"
+			},
+			{
+				"find": "The {@item credit|orcnogSW5e} chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of {@item credit|orcnogSW5e}, or it can draw directly from a specific account held by the user. The {@item credit|orcnogSW5e} chip can be accessed with a pin, or by a DC 15 {@item slicer's kit|orcnogSW5e} check.",
+				"repl": "The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of {@item credit|orcnogSW5e|credits}, or it can draw directly from a specific account held by the user. The credit chip can be accessed with a pin, or by a DC 15 {@skill slicer's kit|orcnogSW5e} check."
+			},
+			{
+				"find": "A datacron is a type of {@item holocron|orcnogSW5e} that can be accessed by non-Force-sensitives and are mainly used to store encrypted data. They are complete with an interactive projection to access the infor-mation.",
+				"repl": "A datacron is a type of {@item holocron|orcnogSW5e} that can be accessed by non-Force-sensitives and are mainly used to store encrypted data. They are complete with an interactive projection to access the information."
+			},
+			{
+				"find": "All non-expendable droids need recharging as they are used. The battery has ten uses. As an action, you can expend one use of the battery to stabilize a droid that has 0 hit points, without needing to make an Intelligence (Technology) check.",
+				"repl": "All non-expendable droids need recharging as they are used. The battery has ten uses. As an action, you can expend one use of the battery to stabilize a droid that has 0 hit points, without needing to make an Intelligence ({@skill Technology}) check."
+			},
+			{
+				"find": "Fiber armor is a type of armor that offers more protection than the lighter {@item combat suit|orcnogSW5e}. Fiber armor is heavier overall than {@item combat suit|orcnogSW5e}, and not quite as flexible, but many consider the trade-offs worthwhile. It is a good source of defense from physical attacks and light blaster fire.",
+				"repl": "Fiber armor is a type of armor that offers more protection than the lighter {@item combat suit|orcnogSW5e}. Fiber armor is heavier overall than {@item combat suit|orcnogSW5e|combat suits}, and not quite as flexible, but many consider the trade-offs worthwhile. It is a good source of defense from physical attacks and light blaster fire."
+			},
+			{
+				"find": "The flechette cannon does not make attack rolls. Rather than traditional {@item power cell|orcnogSW5e}, the flechette cannon uses specialized projector tanks, which, when fired, spray an area with the contents of the tank. Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the flechette cannon�s strength requirement, creatures have advantage on their saving throws. If you lack proficiency in the flechette cannon, you must roll the damage dice twice and take the lesser total.",
+				"repl": "The flechette cannon does not make attack rolls. Rather than traditional {@item power cell|orcnogSW5e|power cells}, the flechette cannon uses specialized projector tanks, which, when fired, spray an area with the contents of the tank. Projector tanks require your target to make a saving throw to resist the tank's effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you're using as you fire it (no action required). If you don't meet the flechette cannon's strength requirement, creatures have advantage on their saving throws. If you lack proficiency in the flechette cannon, you must roll the damage dice twice and take the lesser total."
+			},
+			{
+				"find": "When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you have disadvantage on damage rolls with it",
+				"repl": "When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
+			},
+			{
+				"find": "A gas cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} {@item poison|orcnogSW5e} damage and is {@condition poisoned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition poisoned}.",
+				"repl": "A gas cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} poison damage and is {@condition poisoned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition poisoned}."
+			},
+			{
+				"find": "A silvery-green webbing sharp to the touch, yet when liquidized causes a heightened mental state and pleasurable boost. As an action, you can apply this substance to a creature within 5 feet. For the next minute, the creature experiences a high that allows them to roll an additional {@dice d3} when making an ability check, attack roll, or saving throw using Intelligence. At the end of the high, the creature must succeed on a DC 14 Wisdom saving throw or experience a low that lasts 10 minutes, during which they must roll a {@dice d3} and subtract the result when making an ability check, attack roll, or saving throw using Intelligence. At the end of the low, the creature must make a DC 14 Constitution\",\n\t\t\t\t\"saving throw to resist addiction.",
+				"repl": "A silvery-green webbing sharp to the touch, yet when liquidized causes a heightened mental state and pleasurable boost. As an action, you can apply this substance to a creature within 5 feet. For the next minute, the creature experiences a high that allows them to roll an additional {@dice d3} when making an ability check, attack roll, or saving throw using Intelligence. At the end of the high, the creature must succeed on a DC 14 Wisdom saving throw or experience a low that lasts 10 minutes, during which they must roll a {@dice d3} and subtract the result when making an ability check, attack roll, or saving throw using Intelligence. At the end of the low, the creature must make a DC 14 Constitution saving throw to resist addiction."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the grenade launcher fires grenades. When firing a grenade at long range, or if you don�t meet the grenade launcher�s strength requirement, creatures within the radius of the grenade�s explosion have advantage on the saving throw. If you lack proficiency in the grenade launcher, you must roll the damage dice twice and take the lesser total.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the grenade launcher fires grenades. When firing a grenade at long range, or if you don't meet the grenade launcher's strength requirement, creatures within the radius of the grenade's explosion have advantage on the saving throw. If you lack proficiency in the grenade launcher, you must roll the damage dice twice and take the lesser total."
+			},
+			{
+				"find": "When a creature enters the fog or starts its turn there, it creature must make a DC 14 Constitution saving throw. The creature takes {@damage 2d6} {@item poison|orcnogSW5e} damage on a failed save, or half as much damage on a successful one. Additionally, on a failed save, the creature is {@condition poisoned} while it is in the cloud. Droids, constructs and humanoids wearing appropriate protective equipment are unaffected.",
+				"repl": "When a creature enters the fog or starts its turn there, it creature must make a DC 14 Constitution saving throw. The creature takes {@damage 2d6} poison damage on a failed save, or half as much damage on a successful one. Additionally, on a failed save, the creature is {@condition poisoned} while it is in the cloud. Droids, constructs and humanoids wearing appropriate protective equipment are unaffected."
+			},
+			{
+				"find": "Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
+				"repl": "Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+			},
+			{
+				"find": "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote",
+				"repl": "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition poisoned} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the mortar launcher fires grenades. If you lack proficiency in the mortar launcher, you must roll the damage dice twice and take the lesser total. A mortar launcher cannot fire on targets within its short range and when firing a grenade at long range, creatures within the radius of the grenade's explosion do not have advantage on the saving throw. Additionally, when you launch a mortar at a target, you can treat the Weapon's point of origin as being 200ft in the air for the purposes of determining line of sight and cover.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the mortar launcher fires grenades. If you lack proficiency in the mortar launcher, you must roll the damage dice twice and take the lesser total. A mortar launcher cannot fire on targets within its short range and when firing a grenade at long range, creatures within the radius of the grenade's explosion do not have advantage on the saving throw. Additionally, when you launch a mortar at a target, you can treat the Weapon's point of origin as being 200ft in the air for the purposes of determining line of sight and cover."
+			},
+			{
+				"find": "As an action, you can use the poison in this {@item vial|orcnogSW5e} to coat one vibroweapon, one {@item slug cartridge|orcnogSW5e}, or one {@item wrist launcher|orcnogSW5e} {@item dart|orcnogSW5e}. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying.",
+				"repl": "As an action, you can use the poison in this {@item vial|orcnogSW5e} to coat one vibroweapon, one {@item slug cartridge|orcnogSW5e}, or one wrist launcher {@item dart|orcnogSW5e}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
+			},
+			{
+				"find": "This belt has slots to hold six {@item power cell|orcnogSW5e}, and can be connected to directly power a single blaster weapon that uses {@item power cell|orcnogSW5e}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|orcnogSW5e} takes an action.",
+				"repl": "This belt has slots to hold six {@item power cell|orcnogSW5e|power cells}, and can be connected to directly power a single blaster weapon that uses {@item power cell|orcnogSW5e|power cells}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|orcnogSW5e} takes an action."
+			},
+			{
+				"find": "Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
+				"repl": "Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+			},
+			{
+				"find": "A quiver which can hold up to 20 {@item arrow|orcnogSW5e}, 10 {@item bolt|orcnogSW5e}, or 10 {@item dart|orcnogSW5e}. Drawing an item from the quiver does not require an object interaction.",
+				"repl": "A quiver which can hold up to 20 {@item arrow|orcnogSW5e|arrows}, 10 {@item bolt|orcnogSW5e|bolts}, or 10 {@item dart|orcnogSW5e|darts}. Drawing an item from the quiver does not require an object interaction."
+			},
+			{
+				"find": "A repair kit included the basic tools needed to repair a droid after being damaged in combat. The kit has three",
+				"repl": "A repair kit includes the basic tools needed to repair a droid after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
+			},
+			{
+				"find": "Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
+				"repl": "Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+			},
+            {
+				"find": "Restraining {@item bolt|orcnogSW5e} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining {@item bolt|orcnogSW5e} restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit.",
+                "repl": "Restraining bolts are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining bolt restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit."
+            },
+            {
+                "find": "Installing a restraining {@item bolt|orcnogSW5e} takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining {@item bolt|orcnogSW5e} overloads and is rendered useless. On a failed save, the restraining {@item bolt|orcnogSW5e} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining {@item bolt|orcnogSW5e}.",
+				"repl": "Installing a restraining bolt takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining bolt overloads and is rendered useless. On a failed save, the restraining bolt is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining bolt."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the rocket launcher fires specialized projectiles in the form of rockets. When firing a rocket at long range, or if you don�t meet the rocket launcher�s strength requirement, creatures within the radius of the rocket�s explosion have advantage on the saving throw.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the rocket launcher fires specialized projectiles in the form of rockets. When firing a rocket at long range, or if you don't meet the rocket launcher's strength requirement, creatures within the radius of the rocket's explosion have advantage on the saving throw."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the rocket rifle fires specialized projectiles in the form of small missiles.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the rocket rifle fires specialized projectiles in the form of small missiles."
+			},
+			{
+				"find": "Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
+				"repl": "Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+			},
+			{
+				"find": "When you make an Intelligence ({@item security kit|orcnogSW5e}) check,",
+				"repl": "When you make an Intelligence ({@skill security kit|orcnogSW5e}) check,"
+			},
+			{
+				"find": "Before firing the {@item sentry|orcnogSW5e} gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the {@item sentry|orcnogSW5e} gun as an action or bonus action.",
+				"repl": "Before firing the sentry gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the sentry gun as an action or bonus action."
+			},
+            {
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the shortbow fires specialized projectiles in the form of {@item arrow|orcnogSW5e}. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one {@item arrow|orcnogSW5e}.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the shortbow fires specialized projectiles in the form of {@item arrow|orcnogSW5e|arrows}. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one {@item arrow|orcnogSW5e}."
+			},
+			{
+				"find": "{@skill Stealth} field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}. This effect ends early if you make an attack or cast a force- or tech- power.",
+				"repl": "Stealth field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}. This effect ends early if you make an attack or cast a force- or tech- power."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the torpedo launcher fires specialized projectiles in the form of torpedoes. Torpedo launchers have advantage on attack rolls against Gargantuan creatures and disadvantage on attack rolls against Large and smaller creatures. Unlike other weapons, the torpedo launcher can only be loaded using an action, and you don't add your Dexterity modifier to damage rolls you make with it.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the torpedo launcher fires specialized projectiles in the form of torpedoes. Torpedo launchers have advantage on attack rolls against Gargantuan creatures and disadvantage on attack rolls against Large and smaller creatures. Unlike other weapons, the torpedo launcher can only be loaded using an action, and you don't add your Dexterity modifier to damage rolls you make with it."
+			},
+			{
+				"find": "Underwater {@item respirator|orcnogSW5e} are worn over the mouth and lower face. While worn, you can breath underwater, as the {@item respirator|orcnogSW5e} filters the water to create breathable oxygen. The {@item respirator|orcnogSW5e} functions for 1 hour per {@item power cell|orcnogSW5e} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
+				"repl": "Underwater respirators are worn over the mouth and lower face. While worn, you can breath underwater, as the respirator filters the water to create breathable oxygen. The respirator functions for 1 hour per {@item power cell|orcnogSW5e} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+			},
+			{
+				"find": "The vapor projector does not make attack rolls. Rather than traditional {@item power cell|orcnogSW5e}, the vapor projector uses specialized projector tanks, which, when fired, spray an area with the contents of the tank.",
+				"repl": "The vapor projector does not make attack rolls. Rather than traditional {@item power cell|orcnogSW5e|power cells}, the vapor projector uses specialized projector tanks, which, when fired, spray an area with the contents of the tank."
+            },
+			{
+				"find": "Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the vapor projector�s strength requirement, creatures have advantage on their saving throws. If you lack proficiency in the vapor projector, you must roll the damage dice twice and take the lesser total.",
+				"repl": "Projector tanks require your target to make a saving throw to resist the tank's effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you're using as you fire it (no action required). If you don't meet the vapor projector's strength requirement, creatures have advantage on their saving throws. If you lack proficiency in the vapor projector, you must roll the damage dice twice and take the lesser total."
+			},
+			{
+				"find": "Rather than traditional {@item power cell|orcnogSW5e}, the wrist launcher fires specialized projectiles in the form of {@item dart|orcnogSW5e}, small missiles, or specialized canisters.",
+				"repl": "Rather than traditional {@item power cell|orcnogSW5e|power cells}, the wrist launcher fires specialized projectiles in the form of {@item dart|orcnogSW5e|darts}, small missiles, or specialized canisters."
+            }
+        ]
+        manualChanges.forEach((m) => {
+            const find = new RegExp(m.find.escapeRegexp());
+            if (json.search(find) < 0) {
+                console.warn(`Could not manually replace text: \"${m.find}\"\nwith text \"${m.repl}\".`);
+                return;
+            }
+            json = json.replace(find, m.repl);
+        });
+        return json;
+    }
 }
