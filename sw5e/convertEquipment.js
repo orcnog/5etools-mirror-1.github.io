@@ -850,14 +850,15 @@ const equipmentConfig = {
 
             function getItemRange(o) {
                 // String like "60/120" or undefined
+                let range = null;
                 if (o.propertiesMap) {
                     Object.values(o.propertiesMap).forEach((v) => {
                         if (v.search(/\(range \d/g) > -1) {
-                            return (v.match(/[\d/]+/g)).join(); // filter out everything but digits and "/". Ex: "Power Cell (range 20/40)"" becomes "20/40"
+                            range = (v.match(/[\d/]+/g)).join(); // filter out everything but digits and "/". Ex: "Power Cell (range 20/40)"" becomes "20/40"
                         }
                     });
                 }
-                return undefined;
+                return range || undefined;
             }
 
             function getItemArmor(o) {

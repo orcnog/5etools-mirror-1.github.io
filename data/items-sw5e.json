@@ -2768,7 +2768,8 @@
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
-			"dmgType": "Unknown"
+			"dmgType": "Unknown",
+			"range": "20/60"
 		},
 		{
 			"name": "Bolas (Champion)",
@@ -3862,7 +3863,8 @@
 			"dmgType": "Kinetic",
 			"entries": [
 				null
-			]
+			],
+			"range": "30/90"
 		},
 		{
 			"name": "Chance cubes",
@@ -16140,7 +16142,8 @@
 			"dmgType": "Energy",
 			"entries": [
 				null
-			]
+			],
+			"range": "20/60"
 		},
 		{
 			"name": "Light-fist",
@@ -16313,7 +16316,8 @@
 			"dmgType": "Energy",
 			"entries": [
 				null
-			]
+			],
+			"range": "25/75"
 		},
 		{
 			"name": "Lightbow",
@@ -19031,7 +19035,8 @@
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
-			"dmgType": "Unknown"
+			"dmgType": "Unknown",
+			"range": "15"
 		},
 		{
 			"name": "Net (Champion)",
@@ -24396,7 +24401,8 @@
 			"dmg2": "2d4",
 			"entries": [
 				null
-			]
+			],
+			"range": "20/60"
 		},
 		{
 			"name": "Saber-whip",
@@ -27955,7 +27961,8 @@
 			"dmgType": "Kinetic",
 			"entries": [
 				null
-			]
+			],
+			"range": "20/60"
 		},
 		{
 			"name": "Tech-blade",
@@ -29631,7 +29638,8 @@
 			"dmgType": "Kinetic",
 			"entries": [
 				null
-			]
+			],
+			"range": "20/60"
 		},
 		{
 			"name": "Vibro-dart",
@@ -29653,7 +29661,8 @@
 			"dmgType": "Kinetic",
 			"entries": [
 				null
-			]
+			],
+			"range": "20/60"
 		},
 		{
 			"name": "Vibro-flail",
@@ -29973,7 +29982,8 @@
 			"dmg2": "2d4",
 			"entries": [
 				null
-			]
+			],
+			"range": "20/60"
 		},
 		{
 			"name": "Vibro-staff",
@@ -30018,7 +30028,8 @@
 			"entries": [
 				null
 			],
-			"keen": 1
+			"keen": 1,
+			"range": "30/90"
 		},
 		{
 			"name": "Vibro-sword",
@@ -30464,7 +30475,8 @@
 			"entries": [
 				null
 			],
-			"defensive": 1
+			"defensive": 1,
+			"range": "30/90"
 		},
 		{
 			"name": "Warsaber",
