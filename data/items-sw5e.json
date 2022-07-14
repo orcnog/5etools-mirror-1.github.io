@@ -1618,7 +1618,6 @@
 			"rarity": "very rare",
 			"entries": [
 				"Once on your turn, you can activate this implant to gain the effects of an adrenal (no action required). This effect lasts for one minute, or until a different adrenal is chosen. You can choose from the following types of adrenals:",
-				"{@i}_",
 				{
 					"type": "list",
 					"items": [
@@ -12724,7 +12723,7 @@
 			"type": "G",
 			"rarity": "very rare",
 			"entries": [
-				"This holocron contains a single 5th-level force power, or multiple powers of 1st-4th level with a combined level no greater than 5. After meditating with the holocron for at least 16 hours, a forcecaster with a Max Power Level of 5th or higher can make a DC 22 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 5th-level force power, or multiple powers of 1st-4th level with a combined level no greater than 5. After meditating with the holocron for at least 16 hours, a forcecaster with a Max Power Level of 5th or higher can make a DC 22 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@spell remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			]
 		},
@@ -12735,7 +12734,7 @@
 			"type": "G",
 			"rarity": "artifact",
 			"entries": [
-				"This holocron contains a single 9th-level force power, or multiple powers of 1st-8th level with a combined level no greater than 9. After meditating with the holocron for at least 80 hours, a forcecaster with a Max Power Level of 9th or higher can make a DC 30 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 9th-level force power, or multiple powers of 1st-8th level with a combined level no greater than 9. After meditating with the holocron for at least 80 hours, a forcecaster with a Max Power Level of 9th or higher can make a DC 30 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@spell remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			]
 		},
@@ -12746,7 +12745,7 @@
 			"type": "G",
 			"rarity": "uncommon",
 			"entries": [
-				"This holocron contains a single 1st-level force power. After meditating with the holocron for at least 4 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 14 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power, which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 1st-level force power. After meditating with the holocron for at least 4 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 14 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the contained force power, which does not count against their force powers known and can not be unlearned except through use of a {@spell remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			]
 		},
@@ -12757,7 +12756,7 @@
 			"type": "G",
 			"rarity": "rare",
 			"entries": [
-				"This holocron contains a single 3rd-level force power, or multiple powers of 1st-2nd level with a combined level no greater than 3. After meditating with the holocron for at least 8 hours, a forcecaster with a Max Power Level of 3rd or higher can make a DC 18 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 3rd-level force power, or multiple powers of 1st-2nd level with a combined level no greater than 3. After meditating with the holocron for at least 8 hours, a forcecaster with a Max Power Level of 3rd or higher can make a DC 18 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@spell remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			]
 		},
@@ -12768,7 +12767,7 @@
 			"type": "G",
 			"rarity": "legendary",
 			"entries": [
-				"This holocron contains a single 7th-level force power, or multiple powers of 1st-6th level with a combined level no greater than 7. After meditating with the holocron for at least 40 hours, a forcecaster with a Max Power Level of 7th or higher can make a DC 26 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single 7th-level force power, or multiple powers of 1st-6th level with a combined level no greater than 7. After meditating with the holocron for at least 40 hours, a forcecaster with a Max Power Level of 7th or higher can make a DC 26 forcecasting ability check with proficiency based on the alignment of the power(s) stored within. On a success, they learn the contained force power(s), which does not count against their force powers known and can not be unlearned except through use of a {@spell remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			]
 		},
@@ -12779,7 +12778,7 @@
 			"type": "G",
 			"rarity": "common",
 			"entries": [
-				"This holocron contains a single at-will force power. After meditating with the holocron for at least 2 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 10 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the {@spell contained|orcnogSW5e} force power, which does not count against their force powers known and can not be unlearned except through use of a {@i remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
+				"This holocron contains a single at-will force power. After meditating with the holocron for at least 2 hours, a forcecaster with a Max Power Level of 1st or higher can make a DC 10 forcecasting ability check with proficiency based on the alignment of the power stored within. On a success, they learn the contained force power, which does not count against their force powers known and can not be unlearned except through use of a {@spell remove curse} power. On a failure, the power is not learned and the forcecaster can't try again for 24 hours.",
 				"{@i Holocrons are information-storage devices used by Force-wielders that contain ancient lessons or valuable information in holographic form.}"
 			]
 		},
@@ -18205,7 +18204,7 @@
 			"type": "G",
 			"rarity": "legendary",
 			"entries": [
-				"When you deal damage with this weapon, you deal an additional {@damage 1d6} force, lightning, necrotic, poison, psychic, or sonic damage (chosen by the GM when generating this item)."
+				"When you deal damage with this weapon, you deal an additional {@damage 1d6} force, lightning, necrotic, {@item poison|orcnogSW5e}, psychic, or sonic damage (chosen by the GM when generating this item)."
 			]
 		},
 		{
@@ -18215,7 +18214,7 @@
 			"type": "G",
 			"rarity": "artifact",
 			"entries": [
-				"When you deal damage with this weapon, you deal an additional {@damage 1d8} force, lightning, necrotic, poison, psychic, or sonic damage (chosen by the GM when generating this item)."
+				"When you deal damage with this weapon, you deal an additional {@damage 1d8} force, lightning, necrotic, {@item poison|orcnogSW5e}, psychic, or sonic damage (chosen by the GM when generating this item)."
 			]
 		},
 		{
@@ -18225,7 +18224,7 @@
 			"type": "G",
 			"rarity": "very rare",
 			"entries": [
-				"When you deal damage with this weapon, you deal an additional {@damage 1d4} force, lightning, necrotic, poison, psychic, or sonic damage (chosen by the GM when generating this item)."
+				"When you deal damage with this weapon, you deal an additional {@damage 1d4} force, lightning, necrotic, {@item poison|orcnogSW5e}, psychic, or sonic damage (chosen by the GM when generating this item)."
 			]
 		},
 		{
@@ -19388,7 +19387,7 @@
 			"type": "G",
 			"rarity": "common",
 			"entries": [
-				"You gain the ability to charge expended {@item power cell|orcnogSW5e|power cells} and {@item power generator|orcnogSW5e|power generators} within your reach. You have a charging capacity of 1 hour. You can spend 10 minutes of this charging capacity to replenish an expended {@item power cell|orcnogSW5e|power cells}, or 1 hour replenishing an expended {@item power generator|orcnogSW5e|power generators}. Alternatively, you can directly connect to and power a single blaster weapon that uses {@item power cell|orcnogSW5e} or {@item power generator|orcnogSW5e}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action, instead expending 10 minutes of your charging capacity if it uses {@item power cell|orcnogSW5e|power cells} or 1 hour if it uses a {@item power generator|orcnogSW5e}. Connecting or disconnecting a weapon takes an action.",
+				"You gain the ability to charge expended {@item power cell|orcnogSW5e|power cells} and {@item power generator|orcnogSW5e|power generators} within your reach. You have a charging capacity of 1 hour. You can spend 10 minutes of this charging capacity to replenish an expended {@item power cell|orcnogSW5e}, or 1 hour replenishing an expended {@item power generator|orcnogSW5e}. Alternatively, you can directly connect to and power a single blaster weapon that uses {@item power cell|orcnogSW5e} or {@item power generator|orcnogSW5e}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action, instead expending 10 minutes of your charging capacity if it uses {@item power cell|orcnogSW5e|power cells} or 1 hour if it uses a {@item power generator|orcnogSW5e}. Connecting or disconnecting a weapon takes an action.",
 				"If you attempt to replenish an enhanced {@item power cell|orcnogSW5e} or {@item power generator|orcnogSW5e}, or a specialized {@item power cell|orcnogSW5e}, it loses its enhanced or specialized properties."
 			]
 		},
@@ -21987,7 +21986,7 @@
 			"type": "G",
 			"rarity": "artifact",
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 50 feet. The {@item rocket boots|orcnogSW5e} last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 50 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -22002,7 +22001,7 @@
 			"type": "G",
 			"rarity": "legendary",
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 45 feet. The {@item rocket boots|orcnogSW5e} last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 45 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -22017,7 +22016,7 @@
 			"type": "G",
 			"rarity": "uncommon",
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 30 feet. The {@item rocket boots|orcnogSW5e} last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 30 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -22032,7 +22031,7 @@
 			"type": "G",
 			"rarity": "rare",
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 35 feet. The {@item rocket boots|orcnogSW5e} last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 35 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -22047,7 +22046,7 @@
 			"type": "G",
 			"rarity": "very rare",
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 40 feet. The {@item rocket boots|orcnogSW5e} last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 40 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -22338,7 +22337,7 @@
 			"weight": 35,
 			"entries": [
 				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 25 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 5 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
-				"Additionally, your rocketpack comes with an integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute."
+				"Additionally, your rocketpack comes with an integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute."
 			],
 			"modifySpeed": {
 				"static": {
@@ -22353,7 +22352,7 @@
 			"type": "G",
 			"rarity": "artifact",
 			"entries": [
-				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 50 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}.",
+				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 50 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
 				"Additionally, your rocketpack comes with an enhanced integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute. You have a +3 bonus to attack rolls and deal an additional {@damage 1d10} damage with this enhanced {@item rocket launcher|orcnogSW5e}."
 			],
 			"bonusWeaponAttack": "+3",
@@ -22370,7 +22369,7 @@
 			"type": "G",
 			"rarity": "legendary",
 			"entries": [
-				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 45 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 9 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}.",
+				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 45 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 9 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
 				"Additionally, your rocketpack comes with an enhanced integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute. You have a +3 bonus to attack rolls and deal an additional {@damage 1d8} damage with this enhanced {@item rocket launcher|orcnogSW5e}."
 			],
 			"bonusWeaponAttack": "+3",
@@ -22387,7 +22386,7 @@
 			"type": "G",
 			"rarity": "uncommon",
 			"entries": [
-				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 30 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 6 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}.",
+				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 30 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 6 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
 				"Additionally, your rocketpack comes with an enhanced integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute. You have a +1 bonus to attack and damage rolls made with this enhanced {@item rocket launcher|orcnogSW5e}."
 			],
 			"bonusWeapon": "+1",
@@ -22404,7 +22403,7 @@
 			"type": "G",
 			"rarity": "rare",
 			"entries": [
-				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 35 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 7 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}.",
+				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 35 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 7 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
 				"Additionally, your rocketpack comes with an enhanced integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute. You have a +2 bonus to attack and damage rolls made with this enhanced {@item rocket launcher|orcnogSW5e}."
 			],
 			"bonusWeapon": "+2",
@@ -22421,7 +22420,7 @@
 			"type": "G",
 			"rarity": "very rare",
 			"entries": [
-				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 40 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 8 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}.",
+				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 40 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 8 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
 				"Additionally, your rocketpack comes with an enhanced integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute. You have a +3 bonus to attack and damage rolls made with this enhanced {@item rocket launcher|orcnogSW5e}."
 			],
 			"bonusWeapon": "+3",
@@ -25488,7 +25487,6 @@
 			"entries": [
 				"This augmentation replaces your eyes and face.",
 				"This implant contains several tools for long-term survival and reconnaissance. As a bonus action, you can activate one of the below modes that enable you to use several of these tools at once. Only one mode can be active at a time.",
-				"{@i}_",
 				{
 					"type": "list",
 					"items": [
