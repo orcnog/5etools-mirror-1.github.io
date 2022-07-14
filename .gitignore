@@ -1,6 +1,6 @@
 desktop.ini
 node_modules
-
+patch/*.json
 
 # IntelliJ project files
 .idea/
