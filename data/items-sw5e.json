@@ -1372,7 +1372,7 @@
 			"rarity": "none",
 			"value": 10,
 			"entries": [
-				"Arrows are ammunition used in bow weapons. When you would use poison to coat a weapon or slug cartridge you can instead coat an arrow with the poison. Once a {@condition poisoned} arrow hits a target, it no longer gives a bonus."
+				"Arrows are ammunition used in bow weapons. When you would use {@item poison|orcnogSW5e} to coat a weapon or {@item slug cartridge|orcnogSW5e}, you can instead coat an arrow with the {@item poison|orcnogSW5e}. Once a poisoned arrow hits a target, it no longer gives a bonus."
 			]
 		},
 		{
@@ -1383,7 +1383,7 @@
 			"rarity": "none",
 			"value": 1000,
 			"entries": [
-				"A combustive arrow is a specialized arrow for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
+				"A combustive arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
 			],
 			"baseItem": "arrow|orcnogSW5e"
 		},
@@ -1395,7 +1395,7 @@
 			"rarity": "none",
 			"value": 1500,
 			"entries": [
-				"An electroshock arrow is a specialized arrow for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
+				"An electroshock arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
 			],
 			"baseItem": "arrow|orcnogSW5e"
 		},
@@ -1407,7 +1407,7 @@
 			"rarity": "none",
 			"value": 1250,
 			"entries": [
-				"A noisemaker arrow is a specialized arrow for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
+				"A noisemaker arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
 			],
 			"baseItem": "arrow|orcnogSW5e"
 		},
@@ -4798,7 +4798,7 @@
 			"value": 1450,
 			"weight": 0.5,
 			"entries": [
-				"When you make an Intelligence ({@skill security kit|orcnogSW5e}) check, you can use the spike (no action required) to reroll the check. You must use the new roll. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
+				"When you make an Intelligence ({@skill slicer's kit|orcnogSW5e}) check, you can use the spike (no action required) to reroll the check. You must use the new roll. You can wait until after you roll the {@dice d20} before deciding to use the spike, but you must decide before the GM says whether the check succeeds or fails."
 			]
 		},
 		{
