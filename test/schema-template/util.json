@@ -1177,7 +1177,12 @@
 				"psychic",
 				"radiant",
 				"slashing",
-				"thunder"
+				"thunder",
+				"kinetic",
+				"ion",
+				"energy",
+				"sonic",
+				"true"
 			]
 		},
 
@@ -1536,7 +1541,7 @@
 
 		"dataDamageTags": {
 			"type": "string",
-			"description": "A: Acid\n B: Bludgeoning\n C: Cold\n F: Fire\n O: Force\n L: Lightning\n N: Necrotic\n P: Piercing\n I: Poison\n Y: Psychic\n R: Radiant\n S: Slashing\n T: Thunder",
+			"description": "A: Acid\n B: Bludgeoning\n C: Cold\n F: Fire\n O: Force\n L: Lightning\n N: Necrotic\n P: Piercing\n I: Poison\n Y: Psychic\n R: Radiant\n S: Slashing\n T: Thunder\n Kinetic: Kinetic\n Ion: Ion\n Energy: Energy\n Sonic: Sonic\n True: True",
 			"enum": [
 				"A",
 				"B",

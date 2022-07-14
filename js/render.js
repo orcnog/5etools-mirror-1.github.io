@@ -6956,10 +6956,13 @@ Renderer.item = {
 		const itemUrl = urls.items || `${Renderer.get().baseUrl}data/items.json`;
 		const itemSw5eUrl = urls.items || `${Renderer.get().baseUrl}data/items-sw5e.json`;
 		const baseItemUrl = urls.baseitems || `${Renderer.get().baseUrl}data/items-base.json`;
+		const baseItemSw5eUrl = urls.baseitems || `${Renderer.get().baseUrl}data/items-base-sw5e.json`;
 		const magicVariantUrl = urls.magicvariants || `${Renderer.get().baseUrl}data/magicvariants.json`;
 
 		const itemList = await pLoadItems();
-		const baseItems = await Renderer.item._pGetAndProcBaseItems(await DataUtil.loadJSON(baseItemUrl));
+		const baseItemsData = await Renderer.item._pGetAndProcBaseItems(await DataUtil.loadJSON(baseItemUrl));
+		const baseItemsSw5eData = await Renderer.item._pGetAndProcBaseItems(await DataUtil.loadJSON(baseItemSw5eUrl));
+        const baseItems = baseItemsData.concat(baseItemsSw5eData);
 		const [genericVariants, linkedLootTables] = Renderer.item._getAndProcGenericVariants(await DataUtil.loadJSON(magicVariantUrl));
 		Renderer.item._builtLists["genericVariants"] = genericVariants; // Cache generic variants to use with homebrew later
 		const specificVariants = Renderer.item._createSpecificVariants(baseItems, genericVariants, {linkedLootTables});
@@ -7192,8 +7195,10 @@ Renderer.item = {
 		} else {
 			opts.baseItemsUrl = opts.baseItemsUrl || `${Renderer.get().baseUrl}data/items-base.json`;
 			const baseItemData = await DataUtil.loadJSON(opts.baseItemsUrl);
-			Renderer.item._addBasePropertiesAndTypes(baseItemData);
-			baseItems = [...baseItemData.baseitem, ...(opts.additionalBaseItems || [])];
+			const baseItemSw5eData = await DataUtil.loadJSON(`${Renderer.get().baseUrl}data/items-base-sw5e.json`);
+            const baseItem = baseItemData.concat(baseItemSw5eData);
+			Renderer.item._addBasePropertiesAndTypes(baseItem);
+			baseItems = [...baseItem.baseitem, ...(opts.additionalBaseItems || [])];
 		}
 
 		await Renderer.item._pAddBrewPropertiesAndTypes();
@@ -7495,7 +7500,7 @@ Renderer.item = {
 	populatePropertyAndTypeReference: () => {
 		if (Renderer.item._isRefPopulated) return Promise.resolve();
 		return new Promise((resolve, reject) => {
-			DataUtil.loadJSON(`${Renderer.get().baseUrl}data/items-base.json`)
+			DataUtil.loadJSON(`${Renderer.get().baseUrl}data/items-base.json`) // returns an OBJECT
 				.then(data => {
 					if (Renderer.item._isRefPopulated) {
 						resolve();
@@ -7520,8 +7525,10 @@ Renderer.item = {
 	},
 
 	// fetch every possible indexable item from official data
-	async getAllIndexableItems (rawVariants, rawBaseItems) {
-		const basicItems = await Renderer.item._pGetAndProcBaseItems(rawBaseItems);
+	async getAllIndexableItems (rawVariants, rawBaseItemsSw5e, rawBaseItems) {
+		const basicItemsSw5eData = await Renderer.item._pGetAndProcBaseItems(rawBaseItemsSw5e);
+		const basicItemsData = await Renderer.item._pGetAndProcBaseItems(rawBaseItems);
+		const basicItems = basicItemsData.concat(basicItemsSw5eData);
 		const [genericVariants, linkedLootTables] = await Renderer.item._getAndProcGenericVariants(rawVariants);
 		const specificVariants = Renderer.item._createSpecificVariants(basicItems, genericVariants, {linkedLootTables});
 

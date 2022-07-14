@@ -400,6 +400,18 @@ class IndexableFileItemsBase extends IndexableFile {
 	}
 }
 
+class IndexableFileItemsBaseSw5e extends IndexableFile {
+	constructor () {
+		super({
+			category: Parser.CAT_ID_ITEM,
+			file: "items-base-sw5e.json",
+			listProp: "baseitem",
+			baseUrl: "items.html",
+			isHover: true,
+		});
+	}
+}
+
 class IndexableFileItems extends IndexableFile {
 	constructor () {
 		super({
@@ -451,10 +463,12 @@ class IndexableFileMagicVariants extends IndexableFile {
 			additionalIndexes: {
 				item: async (indexer, rawVariants) => {
 					const specVars = await (async () => {
-						if (typeof module !== "undefined") return Renderer.item.getAllIndexableItems(rawVariants, require(`../data/items-base.json`));
+						if (typeof module !== "undefined") return Renderer.item.getAllIndexableItems(rawVariants, require(`../data/items-base.json`), require(`../data/items-base-sw5e.json`));
 						else {
 							const baseItemJson = await DataUtil.loadJSON(`data/items-base.json`);
-							const rawBaseItems = {...baseItemJson, baseitem: [...baseItemJson.baseitem]};
+							const baseItemSw5eJson = await DataUtil.loadJSON(`data/items-base-sw5e.json`);
+							// const rawBaseItems = {...baseItemJson, baseitem: [...baseItemJson.baseitem]}; // i don't see why this is constructed this way.  it's equiv to just {...baseItemJson}
+							const rawBaseItems = {...baseItemJson, baseitem: [...baseItemSw5eJson.baseitem]}; // but i will totally capitalize on the existing syntax and hijack it to concat sw5e baseitems!
 							const brew = await BrewUtil2.pGetBrewProcessed();
 							if (brew.baseitem) rawBaseItems.baseitem.push(...brew.baseitem);
 							return Renderer.item.getAllIndexableItems(rawVariants, rawBaseItems);
@@ -1186,6 +1200,7 @@ Omnidexer.TO_INDEX = [
 	new IndexableFileOptFeatures_AlchemicalFormula(),
 	new IndexableFileOptFeatures_Maneuver(),
 	new IndexableFileItemsBase(),
+	new IndexableFileItemsBaseSw5e(),
 
 	new IndexableFileItems(),
 	new IndexableFileItemsSw5e(),

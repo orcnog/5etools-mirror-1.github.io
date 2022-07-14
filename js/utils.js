@@ -4010,12 +4010,14 @@ DataUtil = {
 				const urlItems = `${Renderer.get().baseUrl}data/items.json`;
 				const urlSw5eItems = `${Renderer.get().baseUrl}data/items-sw5e.json`;
 				const urlItemsBase = `${Renderer.get().baseUrl}data/items-base.json`;
+				const urlItemsBaseSw5e = `${Renderer.get().baseUrl}data/items-base-sw5e.json`;
 				const urlVariants = `${Renderer.get().baseUrl}data/magicvariants.json`;
 
-				const [dataItems, dataItemsSw5e, dataItemsBase, dataVariants] = await Promise.all([
+				const [dataItems, dataItemsSw5e, dataItemsBase, dataItemsBaseSw5e, dataVariants] = await Promise.all([
 					DataUtil.loadJSON(urlItems),
 					DataUtil.loadJSON(urlSw5eItems),
 					DataUtil.loadJSON(urlItemsBase),
+					DataUtil.loadJSON(urlItemsBaseSw5e),
 					DataUtil.loadJSON(urlVariants),
 				]);
 
@@ -4023,7 +4025,7 @@ DataUtil = {
 					item: MiscUtil.copy(dataItems.item.concat(dataItemsSw5e.item)),
 					itemGroup: MiscUtil.copy(dataItems.itemGroup),
 					variant: MiscUtil.copy(dataVariants.variant),
-					baseitem: MiscUtil.copy(dataItemsBase.baseitem),
+					baseitem: MiscUtil.copy(dataItemsBase.baseitem.concat(dataItemsBaseSw5e.baseitem)),
 				};
 			})();
 			await DataUtil.item._pLoadingRawJson;

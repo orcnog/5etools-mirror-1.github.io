@@ -3484,9 +3484,14 @@ Parser.DMGTYPE_JSON_TO_FULL = {
 	"R": "radiant",
 	"S": "slashing",
 	"T": "thunder",
+	"Kinetic": "kinetic",
+	"Ion": "ion:",
+	"Energy": "energy",
+	"Sonic": "sonic",
+	"True": "true"
 };
 
-Parser.DMG_TYPES = ["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder"];
+Parser.DMG_TYPES = ["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder", "kinetic", "ion", "energy", "sonic", "true"];
 Parser.CONDITIONS = ["blinded", "charmed", "deafened", "exhaustion", "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned", "prone", "restrained", "stunned", "unconscious"];
 
 Parser.SENSES = [

@@ -23,6 +23,7 @@ class BlacklistUtil {
 		"deities.json",
 		"feats.json",
 		"items-base.json",
+		"items-base-sw5e.json",
 		"magicvariants.json",
 		"items.json",
 		"items-sw5e.json",

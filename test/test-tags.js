@@ -428,6 +428,8 @@ class ItemDataCheck extends GenericDataCheck {
 	static run () {
 		const basicItems = require(`../data/items-base.json`);
 		basicItems.baseitem.forEach(it => this._checkRoot("data/items-base.json", it, it.name, it.source));
+		const basicItemsSw5e = require(`../data/items-base-sw5e.json`);
+		basicItemsSw5e.baseitemSw5e.forEach(it => this._checkRoot("data/items-base-sw5e.json", it, it.name, it.source));
 
 		const items = require(`../data/items.json`);
 		items.item.forEach(it => this._checkRoot("data/items.json", it, it.name, it.source));

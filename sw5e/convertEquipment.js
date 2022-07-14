@@ -18,15 +18,30 @@ const equipmentConfig = {
         }
         let items = [];
         for (i = 0; i < apiobj.length; i++) {
+
+            // main converter function
             const newItem = convertEquipmentItem(apiobj[i]);
+
+            // attempt to tag conditions, skills, spells, etc
             if (typeof newItem.entries !== 'object') return;
             ItemParser._doItemPostProcess(newItem, {
                 cbWarning: ()=>{console.log('cbWarning')},
                 cbOutput: ()=>{console.log('cbOutput')}
             });
+
             items.push(newItem);
         }
+
+        // de-dupe
         items = mergeDupes(items, 'name');
+
+        // tag sw5e item references in entries (2nd attempt)
+        for (var i in items) {
+            for (var e in items[i].entries) {
+                const nameMinusParentheses = items[i].name.replace(/\s\(.+\)/, '');
+                items[i].entries[e] = tagSw5eItemsInString(items[i].entries[e], {minWords: 1, stopwords: [nameMinusParentheses]});
+            }
+        }
 
         const converted5eTools = {
             "item": items
@@ -46,45 +61,40 @@ const equipmentConfig = {
             let isRangedWeapon = false;
             let isArmor = false;
             let isFocus = false;
-            let ret = {
-                "name": obj.name,
-                "source": sourceString,
-                "page": 0,
-                "type": getItemType(obj),
-                "rarity": getItemRarity(obj),
-                "age": "futuristic",
-                "value": getItemValue(obj),
-                "weight": getItemWeight(obj),
-                "entries": getItemEntries(obj),
-                "property": getItemProperty(obj),
-                "foundryType": getItemType(obj, true),
-                "baseItem": getItemBaseItem(obj),
-                "reqAttune": getItemReqAttune(obj),
-                "recharge": getItemRecharge(obj),
-                "charges": getItemCharges(obj),
-                "focus": getItemFocus(obj),
-                "poison": getItemPoison(obj),
-                "poisonTypes": getItemPoisonTypes(obj),
-                "vulnerable": getItemVulnerable(obj),
-                // weapon
-                "weapon": getItemWeapon(obj),
-                "weaponCategory": getItemWeaponCategory(obj),
-                "dmg1": getItemDmg1(obj),
-                "dmgType": getItemDmgType(obj),
-                "dmg2": getItemDmg2(obj),
-                // ranged weapon
-                "firearm": getItemFirearm(obj),
-                "ammunition": getItemAmmunition(obj),
-                "ammoType": getItemAmmoType(obj),
-                "reload": getItemReload(obj),
-                "range": getItemRange(obj),
-                // armor
-                "armor": getItemArmor(obj),
-                "ac": getItemAc(obj),
-                "stealth": getItemStealth(obj),
-                "strength": getItemStrength(obj),
-                "vulnerable": getItemVulnerable(obj)
-            };
+            let ret = {};
+            ret.name = obj.name;
+            ret.source = sourceString;
+            ret.page = 0;
+            ret.type = getItemType(obj);
+            ret.rarity = getItemRarity(obj);
+            ret.age = "futuristic";
+            ret.value = getItemValue(obj);
+            ret.weight = getItemWeight(obj);
+            ret.entries = getItemEntries(obj);
+            ret.property = getItemProperty(obj);
+            // ret.foundryType = getItemType(obj, true);
+            ret.baseItem = getItemBaseItem(obj);
+            ret.reqAttune = getItemReqAttune(obj);
+            ret.recharge = getItemRecharge(obj);
+            ret.charges = getItemCharges(obj);
+            ret.focus = getItemFocus(obj);
+            ret.poison = getItemPoison(obj);
+            ret.poisonTypes = getItemPoisonTypes(obj);
+            ret.vulnerable = getItemVulnerable(obj);
+            ret.weapon = getItemWeapon(obj);
+            ret.weaponCategory = getItemWeaponCategory(obj);
+            ret.dmg1 = getItemDmg1(obj);
+            ret.dmgType = getItemDmgType(obj);
+            ret.dmg2 = getItemDmg2(obj);
+            ret.firearm = getItemFirearm(obj);
+            ret.ammunition = getItemAmmunition(obj);
+            ret.ammoType = getItemAmmoType(obj);
+            ret.reload = getItemReload(obj);
+            ret.range = getItemRange(obj);
+            ret.armor = getItemArmor(obj);
+            ret.ac = getItemAc(obj);
+            ret.stealth = getItemStealth(obj);
+            ret.strength = getItemStrength(obj);
 
             // TODO: ret.immune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
             // TODO: ret.conditionImmune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
@@ -305,23 +315,25 @@ const equipmentConfig = {
             }
 
             function getItemEntries(o) {
-                let description;
+                let description = [];
+                let txt = '';
                 if ('description' in o) {
-                    description = [o.description]
+                    txt = o.description;
                 } else if ('text' in o) {
-                    let txt = o.text.replaceAll('�','\'');
+                    txt = o.text.replaceAll('�','\'');
+                    txt = o.text.replaceAll('—','\\u2014');
                     txt = txt.replaceAll('_**Requires attunement**_\r\n', '');
-                    txt = txt.replaceAll('\r\n', ' ');
-                    txt = txt.replaceAll('\r', ' ');
-                    txt = txt.replaceAll('\n', ' ');
                     const bold = /\*\*(.*?)\*\*/gm;
                     txt = txt.replace(bold, '\{@b $1\}');
                     const italic1 = /\*(.*?)\*/gm;
                     const italic2 = /_(.*?)_/gm;
                     txt = txt.replace(italic1, '\{@i $1\}');
                     txt = txt.replace(italic2, '\{@i $1\}');
-                    description = [txt];
                 }
+                description = txt?.split(/(?:\r\n)+/) || [txt]; // handle new lines as new entry array items (strings)
+                description.forEach((str,i,arr) => {
+                    if (str) arr[i] = cleanString(str);
+                });
                 return description || undefined;
             }
 
@@ -330,55 +342,364 @@ const equipmentConfig = {
                 // variable string values
 
                 // 5eTools item properties:
-                // 2H: Two-Handed
-                // A: Ammunition
-                // AF: Ammunition (futuristic)
-                // BF: Burst Fire
-                // EM: Eldritch Machine
-                // F: Finesse
-                // H: Heavy
-                // L: Light
-                // LD: Loading
+                // 2H:  Two-Handed  (sw5e has its own two-handed: SW2)
+                // A:   Ammunition  (uses ammo, not IS ammo)
+                // AF:  Ammunition (futuristic) (uses ammo, not IS ammo)
+                // BF:  Burst Fire  (sw5e has its own burst to replace this one)
+                // EM:  Eldritch Machine (not used)
+                // F:   Finesse  (sw5e has its own finesse: SWF)
+                // H:   Heavy  (sw5e has its own heavy: SWH)
+                // L:   Light  (sw5e has its own light: SWL)
+                // LD:  Loading  (not used, i don't think)
                 // OTH: Other
-                // R: Reach
-                // RLD: Reload
-                // S: Special
-                // T: Thrown
-                // V: Versatile
+                // R:   Reach
+                // RLD: Reload  (although sw5e has it's own Reload, we'll use this, as 5etools version has baked-in support)
+                // S:   Special  (sw5e has its own special: SWS)
+                // T:   Thrown  (sw5e has its own thrown: SWT)
+                // V:   Versatile  (sw5e has its own versatile: SWV for weapons, and VSA for armor)
+                
+                // Added sw5e Weapon (PHB) properties (* has numberic property)
+                // SW2: Two-Handed (replace 2H)
+                // AUT: Auto
+                // BST: Burst *
+                // DEX: Dexterity *
+                // DSG: Disguised
+                // DBL: Double (*)
+                // SWF: Finesse (replace F)
+                // FXD: Fixed
+                // SWH: Heavy (replace H)
+                // HID: Hidden
+                // INL: Interlocking (weapon)
+                // SWL: Light (replace L)
+                // LUM: Luminous
+                // MOD: Modal (*)
+                // PEN: Penetrating *
+                // PCL: Power Cell (*)
+                // RNG: Range (redundant. remove, as 5etools autodetects Range property and has special (better) handling for it)
+                // RAP: Rapid *
+                // RET: Returning
+                // SLG: Slug Cartridge (*)
+                // SWS: Special (*) (replace S)
+                // SPC: Specialized
+                // STR: Strength * (weapon)
+                // SWT: Thrown (replace T)
+                // SWV: Versatile (*) (weapon, replace V)
+
+                // Added sw5e Weapon (WH) properties:
+                // BIT: Biting
+                // BRT: Bright *
+                // BRU: Brutal *
+                // COR: Corruption *
+                // DEF: Defensive *
+                // DIR: Dire *
+                // DSA: Disarming
+                // DSN: Disintegrate *
+                // DSR: Disruptive
+                // KEN: Keen *
+                // MIG: Mighty
+                // NEU: Neuralizing *
+                // PRC: Piercing *
+                // SHO: Shocking *
+                // SIL: Silent (weapon)
+                // SMT: Smart (*)
+                // SON: Sonorous *
+                // SWI: Switch
+                // VSC: Vicious *
+
+                // Added sw5e Armor (PHB) properties
+                // AST: Strength * (armor)
+                // BLK: Bulky
+                // OBT: Obtrusive
+
+                // Added sw5e Armor (WH) properties
+                // ABS: Absorptive *
+                // AGI: Agile
+                // ANC: Anchor
+                // AVO: Avoidant *
+                // BAR: Barbed
+                // CHG: Charging *
+                // CON: Concealing
+                // CMB: Cumbersome
+                // GAU: Gauntleted
+                // IMB: Imbalanced
+                // IMP: Impermeable
+                // INS: Insulated *
+                // INT: Interlocking (armor)
+                // LAM: Lambent
+                // LIG: Lightweight
+                // MAG: Magnetic
+                // OBS: Obscured
+                // POW: Powered
+                // REA: Reactive
+                // REG: Regulated
+                // REI: Reinforced
+                // RES: Responsive
+                // RIG: Rigid
+                // SIL: Silent (armor)
+                // SPK: Spiked
+                // STE: Steadfast
+                // VSA: Versatile (armor)
+                
                 let property = [];
-                if (o.equipmentCategoryEnum === 1) {
-                    property.push("AF");
-                }
                 if (!!o.propertiesMap) {
-                    if (o.propertiesMap["Two-Handed"]) {
-                        property.push("2H");
+                    if (isRangedWeapon && ret.type !== "AF" && !o.propertiesMap["Modal"]) {
+                        property.push("AF"); // uses ammo (not IS ammo)
                     }
-                    if (o.propertiesMap["Burst"]) {
-                        property.push("BF");
+                    if (o.propertiesMap["Range"] && o.propertiesMap["Range"].indexOf('thrown') > -1) {
+                        property.push("SWT");
                     }
                     if (o.propertiesMap["Finesse"]) {
-                        property.push("F");
+                        property.push("SWF");
                     }
                     if (o.propertiesMap["Heavy"]) {
-                        property.push("H");
+                        property.push("SWH");
                     }
                     if (o.propertiesMap["Light"]) {
-                        property.push("L");
+                        property.push("SWL");
                     }
                     if (o.propertiesMap["Reach"]) {
                         property.push("R");
                     }
+                    // if (o.propertiesMap["Loading"]) { // not used in sw5e (i don't think)
+                    //     property.push("LD");
+                    // }
                     if (o.propertiesMap["Reload"]) {
                         property.push("RLD");
                     }
+                    if (o.propertiesMap["Two-Handed"]) {
+                        property.push("SW2");
+                    }
+                    if (o.propertiesMap["Versatile"] && isWeapon) {
+                        property.push("SWV");
+                    }
                     if (o.propertiesMap["Special"]) {
-                        property.push("S");
+                        property.push("SWS");
                     }
-                    if (o.propertiesMap["Range"] && o.propertiesMap["Range"].indexOf('thrown') > -1) {
-                        property.push("T");
+                    // SW5e Weapon Properties (PHB)
+                    if (o.propertiesMap["Auto"]) {
+                        property.push("AUT");
                     }
-                    if (o.propertiesMap["Versatile"]) {
-                        property.push("V");
+                    if (o.propertiesMap["Burst"]) {
+                        property.push("BST");
+                        ret.burst = parseInt(o.propertiesMap.Burst.split(" ")[1]) || undefined; // Ex: "burst 3" returns 3
+                    }
+                    if (o.propertiesMap["Dexterity"]) {
+                        property.push("DEX");
+                        ret.dexterity = parseInt(o.propertiesMap.Dexterity.split(" ")[1]) || undefined; // Ex: "dexterity 13" returns 13
+                    }
+                    if (o.propertiesMap["Disguised"]) {
+                        property.push("DSG");
+                    }
+                    if (o.propertiesMap["Double"]) {
+                        property.push("DBL");
+                    }
+                    if (o.propertiesMap["Fixed"]) {
+                        property.push("FXD");
+                    }
+                    if (o.propertiesMap["Hidden"]) {
+                        property.push("HID");
+                    }
+                    if (o.propertiesMap["Interlocking"] && isWeapon) {
+                        property.push("INL");
+                    }
+                    if (o.propertiesMap["Luminous"]) {
+                        property.push("LUM");
+                    }
+                    if (o.propertiesMap["Modal"]) {
+                        property.push("MOD");
+                        let str = o.propertiesMap.Modal.match(/\(([^\)]+)\)/)[1] || undefined; // Ex: "Modal (Aaa and Bbb)" returns "Aaa and Bbb"
+                        str = str.replace(/\btech([^-]+)\b/gi, 'tech-$1'); // modify for ex "techstaff" to "tech-staff"
+                        str = tagSw5eItemsInString(str, {minWords: 1, stopwords: [ret.name]});
+                        ret.modal = str;
+                    }
+                    if (o.propertiesMap["Penetrating"]) {
+                        property.push("PEN");
+                        ret.penetrating = parseInt(o.propertiesMap.Penetrating.split(" ")[1]) || undefined; // Ex: "penetrating 3" returns 3
+                    }
+                    if (o.propertiesMap["Power Cell"]) {
+                        property.push("POW");
+                    }
+                    if (o.propertiesMap["Rapid"]) {
+                        property.push("RAP");
+                        ret.rapid = parseInt(o.propertiesMap.Rapid.split(" ")[1]) || undefined; // Ex: "rapid 3" returns 3
+                    }					
+                    if (o.propertiesMap["Returning"]) {
+                        property.push("RET");
+                    }
+                    if (o.propertiesMap["Range"] && o.propertiesMap["Range"].indexOf('Slug cartridge') > -1) {
+                        property.push("SLG");
+                    }
+                    if (o.propertiesMap["Specialized"]) {
+                        property.push("SPC");
+                    }
+                    if (o.propertiesMap["Strength"] && isWeapon) {
+                        property.push("STR");
+                    }
+                    // Sw5e Weapon Properties (WH)
+                    if (o.propertiesMap["Biting"]) {
+                        property.push("BIT");
+                    }
+                    if (o.propertiesMap["Bright"]) {
+                        property.push("BRT");
+                        ret.bright = parseInt(o.propertiesMap.Bright.split(" ")[1]) || undefined; // Ex: "bright 3" returns 3
+                    }
+                    if (o.propertiesMap["Brutal"]) {
+                        property.push("BRU");
+                        ret.brutal = parseInt(o.propertiesMap.Brutal.split(" ")[1]) || undefined; // Ex: "brutal 3" returns 3
+                    }
+                    if (o.propertiesMap["Corruption"]) {
+                        property.push("COR");
+                        ret.corruption = parseInt(o.propertiesMap.Corruption.split(" ")[1]) || undefined; // Ex: "corruption 3" returns 3
+                    }
+                    if (o.propertiesMap["Defensive"]) {
+                        property.push("DEF");
+                        ret.defensive = parseInt(o.propertiesMap.Defensive.split(" ")[1]) || undefined; // Ex: "defensive 3" returns 3
+                    }
+                    if (o.propertiesMap["Dire"]) {
+                        property.push("DIR");
+                        ret.dire = parseInt(o.propertiesMap.Dire.split(" ")[1]) || undefined; // Ex: "dire 3" returns 3
+                    }
+                    if (o.propertiesMap["Disarming"]) {
+                        property.push("DSA");
+                    }
+                    if (o.propertiesMap["Disintegrate"]) {
+                        property.push("DSN");
+                        ret.disintegrate = parseInt(o.propertiesMap.Disintegrate.split(" ")[1]) || undefined; // Ex: "disintegrate 3" returns 3
+                    }
+                    if (o.propertiesMap["Disruptive"]) {
+                        property.push("DSR");
+                    }
+                    if (o.propertiesMap["Keen"]) {
+                        property.push("KEN");
+                        ret.keen = parseInt(o.propertiesMap.Keen.split(" ")[1]) || undefined; // Ex: "keen 3" returns 3
+                    }
+                    if (o.propertiesMap["Mighty"]) {
+                        property.push("MIG");
+                    }
+                    if (o.propertiesMap["Neuralizing"]) {
+                        property.push("NEU");
+                        ret.neuralizing = parseInt(o.propertiesMap.Neuralizing.split(" ")[1]) || undefined; // Ex: "neuralizing 3" returns 3
+                    }
+                    if (o.propertiesMap["Piercing"]) {
+                        property.push("PRC");
+                        ret.piercing = parseInt(o.propertiesMap.Piercing.split(" ")[1]) || undefined; // Ex: "piercing 3" returns 3
+                    }
+                    if (o.propertiesMap["Shocking"]) {
+                        property.push("SHO");
+                        ret.shocking = parseInt(o.propertiesMap.Shocking.split(" ")[1]) || undefined; // Ex: "shocking 3" returns 3
+                    }
+                    if (o.propertiesMap["Silent"] && isWeapon) {
+                        property.push("SIL");
+                    }
+                    if (o.propertiesMap["Smart"]) {
+                        property.push("SMT");
+                    }
+                    if (o.propertiesMap["Sonorous"]) {
+                        property.push("SON");
+                        ret.sonorous = parseInt(o.propertiesMap.Sonorous.split(" ")[1]) || undefined; // Ex: "sonorous 3" returns 3
+                    }
+                    if (o.propertiesMap["Switch"]) {
+                        property.push("SWI");
+                    }
+                    if (o.propertiesMap["Vicious"]) {
+                        property.push("VSC");
+                        ret.vicious = parseInt(o.propertiesMap.Vicious.split(" ")[1]) || undefined; // Ex: "vicious 3" returns 3
+                    }
+                    // Sw5e Armor Properties (PHB)
+                    if (o.propertiesMap["Bulky"]) {
+                        property.push("BLK");
+                    }
+                    if (o.propertiesMap["Strength"] && isArmor) {
+                        property.push("AST");
+                    }
+                    if (o.propertiesMap["Obtrusive"]) {
+                        property.push("OBT");
+                    }
+                    // Sw5e Armor Properties (WH)
+                    if (o.propertiesMap["Absorptive"]) {
+                        property.push("ABS");
+                        ret.absorptive = parseInt(o.propertiesMap.Absorptive.split(" ")[1]) || undefined; // Ex: "absorptive 3" returns 3
+                    }
+                    if (o.propertiesMap["Agile"]) {
+                        property.push("AGI");
+                    }
+                    if (o.propertiesMap["Anchor"]) {
+                        property.push("ANC");
+                    }
+                    if (o.propertiesMap["Avoidant"]) {
+                        property.push("AVO");
+                        ret.avoidant = parseInt(o.propertiesMap.Avoidant.split(" ")[1]) || undefined; // Ex: "avoidant 3" returns 3
+                    }
+                    if (o.propertiesMap["Barbed"]) {
+                        property.push("BAR");
+                    }
+                    if (o.propertiesMap["Charging"]) {
+                        property.push("CHG");
+                        ret.charging = parseInt(o.propertiesMap.Charging.split(" ")[1]) || undefined; // Ex: "charging 3" returns 3
+                    }
+                    if (o.propertiesMap["Concealing"]) {
+                        property.push("CON");
+                    }
+                    if (o.propertiesMap["Cumbersome"]) {
+                        property.push("CMB");
+                    }
+                    if (o.propertiesMap["Gauntleted"]) {
+                        property.push("GAU");
+                    }
+                    if (o.propertiesMap["Imbalanced"]) {
+                        property.push("IMB");
+                    }
+                    if (o.propertiesMap["Impermeable"]) {
+                        property.push("IMP");
+                    }
+                    if (o.propertiesMap["Insulated"]) {
+                        property.push("INS");
+                        ret.insulated = parseInt(o.propertiesMap.Insulated.split(" ")[1]) || undefined; // Ex: "insulated 3" returns 3
+                    }
+                    if (o.propertiesMap["Interlocking"] && isArmor) {
+                        property.push("INT");
+                    }
+                    if (o.propertiesMap["Lambent"]) {
+                        property.push("LAM");
+                    }
+                    if (o.propertiesMap["Lightweight"]) {
+                        property.push("LIG");
+                    }
+                    if (o.propertiesMap["Magnetic"]) {
+                        property.push("MAG");
+                    }
+                    if (o.propertiesMap["Obscured"]) {
+                        property.push("OBS");
+                    }
+                    if (o.propertiesMap["Powered"]) {
+                        property.push("POW");
+                    }
+                    if (o.propertiesMap["Reactive"]) {
+                        property.push("REA");
+                    }
+                    if (o.propertiesMap["Regulated"]) {
+                        property.push("REG");
+                    }
+                    if (o.propertiesMap["Reinforced"]) {
+                        property.push("REI");
+                    }
+                    if (o.propertiesMap["Responsive"]) {
+                        property.push("RES");
+                    }
+                    if (o.propertiesMap["Rigid"]) {
+                        property.push("RIG");
+                    }
+                    if (o.propertiesMap["Silent"] && isArmor) {
+                        property.push("SIL");
+                    }
+                    if (o.propertiesMap["Spiked"]) {
+                        property.push("SPK");
+                    }
+                    if (o.propertiesMap["Steadfast"]) {
+                        property.push("STE");
+                    }
+                    if (o.propertiesMap["Versatile"] && isArmor) {
+                        property.push("VSA");
                     }
                 }
                 return property.length > 0 ? property : undefined;
@@ -461,9 +782,13 @@ const equipmentConfig = {
             }
 
             function getItemDmgType(o) {
-                // return a String like "1d10" or undefined
+                // return a String like "N" or "Energy" or undefined
                 if (isWeapon && o.damageType) {
-                    return o.damageType;
+                    let dmgType = o.damageType;
+                    if (o.propertiesMap["Modal"] && dmgType === 'Unknown') {
+                        dmgType = 'Special';
+                    }
+                    return dmgType;
                 }
                 return undefined;
             }
@@ -525,9 +850,6 @@ const equipmentConfig = {
 
             function getItemRange(o) {
                 // String like "60/120" or undefined
-                if (!isRangedWeapon) {
-                    return undefined;
-                }
                 if (o.propertiesMap) {
                     Object.values(o.propertiesMap).forEach((v) => {
                         if (v.search(/\(range \d/g) > -1) {
@@ -560,8 +882,8 @@ const equipmentConfig = {
             }
 
             function getItemStrength(o) {
-                // return an Integer or undefined
-                if (isArmor && 'propertiesMap' in o && 'Strength' in o.propertiesMap) {
+                // return an Integer or undefined. In 5eTools this property is meant to only apply to ARMOR, but in sw5e they apply something extremely similar to WEAPONS as well, so I will go ahead and apply this to both too.
+                if ((isArmor || isWeapon) && 'propertiesMap' in o && 'Strength' in o.propertiesMap) {
                     return parseInt(o.propertiesMap.Strength.split(" ")[1]); // Ex: "strength 11" returns 11
                 }
                 return undefined;
@@ -589,64 +911,64 @@ const equipmentConfig = {
                 return undefined; // No SW5e items seem to have this property
             }
 
-            function getItemimmune(o) {
-                // return a Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
+            function getItemImmune(o) {
+                // return Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
             }
 
-            function getItemconditionImmune(o) {
-                // return a Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
+            function getItemConditionImmune(o) {
+                // return Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
             }
 
-            function getItembonusSpellAttack(o) {
-                // return a String like "+2"
+            function getItemBonusSpellAttack(o) {
+                // return String like "+2"
             }
 
-            function getItembonusSpellSaveDc(o) {
-                // return a String like "+2"
+            function getItemBonusSpellSaveDc(o) {
+                // return String like "+2"
             }
 
-            function getItembonusSpellDamage(o) {
-                // return a String like "+2"
+            function getItemBonusSpellDamage(o) {
+                // return String like "+2"
             }
 
-            function getItembonusSavingThrow(o) {
-                // return a String like "+1"
+            function getItemBonusSavingThrow(o) {
+                // return String like "+1"
             }
 
-            function getItembonusAbilityCheck(o) {
-                // return a String like "+1"
+            function getItemBonusAbilityCheck(o) {
+                // return String like "+1"
             }
 
-            function getItembonusProficiencyBonus(o) {
-                // return a String like "+1"
+            function getItemBonusProficiencyBonus(o) {
+                // return String like "+1"
             }
 
-            function getItembonusAc(o) {
-                // return a String like "+1"
+            function getItemBonusAc(o) {
+                // return String like "+1"
             }
 
-            function getItembonusWeapon(o) {
-                // return a String like "+3"
+            function getItemBonusWeapon(o) {
+                // return String like "+3"
             }
 
-            function getItembonusWeaponAttack(o) {
-                // return a String like "+3"
+            function getItemBonusWeaponAttack(o) {
+                // return String like "+3"
             }
 
-            function getItembonusWeaponDamage(o) {
-                // return a String like "+2"
+            function getItemBonusWeaponDamage(o) {
+                // return String like "+2"
             }
 
-            function getItembonusWeaponCritDamage(o) {
-                // return a String like "4d6"
+            function getItemBonusWeaponCritDamage(o) {
+                // return String like "4d6"
             }
 
-            function getItemcritThreshold(o) {
-                // return a Integer. Ex: 19
+            function getItemCritThreshold(o) {
+                // return Integer. Ex: 19
             }
 
-            function getItemmodifySpeed(o) {
-                // return a Ex: {"equal":{"swim:"walk"}}, Ex2: "bonus":{"*":5}, Ex3: {"multiply":{"walk":2}}, Ex4: {"static":{"fly":150}}
+            function getItemModifySpeed(o) {
+                // return Object, Ex: {"equal":{"swim:"walk"}}, Ex2: "bonus":{"*":5}, Ex3: {"multiply":{"walk":2}}, Ex4: {"static":{"fly":150}}
             }
 
             function getItemFocus(o) {
@@ -658,55 +980,55 @@ const equipmentConfig = {
                 return undefined;
             }
 
-            function getItemscfType(o) {
+            function getItemScfType(o) {
                 // return a String enum "arcane","druid","holy"
             }
 
-            function getItempackContents(o) {
+            function getItemPackContents(o) {
                 // return a Array of item name strings, or objects (see D:\Development\5etools-mirror-1.github.io\data\items.json)
             }
 
-            function getItemcontainerCapacity(o) {
+            function getItemContainerCapacity(o) {
                 // return a Complex object. Ex: {"weight":[6],"item":[{"sling bullet|phb":20,"blowgun needle|phb":50}],"weightless":true}
             }
 
-            function getItematomicPackContents(o) {
+            function getItemAtomicPackContents(o) {
                 // return a Boolean. If the item's pack contents should be treated as one atomic unit, rather than handled as individual sub-items.
             }
 
-            function getItemcarryingCapacity(o) {
+            function getItemCarryingCapacity(o) {
                 // return a Integer. Of a mount/beast, not a container.
             }
 
-            function getItemresist(o) {
+            function getItemResist(o) {
                 // return a Array of damage type strings Ex: ["lightning"]
             }
 
-            function getItemgrantsProficiency(o) {
+            function getItemGrantsProficiency(o) {
                 // return a Boolean
             }
 
-            function getItemability(o) {
+            function getItemAbility(o) {
                 // return a Object with ability abbrevs. and int value, maybe wrapped with "static". Ex: {"str":2}, Ex 2: {"static": {"str": 21}}
             }
 
-            function getItemattachedSpells(o) {
+            function getItemAttachedSpells(o) {
                 // return a Array of spell name strings. Ex: ["reincarnate"]
             }
 
-            function getItemspellScrollLevel(o) {
+            function getItemSpellScrollLevel(o) {
                 // return a Integer
             }
 
-            function getItemadditionalEntries(o) {
+            function getItemAdditionalEntries(o) {
                 // return a complex object (see D:\Development\5etools-mirror-1.github.io\data\items.json)
             }
 
-            function getItemdetail1(o) {
+            function getItemDetail1(o) {
                 // return a String. A descriptive field that can be used to complete entries in variants.
             }
 
-            function getItemdexterityMax(o) {
+            function getItemDexterityMax(o) {
                 // return a not sure if i need this?  Max dex for medium armor
             }
 
@@ -727,9 +1049,14 @@ const equipmentConfig = {
         if (o !== undefined && (s === undefined || s === null || s === "" || s === [])) return o;
         // for weight and value (cost) specifically, if a value already exists in destination, but incoming value is 0, defer to existing.
         if ((k === "weight" || k === "value") && o !== null && s === 0) return o;
+        // dedupe itemProperty vals
+        if (k === "property" && _.isArray(o)) {
+            const dedupedarray = [...new Set([...o ,...s])];
+            return dedupedarray;
+          }
         return undefined;
     },
 
-    // Whether the merged entities be reordered in alphabetical order in the returned merged object
+    // Whether the merged entities should be reordered in alphabetical order in the returned merged object
     alphabetizeByKey: true
 }

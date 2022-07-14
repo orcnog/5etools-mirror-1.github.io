@@ -35,6 +35,46 @@ function parse(str) {
 
 /**
  * @function
+ * @description clean a string using 5eTools native CleanUtils
+ * @param {String} str the input to clean
+ * @returns {String} a cleaned string
+ */
+function cleanString (str) {
+    if (typeof str !== "string") return str;
+    return CleanUtil.getCleanString(str, {isFast: false}).replace(CleanUtil.STR_REPLACEMENTS_REGEX, (match) => CleanUtil.STR_REPLACEMENTS[match]).trim();
+}
+
+/**
+ * @function
+ * @description try to tag item references in a string using a dulpicated 5eTools native tagging tool, from ItemTag
+ * @param {String} str the input in which to tag item names
+ * @param {Object}  [opts] Options object
+ * @param {Integer} [opts.minwords] the minimum word length of an item name to tag
+ * @param {Array}   [opts.stopwords] an array of words to exclude from matching regex
+ * @returns {String} a string with tagged items, possibly
+ */
+function tagSw5eItemsInString (str, opt) {
+    if (typeof str !== "string") return str;
+    Sw5eItemTag.init(opt);
+    const taggedObj = Sw5eItemTag.tryRun({_: [str]});
+    return taggedObj?._[0] || str;
+}
+
+/**
+ * @function
+ * @description remove specific words from the RegExp to match for tagging. Ex: if you removeStopWords (/hello|world|hi|there/gi, ['world','there']) you could get /hello/hi/gi
+ * @param {RegExp} re the original regexp to copy and modify
+ * @param {Array} words array of words to remove from matching regex
+ */
+function removeStopWords (re, words) {
+    if (typeof words !== "object" || words.length < 1) return re;
+    var stopWdsRE = new RegExp(`${words.join("|\\|?")}`, "gi");
+    var reStr = re.toString().replace(stopWdsRE, '').replace(/^\/\|?|\/[dimguys]*$/gi, '');
+    return new RegExp(reStr, re.flags);
+}
+
+/**
+ * @function
  * @description take a collection of similar objects and find & dedupe those with the same key, by
  *  merging the dupes together into one.
  * @example Given the following object:

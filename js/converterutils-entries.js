@@ -171,8 +171,8 @@ class ItemTag {
 			if (toolTypes.has(it.type)) return false;
 			// Disallow specific items
 			if (it.name === "Wave" && it.source === SRC_DMG) return false;
-			// Allow all non-specific-variant DMG items
-			if (it.source === SRC_DMG && !Renderer.item.isMundane(it) && it._category !== "Specific Variant") return true;
+			// Allow all non-specific-variant DMG and SW5e items
+			if ((it.source === SRC_DMG || it.source === "orcnogSW5e") && !Renderer.item.isMundane(it) && it._category !== "Specific Variant") return true;
 			// Allow "sufficiently complex name" items
 			return it.name.split(" ").length > 2;
 		});
@@ -223,6 +223,111 @@ ItemTag._ITEM_NAMES = {};
 ItemTag._ITEM_NAMES_REGEX_TOOLS = null;
 
 ItemTag._WALKER = MiscUtil.getWalker({
+	keyBlacklist: new Set([
+		...TagJsons.WALKER_KEY_BLACKLIST,
+		"packContents", // Avoid tagging item pack contents
+		"items", // Avoid tagging item group item lists
+	]),
+});
+
+/**
+ * @param [opts] Options object
+ * @param [opts.minwords] {Integer} the minimum word length of an item name to tag
+ * @param [opts.stopwords] {Array} an array of words to exclude from matching regex
+ */
+class Sw5eItemTag {
+	static init (opts) {
+        const minWordsChanged = !!opts?.minwords && parseInt(opts.minwords) !== Sw5eItemTag._minWords;
+        const stopWordsChanged = !!opts?.stopwords && JSON.stringify(opts.stopwords) !== JSON.stringify(Sw5eItemTag._stopWords);
+        
+        if (Sw5eItemTag._isInit && !minWordsChanged && !stopWordsChanged) return;
+
+        Sw5eItemTag._minWords = minWordsChanged ? parseInt(opts.minwords) : Sw5eItemTag._minWords;
+        Sw5eItemTag._stopWords = stopWordsChanged ? opts.stopwords : Sw5eItemTag._stopWords;
+
+        const itemArr = Renderer.item._builtLists.builtList;
+        if (itemArr.length === 0) {
+            console.warn("Renderer.item._builtLists.builtList is not yet initialized.");
+            return;
+        }
+		const sw5eItems = itemArr.filter(it => it.source === "orcnogSW5e");
+
+		// region Tools
+		const toolTypes = new Set(["AT", "GS", "INS", "T"]);
+		const tools = sw5eItems.filter(it => toolTypes.has(it.type));
+		tools.forEach(tool => {
+			Sw5eItemTag._ITEM_NAMES[tool.name.toLowerCase()] = {name: tool.name, source: tool.source};
+		});
+
+		Sw5eItemTag._ITEM_NAMES_REGEX_TOOLS = new RegExp(`\\b(${tools.map(it => it.name.escapeRegexp()).join("|")})(?:s|es)?\\b`, "gi"); // added plural matches
+		// endregion
+
+		// region Other items
+		const otherItems = sw5eItems.filter(it => {
+			if (toolTypes.has(it.type)) return false;
+			if (Sw5eItemTag._stopWords) {
+                // Disallow specific items
+                for (var i in Sw5eItemTag._stopWords) {
+                    if (it.name === Sw5eItemTag._stopWords[i]) return false;
+                }
+            }
+			// Allow all non-specific-variant DMG and SW5e items
+			//   if (!Renderer.item.isMundane(it) && it._category !== "Specific Variant") return true;  // jury's still out on whether we want this restriction
+			// Allow "sufficiently complex name" items
+			return it.name.split(" ").length > Sw5eItemTag._minWords - 1;
+		});
+		otherItems.forEach(it => {
+			Sw5eItemTag._ITEM_NAMES[it.name.toLowerCase()] = {name: it.name, source: it.source};
+		});
+
+		Sw5eItemTag._ITEM_NAMES_REGEX_OTHER = new RegExp(`\\b(${otherItems.map(it => it.name.escapeRegexp()).join("|")})(?:s|es)?\\b`, "gi"); // added plural matches
+		// endregion
+        Sw5eItemTag._isInit = true;
+
+	}
+
+	static tryRun (it) {
+		return TagJsons.WALKER.walk(
+			it,
+			{
+				string: (str) => {
+					const ptrStack = {_: ""};
+					TaggerUtils.walkerStringHandler(
+						["@item"],
+						ptrStack,
+						0,
+						0,
+						str,
+						{
+							fnTag: this._fnTag,
+						},
+					);
+					return ptrStack._;
+				},
+			},
+		);
+	}
+
+	static _fnTag (strMod) {
+		return strMod
+			.replace(Sw5eItemTag._ITEM_NAMES_REGEX_TOOLS, (...m) => {
+				const itemMeta = Sw5eItemTag._ITEM_NAMES[m[1].toLowerCase()];
+				return `{@item ${m[1]}${itemMeta.source !== SRC_DMG ? `|${itemMeta.source}` : ""}}`;
+			})
+			.replace(Sw5eItemTag._ITEM_NAMES_REGEX_OTHER, (...m) => {
+				const itemMeta = Sw5eItemTag._ITEM_NAMES[m[1].toLowerCase()];
+				return `{@item ${m[1]}${itemMeta.source !== SRC_DMG ? `|${itemMeta.source}` : ""}}`;
+			})
+		;
+	}
+}
+Sw5eItemTag._isInit = false;
+Sw5eItemTag._minWords = 1;
+Sw5eItemTag._stopWords = [];
+Sw5eItemTag._ITEM_NAMES = {};
+Sw5eItemTag._ITEM_NAMES_REGEX_TOOLS = null;
+
+Sw5eItemTag._WALKER = MiscUtil.getWalker({
 	keyBlacklist: new Set([
 		...TagJsons.WALKER_KEY_BLACKLIST,
 		"packContents", // Avoid tagging item pack contents
