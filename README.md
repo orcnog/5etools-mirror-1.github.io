@@ -147,7 +147,8 @@ This project is licensed under the terms of the MIT license.
 
 ## My Notes
 
-to apply custom items fixes (those not covered or incorrectly interpretted by the converter script), run the following git command from the CLI:
+to apply custom items fixes (those not covered or incorrectly interpretted by the converter script), run one of these two commands, resolve issues, then try again:
 ```
 git apply -v --ignore-space-change --ignore-whitespace patch/items-fix.patch
+git apply -v --ignore-space-change --ignore-whitespace patch/enhanceditems-fix.patch
 ```
