@@ -142,3 +142,12 @@ Note that while using the service worker, some files are served cache-first (see
 ## License
 
 This project is licensed under the terms of the MIT license.
+
+---
+
+## My Notes
+
+to apply custom items fixes (those not covered or incorrectly interpretted by the converter script), run the following git command from the CLI:
+```
+git apply -v --ignore-space-change --ignore-whitespace items-fix.patch
+```

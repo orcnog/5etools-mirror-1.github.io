@@ -580,58 +580,58 @@
 			"entries": [
 				"You have resistance to one type of damage while you wear this armor. The DM chooses the type or determines it randomly from the options below.",
 				{
-                    "type": "table",
-                    "colLabels": [
-                        "d10",
-                        "Damage Type"
-                    ],
-                    "colStyles": [
-                        "col-1 text-center",
-                        "col-11"
-                    ],
-                    "rows": [
-                        [
-                            "1",
-                            "Acid"
-                        ],
-                        [
-                            "2",
-                            "Cold"
-                        ],
-                        [
-                            "3",
-                            "Fire"
-                        ],
-                        [
-                            "4",
-                            "Force"
-                        ],
-                        [
-                            "5",
-                            "Ion"
-                        ],
-                        [
-                            "6",
-                            "Lightning"
-                        ],
-                        [
-                            "7",
-                            "Necrotic"
-                        ],
-                        [
-                            "8",
-                            "Poison"
-                        ],
-                        [
-                            "9",
-                            "Psychic"
-                        ],
-                        [
-                            "10",
-                            "Sonic"
-                        ]
-                    ]
-                },
+					"type": "table",
+					"colLabels": [
+						"d10",
+						"Damage Type"
+					],
+					"colStyles": [
+						"col-1 text-center",
+						"col-11"
+					],
+					"rows": [
+						[
+							"1",
+							"Acid"
+						],
+						[
+							"2",
+							"Cold"
+						],
+						[
+							"3",
+							"Fire"
+						],
+						[
+							"4",
+							"Force"
+						],
+						[
+							"5",
+							"Ion"
+						],
+						[
+							"6",
+							"Lightning"
+						],
+						[
+							"7",
+							"Necrotic"
+						],
+						[
+							"8",
+							"Poison"
+						],
+						[
+							"9",
+							"Psychic"
+						],
+						[
+							"10",
+							"Sonic"
+						]
+					]
+				},
 				"{@i Those foolhardy enough to not treat a hostile planet as worthy a foe as the ones carrying blasters don't often live long enough to boast about it.}"
 			],
 			"reqAttune": true
@@ -871,7 +871,7 @@
 			"age": "futuristic",
 			"value": 150,
 			"entries": [
-				"An ammo pouch is a small pouch, usually worn around the waist or chest, which holds 20 slug cartridges. When you reload a weapon, you can draw as much ammunition needed from this pouch without using an object interaction to do so. Instead of slug cartridges, you can instead store a power cell which takes up the space of 10 cartridges."
+				"An ammo pouch is a small pouch, usually worn around the waist or chest, which holds 20 {@item slug cartridge|orcnogSW5e|slug cartridges}. When you reload a weapon, you can draw as much ammunition needed from this pouch without using an object interaction to do so. Instead of {@item slug cartridge|orcnogSW5e|slug cartridges}, you can instead store a {@item power cell|orcnogSW5e} which takes up the space of 10 cartridges."
 			]
 		},
 		{
@@ -884,7 +884,7 @@
 			"value": 4500,
 			"weight": 1,
 			"entries": [
-				"This belt has slots to hold 60 slug cartridges, and can be connected to directly fuel a single blaster weapon that uses slug cartridges. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 slug cartridges takes an action."
+				"This belt has slots to hold 60 {@item slug cartridge|orcnogSW5e|slug cartridges}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|orcnogSW5e|slug cartridges}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|orcnogSW5e|slug cartridges} takes an action."
 			]
 		},
 		{
@@ -1226,7 +1226,7 @@
 			"value": 6000,
 			"weight": 4,
 			"entries": [
-				"An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known poisons. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one poison affecting them or to give them advantage on saving throws against poison for 1 hour. It confers no benefit to droids or constructs."
+				"An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|orcnogSW5e|poisons}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|orcnogSW5e} affecting them or to give them advantage on saving throws against {@item poison|orcnogSW5e} for 1 hour. It confers no benefit to droids or constructs."
 			]
 		},
 		{
@@ -1498,8 +1498,9 @@
 			"age": "futuristic",
 			"value": 1000,
 			"entries": [
-				"A combustive arrow is a specialized arrow for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrows detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
-			]
+				"A combustive arrow is a specialized arrow for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
+			],
+			"baseItem": "arrow|orcnogSW5e"
 		},
 		{
 			"name": "Arrow, Electroshock",
@@ -1511,7 +1512,8 @@
 			"value": 1500,
 			"entries": [
 				"An electroshock arrow is a specialized arrow for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
-			]
+			],
+			"baseItem": "arrow|orcnogSW5e"
 		},
 		{
 			"name": "Arrow, Noisemaker",
@@ -1523,7 +1525,8 @@
 			"value": 1250,
 			"entries": [
 				"A noisemaker arrow is a specialized arrow for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
-			]
+			],
+			"baseItem": "arrow|orcnogSW5e"
 		},
 		{
 			"name": "Artificer's implements",
@@ -1586,7 +1589,7 @@
 			"value": 20000,
 			"weight": 60,
 			"entries": [
-				"Assault armor improved on battle armor, with the benefit of micro-hydraulics that boost the efficacy of the operator. It offers better protection, but increased weight."
+				"Assault armor improved on {@item battle armor|orcnogSW5e}, with the benefit of micro-hydraulics that boost the efficacy of the operator. It offers better protection, but increased weight."
 			],
 			"armor": true,
 			"ac": "17",
@@ -1674,51 +1677,51 @@
 				"This metal jug appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty.",
 				"You can use an action and name one liquid from the table below to cause the jug to produce the chosen liquid. Afterward, you can open the jug as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the jug can produce depends on the liquid you named.",
 				"Once the jug starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.",
-                {
-                    "type": "table",
-                    "colLabels": [
-                        "Liquid",
-                        "Quantity"
-                    ],
-                    "colStyles": [
-                        "text-center col-7",
-                        "text-align-left col-5 text-center"
-                    ],
-                    "rows": [
-                        [
-                            "Acid",
-                            "8 ounces"
-                        ],
-                        [
-                            "Alcohol, strong",
-                            "1 gallon"
-                        ],
-                        [
-                            "Alcohol, weak",
-                            "4 gallons"
-                        ],
-                        [
-                            "Basic {@item poison|orcnogSW5e}",
-                            "1/2 ounce"
-                        ],
-                        [
-                            "Condiment",
-                            "2 gallons"
-                        ],
-                        [
-                            "Lubricant",
-                            "1 quart"
-                        ],
-                        [
-                            "Water, potable",
-                            "8 gallons"
-                        ],
-                        [
-                            "Water, stagnant",
-                            "12 gallons"
-                        ]
-                    ]
-                },                
+				{
+					"type": "table",
+					"colLabels": [
+						"Liquid",
+						"Quantity"
+					],
+					"colStyles": [
+						"text-center col-7",
+						"text-align-left col-5 text-center"
+					],
+					"rows": [
+						[
+							"Acid",
+							"8 ounces"
+						],
+						[
+							"Alcohol, strong",
+							"1 gallon"
+						],
+						[
+							"Alcohol, weak",
+							"4 gallons"
+						],
+						[
+							"Basic {@item poison|orcnogSW5e}",
+							"1/2 ounce"
+						],
+						[
+							"Condiment",
+							"2 gallons"
+						],
+						[
+							"Lubricant",
+							"1 quart"
+						],
+						[
+							"Water, potable",
+							"8 gallons"
+						],
+						[
+							"Water, stagnant",
+							"12 gallons"
+						]
+					]
+				},
 				"{@i Most liquids one might desire curiously only involve a handful of elements. This device collects a reservoir of them to recreate a selection of such liquids on demand.}"
 			]
 		},
@@ -1898,7 +1901,7 @@
 			"value": 1000,
 			"weight": 2,
 			"entries": [
-				"A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a power cell. Once per turn, drawing an item from a bandolier does not require your object interaction."
+				"A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|orcnogSW5e}. Once per turn, drawing an item from a bandolier does not require your object interaction."
 			]
 		},
 		{
@@ -2516,7 +2519,7 @@
 			"value": 55000,
 			"weight": 18.5,
 			"entries": [
-				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the blaster cannon uses a specialized power generator that allows it to fire continuously for 10 minutes. Replacing a power generator takes an action.",
+				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the blaster cannon uses a specialized {@item power generator|orcnogSW5e} that allows it to fire continuously for 10 minutes. Replacing a {@item power generator|orcnogSW5e} takes an action.",
 				"Before firing the blaster cannon, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the blaster cannon as an action or bonus action."
 			],
 			"property": [
@@ -2929,7 +2932,7 @@
 			"age": "futuristic",
 			"value": 100,
 			"entries": [
-				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the bolt-thrower fires specialized projectiles in the form of bolts."
+				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the {@item bolt-thrower|orcnogSW5e} fires specialized projectiles in the form of bolts."
 			]
 		},
 		{
@@ -2941,9 +2944,10 @@
 			"age": "futuristic",
 			"value": 1400,
 			"entries": [
-				"This bolt-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 2d4} sonic damage on a failed save.",
+				"This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 2d4} sonic damage on a failed save.",
 				"Additionally, on a failed save, a creature is {@condition deafened} for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
-			]
+			],
+			"baseItem": "bolt"
 		},
 		{
 			"name": "Bolt, Electrifying",
@@ -2954,9 +2958,10 @@
 			"age": "futuristic",
 			"value": 1700,
 			"entries": [
-				"This bolt-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 2d4} lightning damage on a failed save.",
+				"This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 2d4} lightning damage on a failed save.",
 				"Additionally, on a failed save, a creature is shocked for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
-			]
+			],
+			"baseItem": "bolt"
 		},
 		{
 			"name": "Bolt, Panic",
@@ -2967,9 +2972,10 @@
 			"age": "futuristic",
 			"value": 2000,
 			"entries": [
-				"This bolt-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 2d4} psychic damage on a failed save.",
+				"This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 2d4} psychic damage on a failed save.",
 				"Additionally, on a failed save, a creature becomes {@condition frightened} of you for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
-			]
+			],
+			"baseItem": "bolt"
 		},
 		{
 			"name": "Bolt-thrower",
@@ -2981,7 +2987,7 @@
 			"value": 18250,
 			"weight": 13.5,
 			"entries": [
-				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the bolt-thrower fires specialized projectiles in the form of bolts."
+				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the bolt-thrower fires specialized projectiles in the form of {@item bolt|orcnogSW5e|bolts}."
 			],
 			"property": [
 				"AF",
@@ -3126,10 +3132,10 @@
 			"weight": 11,
 			"property": [
 				"AF",
-				"BST",
 				"RLD",
-				"POW",
 				"SW2",
+				"BST",
+				"POW",
 				"STR"
 			],
 			"weapon": true,
@@ -4104,7 +4110,7 @@
 			"value": 7500,
 			"weight": 4,
 			"entries": [
-				"A device used to blow holes in larger constructs and structures, a breaching charge creates a devastating explosion focused in a specific direction. Installing a breaching charge takes 1 minute. The charge can be set with a 6-second timer, or detonated remotely using a remote detonator.",
+				"A device used to blow holes in larger constructs and structures, a breaching charge creates a devastating explosion focused in a specific direction. Installing a breaching charge takes 1 minute. The charge can be set with a 6-second timer, or detonated remotely using a {@item remote detonator|orcnogSW5e}.",
 				"When detonated, the breaching charge explodes in a 15-foot cone. Each creature within the cone must make a DC 14 Dexterity saving throw, taking {@damage 20d4} kinetic damage on a failed save or half as much on a successful one. If affixed to a creature, that creature has disadvantage on the saving throw. Objects, structures, and other surfaces have disadvantage on the saving throw. If affixed to the object, structure, or surface, it instead automatically fails this saving throw."
 			]
 		},
@@ -4118,7 +4124,7 @@
 			"value": 7750,
 			"weight": 4,
 			"entries": [
-				"A device used to blow holes in larger constructs and structures, a breaching charge creates a devastating explosion focused in a specific direction. Installing a breaching charge takes 1 minute. The charge can be set with a 6-second timer, or detonated remotely using a remote detonator.",
+				"A device used to blow holes in larger constructs and structures, a breaching charge creates a devastating explosion focused in a specific direction. Installing a breaching charge takes 1 minute. The charge can be set with a 6-second timer, or detonated remotely using a {@item remote detonator|orcnogSW5e}.",
 				"When detonated, the breaching charge explodes in a 15-foot cone. Each creature within the cone must make a DC 14 Dexterity saving throw, taking {@damage 20d4} energy damage on a failed save or half as much on a successful one. If affixed to a creature, that creature has disadvantage on the saving throw. Objects, structures, and other surfaces have disadvantage on the saving throw. If affixed to the object, structure, or surface, it instead automatically fails this saving throw."
 			]
 		},
@@ -5087,7 +5093,7 @@
 			"value": 25000,
 			"weight": 45,
 			"entries": [
-				"Composite armor is a type of armored suit that offers a good balance of mobility and protection against most types of weapons. The micro-hydraulics of this type of powered armor provide the operator with protection, but are more bulky than mesh or weave armors. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use."
+				"Composite armor is a type of armored suit that offers a good balance of mobility and protection against most types of weapons. The micro-hydraulics of this type of powered armor provide the operator with protection, but are more bulky than mesh or {@item weave armor|orcnogSW5e|weave armors}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use."
 			],
 			"armor": true,
 			"ac": "15",
@@ -5107,8 +5113,8 @@
 			"value": 6000,
 			"weight": 6.5,
 			"entries": [
-				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the compound bow fires specialized projectiles in the form of arrows. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one arrow.",
-				"Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
+				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the compound bow fires specialized projectiles in the form of {@item arrow|orcnogSW5e|arrows}. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one {@item arrow|orcnogSW5e}.",
+				"Drawing the ammunition from a {@item quiver|orcnogSW5e}, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
 			],
 			"property": [
 				"AF",
@@ -5678,7 +5684,7 @@
 			"age": "futuristic",
 			"value": 420,
 			"entries": [
-				"A corrosive cartridge is a specialized slug cartridge for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw, taking {@damage 1d8} acid damage on a failed save or half as much on a successful one. If you reduce a creature to 0 hit points with the loaded weapon, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything unenhanced it is wearing or carrying are reduced to a pile of fine gray dust. A creature destroyed in this way can not be revitalized."
+				"A corrosive cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw, taking {@damage 1d8} acid damage on a failed save or half as much on a successful one. If you reduce a creature to 0 hit points with the loaded weapon, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything unenhanced it is wearing or carrying are reduced to a pile of fine gray dust. A creature destroyed in this way can not be revitalized."
 			]
 		},
 		{
@@ -6132,7 +6138,7 @@
 			"value": 3500,
 			"weight": 1,
 			"entries": [
-				"A cryo cell is a specialized power cell for use with blaster weapons that deal acid, energy, fire, ion, or sonic damage. The loaded weapon deals cold damage instead of its normal damage type, and when you hit with a shot the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d4} cold damage and gains 1 slowed level until the end of its next turn. On a successful save, a creature takes half damage and isn't slowed. If this damage reduces a creature to 0 hit points, that creature is frozen in carbonite for 1 hour."
+				"A cryo cell is a specialized {@item power cell|orcnogSW5e} for use with blaster weapons that deal acid, energy, fire, ion, or sonic damage. The loaded weapon deals cold damage instead of its normal damage type, and when you hit with a shot the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d4} cold damage and gains 1 slowed level until the end of its next turn. On a successful save, a creature takes half damage and isn't slowed. If this damage reduces a creature to 0 hit points, that creature is frozen in carbonite for 1 hour."
 			]
 		},
 		{
@@ -6480,7 +6486,7 @@
 			"age": "futuristic",
 			"value": 50,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit."
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit."
 			]
 		},
 		{
@@ -6922,7 +6928,7 @@
 			"value": 4250,
 			"weight": 1,
 			"entries": [
-				"A deafening cell is a specialized power cell for use with blaster weapons that deal acid, energy, fire, ion, or sonic damage. The loaded weapon deals sonic damage instead of its normal damage type, and when you hit with a shot the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the start of your next turn. On a successful save, a creature takes half damage and isn't {@condition deafened}."
+				"A deafening cell is a specialized {@item power cell|orcnogSW5e} for use with blaster weapons that deal acid, energy, fire, ion, or sonic damage. The loaded weapon deals sonic damage instead of its normal damage type, and when you hit with a shot the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the start of your next turn. On a successful save, a creature takes half damage and isn't {@condition deafened}."
 			]
 		},
 		{
@@ -6948,7 +6954,7 @@
 			"age": "futuristic",
 			"value": 700,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 1d4} sonic damage on a failed save.",
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 1d4} sonic damage on a failed save.",
 				"Additionally, on a failed save, a creature is {@condition deafened} for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -8599,7 +8605,7 @@
 			"age": "futuristic",
 			"value": 280,
 			"entries": [
-				"An electrifying cartridge is a specialized slug cartridge for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d4} lightning damage and becomes shocked until the end of its next turn. On a successful save, a creature takes half damage and isn't shocked."
+				"An electrifying cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d4} lightning damage and becomes shocked until the end of its next turn. On a successful save, a creature takes half damage and isn't shocked."
 			]
 		},
 		{
@@ -8629,7 +8635,7 @@
 			"age": "futuristic",
 			"value": 850,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 1d4} lightning damage on a failed save.",
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 1d4} lightning damage on a failed save.",
 				"Additionally, on a failed save, a creature is shocked for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -8979,7 +8985,7 @@
 			"value": 6000,
 			"weight": 15,
 			"entries": [
-				"This shelter comes packed in a 2-foot-long tube. When activated, the shelter deploys, expanding to full size in 1 minute. The shelter is 8 feet long, 8 feet wide, and 6 feet tall, and can house up to six Medium creatures. The shelter includes spikes that automatically mount to the ground, provided they can find purchase. The shelter comes with an integrated power generator, faint glowing lights in the interior which provide dim light, and creatures in the shelter are protected from the elements, including hot and cold climates, as described in chapter 5 of the Dungeon Master's Guide. The shelter's power generator lasts for seven days, after which it stops providing light. The shelter can be collapsed and restored over the course of 10 minutes."
+				"This shelter comes packed in a 2-foot-long tube. When activated, the shelter deploys, expanding to full size in 1 minute. The shelter is 8 feet long, 8 feet wide, and 6 feet tall, and can house up to six Medium creatures. The shelter includes spikes that automatically mount to the ground, provided they can find purchase. The shelter comes with an integrated {@item power generator|orcnogSW5e}, faint glowing lights in the interior which provide dim light, and creatures in the shelter are protected from the elements, including hot and cold climates, as described in chapter 5 of the Dungeon Master's Guide. The shelter's {@item power generator|orcnogSW5e} lasts for seven days, after which it stops providing light. The shelter can be collapsed and restored over the course of 10 minutes."
 			]
 		},
 		{
@@ -10309,7 +10315,7 @@
 			"value": 4500,
 			"weight": 13,
 			"entries": [
-				"Fiber armor is a type of armor that offers more protection than the lighter combat suit. Fiber armor is heavier overall than combat suits, and not quite as flexible, but many consider the trade-offs worthwhile. It is a good source of defense from physical attacks and light blaster fire."
+				"Fiber armor is a type of armor that offers more protection than the lighter {@item combat suit|orcnogSW5e}. Fiber armor is heavier overall than {@item combat suit|orcnogSW5e|combat suits}, and not quite as flexible, but many consider the trade-offs worthwhile. It is a good source of defense from physical attacks and light blaster fire."
 			],
 			"armor": true,
 			"ac": "12",
@@ -10830,7 +10836,7 @@
 			"value": 2500,
 			"weight": 2,
 			"entries": [
-				"When triggered, this wrist launcher ammunition fires a volley of kinetic flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d10} kinetic damage on a failed save, or half as much as on a successful one. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of kinetic flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d10} kinetic damage on a failed save, or half as much as on a successful one. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you have disadvantage on damage rolls with it"
 			]
 		},
 		{
@@ -10843,7 +10849,7 @@
 			"value": 3000,
 			"weight": 2,
 			"entries": [
-				"When triggered, this wrist launcher ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
 			]
 		},
 		{
@@ -10856,7 +10862,7 @@
 			"value": 2750,
 			"weight": 2,
 			"entries": [
-				"When triggered, this wrist launcher ammunition fires a volley of energy flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d10} energy damage on a failed save, or half as much as on a successful one. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of energy flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d10} energy damage on a failed save, or half as much as on a successful one. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you have disadvantage on damage rolls with it"
 			]
 		},
 		{
@@ -10869,7 +10875,7 @@
 			"value": 5500,
 			"weight": 4,
 			"entries": [
-				"When triggered, this flechette cannon ammunition fires a volley of kinetic flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette mag holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} kinetic damage on a failed save, or half as much as on a successful one."
+				"When triggered, this {@item flechette cannon|orcnogSW5e} ammunition fires a volley of kinetic flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette mag holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} kinetic damage on a failed save, or half as much as on a successful one."
 			]
 		},
 		{
@@ -10882,7 +10888,7 @@
 			"value": 6000,
 			"weight": 4,
 			"entries": [
-				"When triggered, this flechette cannon ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette mag holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
+				"When triggered, this {@item flechette cannon|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette mag holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
 			]
 		},
 		{
@@ -10895,7 +10901,7 @@
 			"value": 5750,
 			"weight": 4,
 			"entries": [
-				"When triggered, this flechette cannon ammunition fires a volley of energy flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette mag holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} energy damage on a failed save, or half as much as on a successful one."
+				"When triggered, this {@item flechette cannon|orcnogSW5e} ammunition fires a volley of energy flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette mag holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} energy damage on a failed save, or half as much as on a successful one."
 			]
 		},
 		{
@@ -11422,7 +11428,7 @@
 			"value": 250,
 			"weight": 2,
 			"entries": [
-				"A fusion cutter is a handheld cutting tool popular among technicians. It can cut through almost any reinforced material, given enough time. The internal power cell supplies an hour's worth of continuous operation."
+				"A fusion cutter is a handheld cutting tool popular among technicians. It can cut through almost any reinforced material, given enough time. The internal {@item power cell|orcnogSW5e} supplies an hour's worth of continuous operation."
 			]
 		},
 		{
@@ -11520,7 +11526,7 @@
 			"age": "futuristic",
 			"value": 360,
 			"entries": [
-				"A gas cartridge is a specialized slug cartridge for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} poison damage and is {@condition poisoned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition poisoned}."
+				"A gas cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} poison damage and is {@condition poisoned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition poisoned}."
 			]
 		},
 		{
@@ -11753,7 +11759,7 @@
 			"value": 100,
 			"weight": 2,
 			"entries": [
-				"Glowrods create a beam of light illuminating the area around you in bright light for a 20-foot radius and dim light for an additional 20 feet. The glowrod lasts for 10 hours and can be recharged by connecting to a power source or by replacing the power cell."
+				"Glowrods create a beam of light illuminating the area around you in bright light for a 20-foot radius and dim light for an additional 20 feet. The glowrod lasts for 10 hours and can be recharged by connecting to a power source or by replacing the {@item power cell|orcnogSW5e}."
 			]
 		},
 		{
@@ -11810,7 +11816,7 @@
 			"value": 5000,
 			"weight": 3,
 			"entries": [
-				"Gravity generators are special devices typically worn on belts that function as a portable, personal artificial gravity source. Activating or deactivating the belt requires a bonus action and, while active, you are able to move as if in a standard gravitational pull. The generator lasts for 10 minutes and can be recharged by a power source or replacing the power cell."
+				"Gravity generators are special devices typically worn on belts that function as a portable, personal artificial gravity source. Activating or deactivating the belt requires a bonus action and, while active, you are able to move as if in a standard gravitational pull. The generator lasts for 10 minutes and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			]
 		},
 		{
@@ -13261,7 +13267,7 @@
 			"value": 4000,
 			"weight": 4,
 			"entries": [
-				"Heat generators are special devices typically worn on belts that function as a portable, personal heat supply. Activating or deactivating the generator requires a bonus action and, while active, you are adapted to cold climates, as described in chapter 5 of the Dungeon Master's Guide. The generator lasts for 10 minutes and can be recharged by a power source or replacing the power cell."
+				"Heat generators are special devices typically worn on belts that function as a portable, personal heat supply. Activating or deactivating the generator requires a bonus action and, while active, you are adapted to cold climates, as described in chapter 5 of the Dungeon Master's Guide. The generator lasts for 10 minutes and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			]
 		},
 		{
@@ -14127,7 +14133,7 @@
 			"value": 2750,
 			"weight": 1,
 			"entries": [
-				"An incendiary cell is a specialized power cell for use with blaster weapons that deal acid, energy, fire, ion, or sonic damage. The loaded weapon deals fire damage instead of its normal damage type, and when you hit with a shot it sets the ground beneath it in a 5-foot square ablaze for 1 minute. When a creature enters the fire or starts its turn there it must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d8} fire damage or half as much on a successful one. A construct makes this save with disadvantage."
+				"An incendiary cell is a specialized {@item power cell|orcnogSW5e} for use with blaster weapons that deal acid, energy, fire, ion, or sonic damage. The loaded weapon deals fire damage instead of its normal damage type, and when you hit with a shot it sets the ground beneath it in a 5-foot square ablaze for 1 minute. When a creature enters the fire or starts its turn there it must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d8} fire damage or half as much on a successful one. A construct makes this save with disadvantage."
 			]
 		},
 		{
@@ -15447,7 +15453,7 @@
 			"value": 45000,
 			"weight": 20,
 			"entries": [
-				"Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per power cell (to a maximum of 10 minutes) and can be recharged by a power source or replacing the power cells."
+				"Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -17306,7 +17312,7 @@
 			"value": 5000,
 			"weight": 20,
 			"entries": [
-				"Providing solid protection for a minimal cost, mesh armor is considered excellent protection for entrenched troops or guards. However, this protection comes at a cost of mobility, limiting its uses by rapidly advancing infantry. Still, it provides more mobility than battle armor."
+				"Providing solid protection for a minimal cost, mesh armor is considered excellent protection for entrenched troops or guards. However, this protection comes at a cost of mobility, limiting its uses by rapidly advancing infantry. Still, it provides more mobility than {@item battle armor|orcnogSW5e}."
 			],
 			"armor": true,
 			"ac": "13",
@@ -18080,7 +18086,7 @@
 			"value": 4250,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. A creature takes {@damage 2d8} acid damage on a failed save, or half as much as on a successful one. If this damage reduces a creature to 0 hit points, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything unenhanced it is wearing or carrying are reduced to a pile of fine gray dust. A creature destroyed in this way can not be revitalized."
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. A creature takes {@damage 2d8} acid damage on a failed save, or half as much as on a successful one. If this damage reduces a creature to 0 hit points, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything unenhanced it is wearing or carrying are reduced to a pile of fine gray dust. A creature destroyed in this way can not be revitalized."
 			]
 		},
 		{
@@ -18093,7 +18099,7 @@
 			"value": 6250,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. A creature takes {@damage 2d6} cold damage on a failed save, or half as much as on a successful one.",
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. A creature takes {@damage 2d6} cold damage on a failed save, or half as much as on a successful one.",
 				"Additionally, on a failed save, a creature gains 1 slowed level for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -18107,7 +18113,7 @@
 			"value": 4500,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. A creature takes {@damage 2d6} sonic damage on a failed save, or half as much as on a successful one.",
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. A creature takes {@damage 2d6} sonic damage on a failed save, or half as much as on a successful one.",
 				"Additionally, on a failed save, a creature is {@condition deafened} for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -18121,7 +18127,7 @@
 			"value": 5500,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d6} lightning damage on a failed save, or half as much as on a successful one.",
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d6} lightning damage on a failed save, or half as much as on a successful one.",
 				"Additionally, on a failed save, a creature is shocked for 1 minute. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -18135,7 +18141,7 @@
 			"value": 6000,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition blinded} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition blinded} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
 		{
@@ -18148,7 +18154,7 @@
 			"value": 2000,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} kinetic damage on a failed save, or half as much as on a successful one."
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} kinetic damage on a failed save, or half as much as on a successful one."
 			]
 		},
 		{
@@ -18161,7 +18167,7 @@
 			"value": 6250,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote"
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition poisoned} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
 		{
@@ -18174,7 +18180,7 @@
 			"value": 5500,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, the mine sets the ground in a 15-foot radius ablaze for 1 minute. The fire ignites any flammable objects in the area that aren't being worn or carried.",
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, the mine sets the ground in a 15-foot radius ablaze for 1 minute. The fire ignites any flammable objects in the area that aren't being worn or carried.",
 				"When a creature enters the fire or starts its turn there, it creature must make a DC 14 Dexterity saving throw. The creature takes {@damage 2d8} fire damage on a failed save, or half as much damage on a successful one."
 			]
 		},
@@ -18188,7 +18194,7 @@
 			"value": 5250,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
 			]
 		},
 		{
@@ -18201,7 +18207,7 @@
 			"value": 7000,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Wisdom saving throw. A creature takes {@damage 2d6} psychic damage on a failed save, or half as much as on a successful one.",
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Wisdom saving throw. A creature takes {@damage 2d6} psychic damage on a failed save, or half as much as on a successful one.",
 				"Additionally, on a failed save, a creature becomes {@condition frightened} of you for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -18215,7 +18221,7 @@
 			"value": 2500,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} energy damage on a failed save, or half as much as on a successful one."
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Dexterity saving throw. A creature takes {@damage 2d10} energy damage on a failed save, or half as much as on a successful one."
 			]
 		},
 		{
@@ -18228,7 +18234,7 @@
 			"value": 4750,
 			"weight": 2,
 			"entries": [
-				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote detonator. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition stunned} until the end of their next turn.",
+				"Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition stunned} until the end of their next turn.",
 				"Additionally, on a failed save, a creature is {@condition unconscious} for 1 minute, until it takes damage, or until someone uses an action to shake or slap the creature awake. At the end of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -18435,7 +18441,7 @@
 			"value": 1000,
 			"weight": 0.5,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit. Additionally, hit or miss, the missile then explodes. The target and each creature within 5 feet must make a DC 14 Dexterity saving throw, taking {@damage 1d10} kinetic damage on a failed save or half as much on a successful one."
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit. Additionally, hit or miss, the missile then explodes. The target and each creature within 5 feet must make a DC 14 Dexterity saving throw, taking {@damage 1d10} kinetic damage on a failed save or half as much on a successful one."
 			]
 		},
 		{
@@ -18448,7 +18454,7 @@
 			"value": 1600,
 			"weight": 0.5,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit. Additionally, hit or miss, the missile then explodes, setting the ground beneath it in a 15 foot radius ablaze for 1 minute. When a creature enters the fire or starts its turn there it must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d8} fire damage or half as much on a successful one. A construct makes this save with disadvantage."
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit. Additionally, hit or miss, the missile then explodes, setting the ground beneath it in a 15 foot radius ablaze for 1 minute. When a creature enters the fire or starts its turn there it must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d8} fire damage or half as much on a successful one. A construct makes this save with disadvantage."
 			]
 		},
 		{
@@ -18461,7 +18467,7 @@
 			"value": 1400,
 			"weight": 0.5,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit. Additionally, hit or miss, the missile then explodes. The target and each creature within 5 feet must make a DC 14 Dexterity saving throw, taking {@damage 1d6} ion damage on a failed save or half as much on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit. Additionally, hit or miss, the missile then explodes. The target and each creature within 5 feet must make a DC 14 Dexterity saving throw, taking {@damage 1d6} ion damage on a failed save or half as much on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
 			]
 		},
 		{
@@ -18663,7 +18669,7 @@
 			"weight": 25,
 			"entries": [
 				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the mortar launcher fires grenades. If you lack proficiency in the mortar launcher, you must roll the damage dice twice and take the lesser total. A mortar launcher cannot fire on targets within its short range and when firing a grenade at long range, creatures within the radius of the grenade's explosion do not have advantage on the saving throw. Additionally, when you launch a mortar at a target, you can treat the Weapon's point of origin as being 200ft in the air for the purposes of determining line of sight and cover.",
-				"The mortar launcher requires the use of a tripod, which is included in the price. Over the course of 1 minute, you can deploy or collapse the mortar launcher on the tripod. While deployed, your speed is reduced to 0."
+				"The mortar launcher requires the use of a {@item tripod|orcnogSW5e}, which is included in the price. Over the course of 1 minute, you can deploy or collapse the mortar launcher on the {@item tripod|orcnogSW5e}. While deployed, your speed is reduced to 0."
 			],
 			"property": [
 				"AF",
@@ -18964,7 +18970,7 @@
 			"value": 4750,
 			"weight": 3,
 			"entries": [
-				"The needler includes a specialized compartment for poison. One dose of poison, when installed in this compartment, retains its potency for 1 hour before drying. One dose of poison is effective for the next 10 shots fired by the weapon."
+				"The needler includes a specialized compartment for {@item poison|orcnogSW5e}. One dose of {@item poison|orcnogSW5e}, when installed in this compartment, retains its potency for 1 hour before drying. One dose of {@item poison|orcnogSW5e} is effective for the next 10 shots fired by the weapon."
 			],
 			"property": [
 				"AF",
@@ -20079,7 +20085,7 @@
 			"age": "futuristic",
 			"value": 1000,
 			"entries": [
-				"This wrist launcher ammunition deals {@damage 1d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 1d4} psychic damage on a failed save.",
+				"This {@item wrist launcher|orcnogSW5e} ammunition deals {@damage 1d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 1d4} psychic damage on a failed save.",
 				"Additionally, on a failed save, a creature becomes {@condition frightened} of you for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			]
 		},
@@ -20630,7 +20636,7 @@
 			"value": 1250,
 			"weight": 0.5,
 			"entries": [
-				"As an action, you can use the poison in this vial to coat one vibroweapon, one slug cartridge, or one wrist launcher dart. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
+				"As an action, you can use the poison in this {@item vial|orcnogSW5e} to coat one vibroweapon, one {@item slug cartridge|orcnogSW5e}, or one wrist launcher {@item dart|orcnogSW5e}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
 			],
 			"poison": true
 		},
@@ -20956,7 +20962,7 @@
 			"value": 4000,
 			"weight": 1,
 			"entries": [
-				"This belt has slots to hold six power cells, and can be connected to directly power a single blaster weapon that uses power cells. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended power cell takes an action."
+				"This belt has slots to hold six {@item power cell|orcnogSW5e|power cells}, and can be connected to directly power a single blaster weapon that uses {@item power cell|orcnogSW5e|power cells}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|orcnogSW5e} takes an action."
 			]
 		},
 		{
@@ -20982,7 +20988,7 @@
 			"value": 12500,
 			"weight": 5,
 			"entries": [
-				"Power generators energize the rotary cannon."
+				"Power generators energize the {@item rotary cannon|orcnogSW5e}."
 			]
 		},
 		{
@@ -21545,7 +21551,7 @@
 			"value": 3000,
 			"weight": 2,
 			"entries": [
-				"When triggered, this wrist launcher ammunition produces a spray of acid in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel canister holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 1d6} acid damage, and the first attack it makes before the end of its next turn has disadvantage. On a successful save, a creature takes half damage and isn't disadvantaged. If this damage reduces a creature to 0 hit points, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything it is wearing and carrying are reduced to a pile of fine gray dust. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition produces a spray of acid in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel canister holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 1d6} acid damage, and the first attack it makes before the end of its next turn has disadvantage. On a successful save, a creature takes half damage and isn't disadvantaged. If this damage reduces a creature to 0 hit points, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything it is wearing and carrying are reduced to a pile of fine gray dust. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you have disadvantage on damage rolls with it"
 			]
 		},
 		{
@@ -21558,7 +21564,7 @@
 			"value": 3500,
 			"weight": 2,
 			"entries": [
-				"When triggered, this wrist launcher ammunition produces a beam of carbonite energy in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel canister holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 1d4} cold damage and gains 1 slowed level until the end of your next turn. On a successful save, a creature takes half damage and isn't slowed. If this damage reduces a creature to 0 hit points, that creature is frozen in carbonite for 1 hour. If you lack proficiency in the wrist launcher, you must roll the damage dice twice and take the lesser total."
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition produces a beam of carbonite energy in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel canister holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 1d4} cold damage and gains 1 slowed level until the end of your next turn. On a successful save, a creature takes half damage and isn't slowed. If this damage reduces a creature to 0 hit points, that creature is frozen in carbonite for 1 hour. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you must roll the damage dice twice and take the lesser total."
 			]
 		},
 		{
@@ -21571,7 +21577,7 @@
 			"value": 3250,
 			"weight": 2,
 			"entries": [
-				"When triggered, this wrist launcher ammunition produces a burst of flame in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel canister holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Dexterity saving throw, taking {@damage 1d8} fire damage or half as much on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried. If you lack proficiency in the wrist launcher, you must roll the damage dice twice and take the lesser total."
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition produces a burst of flame in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel canister holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Dexterity saving throw, taking {@damage 1d8} fire damage or half as much on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you must roll the damage dice twice and take the lesser total."
 			]
 		},
 		{
@@ -21584,7 +21590,7 @@
 			"value": 6250,
 			"weight": 3,
 			"entries": [
-				"When triggered, this vapor projector ammunition produces a spray of acid in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel tank holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 2d6} acid damage, and the first attack it makes before the end of its next turn has disadvantage. On a successful save, a creature takes half damage and isn't disadvantaged. If this damage reduces a creature to 0 hit points, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything it is wearing and carrying are reduced to a pile of fine gray dust."
+				"When triggered, this {@item vapor projector|orcnogSW5e} ammunition produces a spray of acid in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel tank holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 2d6} acid damage, and the first attack it makes before the end of its next turn has disadvantage. On a successful save, a creature takes half damage and isn't disadvantaged. If this damage reduces a creature to 0 hit points, it must make a DC 13 Constitution saving throw. On a failed save, it dies immediately without making death saving throws. A disintegrated creature and everything it is wearing and carrying are reduced to a pile of fine gray dust."
 			]
 		},
 		{
@@ -21597,7 +21603,7 @@
 			"value": 6750,
 			"weight": 3,
 			"entries": [
-				"When triggered, this vapor projector ammunition produces a beam of carbonite energy in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel tank holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 2d4} cold damage and gains 1 slowed level until the end of your next turn. On a successful save, a creature takes half damage and isn't slowed. If this damage reduces a creature to 0 hit points, that creature is frozen in carbonite for 1 hour."
+				"When triggered, this {@item vapor projector|orcnogSW5e} ammunition produces a beam of carbonite energy in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel tank holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Constitution saving throw. On a failed save, a creature takes {@damage 2d4} cold damage and gains 1 slowed level until the end of your next turn. On a successful save, a creature takes half damage and isn't slowed. If this damage reduces a creature to 0 hit points, that creature is frozen in carbonite for 1 hour."
 			]
 		},
 		{
@@ -21610,7 +21616,7 @@
 			"value": 6500,
 			"weight": 3,
 			"entries": [
-				"When triggered, this vapor projector ammunition produces a burst of flame in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel tank holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Dexterity saving throw, taking {@damage 2d8} fire damage or half as much on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried."
+				"When triggered, this {@item vapor projector|orcnogSW5e} ammunition produces a burst of flame in a line 15 feet long and 5 feet wide or a 15-foot cone. A single fuel tank holds enough fuel for three attacks in a line or a single attack in a cone. Each creature must make a DC 14 Dexterity saving throw, taking {@damage 2d8} fire damage or half as much on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried."
 			]
 		},
 		{
@@ -21623,7 +21629,7 @@
 			"value": 4000,
 			"weight": 20,
 			"entries": [
-				"Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per power cell (to a maximum of 10 minutes) and can be recharged by a power source or replacing the power cells."
+				"Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -21786,7 +21792,7 @@
 			"age": "futuristic",
 			"value": 100,
 			"entries": [
-				"A quiver which can hold up to 20 arrows, 10 bolts, or 10 darts. Drawing an item from the quiver does not require an object interaction."
+				"A quiver which can hold up to 20 {@item arrow|orcnogSW5e|arrows}, 10 {@item bolt|orcnogSW5e|bolts}, or 10 {@item dart|orcnogSW5e|darts}. Drawing an item from the quiver does not require an object interaction."
 			]
 		},
 		{
@@ -23195,8 +23201,9 @@
 			"value": 16000,
 			"weight": 2,
 			"entries": [
-				"This wristpad has the repelling and constitution 11 properties."
-			]
+				"This {@item wristpad|orcnogSW5e} has the repelling and constitution 11 properties."
+			],
+			"baseItem": "wristpad|orcnogSW5e"
 		},
 		{
 			"name": "Repulsor Lifts (Basic)",
@@ -23304,7 +23311,7 @@
 			"value": 3000,
 			"weight": 10,
 			"entries": [
-				"Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per power cell (to a maximum of 10 minutes) and can be recharged by a power source or replacing the power cells."
+				"Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
 			]
 		},
 		{
@@ -23464,7 +23471,7 @@
 			"value": 9500,
 			"weight": 3,
 			"entries": [
-				"The retrosaber is an ancient type of lightweapon that requires a power cell to function. Once four attacks have been made with a retrosaber, a character must replace the power cell using an action or bonus action. You must have one free hand to replace the power cell."
+				"The retrosaber is an ancient type of lightweapon that requires a {@item power cell|orcnogSW5e} to function. Once four attacks have been made with a retrosaber, a character must replace the {@item power cell|orcnogSW5e} using an action or bonus action. You must have one free hand to replace the {@item power cell|orcnogSW5e}."
 			],
 			"property": [
 				"SWV",
@@ -23906,7 +23913,7 @@
 			"value": 25000,
 			"weight": 3,
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard jetpack. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the power cells."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -24104,7 +24111,7 @@
 			"value": 3500,
 			"weight": 2,
 			"entries": [
-				"This rocket launcher ammunition deals {@damage 2d6} kinetic damage on a hit. Additionally, hit or miss, the rocket then explodes. The target and each creature within 15 feet must make a DC 14 Dexterity saving throw, taking {@damage 2d10} kinetic damage on a failed save or half as much on a successful one."
+				"This {@item rocket launcher|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Additionally, hit or miss, the rocket then explodes. The target and each creature within 15 feet must make a DC 14 Dexterity saving throw, taking {@damage 2d10} kinetic damage on a failed save or half as much on a successful one."
 			]
 		},
 		{
@@ -24117,7 +24124,7 @@
 			"value": 5350,
 			"weight": 2,
 			"entries": [
-				"This rocket launcher ammunition deals {@damage 2d6} kinetic damage on a hit. Additionally, hit or miss, the rocket then explodes, setting the ground beneath it in a 15 foot radius ablaze for 1 minute. When a creature enters the fire or starts its turn there it must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 2d8} fire damage or half as much on a successful one. A construct makes this save with disadvantage."
+				"This {@item rocket launcher|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Additionally, hit or miss, the rocket then explodes, setting the ground beneath it in a 15 foot radius ablaze for 1 minute. When a creature enters the fire or starts its turn there it must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 2d8} fire damage or half as much on a successful one. A construct makes this save with disadvantage."
 			]
 		},
 		{
@@ -24130,7 +24137,7 @@
 			"value": 4750,
 			"weight": 2,
 			"entries": [
-				"This rocket launcher ammunition deals {@damage 2d6} kinetic damage on a hit. Additionally, hit or miss, the rocket then explodes. The target and each creature within 15 feet must make a DC 14 Dexterity saving throw, taking {@damage 2d6} ion damage on a failed save or half as much on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
+				"This {@item rocket launcher|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Additionally, hit or miss, the rocket then explodes. The target and each creature within 15 feet must make a DC 14 Dexterity saving throw, taking {@damage 2d6} ion damage on a failed save or half as much on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted."
 			]
 		},
 		{
@@ -24143,8 +24150,8 @@
 			"value": 100000,
 			"weight": 35,
 			"entries": [
-				"Rocketpacks combine the aerial transportation of a jetpack with the firepower of a rocket launcher. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 25 feet. The jetpack last for 1 minute per power cell (to a maximum of 5 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}.",
-				"Additionally, your rocketpack comes with an integrated rocket launcher with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e|power cells}, this rocket launcher fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this rocket launcher. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this rocket launcher takes 1 minute."
+				"Rocketpacks combine the aerial transportation of a {@item jetpack|orcnogSW5e} with the firepower of a {@item rocket launcher|orcnogSW5e}. Activating or deactivating the rocketpack's flight capabilities requires a bonus action and, while active, you have a flying speed of 25 feet. The {@item jetpack|orcnogSW5e} last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 5 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
+				"Additionally, your rocketpack comes with an integrated {@item rocket launcher|orcnogSW5e} with the Ammunition (range 100/400) and reload 1 properties. Rather than traditional {@item power cell|orcnogSW5e}, this {@item rocket launcher|orcnogSW5e} fires specialized projectiles in the form of rockets. Whenever you would make a ranged weapon attack, you can instead fire this {@item rocket launcher|orcnogSW5e}. When firing a rocket at long range, creatures within the radius of the rocket's explosion have advantage on the saving throw. Reloading this {@item rocket launcher|orcnogSW5e} takes 1 minute."
 			],
 			"modifySpeed": {
 				"static": {
@@ -25278,8 +25285,8 @@
 			"value": 5500,
 			"weight": 4,
 			"entries": [
-				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the shortbow fires specialized projectiles in the form of arrows. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one arrow.",
-				"Drawing the ammunition from a quiver, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
+				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the shortbow fires specialized projectiles in the form of {@item arrow|orcnogSW5e|arrows}. You can make a ranged weapon attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one {@item arrow|orcnogSW5e}.",
+				"Drawing the ammunition from a {@item quiver|orcnogSW5e}, case, or other container is part of the attack. At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
 			],
 			"property": [
 				"AF",
@@ -26078,8 +26085,9 @@
 			"age": "futuristic",
 			"value": 4000,
 			"entries": [
-				"This backpack comes with a main compartment that stores 15.00 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 5 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 15 {@skill Investigation} check."
-			]
+				"This {@item backpack|orcnogSW5e} comes with a main compartment that stores 15.00 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 5 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 15 {@skill Investigation} check."
+			],
+			"baseItem": "backpack"
 		},
 		{
 			"name": "Smugglepack (Champion)",
@@ -26090,7 +26098,8 @@
 			"age": "futuristic",
 			"entries": [
 				"This {@item backpack|orcnogSW5e} comes with a main compartment that stores 10 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 10 lb., not exceeding 3/8 cubic foot. Finding the hidden compartment requires a DC 30 {@skill Investigation} check."
-			]
+			],
+			"baseItem": "backpack"
 		},
 		{
 			"name": "Smugglepack (Exceptional)",
@@ -26101,7 +26110,8 @@
 			"age": "futuristic",
 			"entries": [
 				"This {@item backpack|orcnogSW5e} comes with a main compartment that stores 11 lb., not exceeding 3/8 cubic foot. Additionally, it has a hidden storage compartment that stores 9 lb., not exceeding 3/8 cubic foot. Finding the hidden compartment requires a DC 27 {@skill Investigation} check."
-			]
+			],
+			"baseItem": "backpack"
 		},
 		{
 			"name": "Smugglepack (Fine)",
@@ -26112,7 +26122,8 @@
 			"age": "futuristic",
 			"entries": [
 				"This {@item backpack|orcnogSW5e} comes with a main compartment that stores 14 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 6 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 18 {@skill Investigation} check."
-			]
+			],
+			"baseItem": "backpack"
 		},
 		{
 			"name": "Smugglepack (Improved)",
@@ -26123,7 +26134,8 @@
 			"age": "futuristic",
 			"entries": [
 				"This {@item backpack|orcnogSW5e} comes with a main compartment that stores 13 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 7 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 21 {@skill Investigation} check."
-			]
+			],
+			"baseItem": "backpack"
 		},
 		{
 			"name": "Smugglepack (Superior)",
@@ -26134,7 +26146,8 @@
 			"age": "futuristic",
 			"entries": [
 				"This {@item backpack|orcnogSW5e} comes with a main compartment that stores 12 lb., not exceeding 3/8 cubic foot. Additionally, it has a hidden storage compartment that stores 8 lb., not exceeding 3/8 cubic foot. Finding the hidden compartment requires a DC 24 {@skill Investigation} check."
-			]
+			],
+			"baseItem": "backpack"
 		},
 		{
 			"name": "Snare",
@@ -26818,7 +26831,7 @@
 			"value": 80000,
 			"weight": 3,
 			"entries": [
-				"{@skill Stealth} field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the power cell. This effect ends early if you make an attack or cast a force- or tech- power."
+				"Stealth field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}. This effect ends early if you make an attack or cast a force- or tech- power."
 			]
 		},
 		{
@@ -28587,7 +28600,7 @@
 			"weight": 30,
 			"entries": [
 				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the torpedo launcher fires specialized projectiles in the form of torpedoes. Torpedo launchers have advantage on attack rolls against Gargantuan creatures and disadvantage on attack rolls against Large and smaller creatures. Unlike other weapons, the torpedo launcher can only be loaded using an action, and you don't add your Dexterity modifier to damage rolls you make with it.",
-				"The torpedo launcher requires the use of a tripod, which is included in the price. Over the course of 1 minute, you can deploy or collapse the torpedo launcher on the tripod. While deployed, your speed is reduced to 0."
+				"The torpedo launcher requires the use of a {@item tripod|orcnogSW5e}, which is included in the price. Over the course of 1 minute, you can deploy or collapse the torpedo launcher on the {@item tripod|orcnogSW5e}. While deployed, your speed is reduced to 0."
 			],
 			"property": [
 				"AF",
@@ -28784,7 +28797,7 @@
 			"value": 2750,
 			"weight": 2.5,
 			"entries": [
-				"The tranquilizer rifle includes a specialized compartment for poison. One dose of poison, when installed in this compartment, retains its potency for 1 hour before drying. One dose of poison is effective for the next 4 shots fired by the weapon. Additionally, creatures reduced to 0 hit points by this weapon are immediately stabilized, unless that damage would instantly kill them."
+				"The tranquilizer rifle includes a specialized compartment for {@item poison|orcnogSW5e}. One dose of {@item poison|orcnogSW5e}, when installed in this compartment, retains its potency for 1 hour before drying. One dose of {@item poison|orcnogSW5e} is effective for the next 4 shots fired by the weapon. Additionally, creatures reduced to 0 hit points by this weapon are immediately stabilized, unless that damage would instantly kill them."
 			],
 			"property": [
 				"AF",
@@ -29105,7 +29118,7 @@
 			"value": 3000,
 			"weight": 0.5,
 			"entries": [
-				"Underwater respirators are worn over the mouth and lower face. While worn, you can breath underwater, as the respirator filters the water to create breathable oxygen. The respirator functions for 1 hour per power cell (to a maximum of 2 hours) and can be recharged by a power source or replacing the power cells."
+				"Underwater respirators are worn over the mouth and lower face. While worn, you can breath underwater, as the respirator filters the water to create breathable oxygen. The respirator functions for 1 hour per {@item power cell|orcnogSW5e} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
 			]
 		},
 		{
@@ -31442,7 +31455,7 @@
 			"value": 4000,
 			"weight": 2,
 			"entries": [
-				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the wrist launcher fires specialized projectiles in the form of darts, small missiles, or specialized canisters."
+				"Rather than traditional {@item power cell|orcnogSW5e|power cells}, the wrist launcher fires specialized projectiles in the form of {@item dart|orcnogSW5e|darts}, small missiles, or specialized canisters."
 			],
 			"property": [
 				"AF",
