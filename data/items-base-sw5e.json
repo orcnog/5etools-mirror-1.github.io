@@ -3,7 +3,7 @@
 	"itemProperty": [
 		{
 			"abbreviation": "AST",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -17,7 +17,7 @@
 		},
 		{
 			"abbreviation": "AUT",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -31,7 +31,7 @@
 		},
 		{
 			"abbreviation": "BIT",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -45,7 +45,7 @@
 		},
 		{
 			"abbreviation": "BRT",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -60,7 +60,7 @@
 		},
 		{
 			"abbreviation": "BLK",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -74,7 +74,7 @@
 		},
 		{
 			"abbreviation": "BRU",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -89,7 +89,7 @@
 		},
 		{
 			"abbreviation": "BST",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -104,7 +104,7 @@
 		},
 		{
 			"abbreviation": "COR",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -119,7 +119,7 @@
 		},
 		{
 			"abbreviation": "DEF",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -134,7 +134,7 @@
 		},
 		{
 			"abbreviation": "DEX",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -149,7 +149,7 @@
 		},
 		{
 			"abbreviation": "DIR",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -164,7 +164,7 @@
 		},
 		{
 			"abbreviation": "DSA",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -178,7 +178,7 @@
 		},
 		{
 			"abbreviation": "DSG",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -192,7 +192,7 @@
 		},
 		{
 			"abbreviation": "DSN",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -207,7 +207,7 @@
 		},
 		{
 			"abbreviation": "DSR",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -221,7 +221,7 @@
 		},
 		{
 			"abbreviation": "DBL",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -235,7 +235,7 @@
 		},
 		{
 			"abbreviation": "SWF",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -249,7 +249,7 @@
 		},
 		{
 			"abbreviation": "FXD",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -263,7 +263,7 @@
 		},
 		{
 			"abbreviation": "SWH",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -277,7 +277,7 @@
 		},
 		{
 			"abbreviation": "HID",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -291,7 +291,7 @@
 		},
 		{
 			"abbreviation": "INL",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -305,7 +305,7 @@
 		},
 		{
 			"abbreviation": "KEN",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -320,7 +320,7 @@
 		},
 		{
 			"abbreviation": "SWL",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -334,7 +334,7 @@
 		},
 		{
 			"abbreviation": "LUM",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -348,7 +348,7 @@
 		},
 		{
 			"abbreviation": "MIG",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -362,7 +362,7 @@
 		},
 		{
 			"abbreviation": "MOD",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -377,7 +377,7 @@
 		},
 		{
 			"abbreviation": "NEU",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -392,7 +392,7 @@
 		},
 		{
 			"abbreviation": "OBT",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -406,7 +406,7 @@
 		},
 		{
 			"abbreviation": "PEN",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -421,7 +421,7 @@
 		},
 		{
 			"abbreviation": "PRC",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -436,7 +436,7 @@
 		},
 		{
 			"abbreviation": "PCL",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -450,7 +450,7 @@
 		},
 		{
 			"abbreviation": "RAP",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -465,7 +465,7 @@
 		},
 		{
 			"abbreviation": "R",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -479,7 +479,7 @@
 		},
 		{
 			"abbreviation": "RET",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -493,7 +493,7 @@
 		},
 		{
 			"abbreviation": "SHO",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -508,7 +508,7 @@
 		},
 		{
 			"abbreviation": "SIL",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -522,7 +522,7 @@
 		},
 		{
 			"abbreviation": "SLG",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -536,7 +536,7 @@
 		},
 		{
 			"abbreviation": "SMT",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -550,7 +550,7 @@
 		},
 		{
 			"abbreviation": "SON",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -565,7 +565,7 @@
 		},
 		{
 			"abbreviation": "SWS",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -579,7 +579,7 @@
 		},
 		{
 			"abbreviation": "SPC",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -593,7 +593,7 @@
 		},
 		{
 			"abbreviation": "SWI",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -607,7 +607,7 @@
 		},
 		{
 			"abbreviation": "SWT",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -622,7 +622,7 @@
 		},
 		{
 			"abbreviation": "SW2",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -636,7 +636,7 @@
 		},
 		{
 			"abbreviation": "SWV",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -651,7 +651,7 @@
 		},
 		{
 			"abbreviation": "VSC",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -666,7 +666,7 @@
 		},
 		{
 			"abbreviation": "STR",
-			"source": "orcnogSW5e",
+			"source": "sw5ephb",
 			"page": 0,
 			"entries": [
 				{
@@ -680,7 +680,7 @@
 		},
 		{
 			"abbreviation": "ABS",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -695,7 +695,7 @@
 		},
 		{
 			"abbreviation": "AGI",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -709,7 +709,7 @@
 		},
 		{
 			"abbreviation": "ANC",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -723,7 +723,7 @@
 		},
 		{
 			"abbreviation": "AVO",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -738,7 +738,7 @@
 		},
 		{
 			"abbreviation": "BAR",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -752,7 +752,7 @@
 		},
 		{
 			"abbreviation": "CHG",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -767,7 +767,7 @@
 		},
 		{
 			"abbreviation": "CON",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -781,7 +781,7 @@
 		},
 		{
 			"abbreviation": "CMB",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -795,7 +795,7 @@
 		},
 		{
 			"abbreviation": "GAU",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -809,7 +809,7 @@
 		},
 		{
 			"abbreviation": "IMB",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -823,7 +823,7 @@
 		},
 		{
 			"abbreviation": "IMP",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -837,7 +837,7 @@
 		},
 		{
 			"abbreviation": "INS",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -852,7 +852,7 @@
 		},
 		{
 			"abbreviation": "INT",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -866,7 +866,7 @@
 		},
 		{
 			"abbreviation": "LAM",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -880,7 +880,7 @@
 		},
 		{
 			"abbreviation": "LIG",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -894,7 +894,7 @@
 		},
 		{
 			"abbreviation": "MAG",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -908,7 +908,7 @@
 		},
 		{
 			"abbreviation": "OBS",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -922,7 +922,7 @@
 		},
 		{
 			"abbreviation": "POW",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -936,7 +936,7 @@
 		},
 		{
 			"abbreviation": "REA",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -950,7 +950,7 @@
 		},
 		{
 			"abbreviation": "REG",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -964,7 +964,7 @@
 		},
 		{
 			"abbreviation": "REI",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -978,7 +978,7 @@
 		},
 		{
 			"abbreviation": "RES",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -992,7 +992,7 @@
 		},
 		{
 			"abbreviation": "RIG",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -1006,7 +1006,7 @@
 		},
 		{
 			"abbreviation": "SIL",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -1020,7 +1020,7 @@
 		},
 		{
 			"abbreviation": "SPK",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -1034,7 +1034,7 @@
 		},
 		{
 			"abbreviation": "STE",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
@@ -1048,7 +1048,7 @@
 		},
 		{
 			"abbreviation": "VSA",
-			"source": "orcnogSW5e",
+			"source": "sw5ewh",
 			"page": 0,
 			"entries": [
 				{
