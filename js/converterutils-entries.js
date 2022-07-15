@@ -172,7 +172,7 @@ class ItemTag {
 			// Disallow specific items
 			if (it.name === "Wave" && it.source === SRC_DMG) return false;
 			// Allow all non-specific-variant DMG and SW5e items
-			if ((it.source === SRC_DMG || it.source === "orcnogSW5e") && !Renderer.item.isMundane(it) && it._category !== "Specific Variant") return true;
+			if ((it.source === SRC_DMG || /sw5e.+/.test(it.source)) && !Renderer.item.isMundane(it) && it._category !== "Specific Variant") return true;
 			// Allow "sufficiently complex name" items
 			return it.name.split(" ").length > 2;
 		});
@@ -250,7 +250,7 @@ class Sw5eItemTag {
             console.warn("Renderer.item._builtLists.builtList is not yet initialized.");
             return;
         }
-		const sw5eItems = itemArr.filter(it => it.source === "orcnogSW5e");
+		const sw5eItems = itemArr.filter(it => /sw5e.+/.test(it.source));
 
 		// region Tools
 		const toolTypes = new Set(["AT", "GS", "INS", "T"]);

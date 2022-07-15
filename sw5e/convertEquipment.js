@@ -63,7 +63,7 @@ const equipmentConfig = {
 			let isFocus = false;
 			let ret = {};
 			ret.name = obj.name;
-			ret.source = sourceString;
+			ret.source = getItemSource(obj);
 			ret.page = 0;
 			ret.type = getItemType(obj);
 			ret.rarity = getItemRarity(obj);
@@ -152,6 +152,19 @@ const equipmentConfig = {
 			// Possible TODO: ret.typeAlt // not sure if i need this?
 
 			return ret;
+
+			/**
+			 * @function
+			 * @param {Object} o entity object to parse 
+			 * @returns {String}
+			 */
+			function getItemSource(o) {
+				if ('contentSource' in o && typeof o.contentSource === 'string') {
+					let src = 'sw5e' + o.contentSource.toLowerCase(); // ex: "WH" becomes "sw5ewh"
+					return src;
+				}
+				return 'sw5e';
+			}
 
 			/**
 			 * @function
@@ -708,7 +721,7 @@ const equipmentConfig = {
 			function getItemBaseItem(o) {
 				// String, ID of an existing item, pipe, then source
 				if ((isWeapon || isFocus) && "subtype" in o && !o.subtype.match(/any /)) {
-					return o.subtype + "|orcnogSW5e";
+					return o.subtype + "|sw5ephb";
 				}
 				return undefined;
 			}
@@ -1072,84 +1085,76 @@ const equipmentConfig = {
 		// git apply -v --ignore-space-change --ignore-whitespace patch/enhanceditems-fix.patch
 		const manualChanges = [
 			{
-				find: "than traditional {@item power cell|orcnogSW5e}",
-				repl: "than traditional {@item power cell|orcnogSW5e|power cells}"
+				find: "than traditional {@item power cell|sw5ephb}",
+				repl: "than traditional {@item power cell|sw5ephb|power cells}"
 			},
 			{
-				find: "} {@item poison|orcnogSW5e} damage",
+				find: "} {@item poison|sw5ephb} damage",
 				repl: "} poison damage"
 			},
 			{
-				find: "An ammo {@item pouch|orcnogSW5e} is a small {@item pouch|orcnogSW5e}, usually worn around the waist or {@item chest|orcnogSW5e}, which holds 20 {@item slug cartridge|orcnogSW5e}. When you reload a weapon, you can draw as much ammunition needed from this {@item pouch|orcnogSW5e} without using an object interaction to do so. Instead of {@item slug cartridge|orcnogSW5e}, you can instead store a {@item power cell|orcnogSW5e} which takes up the space of 10 cartridges.",
-				repl: "An ammo pouch is a small pouch, usually worn around the waist or chest, which holds 20 {@item slug cartridge|orcnogSW5e|slug cartridges}. When you reload a weapon, you can draw as much ammunition needed from this pouch without using an object interaction to do so. Instead of {@item slug cartridge|orcnogSW5e|slug cartridges}, you can instead store a {@item power cell|orcnogSW5e} which takes up the space of 10 cartridges."
+				find: "An ammo {@item pouch|sw5ephb} is a small {@item pouch|sw5ephb}, usually worn around the waist or {@item chest|sw5ephb}, which holds 20 {@item slug cartridge|sw5ephb}. When you reload a weapon, you can draw as much ammunition needed from this {@item pouch|sw5ephb} without using an object interaction to do so. Instead of {@item slug cartridge|sw5ephb}, you can instead store a {@item power cell|sw5ephb} which takes up the space of 10 cartridges.",
+				repl: "An ammo pouch is a small pouch, usually worn around the waist or chest, which holds 20 {@item slug cartridge|sw5ephb|slug cartridges}. When you reload a weapon, you can draw as much ammunition needed from this pouch without using an object interaction to do so. Instead of {@item slug cartridge|sw5ephb|slug cartridges}, you can instead store a {@item power cell|sw5ephb} which takes up the space of 10 cartridges."
 			},
 			{
-				find: "This belt has slots to hold 60 {@item slug cartridge|orcnogSW5e}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|orcnogSW5e}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|orcnogSW5e} takes an action.",
-				repl: "This belt has slots to hold 60 {@item slug cartridge|orcnogSW5e|slug cartridges}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|orcnogSW5e|slug cartridges}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|orcnogSW5e|slug cartridges} takes an action."
+				find: "This belt has slots to hold 60 {@item slug cartridge|sw5ephb}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|sw5ephb}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|sw5ephb} takes an action.",
+				repl: "This belt has slots to hold 60 {@item slug cartridge|sw5ephb|slug cartridges}, and can be connected to directly fuel a single blaster weapon that uses {@item slug cartridge|sw5ephb|slug cartridges}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing 10 {@item slug cartridge|sw5ephb|slug cartridges} takes an action."
 			},
 			{
-				find: "An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|orcnogSW5e}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|orcnogSW5e} affecting them or to give them advantage on saving throws against {@item poison|orcnogSW5e} for 1 hour. It confers no benefit to droids or constructs.",
-				repl: "An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|orcnogSW5e|poisons}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|orcnogSW5e} affecting them or to give them advantage on saving throws against {@item poison|orcnogSW5e} for 1 hour. It confers no benefit to droids or constructs."
+				find: "An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|sw5ephb}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|sw5ephb} affecting them or to give them advantage on saving throws against {@item poison|sw5ephb} for 1 hour. It confers no benefit to droids or constructs.",
+				repl: "An antitoxkit contained a variety of wide-spectrum antidote hypospray injectors that were designed to neutralize all known {@item poison|sw5ephb|poisons}. A kit has five charges. As an action, you can administer a charge of the kit to cure a target of one {@item poison|sw5ephb} affecting them or to give them advantage on saving throws against {@item poison|sw5ephb} for 1 hour. It confers no benefit to droids or constructs."
 			},
 			{
-				find: "Arrows are ammunition used in bow weapons. When you would use {@item poison|orcnogSW5e} to coat a weapon or {@item slug cartridge|orcnogSW5e} you can instead coat an arrow with the {@item poison|orcnogSW5e}. Once a {@condition poisoned} arrow hits a target, it no longer gives a bonus.",
-				repl: "Arrows are ammunition used in bow weapons. When you would use {@item poison|orcnogSW5e} to coat a weapon or {@item slug cartridge|orcnogSW5e}, you can instead coat an arrow with the {@item poison|orcnogSW5e}. Once a poisoned arrow hits a target, it no longer gives a bonus."
+				find: "Arrows are ammunition used in bow weapons. When you would use {@item poison|sw5ephb} to coat a weapon or {@item slug cartridge|sw5ephb} you can instead coat an arrow with the {@item poison|sw5ephb}. Once a {@condition poisoned} arrow hits a target, it no longer gives a bonus.",
+				repl: "Arrows are ammunition used in bow weapons. When you would use {@item poison|sw5ephb} to coat a weapon or {@item slug cartridge|sw5ephb}, you can instead coat an arrow with the {@item poison|sw5ephb}. Once a poisoned arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "A combustive {@item arrow|orcnogSW5e} is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the {@item arrow|orcnogSW5e} hits another creature, object, or surface it detonates. Each creature within 5ft of the {@item arrow|orcnogSW5e} detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the {@item arrow|orcnogSW5e} hits a target, it no longer gives a bonus.",
-				repl: "A combustive arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
+				find: "A combustive {@item arrow|sw5ephb} is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the {@item arrow|sw5ephb} hits another creature, object, or surface it detonates. Each creature within 5ft of the {@item arrow|sw5ephb} detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the {@item arrow|sw5ephb} hits a target, it no longer gives a bonus.",
+				repl: "A combustive arrow is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "An electroshock {@item arrow|orcnogSW5e} is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When you hit a creature with this {@item arrow|orcnogSW5e}, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the {@item arrow|orcnogSW5e} hits a target, it no longer gives a bonus.",
-				repl: "An electroshock arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
+				find: "An electroshock {@item arrow|sw5ephb} is a specialized {@item arrow|sw5ephb} for use with bow weapons. When you hit a creature with this {@item arrow|sw5ephb}, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the {@item arrow|sw5ephb} hits a target, it no longer gives a bonus.",
+				repl: "An electroshock arrow is a specialized {@item arrow|sw5ephb} for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "A noisemaker {@item arrow|orcnogSW5e} is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the {@item arrow|orcnogSW5e} hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the {@item arrow|orcnogSW5e} hits a target, it no longer gives a bonus.",
-				repl: "A noisemaker arrow is a specialized {@item arrow|orcnogSW5e} for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
+				find: "A noisemaker {@item arrow|sw5ephb} is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the {@item arrow|sw5ephb} hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the {@item arrow|sw5ephb} hits a target, it no longer gives a bonus.",
+				repl: "A noisemaker arrow is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "A bandolier is worn across the {@item chest|orcnogSW5e}. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|orcnogSW5e}. Once per turn, drawing an item from a bandolier does not require your object interaction.",
-				repl: "A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|orcnogSW5e}. Once per turn, drawing an item from a bandolier does not require your object interaction."
+				find: "A bandolier is worn across the {@item chest|sw5ephb}. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|sw5ephb}.",
+				repl: "A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|sw5ephb}."
 			},
 			{
-				find: "Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 14 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. Breaking the binders requires a DC 20 Strength check. Escaping them requires a DC 20 Dexterity check. A set of binders comes with one key. Without the key, unlocking the binders requires a DC 15 {@item security kit|orcnogSW5e} to force open. Binders have an AC of 10 and 15 hit points. Destroying the binders frees the creature without harming it.",
-				repl: "Binders can be used to restrain a Small or Medium creature with appropriate appendages. Applying binders takes an action, and the target must make a DC 14 Strength or Dexterity saving throw (the target chooses the ability to use). A hostile creature makes this save with advantage. Breaking the binders requires a DC 20 Strength check. Escaping them requires a DC 20 Dexterity check. A set of binders comes with one key. Without the key, unlocking the binders requires a DC 15 {@skill security kit|orcnogSW5e} check to force open. Binders have an AC of 10 and 15 hit points. Destroying the binders frees the creature without harming it."
+				find: "This {@item bolt|sw5ephb}-thrower ammunition",
+				repl: "This {@item bolt-thrower|sw5ephb} ammunition"
 			},
 			{
-				find: "This {@item bolt|orcnogSW5e}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 2d4} sonic damage on a failed save.",
-				repl: "This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Constitution saving throw, taking {@damage 2d4} sonic damage on a failed save."
+				find: "This {@item bolt|sw5ephb}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit.",
+				repl: "This {@item bolt-thrower|sw5ephb} ammunition deals {@damage 2d6} kinetic damage on a hit."
 			},
 			{
-				find: "This {@item bolt|orcnogSW5e}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 2d4} lightning damage on a failed save.",
-				repl: "This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Dexterity saving throw, taking {@damage 2d4} lightning damage on a failed save."
+				find: "the {@item bolt|sw5ephb}-thrower fires specialized projectiles in the form of {@item bolt|sw5ephb}.",
+				repl: "the bolt-thrower fires specialized projectiles in the form of {@item bolt|sw5ephb|bolts}."
 			},
 			{
-				find: "This {@item bolt|orcnogSW5e}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 2d4} psychic damage on a failed save.",
-				repl: "This {@item bolt-thrower|orcnogSW5e} ammunition deals {@damage 2d6} kinetic damage on a hit. Also on a hit, the creature must make a DC 14 Wisdom saving throw, taking {@damage 2d4} psychic damage on a failed save."
+				find: "{@item security kit|sw5ephb} to force open.",
+				repl: "{@skill security kit|sw5ephb} check to force open."
 			},
 			{
-				find: "the {@item bolt|orcnogSW5e}-thrower fires specialized projectiles in the form of {@item bolt|orcnogSW5e}.",
-				repl: "the bolt-thrower fires specialized projectiles in the form of {@item bolt|orcnogSW5e|bolts}."
+				find: "but are more bulky than mesh or {@item weave armor|sw5ephb}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use.",
+				repl: "but are more bulky than mesh or {@item weave armor|sw5ephb|weave armors}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use."
 			},
 			{
-				find: "A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@item security kit|orcnogSW5e} to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside.",
-				repl: "A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@skill security kit|orcnogSW5e} check to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside."
+				find: "specialized projectiles in the form of {@item arrow|sw5ephb}.",
+				repl: "specialized projectiles in the form of {@item arrow|sw5ephb|arrows}."
 			},
 			{
-				find: "Composite armor is a type of armored suit that offers a good balance of mobility and protection against most types of weapons. The micro-hydraulics of this type of powered armor provide the operator with protection, but are more bulky than mesh or {@item weave armor|orcnogSW5e}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use.",
-				repl: "Composite armor is a type of armored suit that offers a good balance of mobility and protection against most types of weapons. The micro-hydraulics of this type of powered armor provide the operator with protection, but are more bulky than mesh or {@item weave armor|orcnogSW5e|weave armors}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use."
+				find: "Intelligence ({@item slicer's kit|sw5ephb}) check,",
+				repl: "Intelligence ({@skill slicer's kit|sw5ephb}) check,"
 			},
 			{
-				find: "specialized projectiles in the form of {@item arrow|orcnogSW5e}.",
-				repl: "specialized projectiles in the form of {@item arrow|orcnogSW5e|arrows}."
-			},
-			{
-				find: "Intelligence ({@item slicer's kit|orcnogSW5e}) check,",
-				repl: "Intelligence ({@skill slicer's kit|orcnogSW5e}) check,"
-			},
-			{
-				find: "Intelligence ({@item security kit|orcnogSW5e}) check",
-				repl: "Intelligence ({@skill security kit|orcnogSW5e}) check"
+				find: "Intelligence ({@item security kit|sw5ephb}) check",
+				repl: "Intelligence ({@skill security kit|sw5ephb}) check"
 			},
 			{
 				find: "Intelligence (Technology) check",
@@ -1160,71 +1165,47 @@ const equipmentConfig = {
 				repl: "information."
 			},
 			{
-				find: "Fiber armor is a type of armor that offers more protection than the lighter {@item combat suit|orcnogSW5e}. Fiber armor is heavier overall than {@item combat suit|orcnogSW5e}, and not quite as flexible, but many consider the trade-offs worthwhile. It is a good source of defense from physical attacks and light blaster fire.",
-				repl: "Fiber armor is a type of armor that offers more protection than the lighter {@item combat suit|orcnogSW5e}. Fiber armor is heavier overall than {@item combat suit|orcnogSW5e|combat suits}, and not quite as flexible, but many consider the trade-offs worthwhile. It is a good source of defense from physical attacks and light blaster fire."
+				find: "Fiber armor is heavier overall than {@item combat suit|sw5ephb}, and not quite as flexible,",
+				repl: "Fiber armor is heavier overall than {@item combat suit|sw5ephb|combat suits}, and not quite as flexible,"
 			},
 			{
-				find: "the flechette cannon uses specialized projector tanks, which, when fired, spray an area with the contents of the tank. Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the flechette cannon�s strength requirement",
-				repl: "the flechette cannon uses specialized projector tanks, which, when fired, spray an area with the contents of the tank. Projector tanks require your target to make a saving throw to resist the tank's effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you're using as you fire it (no action required). If you don't meet the flechette cannon's strength requirement"
+				find: "Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the flechette cannon�s strength requirement",
+				repl: "Projector tanks require your target to make a saving throw to resist the tank's effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you're using as you fire it (no action required). If you don't meet the flechette cannon's strength requirement"
 			},
 			{
-				find: "When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you have disadvantage on damage rolls with it",
-				repl: "When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
-			},
-			{
-				find: "A gas cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} {@item poison|orcnogSW5e} damage and is {@condition poisoned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition poisoned}.",
-				repl: "A gas cartridge is a specialized {@item slug cartridge|orcnogSW5e} for use with blaster weapons that deal kinetic damage. When you hit with a shot with the loaded weapon, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} poison damage and is {@condition poisoned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition poisoned}."
-			},
-			{
-				find: "A silvery-green webbing sharp to the touch, yet when liquidized causes a heightened mental state and pleasurable boost. As an action, you can apply this substance to a creature within 5 feet. For the next minute, the creature experiences a high that allows them to roll an additional {@dice d3} when making an ability check, attack roll, or saving throw using Intelligence. At the end of the high, the creature must succeed on a DC 14 Wisdom saving throw or experience a low that lasts 10 minutes, during which they must roll a {@dice d3} and subtract the result when making an ability check, attack roll, or saving throw using Intelligence. At the end of the low, the creature must make a DC 14 Constitution\",\n\t\t\t\t\"saving throw to resist addiction.",
-				repl: "A silvery-green webbing sharp to the touch, yet when liquidized causes a heightened mental state and pleasurable boost. As an action, you can apply this substance to a creature within 5 feet. For the next minute, the creature experiences a high that allows them to roll an additional {@dice d3} when making an ability check, attack roll, or saving throw using Intelligence. At the end of the high, the creature must succeed on a DC 14 Wisdom saving throw or experience a low that lasts 10 minutes, during which they must roll a {@dice d3} and subtract the result when making an ability check, attack roll, or saving throw using Intelligence. At the end of the low, the creature must make a DC 14 Constitution saving throw to resist addiction."
+				find: "the creature must make a DC 14 Constitution\",\n\t\t\t\t\"saving throw to resist addiction.",
+				repl: "the creature must make a DC 14 Constitution saving throw to resist addiction."
 			},
 			{
 				find: "When firing a grenade at long range, or if you don�t meet the grenade launcher�s strength requirement, creatures within the radius of the grenade�s explosion have advantage on the saving throw.",
 				repl: "When firing a grenade at long range, or if you don't meet the grenade launcher's strength requirement, creatures within the radius of the grenade's explosion have advantage on the saving throw."
-			},
-			{
-				find: "When a creature enters the fog or starts its turn there, it creature must make a DC 14 Constitution saving throw. The creature takes {@damage 2d6} {@item poison|orcnogSW5e} damage on a failed save, or half as much damage on a successful one. Additionally, on a failed save, the creature is {@condition poisoned} while it is in the cloud. Droids, constructs and humanoids wearing appropriate protective equipment are unaffected.",
-				repl: "When a creature enters the fog or starts its turn there, it creature must make a DC 14 Constitution saving throw. The creature takes {@damage 2d6} poison damage on a failed save, or half as much damage on a successful one. Additionally, on a failed save, the creature is {@condition poisoned} while it is in the cloud. Droids, constructs and humanoids wearing appropriate protective equipment are unaffected."
-			},
-			{
-				find: "Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
-				repl: "Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
-			},
+			},				
 			{
 				find: "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a remote",
-				repl: "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|orcnogSW5e}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition poisoned} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
+				repl: "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|sw5ephb}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition poisoned} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			},
 			{
-				find: "As an action, you can use the poison in this {@item vial|orcnogSW5e} to coat one vibroweapon, one {@item slug cartridge|orcnogSW5e}, or one {@item wrist launcher|orcnogSW5e} {@item dart|orcnogSW5e}. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying.",
-				repl: "As an action, you can use the poison in this {@item vial|orcnogSW5e} to coat one vibroweapon, one {@item slug cartridge|orcnogSW5e}, or one wrist launcher {@item dart|orcnogSW5e}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
+				find: "As an action, you can use the poison in this {@item vial|sw5ephb} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one {@item wrist launcher|sw5ephb} {@item dart|sw5ephb}. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying.",
+				repl: "As an action, you can use the poison in this {@item vial|sw5ephb} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one wrist launcher {@item dart|sw5ephb}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
 			},
 			{
-				find: "This belt has slots to hold six {@item power cell|orcnogSW5e}, and can be connected to directly power a single blaster weapon that uses {@item power cell|orcnogSW5e}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|orcnogSW5e} takes an action.",
-				repl: "This belt has slots to hold six {@item power cell|orcnogSW5e|power cells}, and can be connected to directly power a single blaster weapon that uses {@item power cell|orcnogSW5e|power cells}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|orcnogSW5e} takes an action."
+				find: "This belt has slots to hold six {@item power cell|sw5ephb}, and can be connected to directly power a single blaster weapon that uses {@item power cell|sw5ephb}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|sw5ephb} takes an action.",
+				repl: "This belt has slots to hold six {@item power cell|sw5ephb|power cells}, and can be connected to directly power a single blaster weapon that uses {@item power cell|sw5ephb|power cells}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|sw5ephb} takes an action."
 			},
 			{
-				find: "Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
-				repl: "Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
-			},
-			{
-				find: "A quiver which can hold up to 20 {@item arrow|orcnogSW5e}, 10 {@item bolt|orcnogSW5e}, or 10 {@item dart|orcnogSW5e}. Drawing an item from the quiver does not require an object interaction.",
-				repl: "A quiver which can hold up to 20 {@item arrow|orcnogSW5e|arrows}, 10 {@item bolt|orcnogSW5e|bolts}, or 10 {@item dart|orcnogSW5e|darts}. Drawing an item from the quiver does not require an object interaction."
+				find: "A quiver which can hold up to 20 {@item arrow|sw5ephb}, 10 {@item bolt|sw5ephb}, or 10 {@item dart|sw5ephb}. Drawing an item from the quiver does not require an object interaction.",
+				repl: "A quiver which can hold up to 20 {@item arrow|sw5ephb|arrows}, 10 {@item bolt|sw5ephb|bolts}, or 10 {@item dart|sw5ephb|darts}. Drawing an item from the quiver does not require an object interaction."
 			},
 			{
 				find: "A repair kit included the basic tools needed to repair a droid after being damaged in combat. The kit has three",
 				repl: "A repair kit includes the basic tools needed to repair a droid after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
 			},
 			{
-				find: "Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
-				repl: "Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
-			},
-			{
-				find: "Restraining {@item bolt|orcnogSW5e} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining {@item bolt|orcnogSW5e} restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit.",
+				find: "Restraining {@item bolt|sw5ephb} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining {@item bolt|sw5ephb} restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit.",
 				repl: "Restraining bolts are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining bolt restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit."
 			},
 			{
-				find: "Installing a restraining {@item bolt|orcnogSW5e} takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining {@item bolt|orcnogSW5e} overloads and is rendered useless. On a failed save, the restraining {@item bolt|orcnogSW5e} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining {@item bolt|orcnogSW5e}.",
+				find: "Installing a restraining {@item bolt|sw5ephb} takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining {@item bolt|sw5ephb} overloads and is rendered useless. On a failed save, the restraining {@item bolt|sw5ephb} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining {@item bolt|sw5ephb}.",
 				repl: "Installing a restraining bolt takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining bolt overloads and is rendered useless. On a failed save, the restraining bolt is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining bolt."
 			},
 			{
@@ -1232,32 +1213,32 @@ const equipmentConfig = {
 				repl: "When firing a rocket at long range, or if you don't meet the rocket launcher's strength requirement, creatures within the radius of the rocket's explosion have advantage on the saving throw."
 			},
 			{
-				find: "When you make an Intelligence ({@item security kit|orcnogSW5e}) check,",
-				repl: "When you make an Intelligence ({@skill security kit|orcnogSW5e}) check,"
+				find: "When you make an Intelligence ({@item security kit|sw5ephb}) check,",
+				repl: "When you make an Intelligence ({@skill security kit|sw5ephb}) check,"
 			},
 			{
-				find: "Before firing the {@item sentry|orcnogSW5e} gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the {@item sentry|orcnogSW5e} gun as an action or bonus action.",
+				find: "Before firing the {@item sentry|sw5ephb} gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the {@item sentry|sw5ephb} gun as an action or bonus action.",
 				repl: "Before firing the sentry gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the sentry gun as an action or bonus action."
 			},
 			{
-				find: "specialized projectiles in the form of {@item arrow|orcnogSW5e}.",
-				repl: "specialized projectiles in the form of {@item arrow|orcnogSW5e|arrows}."
+				find: "specialized projectiles in the form of {@item arrow|sw5ephb}.",
+				repl: "specialized projectiles in the form of {@item arrow|sw5ephb|arrows}."
 			},
 			{
-				find: "{@skill Stealth} field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}. This effect ends early if you make an attack or cast a force- or tech- power.",
-				repl: "Stealth field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}. This effect ends early if you make an attack or cast a force- or tech- power."
+				find: "{@skill Stealth} field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}. This effect ends early if you make an attack or cast a force- or tech- power.",
+				repl: "Stealth field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}. This effect ends early if you make an attack or cast a force- or tech- power."
 			},
 			{
-				find: "Underwater {@item respirator|orcnogSW5e} are worn over the mouth and lower face. While worn, you can breath underwater, as the {@item respirator|orcnogSW5e} filters the water to create breathable oxygen. The {@item respirator|orcnogSW5e} functions for 1 hour per {@item power cell|orcnogSW5e} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}.",
-				repl: "Underwater respirators are worn over the mouth and lower face. While worn, you can breath underwater, as the respirator filters the water to create breathable oxygen. The respirator functions for 1 hour per {@item power cell|orcnogSW5e} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+				find: "Underwater {@item respirator|sw5ephb} are worn over the mouth and lower face. While worn, you can breath underwater, as the {@item respirator|sw5ephb} filters the water to create breathable oxygen. The {@item respirator|sw5ephb} functions for 1 hour per {@item power cell|sw5ephb} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|sw5ephb}.",
+				repl: "Underwater respirators are worn over the mouth and lower face. While worn, you can breath underwater, as the respirator filters the water to create breathable oxygen. The respirator functions for 1 hour per {@item power cell|sw5ephb} (to a maximum of 2 hours) and can be recharged by a power source or replacing the {@item power cell|sw5ephb|power cells}."
 			},
 			{
 				find: "Projector tanks require your target to make a saving throw to resist the tank�s effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you�re using as you fire it (no action required). If you don�t meet the vapor projector�s strength requirement, creatures have advantage on their saving throws.",
 				repl: "Projector tanks require your target to make a saving throw to resist the tank's effects. It can have different ammunition types loaded simultaneously, and you can choose which ammunition you're using as you fire it (no action required). If you don't meet the vapor projector's strength requirement, creatures have advantage on their saving throws."
 			},
 			{
-				find: "specialized projectiles in the form of {@item dart|orcnogSW5e}, small missiles",
-				repl: "specialized projectiles in the form of {@item dart|orcnogSW5e|darts}, small missiles."
+				find: "specialized projectiles in the form of {@item dart|sw5ephb}, small missiles",
+				repl: "specialized projectiles in the form of {@item dart|sw5ephb|darts}, small missiles"
 			},
 			{
 				find: "proficiency in Piloting",
@@ -1269,7 +1250,7 @@ const equipmentConfig = {
 			},
 			{
 				find: "cast the {@i infiltrate} tech power",
-				repl: "cast the {@spell infiltrate|orcnogSW5e} tech power"
+				repl: "cast the {@spell infiltrate|sw5ephb} tech power"
 			},
 			{
 				find: `
@@ -1284,7 +1265,7 @@ const equipmentConfig = {
 				"|:---:|:------------|",
 				"|  6  | Lightning   |",
 				"|  7  | Necrotic    |",
-				"|  8  | {@item Poison|orcnogSW5e}      |",
+				"|  8  | {@item Poison|sw5ephb}      |",
 				"|  9  | Psychic     |",
 				"|  10 | Sonic       |",`,
 				repl: `
@@ -1344,7 +1325,7 @@ const equipmentConfig = {
 			},
 			{
 				find: "the {@i detect enhancement} and {@i toxin scan} tech powers",
-				repl: "the {@spell detect enhancement|orcnogSW5e} and {@spell toxin scan|orcnogSW5e} tech powers"
+				repl: "the {@spell detect enhancement|sw5ephb} and {@spell toxin scan|sw5ephb} tech powers"
 			},
 			{
 				find: "the Piloting skill",
@@ -1352,15 +1333,15 @@ const equipmentConfig = {
 			},
 			{
 				find: `
-				"This metal {@item jug|orcnogSW5e} appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty.",
-				"You can use an action and name one liquid from the table below to cause the {@item jug|orcnogSW5e} to produce the chosen liquid. Afterward, you can open the {@item jug|orcnogSW5e} as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the {@item jug|orcnogSW5e} can produce depends on the liquid you named.",
-				"Once the {@item jug|orcnogSW5e} starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.",
+				"This metal {@item jug|sw5ephb} appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty.",
+				"You can use an action and name one liquid from the table below to cause the {@item jug|sw5ephb} to produce the chosen liquid. Afterward, you can open the {@item jug|sw5ephb} as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the {@item jug|sw5ephb} can produce depends on the liquid you named.",
+				"Once the {@item jug|sw5ephb} starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.",
 				"| Liquid | Quantity |",
 				"|:----:|:-------------|",
 				"| Acid  | 8 ounces |",
 				"| Alcohol, strong  | 1 gallon |",
 				"| Alcohol, weak  | 4 gallons |",
-				"| Basic {@item poison|orcnogSW5e}  | 1/2 ounce |",
+				"| Basic {@item poison|sw5ephb}  | 1/2 ounce |",
 				"| Liquid | Quantity |",
 				"|:---:|:------------|",
 				"| Condiment | 2 gallons |",
@@ -1395,7 +1376,7 @@ const equipmentConfig = {
 							"4 gallons"
 						],
 						[
-							"Basic {@item poison|orcnogSW5e}",
+							"Basic {@item poison|sw5ephb}",
 							"1/2 ounce"
 						],
 						[
@@ -1418,8 +1399,8 @@ const equipmentConfig = {
 				},`
 			},
 			{
-				find: " {@item security kit|orcnogSW5e} to force open",
-				repl: " {@skill security kit|orcnogSW5e} check to force open"
+				find: " {@item security kit|sw5ephb} to force open",
+				repl: " {@skill security kit|sw5ephb} check to force open"
 			},
 			{
 				find: "monk�s",
@@ -1427,15 +1408,15 @@ const equipmentConfig = {
 			},
 			{
 				find: "the {@i saber reflect} force power",
-				repl: "the {@spell saber reflect|orcnogSW5e} force power"
+				repl: "the {@spell saber reflect|sw5ephb} force power"
 			},
 			{
-				find: "The {@item credit|orcnogSW5e} chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of {@item credit|orcnogSW5e}, or it can draw directly from a specific account held by the user. The {@item credit|orcnogSW5e} chip",
-				repl: "The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of {@item credit|orcnogSW5e|credits}, or it can draw directly from a specific account held by the user. The credit chip"
+				find: "The {@item credit|sw5ephb} chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of {@item credit|sw5ephb}, or it can draw directly from a specific account held by the user. The {@item credit|sw5ephb} chip",
+				repl: "The credit chip is a small, flat card that features a security code and algorithm memory stripes. The chip can be preloaded with a specified number of {@item credit|sw5ephb|credits}, or it can draw directly from a specific account held by the user. The credit chip"
 			},
 			{
-				find: " {@item slicer's kit|orcnogSW5e} check",
-				repl: " {@skill slicer's kit|orcnogSW5e} check"
+				find: " {@item slicer's kit|sw5ephb} check",
+				repl: " {@skill slicer's kit|sw5ephb} check"
 			},
 			{
 				find: `
@@ -1448,25 +1429,25 @@ const equipmentConfig = {
 						"Hidden blade {@i (martial vibroweapon)}",
 						"Hold out {@i (simple blaster)}",`,
 				repl: `
-						"{@item Commlink|orcnogSW5e}",
-						"{@item Fusion cutter|orcnogSW5e}",
-						"{@item Grappling hook|orcnogSW5e} (with 50 feet of fibercord cable)",
-						"{@item Hydrospanner|orcnogSW5e}",
-						"{@item Traumakit|orcnogSW5e}",
-						"{@item Repair kit|orcnogSW5e}",
-						"{@item Hidden blade|orcnogSW5e} {@i (martial vibroweapon)}",
-						"{@item Hold out|orcnogSW5e} {@i (simple blaster)}",`
+						"{@item Commlink|sw5ephb}",
+						"{@item Fusion cutter|sw5ephb}",
+						"{@item Grappling hook|sw5ephb} (with 50 feet of fibercord cable)",
+						"{@item Hydrospanner|sw5ephb}",
+						"{@item Traumakit|sw5ephb}",
+						"{@item Repair kit|sw5ephb}",
+						"{@item Hidden blade|sw5ephb} {@i (martial vibroweapon)}",
+						"{@item Hold out|sw5ephb} {@i (simple blaster)}",`
 			},
 			{
-				find: "this enhanced {@item wrist launcher|orcnogSW5e} dart, which deals {@damage 1d6} kinetic damage on a hit",
-				repl: "this enhanced {@item wrist launcher|orcnogSW5e} {@item dart|orcnogSW5e}, which deals {@damage 1d6} kinetic damage on a hit"
+				find: "this enhanced {@item wrist launcher|sw5ephb} dart, which deals {@damage 1d6} kinetic damage on a hit",
+				repl: "this enhanced {@item wrist launcher|sw5ephb} {@item dart|sw5ephb}, which deals {@damage 1d6} kinetic damage on a hit"
 			},
 			{
-				find: "one of acid, cold, fire, force, lightning, necrotic, {@item poison|orcnogSW5e}, psychic, or sonic",
+				find: "one of acid, cold, fire, force, lightning, necrotic, {@item poison|sw5ephb}, psychic, or sonic",
 				repl: "one of acid, cold, fire, force, lightning, necrotic, poison, psychic, or sonic"
 			},
 			{
-				find: "acid, cold, fire, lightning, {@item poison|orcnogSW5e}, or sonic",
+				find: "acid, cold, fire, lightning, {@item poison|sw5ephb}, or sonic",
 				repl: "acid, cold, fire, lightning, poison, or sonic"
 			},
 			{
@@ -1475,11 +1456,11 @@ const equipmentConfig = {
 			},
 			{
 				find: "action to cast {@i release} at",
-				repl: "action to cast {@spell release|orcnogSW5e} at"
+				repl: "action to cast {@spell release|sw5ephb} at"
 			},
 			{
 				find: "the {@i tracker droid interface} tech power",
-				repl: "the {@spell tracker droid interface|orcnogSW5e} tech power"
+				repl: "the {@spell tracker droid interface|sw5ephb} tech power"
 			},
 			{
 				find: "proficiency in Lore",
@@ -1490,56 +1471,56 @@ const equipmentConfig = {
 				repl: "mastery in {@skill Lore}"
 			},
 			{
-				find: "Portals take the appearance of an elongated, shimmering {@item mirror|orcnogSW5e},",
+				find: "Portals take the appearance of an elongated, shimmering {@item mirror|sw5ephb},",
 				repl: "Portals take the appearance of an elongated, shimmering mirror,"
 			},
 			{
-				find: "if it uses {@item power cell|orcnogSW5e}",
-				repl: "if it uses {@item power cell|orcnogSW5e|power cells}"
+				find: "if it uses {@item power cell|sw5ephb}",
+				repl: "if it uses {@item power cell|sw5ephb|power cells}"
 			},
 			{
-				find: "expended {@item power cell|orcnogSW5e} and {@item power generator|orcnogSW5e}",
-				repl: "expended {@item power cell|orcnogSW5e|power cells} and {@item power generator|orcnogSW5e|power generators}"
+				find: "expended {@item power cell|sw5ephb} and {@item power generator|sw5ephb}",
+				repl: "expended {@item power cell|sw5ephb|power cells} and {@item power generator|sw5ephb|power generators}"
 			},
 			{
-				find: "A {@item repair kit|orcnogSW5e} included the basic tools",
-				repl: "A {@item repair kit|orcnogSW5e} includes the basic tools"
+				find: "A {@item repair kit|sw5ephb} included the basic tools",
+				repl: "A {@item repair kit|sw5ephb} includes the basic tools"
 			},
 			{
-				find: "{@item Restraining bolt|orcnogSW5e} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a {@item restraining bolt|orcnogSW5e} restricts",
+				find: "{@item Restraining bolt|sw5ephb} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a {@item restraining bolt|sw5ephb} restricts",
 				repl: "Restraining bolts are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining bolt restricts"
 			},
 			{
-				find: "Installing a {@item restraining bolt|orcnogSW5e} takes 1 minute.",
+				find: "Installing a {@item restraining bolt|sw5ephb} takes 1 minute.",
 				repl: "Installing a restraining bolt takes 1 minute."
 			},
 			{
-				find: "the {@item restraining bolt|orcnogSW5e} overloads and is rendered useless. On a failed save, the {@item restraining bolt|orcnogSW5e} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the {@item restraining bolt|orcnogSW5e}.",
+				find: "the {@item restraining bolt|sw5ephb} overloads and is rendered useless. On a failed save, the {@item restraining bolt|sw5ephb} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the {@item restraining bolt|sw5ephb}.",
 				repl: "the restraining bolt overloads and is rendered useless. On a failed save, the restraining bolt is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining bolt."
 			},
 			{
-				find: "{@item Rocket boots|orcnogSW5e} are a form of rocket propulsion",
+				find: "{@item Rocket boots|sw5ephb} are a form of rocket propulsion",
 				repl: "Rocket boots are a form of rocket propulsion"
 			},
 			{
-				find: "The {@item rocket boots|orcnogSW5e} last for 1 minute",
+				find: "The {@item rocket boots|sw5ephb} last for 1 minute",
 				repl: "The rocket boots last for 1 minute"
 			},
 			{
 				find: "learn the {@i alarm} tech power",
-				repl: "learn the {@spell alarm|orcnogSW5e} tech power"
+				repl: "learn the {@spell alarm|sw5ephb} tech power"
 			},
 			{
 				find: "the {@i tactical advantage} tech power",
-				repl: "the {@spell tactical advantage|orcnogSW5e} tech power"
+				repl: "the {@spell tactical advantage|sw5ephb} tech power"
 			},
 			{
 				find: `"{@b Communications Mode:} This communications suite includes a headcomm with a scrambler that automatically encodes messages sent to a specified recipient commlink or receiver. While this mode is active, you cannot be {@condition deafened}.",
 						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a comm jammer, a holotrace device and pocket scrambler.",
 						"{@b Respirator Mode:} This includes a basic respirator that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage."`,
-				repl: `"{@b Communications Mode:} This communications suite includes a {@item headcomm|orcnogSW5e} with a scrambler that automatically encodes messages sent to a specified recipient {@item commlink|orcnogSW5e} or receiver. While this mode is active, you cannot be {@condition deafened}.",
-						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a {@item comm jammer|orcnogSW5e}, a {@item holotrace device|orcnogSW5e} and {@item pocket scrambler|orcnogSW5e}.",
-						"{@b Respirator Mode:} This includes a basic {@item respirator|orcnogSW5e} that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage."`
+				repl: `"{@b Communications Mode:} This communications suite includes a {@item headcomm|sw5ephb} with a scrambler that automatically encodes messages sent to a specified recipient {@item commlink|sw5ephb} or receiver. While this mode is active, you cannot be {@condition deafened}.",
+						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a {@item comm jammer|sw5ephb}, a {@item holotrace device|sw5ephb} and {@item pocket scrambler|sw5ephb}.",
+						"{@b Respirator Mode:} This includes a basic {@item respirator|sw5ephb} that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage."`
 			},
 			{
 				find: `
@@ -1550,9 +1531,9 @@ const equipmentConfig = {
 				find: `"{@b Communications Mode:} This communications suite includes a headcomm with a scrambler that automatically encodes messages sent to a specified recipient commlink or receiver. While this mode is active, you cannot be {@condition deafened}. Additionally, if you listen to any spoken language for 10 minutes, the software in this package will begin to attempt to decipher it. Make an Intelligence (Lore) check, DC determined by the GM depending on the rarity of the language. On a success, you can understand the spoken form of this language, and speak it if your species' vocal capabilities allow for it.",
 						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a comm jammer, a holotrace device and pocket scrambler. Additionally, you can attempt to listen in on nearby audio communications chatter such as from a comlink or holocomm as an action. Make an Intelligence ({@skill Technology}) check, DC determined by the GM depending on the sophistication of the technology. On a success, you can hear electronic communications originating from within 100 feet.",
 						"{@b Respirator Mode:} This includes a basic respirator that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage. Additionally, you do not need air to breathe, allowing you to survive even in vacuum for up to 1 hour."`,
-				repl: `"{@b Communications Mode:} This communications suite includes a {@item headcomm|orcnogSW5e} with a scrambler that automatically encodes messages sent to a specified recipient {@item commlink|orcnogSW5e} or receiver. While this mode is active, you cannot be {@condition deafened}. Additionally, if you listen to any spoken language for 10 minutes, the software in this package will begin to attempt to decipher it. Make an Intelligence ({@skill Lore}) check, DC determined by the GM depending on the rarity of the language. On a success, you can understand the spoken form of this language, and speak it if your species' vocal capabilities allow for it.",
-						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a {@item comm jammer|orcnogSW5e}, a {@item holotrace device|orcnogSW5e} and pocket scrambler. Additionally, you can attempt to listen in on nearby audio communications chatter such as from a {@item commlink|orcnogSW5e} or {@item holocomm|orcnogSW5e} as an action. Make an Intelligence ({@skill Technology}) check, DC determined by the GM depending on the sophistication of the technology. On a success, you can hear electronic communications originating from within 100 feet.",
-						"{@b Respirator Mode:} This includes a basic {@item respirator|orcnogSW5e} that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage. Additionally, you do not need air to breathe, allowing you to survive even in vacuum for up to 1 hour."`
+				repl: `"{@b Communications Mode:} This communications suite includes a {@item headcomm|sw5ephb} with a scrambler that automatically encodes messages sent to a specified recipient {@item commlink|sw5ephb} or receiver. While this mode is active, you cannot be {@condition deafened}. Additionally, if you listen to any spoken language for 10 minutes, the software in this package will begin to attempt to decipher it. Make an Intelligence ({@skill Lore}) check, DC determined by the GM depending on the rarity of the language. On a success, you can understand the spoken form of this language, and speak it if your species' vocal capabilities allow for it.",
+						"{@b Interceptor Mode:} This is a jamming and electronic warfare suite that includes a {@item comm jammer|sw5ephb}, a {@item holotrace device|sw5ephb} and pocket scrambler. Additionally, you can attempt to listen in on nearby audio communications chatter such as from a {@item commlink|sw5ephb} or {@item holocomm|sw5ephb} as an action. Make an Intelligence ({@skill Technology}) check, DC determined by the GM depending on the sophistication of the technology. On a success, you can hear electronic communications originating from within 100 feet.",
+						"{@b Respirator Mode:} This includes a basic {@item respirator|sw5ephb} that grants advantage on saving throws made to avoid being {@condition poisoned} and resistance to poison damage. Additionally, you do not need air to breathe, allowing you to survive even in vacuum for up to 1 hour."`
 			},
 			{
 				find: "proficiency in Technology",
@@ -1563,23 +1544,23 @@ const equipmentConfig = {
 				repl: "mastery in {@skill Technology}"
 			},
 			{
-				find: "{@item Thermal detonator|orcnogSW5e} are",
-				repl: "{@item Thermal detonator|orcnogSW5e|Thermal detonators} are"
+				find: "{@item Thermal detonator|sw5ephb} are",
+				repl: "{@item Thermal detonator|sw5ephb|Thermal detonators} are"
 			},
 			{
 				find: "One contains an integrated wristpad, while the other contains an integrated wrist launcher.",
-				repl: "One contains an integrated {@item wristpad|orcnogSW5e}, while the other contains an integrated {@item wrist launcher|orcnogSW5e}."
+				repl: "One contains an integrated {@item wristpad|sw5ephb}, while the other contains an integrated {@item wrist launcher|sw5ephb}."
 			},
 			{
 				find: "the {@i voltaic shielding} tech power",
-				repl: "the {@spell voltaic shielding|orcnogSW5e} tech power"
+				repl: "the {@spell voltaic shielding|sw5ephb} tech power"
 			},
 			{
-				find: "You craft a {@item wrist-mounted grappling hook|orcnogSW5e} weapon",
-				repl: "You craft a wrist-mounted {@item grappling hook|orcnogSW5e} weapon"
+				find: "You craft a {@item wrist-mounted grappling hook|sw5ephb} weapon",
+				repl: "You craft a wrist-mounted {@item grappling hook|sw5ephb} weapon"
 			},
 			{
-				find: "modifiable {@item wristpad|orcnogSW5e} chassis",
+				find: "modifiable {@item wristpad|sw5ephb} chassis",
 				repl: "modifiable wristpad chassis"
 			}
 		]

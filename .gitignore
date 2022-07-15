@@ -1,6 +1,7 @@
 desktop.ini
 node_modules
 patch/*.json
+temp-backup*.json
 
 # IntelliJ project files
 .idea/

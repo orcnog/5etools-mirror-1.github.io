@@ -28,7 +28,10 @@
 		"serve:dev": "http-server -c-1 --cors --port 5000",
 		"spellcheck:check-data": "echo \"This can take a few minutes.\" && npx cspell --no-progress --show-context --show-suggestions \"data/**/*.json\"",
 		"spellcheck:check-data-quick": "git diff --name-only | grep -P \"^data/[^.]+.json\" | npx cspell --no-progress --show-context --show-suggestions --file-list stdin",
-		"spellcheck:trust-data": "echo \"This can take a few minutes.\" && echo \"# new words on $(date)\" >> spellcheck/dnd-words.txt && npx cspell --words-only --unique \"./data/**/*.json\" | sort --ignore-case >> spellcheck/dnd-words.txt"
+		"spellcheck:trust-data": "echo \"This can take a few minutes.\" && echo \"# new words on $(date)\" >> spellcheck/dnd-words.txt && npx cspell --words-only --unique \"./data/**/*.json\" | sort --ignore-case >> spellcheck/dnd-words.txt",
+        "cobble": "node node/cobble-homebrew.js",
+        "replace": "node node/replace-string.js",
+        "modify": "node node/modify-json-file.js"
 	},
 	"repository": {
 		"type": "git",

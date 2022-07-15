@@ -3,8 +3,7 @@
 window.addEventListener("load", () => doSw5ePageInit());
 
 const initialSw5eApiUrl = "https://sw5eapi.azurewebsites.net/api/equipment";
-const initial5eToolsJsonURL = "https://raw.githubusercontent.com/orcnog/5etools-brew/main/sw5e/source/orcnogSW5e.json";
-const sourceString = "orcnogSW5e";
+const initial5eToolsJsonURL = "data/items-sw5e.json";
 
 var editLeft = ace.edit("panel_left", {
     wrap: true,
