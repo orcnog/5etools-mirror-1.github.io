@@ -10036,7 +10036,7 @@
 			"value": 3000,
 			"weight": 2,
 			"entries": [
-				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the wrist launcher, you have disadvantage on damage rolls with it"
+				"When triggered, this {@item wrist launcher|orcnogSW5e} ammunition fires a volley of ion flechette rounds in a short line 15 feet long and 5 feet wide or a long line 45 feet long and 5 feet wide. A single flechette clip holds enough ammunition for three attacks in a short line or one attack in a long line. Each creature must make a DC 14 Dexterity saving throw. A creature takes {@damage 1d6} ion damage on a failed save, or half as much as on a successful one. Any electronics within the blast radius that aren't being worn or carried are disabled until rebooted. If you lack proficiency in the {@item wrist launcher|orcnogSW5e}, you have disadvantage on damage rolls with it"
 			]
 		},
 		{
@@ -14303,7 +14303,7 @@
 			"value": 45000,
 			"weight": 20,
 			"entries": [
-				"Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+				"Jetpacks are personal aerial transportation devices that allow the operator to fly into and through the air with great mobility. Activating or deactivating the jetpack requires a bonus action and, while active, you have a flying speed of 30 feet. The jetpack last for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -20008,7 +20008,7 @@
 			"value": 4000,
 			"weight": 20,
 			"entries": [
-				"Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+				"Propulsion packs enhance underwater movement. Activating or deactivating the propulsion pack requires a bonus action and, while active, you have a swimming speed of 30 feet. The propulsion pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
@@ -21555,7 +21555,7 @@
 			"value": 3000,
 			"weight": 10,
 			"entries": [
-				"Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+				"Repulsor packs are used to slow descent from a high elevation. Activating or deactivating the repulsor pack requires a bonus action and, while active, your rate of descent slow to 60 feet per round, and you ignore the effects of wind of less than moderate speed (no more than 10 mph). The repulsor pack lasts for 1 minute per {@item power cell|orcnogSW5e} (to a maximum of 10 minutes) and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			]
 		},
 		{
@@ -22118,7 +22118,7 @@
 			"value": 25000,
 			"weight": 3,
 			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e|power cells}."
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|orcnogSW5e}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|orcnogSW5e}."
 			],
 			"modifySpeed": {
 				"static": {
