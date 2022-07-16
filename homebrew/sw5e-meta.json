@@ -69,6 +69,269 @@
 			}
 		],
 		"dateAdded": 1657936771,
-		"dateLastModified": 1657936771
+		"dateLastModified": 1657936771,
+		"skills": {
+			"Piloting": [
+				"Your Intelligence (Piloting) check measures your ability to control vehicles, aircraft, and spaceships. Piloting governs your ability to maneuver through tight spaces and debris fields or dogfight with enemy craft.",
+				"{@homebrew A DnD5e character can count any proficiency in {@skill Vehicles (Land)} or {@skill Vehicles (Water)} as having proficiency in the Piloting skill.}"
+			],
+			"Technology": [
+				"Your Intelligence (Technology) checks measure your ability to recall information about droids, vehicles, spaceships, aircraft, and computers, as well as your ability to interface with them. Technology can also be used to stabilize a droid or construct.",
+				"{@homebrew A DnD5e character should replace their {@skill Arcana} skill with the Technology skill when determining proficiency.}"
+			],
+			"Lore": [
+				"Your Intelligence (Lore) check measures your ability to recall information about the Force, artifacts, histories, and religions.",
+				"{@homebrew A DnD5e character should replace their {@skill History} and/or {@skill Religion} skills with the Lore skill when determining proficiencies.}"
+			],
+			"Biochemist's Kit": [
+				"A {@item Biochemist's Kit|sw5ephb} includes all of the necessary components to create and house standard adrenals, medpacs, and stimpacs.",
+				{
+					"type": "list",
+					"items": [
+						"{@b {@skill Investigation}}. Proficiency with a biochemist's kit allows you to unlock more information on {@skill Investigation} checks involving adrenals, medpacs, and stimpacs",
+						"{@b {@skill Perception}}. When you inspect an area for clues, proficiency with biochemist's kit grants additional insight into any chemicals or other substances that might have been used in the area."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Medpac Improvement",
+					"entries": [
+						"Over the course of a short or long rest, you can make a DC 15 biochemist's kit check to temporarily improve the potency of one {@item medpac|sw5ephb}. To use this benefit, you must have a biochemist's kit with you, and the medpac must be within reach. If the medpac is consumed before the end of your next short or long rest, when a creature uses this medpac, they take the maximum instead of rolling."
+					]
+				},
+				{
+					"type": "table",
+					"caption": "Sample Activities",
+					"colLabels": [
+						"Activity",
+						"DC"
+					],
+					"colStyles": [
+						"col-6 text-left",
+						"col-2 text-left"
+					],
+					"rows": [
+						[
+							"Create a {@item traumakit|sw5ephb}",
+							"10"
+						],
+						[
+							"Identify a chemical",
+							"10"
+						],
+						[
+							"Create a {@item medpac|sw5ephb}",
+							"15"
+						],
+						[
+							"Create an {@item antitoxkit|sw5ephb}",
+							"20"
+						]
+					]
+				},
+				"{@homebrew A DnD5e character should replace their {@skill Herbalism Kit} skill proficiency with a Biochemist's Kit skill proficiency.}"
+			],
+			"Demolitions Kit": [
+				"A {@item Demolitions Kit|sw5ephb} includes all of the necessary components to create, set, and disarm explosives. It contains a plastic face guard and heavy duty gloves, as well as precision cutting and gripping tools, and various common components of grenades and mines.",
+				{
+					"type": "list",
+					"items": [
+						"{@b {@skill Lore|sw5ephb}}. Your knowledge of explosives grants you insight when answering questions about the most effective explosives for a given task.",
+						"{@b {@skill Investigation} and {@skill Perception}}. You gain additional insight when looking for mines and charges, because you have learned a variety of common signs that betray their presence."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Amplify Explosive",
+					"entries": [
+						"Over the course of a short or long rest, you can make a DC 15 demolitions kit check to temporarily improve one grenade or mine. To use this benefit, you must have a demolitions kit with you, and the object must be within reach. If the explosive is detonated before the end of your next short or long rest, it deals bonus damage. This bonus is a die, with a maximum value equal to your proficiency bonus. If you have expertise in the tool, this die's maximum is instead equal to twice your proficiency bonus."
+					]
+				},
+				{
+					"type": "table",
+					"caption": "Sample Activities",
+					"colLabels": [
+						"Activity",
+						"DC"
+					],
+					"colStyles": [
+						"col-6 text-left",
+						"col-2 text-left"
+					],
+					"rows": [
+						[
+							"Conceal an explosive",
+							"15"
+						],
+						[
+							"Disarm a mine",
+							"Varies"
+						]
+					]
+				},
+				"{@homebrew A DnD5e character should replace their {@skill Alchemist's Supplies} skill proficiency with the Demolitions Kit skill proficiency.}"
+			],
+			"Mechanic's Kit": [
+				"A {@item Mechanic's Kit|sw5ephb} contains all of the commonly required tools to make repairs on constructs, such as ships, speeders, and turrets. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to perform repairs or install ship upgrades.",
+				{
+					"type": "list",
+					"items": [
+						"{@b {@skill Lore|sw5ephb}}. Your skill allows you to more readily discern the make and model of vehicle and ship parts.",
+						"{@b {@skill Investigation}}. Your experience lets you more readily identify aftermarket modifications in vehicles and ships.",
+						"{@b {@skill Technology|sw5ephb}}. Your experience grants you greater insight when conducting repairs on ships or vehicles."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Quick Fixer",
+					"entries": [
+						"When you are interrupted while you are conducting repairs on a vehicle or ship, reduce the required time by half as long as you are present during the entirety of the repairs."
+					]
+				},
+				{
+					"type": "table",
+					"caption": "Sample Activities",
+					"colLabels": [
+						"Activity",
+						"DC"
+					],
+					"colStyles": [
+						"col-6 text-left",
+						"col-2 text-left"
+					],
+					"rows": [
+						[
+							"Restoring power to a damaged vehicle",
+							"15"
+						],
+						[
+							"Disassembling a vehicle's engine",
+							"20"
+						]
+					]
+				},
+				"{@homebrew A DnD5e character should replace their {@skill Tinker's Tools} skill proficiency with the Mechanic's Kit skill proficiency.}"
+			],
+			"Munitions Kit": [
+				"A {@item Munitions Kit|sw5ephb} contains the necessary tools to create ammunition for blasters, as well as devices to hone lightweapons and vibroweapons.",
+				{
+					"type": "entries",
+					"name": "Hone Weapon",
+					"entries": [
+						"Over the course of a short or long rest, you can make a DC 15 munitions kit check to temporarily improve a blaster or vibroweapon. To use this benefit, you must have munitions kit with you, and the object must be within reach. On a success, once before your next short or long rest, a character wielding this weapon can gain a bonus to one weapon damage roll. This bonus is a die, with a maximum value equal to your proficiency bonus. If you have expertise in the tool, this die's maximum is instead equal to twice your proficiency bonus."
+					]
+				},
+				"{@homebrew A DnD5e character should replace their {@skill Smith's Tools} skill proficiency with the Munitions Kit skill proficiency.}"
+			],
+			"Security Kit": [
+				"A {@item Security Kit|sw5ephb} includes all of the necessary components to set or disarm locks and traps.",
+				{
+					"type": "list",
+					"items": [
+						"{@b {@skill Lore|sw5ephb}}. Your knowledge of traps grants you insight when answering questions about locations that are renowned for their traps.",
+						"{@b {@skill Investigation} and {@skill Perception}}. You gain additional insight when looking for traps, because you have learned a variety of common signs that betray their presence."
+					]
+				},
+				{
+					"type": "entries",
+					"name": "Set a Trap",
+					"entries": [
+						"Just as you can disable traps, you can also set them. As part of a short rest, you can create a trap using items you have on hand. The total of your check becomes the DC for someone else’s attempt to discover or disable the trap. The trap deals damage appropriate to the materials used in crafting it (such as poison or a weapon) or damage equal to half the total of your check, whichever the DM deems appropriate."
+					]
+				},
+				{
+					"type": "table",
+					"caption": "Sample Activities",
+					"colLabels": [
+						"Activity",
+						"DC"
+					],
+					"colStyles": [
+						"col-6 text-left",
+						"col-2 text-left"
+					],
+					"rows": [
+						[
+							"Pick a moderate lock",
+							"15"
+						],
+						[
+							"Disable a trap",
+							"Varies"
+						]
+					]
+				},
+				"{@homebrew A DnD5e character should consider replacing their proficiency with {@skill Thieves' Tools} with a proficiency with either a @{item Security Kit|sw5ephb}, {@item Slicer's Kit|sw5ephb}, or {@item Trapper's Kit|sw5ephb}.}"
+			],
+			"Slicer's Kit": [
+				"A {@item Slicer's Kit|sw5ephb} includes all of the necessary components to interface with and disarm digital securities.",
+				{
+					"type": "list",
+					"items": [
+						"{@b {@skill Lore|sw5ephb}}. Your knowledge of digital securities grants you insight when answering questions about them.",
+						"{@b {@skill Investigation}}. You gain additional insight when looking for digital securities when using computers and terminals.",
+						"{@b {@skill Technology|sw5ephb}}. Your knowledge of common digital security types makes it easier for you to identify them."
+					]
+				},
+				{
+					"type": "table",
+					"caption": "Sample Activities",
+					"colLabels": [
+						"Activity",
+						"DC"
+					],
+					"colStyles": [
+						"col-6 text-left",
+						"col-2 text-left"
+					],
+					"rows": [
+						[
+							"Identify a hidden security routine",
+							"15"
+						],
+						[
+							"Reprogram a security routine",
+							"20"
+						]
+					]
+				},
+				"{@homebrew A DnD5e character should consider replacing their proficiency with {@skill Thieves' Tools} with a proficiency with either a @{item Security Kit|sw5ephb}, {@item Slicer's Kit|sw5ephb}, or {@item Trapper's Kit|sw5ephb}.}"
+			],
+			"Trapper's Kit": [
+				"A {@item Trapper's Kit|sw5ephb} includes all of the necessary components to create, disarm, and disassemble traps.",
+				"{@homebrew A DnD5e character should consider replacing their proficiency with {@skill Thieves' Tools} with a proficiency with either a @{item Security Kit|sw5ephb}, {@item Slicer's Kit|sw5ephb}, or {@item Trapper's Kit|sw5ephb}.}"
+			]
+		},
+		"spellSchools": {
+			"FPL": {
+				"full": "Force Power (Light)",
+				"short": "Lght.",
+				"color": "2c90dd"
+			},
+			"FPD": {
+				"full": "Force Power (Dark)",
+				"short": "Drk.",
+				"color": "#940000"
+			},
+			"FPU": {
+				"full": "Force Power (Universal)",
+				"short": "Uni.",
+				"color": "d29a38"
+			},
+			"TP": {
+				"full": "Tech Power",
+				"short": "Tch.",
+				"color": "008e2f"
+			}
+		},
+		"currencyConversions": {
+			"Credits": [
+				{
+					"coin": "cr",
+					"mult": 0.1,
+					"isFallback": true
+				}
+			]
+		}
     }
 }
