@@ -1,5 +1,5 @@
 {
-    "baseitem": [],
+	"baseitem": [],
 	"itemProperty": [
 		{
 			"abbreviation": "AST",
@@ -759,7 +759,7 @@
 					"type": "entries",
 					"name": "Charging",
 					"entries": [
-						"When you take damage while wearing armor or wielding a shield with the charging property, you gain a charge. You can store a maximum number of charges equal to the charging number, and the charges last for 1 minute. The next time you hit with a melee weapon attack while you have charges, you deal additional damage of the same type as the weapon’s damage equal to the number of charges stored, and the charges are expended."
+						"When you take damage while wearing armor or wielding a shield with the charging property, you gain a charge. You can store a maximum number of charges equal to the charging number, and the charges last for 1 minute. The next time you hit with a melee weapon attack while you have charges, you deal additional damage of the same type as the weapon's damage equal to the number of charges stored, and the charges are expended."
 					]
 				}
 			],
@@ -816,7 +816,7 @@
 					"type": "entries",
 					"name": "Imbalanced",
 					"entries": [
-						"When you are critically hit while wielding a shield with the imbalanced property, you can’t take reactions until the start of your next turn, and you gain no AC benefit from your shield against the next attack against you before the start of your next turn."
+						"When you are critically hit while wielding a shield with the imbalanced property, you can't take reactions until the start of your next turn, and you gain no AC benefit from your shield against the next attack against you before the start of your next turn."
 					]
 				}
 			]
@@ -873,7 +873,7 @@
 					"type": "entries",
 					"name": "Lambent",
 					"entries": [
-						"While wielding a shield with the lambent property, you can use a bonus action to activate or deactivate the shield’s light. While active, the shield sheds bright light in a 5-foot radius and dim light for an additional 5 feet. Additionally, Dexterity ({@skill Stealth}) checks made while the shield’s light is active that rely on sight have disadvantage."
+						"While wielding a shield with the lambent property, you can use a bonus action to activate or deactivate the shield's light. While active, the shield sheds bright light in a 5-foot radius and dim light for an additional 5 feet. Additionally, Dexterity ({@skill Stealth}) checks made while the shield's light is active that rely on sight have disadvantage."
 					]
 				}
 			]
@@ -901,7 +901,7 @@
 					"type": "entries",
 					"name": "Magnetic",
 					"entries": [
-						"While you are wielding a shield with the magnetic property and a melee weapon attack misses you by an amount less than or equal to your bonus to AC from your shield, the attacking creature must make a Strength check, DC equal to the magnetic number. On a failed save, the creature’s weapon adheres to the shield. As an action, a creature can repeat this check. On a success, the weapon is freed."
+						"While you are wielding a shield with the magnetic property and a melee weapon attack misses you by an amount less than or equal to your bonus to AC from your shield, the attacking creature must make a Strength check, DC equal to the magnetic number. On a failed save, the creature's weapon adheres to the shield. As an action, a creature can repeat this check. On a success, the weapon is freed."
 					]
 				}
 			]
