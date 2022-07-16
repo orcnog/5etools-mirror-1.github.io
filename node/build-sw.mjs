@@ -84,7 +84,7 @@ const workboxRuntimeBuildResult = await injectManifest({
 					[
 						entry.url
 							// sanitize spaces
-							.replaceAll(" ", "%20"),
+							.replace(/ /g, "%20"),
 						entry.revision,
 					],
 			)}),
