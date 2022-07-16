@@ -303,19 +303,19 @@
 			]
 		},
 		"spellSchools": {
-			"FPL": {
-				"full": "Force Power (Light)",
+			"LT": {
+				"full": "Light",
 				"short": "Lght.",
 				"color": "2c90dd"
 			},
-			"FPD": {
-				"full": "Force Power (Dark)",
+			"DK": {
+				"full": "Dark",
 				"short": "Drk.",
 				"color": "#940000"
 			},
-			"FPU": {
-				"full": "Force Power (Universal)",
-				"short": "Uni.",
+			"UV": {
+				"full": "Universal",
+				"short": "Univ.",
 				"color": "d29a38"
 			},
 			"TP": {

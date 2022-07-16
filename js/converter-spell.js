@@ -129,7 +129,7 @@ class SpellParser extends BaseParser {
 				ptrI,
 				toConvert,
 				{
-					fnStop: (curLine) => /^(?:At Higher Levels|Classes)/gi.test(curLine),
+					fnStop: (curLine) => /^(?:At Higher Levels|Force Potency|Classes)/gi.test(curLine),
 				},
 			);
 			i = ptrI._;
@@ -494,6 +494,10 @@ Object.entries({
 	"evocation": "V",
 	"illusion": "I",
 	"divination": "D",
+	"light": "LT",
+	"dark": "DK",
+	"universal": "UV",
+	"tech power": "TP",
 }).forEach(([k, v]) => {
 	SpellParser._RES_SCHOOL.push({
 		output: v,
