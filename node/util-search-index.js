@@ -117,6 +117,6 @@ class UtilSearchIndex {
 		return out;
 	}
 }
-UtilSearchIndex.CORE_SOURCES = new Set([SRC_PHB, SRC_MM, SRC_DMG, SRC_VGM, SRC_MTF, SRC_XGE, SRC_SCAG]);
+UtilSearchIndex.CORE_SOURCES = new Set([SRC_PHB, SRC_MM, SRC_DMG, SRC_VGM, SRC_MTF, SRC_XGE, SRC_SCAG, SRC_SW5E_PHB, SRC_SW5E_SNV, SRC_SW5E_SOTG, SRC_SW5E_WH, SRC_SW5E_VR, SRC_SW5E_EC]);
 
 module.exports = {UtilSearchIndex};

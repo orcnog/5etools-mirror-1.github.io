@@ -54,6 +54,13 @@
 	$rgb-source-SCC: #be9c56;
 	$rgb-source-MPMM: #5c758d;
 	$rgb-source-CRCotN: #ac4a70;
+	// SW5e
+	$rgb-source-sw5ephb: #aa0000;
+	$rgb-source-sw5esnv: #11aa11;
+	$rgb-source-sw5esotg: #5577ee;
+	$rgb-source-sw5ewh: #bb8833;
+	$rgb-source-sw5evr: #8811cc;
+	$rgb-source-sw5eec: #00aabb;
 
 	&PHB {
 		color: $rgb-source-PHB !important;
@@ -424,6 +431,44 @@
 		color: $rgb-source-CRCotN !important;
 		border-color: $rgb-source-CRCotN !important;
 		text-decoration-color: $rgb-source-CRCotN !important;
+	}
+
+	// SW5e Sources
+
+	&PHB[title^="SW5e"] {
+		color: $rgb-source-sw5ephb !important;
+		border-color: $rgb-source-sw5ephb !important;
+		text-decoration-color: $rgb-source-sw5ephb !important;
+	}
+	
+	&SnV[title^="SW5e"] {
+		color: $rgb-source-sw5esnv !important;
+		border-color: $rgb-source-sw5esnv !important;
+		text-decoration-color: $rgb-source-sw5esnv !important;
+	}
+	
+	&SotG[title^="SW5e"] {
+		color: $rgb-source-sw5esotg !important;
+		border-color: $rgb-source-sw5esotg !important;
+		text-decoration-color: $rgb-source-sw5esotg !important;
+	}
+	
+	&WH[title^="SW5e"] {
+		color: $rgb-source-sw5ewh !important;
+		border-color: $rgb-source-sw5ewh !important;
+		text-decoration-color: $rgb-source-sw5ewh !important;
+	}
+	
+	&VR[title^="SW5e"] {
+		color: $rgb-source-sw5evr !important;
+		border-color: $rgb-source-sw5evr !important;
+		text-decoration-color: $rgb-source-sw5evr !important;
+	}
+	
+	&EC[title^="SW5e"] {
+		color: $rgb-source-sw5eec !important;
+		border-color: $rgb-source-sw5eec !important;
+		text-decoration-color: $rgb-source-sw5eec !important;
 	}
 }
 
