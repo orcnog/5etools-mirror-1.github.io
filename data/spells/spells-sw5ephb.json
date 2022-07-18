@@ -1263,10 +1263,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1284,8 +1280,8 @@
 					"type": "list",
 					"items": [
 						"{@b {@i Strength.}} The target has advantage on Strength checks, and his or her carrying capacity doubles.",
-						"{@b {@i Dexterity.}} The target has advantage on Dexterity checks. It also doesn't take damage from falling 20 feet or less if it isn't incapacitated.",
-						"{@b {@i Endurance.}} The target has advantage on Constitution checks. It also gains {@damage 2d6} temporary hit points, which are lost when the power ends.",
+						"{@b {@i Dexterity.}} The target has advantage on Dexterity checks. It also doesn't take damage from falling 20 feet or less if it isn't {@condition incapacitated}.",
+						"{@b {@i Endurance.}} The target has advantage on Constitution checks. It also gains {@dice 2d6} temporary hit points, which are lost when the power ends.",
 						"{@b {@i Cunning.}} The target has advantage on Intelligence checks.",
 						"{@b {@i Wisdom.}} The target has advantage on Wisdom checks.",
 						"{@b {@i Splendor.}} The target has advantage on Charisma checks."
@@ -1302,12 +1298,12 @@
 					]
 				}
 			],
-			"damageInflict": [
-				[
-					"temphp"
-				]
+			"conditionInflict": [
+				"incapacitated"
 			],
-			"savingThrow": ""
+			"miscTags": [
+				"THP"
+			]
 		},
 		{
 			"name": "Burst",
@@ -2093,10 +2089,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
