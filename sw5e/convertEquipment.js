@@ -1185,8 +1185,8 @@ const equipmentConfig = {
 				repl: "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|sw5ephb}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition poisoned} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			},
 			{
-				find: "As an action, you can use the poison in this {@item vial|sw5eec} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one {@item wrist launcher|sw5ephb} {@item dart|sw5ephb}. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying.",
-				repl: "As an action, you can use the poison in this {@item vial|sw5eec} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one wrist launcher {@item dart|sw5ephb}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
+				find: "As an action, you can use the poison in this {@item vial|sw5eec} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one {@item wrist launcher|sw5ephb} {@item dart|sw5ephb}. A creature hit by the {@condition poisoned} weapon",
+				repl: "As an action, you can use the poison in this {@item vial|sw5eec} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one wrist launcher {@item dart|sw5ephb}. A creature hit by the poisoned weapon"
 			},
 			{
 				find: "This belt has slots to hold six {@item power cell|sw5ephb}, and can be connected to directly power a single blaster weapon that uses {@item power cell|sw5ephb}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|sw5ephb} takes an action.",
@@ -1333,9 +1333,9 @@ const equipmentConfig = {
 			},
 			{
 				find: `
-				"This metal {@item jug|sw5ephb} appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty.",
-				"You can use an action and name one liquid from the table below to cause the {@item jug|sw5ephb} to produce the chosen liquid. Afterward, you can open the {@item jug|sw5ephb} as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the {@item jug|sw5ephb} can produce depends on the liquid you named.",
-				"Once the {@item jug|sw5ephb} starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.",
+				"This metal {@item jug|sw5eec} appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty.",
+				"You can use an action and name one liquid from the table below to cause the {@item jug|sw5eec} to produce the chosen liquid. Afterward, you can open the {@item jug|sw5eec} as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the {@item jug|sw5eec} can produce depends on the liquid you named.",
+				"Once the {@item jug|sw5eec} starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.",
 				"| Liquid | Quantity |",
 				"|:----:|:-------------|",
 				"| Acid  | 8 ounces |",
@@ -1479,8 +1479,8 @@ const equipmentConfig = {
 				repl: "if it uses {@item power cell|sw5ephb|power cells}"
 			},
 			{
-				find: "expended {@item power cell|sw5ephb} and {@item power generator|sw5ephb}",
-				repl: "expended {@item power cell|sw5ephb|power cells} and {@item power generator|sw5ephb|power generators}"
+				find: "expended {@item power cell|sw5ephb} and {@item power generator|sw5ewh}",
+				repl: "expended {@item power cell|sw5ephb|power cells} and {@item power generator|sw5ewh|power generators}"
 			},
 			{
 				find: "A {@item repair kit|sw5ephb} included the basic tools",
@@ -1556,7 +1556,7 @@ const equipmentConfig = {
 				repl: "the {@spell voltaic shielding|sw5ephb} tech power"
 			},
 			{
-				find: "You craft a {@item wrist-mounted grappling hook|sw5ephb} weapon",
+				find: "You craft a {@item wrist-mounted grappling hook|sw5ewh} weapon",
 				repl: "You craft a wrist-mounted {@item grappling hook|sw5ephb} weapon"
 			},
 			{
