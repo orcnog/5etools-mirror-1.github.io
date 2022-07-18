@@ -505,6 +505,7 @@ const equipmentConfig = {
 					}
 					if (o.propertiesMap["Double"]) {
 						property.push("DBL");
+						ret.double = o.propertiesMap.Double.split(/Double \(|\)/)[1] || undefined; // Ex: "Double (1d8 kinetic)" returns "1d8 kinetic"
 					}
 					if (o.propertiesMap["Fixed"]) {
 						property.push("FXD");
@@ -606,6 +607,7 @@ const equipmentConfig = {
 					}
 					if (o.propertiesMap["Smart"]) {
 						property.push("SMT");
+						ret.smart = o.propertiesMap.Smart.split(/smart \(|\)/)[1] || undefined; // Ex: "smart (12/+2)" returns "12/+2"
 					}
 					if (o.propertiesMap["Sonorous"]) {
 						property.push("SON");

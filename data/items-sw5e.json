@@ -7397,7 +7397,8 @@
 			"dmgType": "Kinetic",
 			"entries": [
 				null
-			]
+			],
+			"double": "1d6 kinetic"
 		},
 		{
 			"name": "Double-saber",
@@ -7418,7 +7419,8 @@
 			"dmgType": "Energy",
 			"entries": [
 				null
-			]
+			],
+			"double": "1d8 energy"
 		},
 		{
 			"name": "Double-shoto",
@@ -7440,7 +7442,8 @@
 			"dmgType": "Energy",
 			"entries": [
 				null
-			]
+			],
+			"double": "1d6 energy"
 		},
 		{
 			"name": "Double-sword",
@@ -7460,7 +7463,8 @@
 			"dmgType": "Kinetic",
 			"entries": [
 				null
-			]
+			],
+			"double": "1d8 kinetic"
 		},
 		{
 			"name": "Droid Dura Plating Mk I",
@@ -7670,7 +7674,8 @@
 			"entries": [
 				null
 			],
-			"sonorous": 13
+			"sonorous": 13,
+			"double": "1d6 kinetic"
 		},
 		{
 			"name": "Electrifying Calibrator (Average)",
@@ -8094,7 +8099,8 @@
 			"entries": [
 				null
 			],
-			"shocking": 13
+			"shocking": 13,
+			"double": "1d6 kinetic"
 		},
 		{
 			"name": "Electro-vougle",
@@ -23516,7 +23522,8 @@
 			"reload": 16,
 			"range": "40/160",
 			"ammunition": true,
-			"rapid": 4
+			"rapid": 4,
+			"smart": "15/+2"
 		},
 		{
 			"name": "Shoulder Cannon",
@@ -23549,7 +23556,8 @@
 			"range": "60/240",
 			"ammunition": true,
 			"strength": 11,
-			"burst": 8
+			"burst": 8,
+			"smart": "15/+2"
 		},
 		{
 			"name": "Shoulder Cannon (Champion)",
@@ -24048,7 +24056,8 @@
 			"ammunition": true,
 			"strength": 15,
 			"burst": 2,
-			"rapid": 2
+			"rapid": 2,
+			"smart": "15/+2"
 		},
 		{
 			"name": "Smart Interface (Basic)",
@@ -24141,7 +24150,8 @@
 			"ammunition": true,
 			"strength": 11,
 			"rapid": 2,
-			"piercing": 1
+			"piercing": 1,
+			"smart": "15/+2"
 		},
 		{
 			"name": "Smugglepack",
@@ -24662,7 +24672,8 @@
 			"dmgType": "Energy",
 			"entries": [
 				null
-			]
+			],
+			"double": "1d8 energy"
 		},
 		{
 			"name": "Stabilizer Ascendancy Cell",

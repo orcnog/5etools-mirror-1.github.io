@@ -228,10 +228,11 @@
 					"type": "entries",
 					"name": "Double",
 					"entries": [
-						"A weapon with the double property can be used with one or two hands. A damage value in parentheses appears with the property�the damage when the weapon is used with Double-Weapon Fighting. See the rules for Double-Weapon Fighting in chapter 9."
+						"A weapon with the double property can be used with one or two hands. A damage value in parentheses appears with the property\u2014the damage when the weapon is used with Double-Weapon Fighting. See the rules for Double-Weapon Fighting in chapter 9."
 					]
 				}
-			]
+			],
+			"template": "{{prop_name}} ({{item.double}})"
 		},
 		{
 			"abbreviation": "SWF",
@@ -446,7 +447,8 @@
 						"Weapons with the power cell property are fueled by power cells, which must be loaded in order to fire the weapon."
 					]
 				}
-			]
+			],
+			"template": "{{prop_name}} ({{item.range}} ft.)"
 		},
 		{
 			"abbreviation": "RAP",
@@ -532,7 +534,8 @@
 						"Weapons with the slug cartridge property fire slug cartridges, which must be loaded in order to fire the weapon."
 					]
 				}
-			]
+			],
+			"template": "{{prop_name}} ({{item.range}} ft.)"
 		},
 		{
 			"abbreviation": "SMT",
@@ -543,10 +546,11 @@
 					"type": "entries",
 					"name": "Smart",
 					"entries": [
-						"This weapon ignores your Dexterity score and proficiency bonus. Two numbers appear in parentheses with the property�the first is the weapon's Dexterity score, and the second is the weapon's proficiency bonus. The weapon uses these values instead of yours when you make attack and damage rolls with it. If you lack proficiency with the weapon, the weapon does not benefit from its proficiency bonus."
+						"This weapon ignores your Dexterity score and proficiency bonus. Two numbers appear in parentheses with the property\u2014the first is the weapon's Dexterity score, and the second is the weapon's proficiency bonus. The weapon uses these values instead of yours when you make attack and damage rolls with it. If you lack proficiency with the weapon, the weapon does not benefit from its proficiency bonus."
 					]
 				}
-			]
+			],
+			"template": "{{prop_name}} ({{item.smart}})"
 		},
 		{
 			"abbreviation": "SON",
@@ -575,7 +579,8 @@
 						"A weapon with the special property has unusual rules governing its use, explained in the weapon's description (see \"Special Weapons\" later in this section)."
 					]
 				}
-			]
+			],
+			"template": "{{prop_name}} ({{item.range}} ft.)"
 		},
 		{
 			"abbreviation": "SPC",
@@ -643,7 +648,7 @@
 					"type": "entries",
 					"name": "Versatile",
 					"entries": [
-						"A weapon with the versatile property can be used with one or two hands. A damage value in parentheses appears with the property�the damage when the weapon is used with two hands to make a melee attack."
+						"A weapon with the versatile property can be used with one or two hands. A damage value in parentheses appears with the property\u2014the damage when the weapon is used with two hands to make a melee attack."
 					]
 				}
 			],
