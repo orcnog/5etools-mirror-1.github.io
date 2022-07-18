@@ -1109,32 +1109,32 @@ const equipmentConfig = {
 				repl: "Arrows are ammunition used in bow weapons. When you would use {@item poison|sw5ephb} to coat a weapon or {@item slug cartridge|sw5ephb}, you can instead coat an arrow with the {@item poison|sw5ephb}. Once a poisoned arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "A combustive {@item arrow|sw5ephb} is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the {@item arrow|sw5ephb} hits another creature, object, or surface it detonates. Each creature within 5ft of the {@item arrow|sw5ephb} detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the {@item arrow|sw5ephb} hits a target, it no longer gives a bonus.",
-				repl: "A combustive arrow is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
+				find: "A combustive {@item arrow|sw5eec} is a specialized {@item arrow|sw5eec} for use with bow weapons. When the {@item arrow|sw5eec} hits another creature, object, or surface it detonates. Each creature within 5ft of the {@item arrow|sw5eec} detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the {@item arrow|sw5eec} hits a target, it no longer gives a bonus.",
+				repl: "A combustive arrow is a specialized {@item arrow|sw5eec} for use with bow weapons. When the arrow hits another creature, object, or surface it detonates. Each creature within 5ft of the arrow's detonation must make a DC 14 Dexterity saving throw or take {@damage 1d8} fire damage. On a successful save, a creature takes half damage. Once the arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "An electroshock {@item arrow|sw5ephb} is a specialized {@item arrow|sw5ephb} for use with bow weapons. When you hit a creature with this {@item arrow|sw5ephb}, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the {@item arrow|sw5ephb} hits a target, it no longer gives a bonus.",
-				repl: "An electroshock arrow is a specialized {@item arrow|sw5ephb} for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
+				find: "An electroshock {@item arrow|sw5eec} is a specialized {@item arrow|sw5eec} for use with bow weapons. When you hit a creature with this {@item arrow|sw5eec}, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the {@item arrow|sw5eec} hits a target, it no longer gives a bonus.",
+				repl: "An electroshock arrow is a specialized {@item arrow|sw5eec} for use with bow weapons. When you hit a creature with this arrow, the creature must make a DC 14 Dexterity saving throw. On a failed save, the creature takes {@damage 1d3} ion damage and becomes {@condition stunned} until the start of its next turn. On a successful save, a creature takes half damage and isn't {@condition stunned}. Once the arrow hits a target, it no longer gives a bonus."
 			},
 			{
-				find: "A noisemaker {@item arrow|sw5ephb} is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the {@item arrow|sw5ephb} hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the {@item arrow|sw5ephb} hits a target, it no longer gives a bonus.",
-				repl: "A noisemaker arrow is a specialized {@item arrow|sw5ephb} for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
+				find: "A noisemaker {@item arrow|sw5eec} is a specialized {@item arrow|sw5eec} for use with bow weapons. When the {@item arrow|sw5eec} hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the {@item arrow|sw5eec} hits a target, it no longer gives a bonus.",
+				repl: "A noisemaker arrow is a specialized {@item arrow|sw5eec} for use with bow weapons. When the arrow hits another creature, object, or surface it generates an explosion of sound that can be heard up to 100 feet away. If the target of the attack is a creature, the creature must make a DC 14 Constitution saving throw. On a failed save, the creature takes {@damage 1d6} sonic damage and is {@condition deafened} until the end of its next turn. Once the arrow hits a target, it no longer gives a bonus."
 			},
 			{
 				find: "A bandolier is worn across the {@item chest|sw5ephb}. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|sw5ephb}.",
 				repl: "A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|sw5ephb}."
 			},
 			{
-				find: "This {@item bolt|sw5ephb}-thrower ammunition",
-				repl: "This {@item bolt-thrower|sw5ephb} ammunition"
+				find: "This {@item bolt|sw5eec}-thrower ammunition",
+				repl: "This {@item bolt-thrower|sw5eec} ammunition"
 			},
 			{
-				find: "This {@item bolt|sw5ephb}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit.",
-				repl: "This {@item bolt-thrower|sw5ephb} ammunition deals {@damage 2d6} kinetic damage on a hit."
+				find: "This {@item bolt|sw5eec}-thrower ammunition deals {@damage 2d6} kinetic damage on a hit.",
+				repl: "This {@item bolt-thrower|sw5eec} ammunition deals {@damage 2d6} kinetic damage on a hit."
 			},
 			{
-				find: "the {@item bolt|sw5ephb}-thrower fires specialized projectiles in the form of {@item bolt|sw5ephb}.",
-				repl: "the bolt-thrower fires specialized projectiles in the form of {@item bolt|sw5ephb|bolts}."
+				find: "the {@item bolt|sw5eec}-thrower fires specialized projectiles in the form of {@item bolt|sw5eec}.",
+				repl: "the bolt-thrower fires specialized projectiles in the form of {@item bolt|sw5eec|bolts}."
 			},
 			{
 				find: "{@item security kit|sw5ephb} to force open.",
@@ -1145,8 +1145,8 @@ const equipmentConfig = {
 				repl: "but are more bulky than mesh or {@item weave armor|sw5ephb|weave armors}. This type of armor is rarely seen outside of professional mercenaries' and soldiers' use."
 			},
 			{
-				find: "specialized projectiles in the form of {@item arrow|sw5ephb}.",
-				repl: "specialized projectiles in the form of {@item arrow|sw5ephb|arrows}."
+				find: "specialized projectiles in the form of {@item arrow|sw5eec}.",
+				repl: "specialized projectiles in the form of {@item arrow|sw5eec|arrows}."
 			},
 			{
 				find: "Intelligence ({@item slicer's kit|sw5ephb}) check,",
@@ -1185,27 +1185,27 @@ const equipmentConfig = {
 				repl: "Mines can be set to detonate when a creature comes within up to 15 feet of it or paired with a {@item remote detonator|sw5ephb}. As an action, you can prime and set a mine on a surface you can reach, which arms at the start of your next turn. When detonated, each creature within 15 feet of it must make a DC 14 Constitution saving throw. On a failed save, a creature is {@condition poisoned} for 1 minute. At the start of an affected creature's turn, it can repeat this save, ending the effect on a success."
 			},
 			{
-				find: "As an action, you can use the poison in this {@item vial|sw5ephb} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one {@item wrist launcher|sw5ephb} {@item dart|sw5ephb}. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying.",
-				repl: "As an action, you can use the poison in this {@item vial|sw5ephb} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one wrist launcher {@item dart|sw5ephb}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
+				find: "As an action, you can use the poison in this {@item vial|sw5eec} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one {@item wrist launcher|sw5ephb} {@item dart|sw5ephb}. A creature hit by the {@condition poisoned} weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying.",
+				repl: "As an action, you can use the poison in this {@item vial|sw5eec} to coat one vibroweapon, one {@item slug cartridge|sw5ephb}, or one wrist launcher {@item dart|sw5ephb}. A creature hit by the poisoned weapon must make a DC 14 Constitution saving throw, taking {@damage 2d4} poison damage on a failed save or half as much on a successful one. Once applied, the poison retains potency for 1 minute before drying."
 			},
 			{
 				find: "This belt has slots to hold six {@item power cell|sw5ephb}, and can be connected to directly power a single blaster weapon that uses {@item power cell|sw5ephb}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|sw5ephb} takes an action.",
 				repl: "This belt has slots to hold six {@item power cell|sw5ephb|power cells}, and can be connected to directly power a single blaster weapon that uses {@item power cell|sw5ephb|power cells}. Once per turn, if the powered weapon would be reloaded, it can be done without using an action using any ammunition in the belt. Connecting or disconnecting a weapon takes an action. Replacing an expended {@item power cell|sw5ephb} takes an action."
 			},
 			{
-				find: "A quiver which can hold up to 20 {@item arrow|sw5ephb}, 10 {@item bolt|sw5ephb}, or 10 {@item dart|sw5ephb}. Drawing an item from the quiver does not require an object interaction.",
-				repl: "A quiver which can hold up to 20 {@item arrow|sw5ephb|arrows}, 10 {@item bolt|sw5ephb|bolts}, or 10 {@item dart|sw5ephb|darts}. Drawing an item from the quiver does not require an object interaction."
+				find: "A quiver which can hold up to 20 {@item arrow|sw5eec}, 10 {@item bolt|sw5eec}, or 10 {@item dart|sw5ephb}. Drawing an item from the quiver does not require an object interaction.",
+				repl: "A quiver which can hold up to 20 {@item arrow|sw5eec|arrows}, 10 {@item bolt|sw5eec|bolts}, or 10 {@item dart|sw5ephb|darts}. Drawing an item from the quiver does not require an object interaction."
 			},
 			{
 				find: "A repair kit included the basic tools needed to repair a droid after being damaged in combat. The kit has three",
 				repl: "A repair kit includes the basic tools needed to repair a droid after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
 			},
 			{
-				find: "Restraining {@item bolt|sw5ephb} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining {@item bolt|sw5ephb} restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit.",
+				find: "Restraining {@item bolt|sw5eec} are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining {@item bolt|sw5eec} restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit.",
 				repl: "Restraining bolts are small, cylindrical devices that can be affixed to a droid in order to limit its functions and enforce its obedience. When inserted, a restraining bolt restricts the droid from any movement its master does not desire, and also forced it to respond to signals produced by a hand-held control unit."
 			},
 			{
-				find: "Installing a restraining {@item bolt|sw5ephb} takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining {@item bolt|sw5ephb} overloads and is rendered useless. On a failed save, the restraining {@item bolt|sw5ephb} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining {@item bolt|sw5ephb}.",
+				find: "Installing a restraining {@item bolt|sw5eec} takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining {@item bolt|sw5eec} overloads and is rendered useless. On a failed save, the restraining {@item bolt|sw5eec} is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining {@item bolt|sw5eec}.",
 				repl: "Installing a restraining bolt takes 1 minute. The droid must make a DC 14 Constitution saving throw. A hostile droid makes this save with advantage. On a successful save, the restraining bolt overloads and is rendered useless. On a failed save, the restraining bolt is correctly installed, and the control unit can be used to actively control the droid. While the control unit is inactive, the droid can act freely but it can not attempt to remove the restraining bolt."
 			},
 			{
@@ -1217,12 +1217,12 @@ const equipmentConfig = {
 				repl: "When you make an Intelligence ({@skill security kit|sw5ephb}) check,"
 			},
 			{
-				find: "Before firing the {@item sentry|sw5ephb} gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the {@item sentry|sw5ephb} gun as an action or bonus action.",
+				find: "Before firing the {@item sentry|sw5ewh} gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the {@item sentry|sw5ewh} gun as an action or bonus action.",
 				repl: "Before firing the sentry gun, you must deploy it using an action unless you meet its strength requirement. Alternatively, if you're able to make multiple attacks with the {@action Attack} action, this action replaces one of them.  While deployed in this way, you treat this weapon's strength number as two steps less (from 19 to 15), your speed is reduced by half, and you cannot fire this weapon at long range. You can collapse the sentry gun as an action or bonus action."
 			},
 			{
-				find: "specialized projectiles in the form of {@item arrow|sw5ephb}.",
-				repl: "specialized projectiles in the form of {@item arrow|sw5ephb|arrows}."
+				find: "specialized projectiles in the form of {@item arrow|sw5eec}.",
+				repl: "specialized projectiles in the form of {@item arrow|sw5eec|arrows}."
 			},
 			{
 				find: "{@skill Stealth} field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}. This effect ends early if you make an attack or cast a force- or tech- power.",
