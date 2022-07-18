@@ -780,6 +780,7 @@ class EntryConvert {
 			return stack.last();
 		};
 
+        let presumeList = 0;
 		while (ptrI._ < toConvert.length) {
 			if (opts.fnStop && opts.fnStop(curLine)) break;
 
@@ -787,7 +788,8 @@ class EntryConvert {
 				popNestedEntries(); // this implicitly pops nested lists
 
 				addEntry(BaseParser._getJsonFromLine(curLine));
-			} else if (ConvertUtil.isListItemLine(curLine)) {
+			} else if (presumeList || ConvertUtil.isListItemLine(curLine)) {
+                presumeList = presumeList > 0 ? presumeList - 1 : 0; // only trigger this for the first list item... otherwise it'll never stop.
 				if (stack.last().type !== "list") {
 					const list = {
 						type: "list",
@@ -797,6 +799,7 @@ class EntryConvert {
 				}
 
 				curLine = curLine.replace(/^\s*[•●]\s*/, "");
+				curLine = curLine.replace(/^(\w+\s?\w+\.)/, "{@b {@i $1}}");
 				addEntry(curLine.trim());
 			} else if (ConvertUtil.isNameLine(curLine)) {
 				popNestedEntries(); // this implicitly pops nested lists
@@ -826,6 +829,7 @@ class EntryConvert {
 				popList();
 
 				addEntry(curLine.trim());
+                presumeList = ConvertUtil.isLeadInForList(curLine);
 			}
 
 			ptrI._++;
@@ -884,7 +888,9 @@ class ConvertUtil {
 		return line.toTitleCase() === line;
 	}
 
-	static isListItemLine (line) { return /^[•●]/.test(line.trim()); }
+	static isListItemLine (line) { return /^[•●]|^\w+\s?\w+\s?\w+\.\s/.test(line.trim()) === true && /^At Higher Levels|Force Potency|Classes/i.test(line.trim()) === false; } // match bullet point character, or "word opt_2nd_word opt_3rd_word.", but not Force Potency etc.
+
+    static isLeadInForList (line) { return /following.*:$/.test(line.trim()) ? 2 : 0; } // 2 represents the minimum qty of list items we presume will follow
 
 	static splitNameLine (line, isKeepPunctuation) {
 		const spl = this._getMergedSplitName({line});

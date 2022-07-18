@@ -57,11 +57,24 @@ class SpellParser extends BaseParser {
 		}
 
 		if (!inText || !inText.trim()) return options.cbWarning("No input!");
+        
+        // handle paste directly from sw5e.com spell layout, which would include tabs but no labels like "Casting Time:" or "Duration:"
+        const sw5eMeta = inText.match(/^([\w\s]+)\t(\d|At-will)\t(?:(Universal|Light|Dark)\t)?(\d.*(?:action).*)\t(\d+ feet|Self(?: \(.+\))?|Touch|Varies)\t(Instantaneous|(?:Up tp )?\d+ (?:round|turn|minute|hour|day)s?)\t(Concentration|-)\t(.+)\t(.+)[\r\n]+/);
+        let sw5eSource;
+        if (sw5eMeta?.length) {
+            const [fullMatch, sw5eName, sw5eLevel, sw5eSchool, sw5eCastingTime, sw5eRange, sw5eDuration, sw5eConcen, sw5ePrerequisite, sw5eSrc] = [...sw5eMeta];
+            sw5eSource = 'sw5e' + sw5eSrc.toLowerCase();
+            const sw5eLevelSchoolText = sw5eLevel === 'At-will' ? `${sw5eSchool} cantrip` : `${Parser.getOrdinalForm(sw5eLevel)}-level ${sw5eSchool}`;
+            const sw5ePrereqText = sw5ePrerequisite === '-' ? '' : `{@b {@i Prerequisite: {@spell ${sw5ePrerequisite}|${_getSpellSource(sw5ePrerequisite)}}}}\n`;
+            const sw5eRangeText = sw5eRange === 'Varies' ? 'Self' : sw5eRange;
+            inText = `${sw5eName}\n${sw5eLevelSchoolText}\nCasting Time: ${sw5eCastingTime}\nRange: ${sw5eRangeText}\nDuration: ${sw5eConcen === '-' ? '' : 'Concentration '}${sw5eDuration}\n${sw5ePrereqText}${inText.split(fullMatch)[1]}`;
+        }
+
 		const toConvert = this._getCleanInput(inText, options)
 			.split("\n")
 			.filter(it => it && it.trim());
 		const spell = {};
-		spell.source = options.source;
+		spell.source = sw5eSource || options.source;
 		// for the user to fill out
 		spell.page = options.page;
 
@@ -477,6 +490,11 @@ class SpellParser extends BaseParser {
 			});
 
 		if (!stats.classes.fromClassList.length) delete stats.classes;
+	}
+
+    static _getSpellSource (spellName) {
+		if (spellName && SpellcastingTraitConvert.SPELL_SRC_MAP[spellName.toLowerCase()]) return SpellcastingTraitConvert.SPELL_SRC_MAP[spellName.toLowerCase()];
+		return null;
 	}
 
 	static _getFinalState (spell, options) {

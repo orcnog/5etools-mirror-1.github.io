@@ -2935,6 +2935,10 @@ Parser.SOURCE_JSON_TO_ABV[SRC_SW5E_WH] = "WH";
 Parser.SOURCE_JSON_TO_ABV[SRC_SW5E_VR] = "VR";
 Parser.SOURCE_JSON_TO_ABV[SRC_SW5E_EC] = "EC";
 
+Parser.getSourceJsonFromAbv = function (abv) {
+    return Object.entries(Parser.SOURCE_JSON_TO_ABV).find((a) => a[1] === abv)[0]; // get first match only
+}
+
 Parser.SOURCE_JSON_TO_DATE = {};
 Parser.SOURCE_JSON_TO_DATE[SRC_CoS] = "2016-03-15";
 Parser.SOURCE_JSON_TO_DATE[SRC_DMG] = "2014-12-09";

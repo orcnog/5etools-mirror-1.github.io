@@ -142,8 +142,17 @@ class ScalingLevelDiceTagger {
 			return label || "NO_LABEL";
 		};
 
-		if ((rolls.length === 4 && strEntries.includes("one die")) || rolls.length === 5) {
-			if (rolls.length === 5 && rolls[0] !== rolls[1]) options.cbWarning(`${sp.name ? `(${sp.name}) ` : ""}scalingLevelDice rolls may require manual checking--mismatched roll number of rolls!`);
+        const sw5e_incr_11_17_match = strEntries.match(/At 5th level.+?(extra )?{@damage ([^}]+)}.+increase by {@dice ([^}]+)} at 11th level and 17th level./);
+		if ((rolls.length === 4 && strEntries.includes("one die")) || sw5e_incr_11_17_match || rolls.length === 5) {
+			if (sw5e_incr_11_17_match) {
+                const extra = sw5e_incr_11_17_match[1];
+                const lvl5 = extra ? RollerUtil.getAddDiceStrings(rolls[0], sw5e_incr_11_17_match[2]) : sw5e_incr_11_17_match[2];
+                const lvl11 = RollerUtil.getAddDiceStrings(lvl5, sw5e_incr_11_17_match[3]);
+                const lvl17 = RollerUtil.getAddDiceStrings(lvl11, sw5e_incr_11_17_match[3]);
+                rolls[rolls.length - 3] = lvl5;
+                rolls[rolls.length - 2] = lvl11;
+                rolls[rolls.length - 1] = lvl17;
+            } else if (rolls.length === 5 && rolls[0] !== rolls[1]) options.cbWarning(`${sp.name ? `(${sp.name}) ` : ""}scalingLevelDice rolls may require manual checking--mismatched roll number of rolls!`);
 
 			sp.scalingLevelDice = {
 				label: getLabel(),

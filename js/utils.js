@@ -4830,6 +4830,17 @@ RollerUtil = {
 		return `{@dice ${m[1]}${m[2]}#$prompt_number:title=Enter a ${m[3].trim()}$#|${lbl}}`;
 	},
 
+    getAddDiceStrings (d1, d2) {
+        if (RegExp(RollerUtil._DICE_REGEX_STR).exec(d1) && RegExp(RollerUtil._DICE_REGEX_STR).exec(d2)) {
+            const d1n = d1.split('d')[0];
+            const d1d = d1.split('d')[1];
+            const d2n = d2.split('d')[0];
+            const d2d = d2.split('d')[1];
+            if (d1d === d2d) return Number(d1n) + Number(d2n) + "d" + d1d;
+        }
+        return d1 + " + " + d2;
+    },
+
 	_DICE_REGEX_STR: "((([1-9]\\d*)?d([1-9]\\d*)(\\s*?[-+×x*÷/]\\s*?(\\d,\\d|\\d)+(\\.\\d+)?)?))+?",
 };
 RollerUtil.DICE_REGEX = new RegExp(RollerUtil._DICE_REGEX_STR, "g");
