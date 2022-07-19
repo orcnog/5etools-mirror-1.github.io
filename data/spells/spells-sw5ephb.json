@@ -18,10 +18,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -56,10 +52,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -96,10 +88,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -134,10 +122,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -171,10 +155,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -215,10 +195,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -248,10 +224,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -288,10 +260,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -330,10 +298,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -363,10 +327,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -403,10 +363,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -441,10 +397,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -483,10 +435,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -517,10 +465,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -568,10 +512,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -609,10 +549,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -663,10 +599,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -708,10 +640,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -746,10 +674,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -786,10 +710,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -824,10 +744,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -868,10 +784,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -911,10 +823,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -949,10 +857,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -989,10 +893,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1027,10 +927,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1068,10 +964,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1104,10 +996,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1146,10 +1034,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1185,10 +1069,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1231,10 +1111,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1284,10 +1160,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1339,10 +1211,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -1377,10 +1245,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1414,10 +1278,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1457,10 +1317,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -1495,10 +1351,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -1532,10 +1384,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1580,10 +1428,6 @@
 					"amount": 100
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1622,10 +1466,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1679,10 +1519,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1726,10 +1562,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1765,10 +1597,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1809,10 +1637,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1851,10 +1675,6 @@
 					"amount": 250
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -1890,10 +1710,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -1938,10 +1754,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -1976,10 +1788,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2027,10 +1835,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -2069,10 +1873,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -2107,10 +1907,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -2144,10 +1940,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2189,10 +1981,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -2222,10 +2010,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2261,10 +2045,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2302,10 +2082,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2350,10 +2126,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -2383,10 +2155,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2421,10 +2189,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2467,10 +2231,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2517,10 +2277,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -2557,10 +2313,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2602,10 +2354,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -2639,10 +2387,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2679,10 +2423,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2723,10 +2463,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -2765,10 +2501,6 @@
 					"amount": 90
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -2802,10 +2534,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2841,10 +2569,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2890,10 +2614,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -2932,10 +2652,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -2987,10 +2703,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3039,10 +2751,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3086,10 +2794,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3126,10 +2830,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3163,10 +2863,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3202,10 +2898,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3243,10 +2935,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3280,10 +2968,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3324,10 +3008,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3357,10 +3037,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3404,10 +3080,6 @@
 					"amount": 150
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3447,10 +3119,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3486,10 +3154,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3527,10 +3191,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3564,10 +3224,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3604,10 +3260,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3640,10 +3292,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3681,10 +3329,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3720,10 +3364,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3754,10 +3394,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3794,10 +3430,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3827,10 +3459,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3869,10 +3497,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -3908,10 +3532,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -3946,10 +3566,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -3999,10 +3615,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4049,10 +3661,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4102,10 +3710,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4154,10 +3758,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -4201,10 +3801,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4256,10 +3852,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4295,10 +3887,6 @@
 					"type": "feet",
 					"amount": 500
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4346,10 +3934,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -4383,10 +3967,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4422,10 +4002,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4469,10 +4045,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -4508,10 +4080,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -4546,10 +4114,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4587,10 +4151,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4624,10 +4184,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4667,10 +4223,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4704,10 +4256,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4743,10 +4291,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -4780,10 +4324,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4835,10 +4375,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4874,10 +4410,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -4925,10 +4457,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -4968,10 +4496,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5006,10 +4530,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5047,10 +4567,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -5086,10 +4602,6 @@
 					"amount": 10
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -5121,10 +4633,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5171,10 +4679,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5210,10 +4714,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -5247,10 +4747,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5288,10 +4784,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -5325,10 +4817,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5364,10 +4852,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5409,10 +4893,6 @@
 					"amount": 90
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5448,10 +4928,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5500,10 +4976,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5545,10 +5017,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5593,10 +5061,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5632,10 +5096,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5670,10 +5130,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5713,10 +5169,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5751,10 +5203,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5800,10 +5248,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5841,10 +5285,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -5880,10 +5320,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -5928,10 +5364,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6022,10 +5454,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6065,10 +5493,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6101,10 +5525,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6149,10 +5569,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6186,10 +5602,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6230,10 +5642,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6266,10 +5674,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6315,10 +5719,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -6362,10 +5762,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6399,10 +5795,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6440,10 +5832,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6478,10 +5866,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6522,10 +5906,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6563,10 +5943,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6612,10 +5988,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -6650,10 +6022,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6693,10 +6061,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6741,10 +6105,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -6782,10 +6142,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -6819,10 +6175,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6868,10 +6220,6 @@
 					"amount": 150
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -6913,10 +6261,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -6954,10 +6298,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -6997,10 +6337,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7046,10 +6382,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7093,10 +6425,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7139,10 +6467,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7189,10 +6513,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7227,10 +6547,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7264,10 +6580,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7309,10 +6621,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7348,10 +6656,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -7381,10 +6685,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7422,10 +6722,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7459,10 +6755,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7500,10 +6792,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -7533,10 +6821,6 @@
 					"type": "feet",
 					"amount": 15
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7571,10 +6855,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7611,10 +6891,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -7650,10 +6926,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7699,10 +6971,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7741,10 +7009,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7780,10 +7044,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7835,10 +7095,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -7892,10 +7148,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -7936,10 +7188,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -7977,10 +7225,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8013,10 +7257,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8052,10 +7292,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8093,10 +7329,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8132,10 +7364,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8189,10 +7417,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -8226,10 +7450,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8273,10 +7493,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8309,10 +7525,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8357,10 +7569,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8411,10 +7619,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8450,10 +7654,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8493,10 +7693,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8533,10 +7729,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8572,10 +7764,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -8609,10 +7797,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8651,10 +7835,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8704,10 +7884,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8743,10 +7919,6 @@
 					"amount": 300
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8781,10 +7953,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8826,10 +7994,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -8864,10 +8028,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8906,10 +8066,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -8953,10 +8109,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9002,10 +8154,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -9049,10 +8197,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -9087,10 +8231,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9137,10 +8277,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -9178,10 +8314,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9227,10 +8359,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -9264,10 +8392,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9304,10 +8428,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9352,10 +8472,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -9395,10 +8511,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -9432,10 +8544,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9485,10 +8593,6 @@
 					"amount": 150
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -9529,10 +8633,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -9567,10 +8667,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9642,10 +8738,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9736,10 +8828,6 @@
 					"amount": 10
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -9773,10 +8861,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9813,10 +8897,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -9851,10 +8931,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9895,10 +8971,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -9937,10 +9009,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -9982,10 +9050,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10014,10 +9078,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10058,10 +9118,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -10095,10 +9151,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10129,10 +9181,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10170,10 +9218,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10204,10 +9248,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10263,10 +9303,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -10304,10 +9340,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10342,10 +9374,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10389,10 +9417,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10428,10 +9452,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10465,10 +9485,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10504,10 +9520,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10536,10 +9548,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10573,10 +9581,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10613,10 +9617,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -10651,10 +9651,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -10684,10 +9680,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10724,10 +9716,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -10761,10 +9749,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10800,10 +9784,6 @@
 					"type": "feet",
 					"amount": 150
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10844,10 +9824,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10892,10 +9868,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -10930,10 +9902,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -10971,10 +9939,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11069,10 +10033,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11119,10 +10079,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11163,10 +10119,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11204,10 +10156,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11241,10 +10189,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11284,10 +10228,6 @@
 					"amount": 90
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11323,10 +10263,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11372,10 +10308,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11420,10 +10352,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11462,10 +10390,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11496,10 +10420,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11538,10 +10458,6 @@
 					"amount": 150
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11577,10 +10493,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11611,10 +10523,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11663,10 +10571,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11712,10 +10616,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11744,10 +10644,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11783,10 +10679,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11828,10 +10720,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11870,10 +10758,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -11920,10 +10804,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -11959,10 +10839,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -11997,10 +10873,6 @@
 					"type": "feet",
 					"amount": 10
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12047,10 +10919,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12087,10 +10955,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12129,10 +10993,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12167,10 +11027,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12208,10 +11064,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12246,10 +11098,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12300,10 +11148,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12341,10 +11185,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12384,10 +11224,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12430,10 +11266,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12474,10 +11306,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -12507,10 +11335,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12552,10 +11376,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -12590,10 +11410,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12634,10 +11450,6 @@
 					"amount": 90
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12674,10 +11486,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -12712,10 +11520,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12756,10 +11560,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -12788,10 +11588,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12827,10 +11623,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12871,10 +11663,6 @@
 					"amount": 150
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -12905,10 +11693,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -12945,10 +11729,6 @@
 					"amount": 10
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -12982,10 +11762,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13021,10 +11797,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13059,10 +11831,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13095,10 +11863,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13134,10 +11898,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13194,10 +11954,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13234,10 +11990,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13282,10 +12034,6 @@
 					"amount": 500
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13323,10 +12071,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13360,10 +12104,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13403,10 +12143,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13441,10 +12177,6 @@
 					"type": "feet",
 					"amount": 300
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13481,10 +12213,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13527,10 +12255,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -13562,10 +12286,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13605,10 +12325,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13664,10 +12380,6 @@
 					"amount": 10
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13703,10 +12415,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -13739,10 +12447,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13779,10 +12483,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -13814,10 +12514,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -13847,10 +12543,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -13879,10 +12571,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13918,10 +12606,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -13963,10 +12647,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -13995,10 +12675,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14035,10 +12711,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -14067,10 +12739,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14105,10 +12773,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14149,10 +12813,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -14186,10 +12846,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14228,10 +12884,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14273,10 +12925,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -14308,10 +12956,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14368,10 +13012,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -14415,10 +13055,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -14448,10 +13084,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14493,10 +13125,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -14531,10 +13159,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -14567,10 +13191,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14612,10 +13232,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -14655,10 +13271,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -14692,10 +13304,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14739,10 +13347,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -14777,10 +13381,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14821,10 +13421,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -14859,10 +13455,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14899,10 +13491,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -14946,10 +13534,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15005,10 +13589,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -15037,10 +13617,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15076,10 +13652,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15113,10 +13685,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15162,10 +13730,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15201,10 +13765,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15244,10 +13804,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15281,10 +13837,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15329,10 +13881,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15367,10 +13915,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15408,10 +13952,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -15447,10 +13987,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -15484,10 +14020,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15529,10 +14061,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15570,10 +14098,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15616,10 +14140,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15654,10 +14174,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15708,10 +14224,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15746,10 +14258,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15787,10 +14295,6 @@
 					"amount": 15
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15826,10 +14330,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15862,10 +14362,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -15906,10 +14402,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15945,10 +14437,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -15982,10 +14470,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16025,10 +14509,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16066,10 +14546,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16103,10 +14579,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16146,10 +14618,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16196,10 +14664,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -16229,10 +14693,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16310,10 +14770,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16354,10 +14810,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -16387,10 +14839,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16427,10 +14875,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16465,10 +14909,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16516,10 +14956,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16555,10 +14991,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16605,10 +15037,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16654,10 +15082,6 @@
 					"amount": 120
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16695,10 +15119,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16739,10 +15159,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16778,10 +15194,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -16812,10 +15224,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16851,10 +15259,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16889,10 +15293,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -16942,10 +15342,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -16983,10 +15379,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17023,10 +15415,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17061,10 +15449,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17102,10 +15486,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17139,10 +15519,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17179,10 +15555,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17218,10 +15590,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -17252,10 +15620,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17305,10 +15669,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17357,10 +15717,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17414,10 +15770,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17468,10 +15820,6 @@
 					"amount": 150
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -17515,10 +15863,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -17548,10 +15892,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17598,10 +15938,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17636,10 +15972,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17685,10 +16017,6 @@
 					"amount": 90
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -17724,10 +16052,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17770,10 +16094,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17807,10 +16127,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17846,10 +16162,6 @@
 					"type": "feet",
 					"amount": 120
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -17890,10 +16202,6 @@
 					"amount": 10
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -17929,10 +16237,6 @@
 					"amount": 90
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -17966,10 +16270,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18005,10 +16305,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18038,10 +16334,6 @@
 					"type": "feet",
 					"amount": 10
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18087,10 +16379,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18124,10 +16412,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18164,10 +16448,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -18203,10 +16483,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18241,10 +16517,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18290,10 +16562,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18328,10 +16596,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -18365,10 +16629,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18411,10 +16671,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18444,10 +16700,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18492,10 +16744,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -18529,10 +16777,6 @@
 					"type": "feet",
 					"amount": 90
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18573,10 +16817,6 @@
 					"type": "self"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -18609,10 +16849,6 @@
 				"distance": {
 					"type": "touch"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18648,10 +16884,6 @@
 					"type": "touch"
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -18686,10 +16918,6 @@
 					"type": "feet",
 					"amount": 300
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18730,10 +16958,6 @@
 				"distance": {
 					"type": "self"
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18782,10 +17006,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "timed",
@@ -18827,10 +17047,6 @@
 					"amount": 30
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18865,10 +17081,6 @@
 					"type": "feet",
 					"amount": 30
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
@@ -18912,10 +17124,6 @@
 					"amount": 60
 				}
 			},
-			"components": {
-				"v": false,
-				"s": false
-			},
 			"duration": [
 				{
 					"type": "instant"
@@ -18958,10 +17166,6 @@
 					"type": "feet",
 					"amount": 60
 				}
-			},
-			"components": {
-				"v": false,
-				"s": false
 			},
 			"duration": [
 				{
