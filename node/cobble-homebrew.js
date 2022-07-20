@@ -28,23 +28,17 @@ if (args.length) {
 	// if there's one or more properties specified, copy only those
 	args.forEach((prop) => {
 		let fileObj = ut.readJson(paths[prop]);
-		finalObj = mu.copyObjectsFromFile(finalObj, fileObj, prop, total);
+		results = mu.copyObjectsFromFile(finalObj, fileObj, prop, total);
+        finalObj = results.final;
+        total.count = results.total.count;
 	});
 } else {
 	// if no propert(ies) specified, just do them all
-    let jsons = {};
     for (var k in paths) {
-        if (!jsons.hasOwnProperty(paths[k])) jsons[paths[k]] = ut.readJson(paths[k]);
-        finalObj = mu.copyObjectsFromFile(finalObj, jsons[paths[k]], k, total);
+        results = mu.copyObjectsFromFile(finalObj, paths[k], k, total);
+        finalObj = results.final;
+        total.count = results.total.count;
     }
-    // const itemsObj = ut.readJson(paths.item);
-    // const itemsBaseObj = ut.readJson(paths.baseitem);
-	// finalObj = mu.copyObjectsFromFile(finalObj, itemsObj, 'item', total);
-	// finalObj = mu.copyObjectsFromFile(finalObj, itemsBaseObj, 'baseitem', total);
-	// finalObj = mu.copyObjectsFromFile(finalObj, itemsBaseObj, 'itemProperty', total);
-	// finalObj = mu.copyObjectsFromFile(finalObj, itemsBaseObj, 'itemType', total);
-	// finalObj = mu.copyObjectsFromFile(finalObj, itemsBaseObj, 'itemEntry', total);
-	// finalObj = mu.copyObjectsFromFile(finalObj, itemsBaseObj, 'itemTypeAdditionalEntries', total);
 }
 
 const strungified = JSON.stringify(finalObj, null, '\t');

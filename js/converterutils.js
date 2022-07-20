@@ -116,6 +116,22 @@ class BaseParser {
 		return false;
 	}
 
+	/**
+	 * Check if a line is part of a markdown-formatted table (sw5e only, probably)
+	 * @param entryArray
+	 * @param curLine
+	 */
+	static _isMarkdownTableLine (entryArray, curLine) {
+
+		// If the current string starts and ends with a pipe "|"
+		if (/^\|.*\|$/.test(curLine)) {
+			// perhaps TODO: check if the previous line was a Name/Title and if so apply it as the table caption
+			return true;
+		}
+
+		return false;
+	}
+
 	static _isJsonLine (curLine) { return curLine.startsWith(`__VE_JSON__`); }
 	static _getJsonFromLine (curLine) {
 		curLine = curLine.replace(/^__VE_JSON__/, "");
@@ -744,7 +760,16 @@ class EntryConvert {
 			entries,
 		];
 
-		const popList = () => { while (stack.last().type === "list") stack.pop(); };
+		const processTables = () => {
+			for (var i in entries) {
+				if (entries[i].type === "table") {
+					const table = MarkdownConverter.getConvertedTable(entries[i].lines);
+					entries[i] = table;
+				}
+			}
+		};
+
+		const popListOrTable = () => { while (["list","table"].includes(stack.last().type)) stack.pop(); };
 		const popNestedEntries = () => { while (stack.length > 1) stack.pop(); };
 
 		const addEntry = (entry, canCombine) => {
@@ -756,6 +781,12 @@ class EntryConvert {
 					target.last(`${target.last().trimRight()} ${entry.trimLeft()}`);
 				} else {
 					target.push(entry);
+				}
+			} else if (target.type === "table") {
+				if (canCombine && typeof target.lines.last() === "string") {
+					target.lines.last(`${target.lines.last().trimRight()} ${entry.trimLeft()}`);
+				} else {
+					target.lines.push(entry);
 				}
 			} else if (target.type === "list") {
 				if (canCombine && typeof target.items.last() === "string") {
@@ -777,19 +808,31 @@ class EntryConvert {
 		const getCurrentEntryArray = () => {
 			if (stack.last().type === "list") return stack.last().items;
 			if (stack.last().type === "entries") return stack.last().entries;
+			if (stack.last().type === "table") return stack.last().lines;
 			return stack.last();
 		};
 
-        let presumeList = 0;
+		let presumeList = 0;
 		while (ptrI._ < toConvert.length) {
 			if (opts.fnStop && opts.fnStop(curLine)) break;
 
-			if (BaseParser._isJsonLine(curLine)) {
+			if (BaseParser._isMarkdownTableLine(getCurrentEntryArray(), curLine)) {
+				if (stack.last().type !== "table") {
+					popNestedEntries(); // this implicitly pops nested lists
+					const tbl = {
+						type: "table",
+						lines: [],
+					};
+					addEntry(tbl);
+				}
+				curLine = curLine.trim().replace(/(\|:?)--(?!-)/g, "$1---"); // ensure dash groups have at minimum 3 dashes "---"
+				addEntry(curLine);
+			} else if (BaseParser._isJsonLine(curLine)) {
 				popNestedEntries(); // this implicitly pops nested lists
 
 				addEntry(BaseParser._getJsonFromLine(curLine));
-			} else if (presumeList || ConvertUtil.isListItemLine(curLine)) {
-                presumeList = presumeList > 0 ? presumeList - 1 : 0; // only trigger this for the first list item... otherwise it'll never stop.
+			} else if (ConvertUtil.isListItemLine(curLine) || presumeList) {
+				presumeList = presumeList > 0 ? presumeList - 1 : 0; // only trigger this for the first list item... otherwise it'll never stop.
 				if (stack.last().type !== "list") {
 					const list = {
 						type: "list",
@@ -803,8 +846,9 @@ class EntryConvert {
 				addEntry(curLine.trim());
 			} else if (ConvertUtil.isNameLine(curLine)) {
 				popNestedEntries(); // this implicitly pops nested lists
-
-				const {name, entry} = ConvertUtil.splitNameLine(curLine);
+				
+				const line = curLine;
+				const {name, entry} = ConvertUtil.splitNameLine(line);
 
 				const parentEntry = {
 					type: "entries",
@@ -826,16 +870,17 @@ class EntryConvert {
 			} else if (BaseParser._isContinuationLine(getCurrentEntryArray(), curLine)) {
 				addEntry(curLine.trim(), true);
 			} else {
-				popList();
+				popListOrTable();
 
 				addEntry(curLine.trim());
-                presumeList = ConvertUtil.isLeadInForList(curLine);
+				presumeList = ConvertUtil.isLeadInForList(curLine);
 			}
 
 			ptrI._++;
 			curLine = toConvert[ptrI._];
 		}
 
+		processTables(entries);
 		return entries;
 	}
 }
@@ -888,9 +933,9 @@ class ConvertUtil {
 		return line.toTitleCase() === line;
 	}
 
-	static isListItemLine (line) { return /^[•●]|^\w+\s?\w+\s?\w+\.\s/.test(line.trim()) === true && /^At Higher Levels|Force Potency|Classes/i.test(line.trim()) === false; } // match bullet point character, or "word opt_2nd_word opt_3rd_word.", but not Force Potency etc.
+	static isListItemLine (line) { return /^[•●]|^\w+\s?\w+\s?\w+\.\s/.test(line.trim()) === true && /^(?:At Higher Levels|Force Potency|Overcharge Tech|Classes)/i.test(line.trim()) === false; } // match bullet point character, or "word opt_2nd_word opt_3rd_word.", but not Force Potency etc.
 
-    static isLeadInForList (line) { return /following.*:$/.test(line.trim()) ? 2 : 0; } // 2 represents the minimum qty of list items we presume will follow
+	static isLeadInForList (line) { return /following.*:$/.test(line.trim()) ? 2 : 0; } // 2 represents the minimum qty of list items we presume will follow
 
 	static splitNameLine (line, isKeepPunctuation) {
 		const spl = this._getMergedSplitName({line});

@@ -71,7 +71,7 @@ function handle_custom_sourceURL() {
  * @description if the conversion type dropdown selection changes, make sure to update both dropdowns
  */
     function handle_conversiontype_change() {
-    let conversionType = $('[name=conversiontype]').val();
+    let conversionType = $(this).val();
     $('[name=conversiontype]').val(conversionType);
 }
 

@@ -56,22 +56,32 @@ class SpellParser extends BaseParser {
 			return false;
 		}
 
+		function _getSpellSource (spellName) {
+			if (spellName && SpellcastingTraitConvert.SPELL_SRC_MAP[spellName.toLowerCase()]) return SpellcastingTraitConvert.SPELL_SRC_MAP[spellName.toLowerCase()];
+			return null;
+		}
+
 		if (!inText || !inText.trim()) return options.cbWarning("No input!");
-        
-        // handle paste directly from sw5e.com spell layout, which would include tabs but no labels like "Casting Time:" or "Duration:"
-        const sw5eMeta = inText.match(/^([\w\s]+)\t(\d|At-will)\t(?:(Universal|Light|Dark)\t)?(\d.*(?:action).*)\t(\d+ feet|Self(?: \(.+\))?|Touch|Varies)\t(Instantaneous|(?:Up tp )?\d+ (?:round|turn|minute|hour|day)s?)\t(Concentration|-)\t(.+)\t(.+)[\r\n]+/);
-        let sw5eSource;
-        if (sw5eMeta?.length) {
-            const [fullMatch, sw5eName, sw5eLevel, sw5eSchool, sw5eCastingTime, sw5eRange, sw5eDuration, sw5eConcen, sw5ePrerequisite, sw5eSrc] = [...sw5eMeta];
-            sw5eSource = 'sw5e' + sw5eSrc.toLowerCase();
-            const sw5eLevelSchoolText = sw5eLevel === 'At-will' ? `${sw5eSchool} cantrip` : `${Parser.getOrdinalForm(sw5eLevel)}-level ${sw5eSchool}`;
-            const sw5ePrereqText = sw5ePrerequisite === '-' ? '' : `{@b {@i Prerequisite: {@spell ${sw5ePrerequisite}|${_getSpellSource(sw5ePrerequisite)}}}}\n`;
-            const sw5eRangeText = sw5eRange === 'Varies' ? 'Self' : sw5eRange;
-            inText = `${sw5eName}\n${sw5eLevelSchoolText}\nCasting Time: ${sw5eCastingTime}\nRange: ${sw5eRangeText}\nDuration: ${sw5eConcen === '-' ? '' : 'Concentration '}${sw5eDuration}\n${sw5ePrereqText}${inText.split(fullMatch)[1]}`;
-        }
+		
+		// handle paste directly from sw5e.com spell layout, which would include tabs but no labels like "Casting Time:" or "Duration:"
+		// Example intext:
+		// Rebuke\tAt-will\tLight\t1 action\tTouch\tInstantaneous\t-\t-\tPHB\r\nYou strike a creature with the righteous fury of the Force. Make a melee force attack against the target, if the attack hits, the target takes force damage depending on its alignment: a dark-aligned creature takes 1d12 force damage, a balanced or unaligned creature takes 1d10 force damage, and a light-aligned creature takes 1d8 force damage.\r\nThe power’s damage increases by one die when you reach 5th, 11th, and 17th level.
+		const sw5eMeta = inText.match(/^([\w\s/-]+)\t(\d|At-will)\t(?:(Universal|Light|Dark)\t)?(.+?)\t(\d+ (?:feet|miles)|Self(?: \(.+\))?|Touch|Varies|Unlimited)\t(.+?)\t(Concentration|-)\t(.+\t)?(.+)[\r\n]+/i);
+		let sw5eSource;
+		if (sw5eMeta?.length) {
+			const [fullMatch, sw5eName, sw5eLevel, sw5eSchool, sw5eCastingTime, sw5eRange, sw5eDuration, sw5eConcen, sw5ePrerequisite, sw5eSrc] = [...sw5eMeta];
+			sw5eSource = 'sw5e' + sw5eSrc.toLowerCase();
+			const sw5eLevelSchoolText = sw5eLevel === 'At-will' ? `${sw5eSchool || 'Tech Power'} cantrip` : `${Parser.getOrdinalForm(sw5eLevel)}-level ${sw5eSchool || 'Tech Power'}`;
+			const sw5ePrereq = typeof sw5ePrerequisite  === 'undefined' || sw5ePrerequisite === '-\t' ? '' : sw5ePrerequisite.trim();
+			const sw5ePrereqText = sw5ePrereq ? `{@b {@i Prerequisite: {@spell ${sw5ePrereq}|${_getSpellSource(sw5ePrereq)}}}}\n` : '';
+			const sw5eRangeText = sw5eRange === 'Varies' ? 'Self' : sw5eRange;
+			const sw5eTimeText = `${sw5eConcen === '-' || (/up to/gi).exec(sw5eDuration) ? '' : 'Concentration '}${sw5eDuration.toLowerCase()}`;
+			inText = `${sw5eName}\n${sw5eLevelSchoolText}\nCasting Time: ${sw5eCastingTime}\nRange: ${sw5eRangeText}\nDuration: ${sw5eTimeText}\n${sw5ePrereqText}${inText.split(fullMatch)[1]}`;
+		}
 
 		const toConvert = this._getCleanInput(inText, options)
-			.split("\n")
+			// .split(/(?<!\|)\n/) // to keep table markdown all in one line, add negative lookbehind to match "\n" but not "|\n"
+			.split(/\n/)
 			.filter(it => it && it.trim());
 		const spell = {};
 		spell.source = sw5eSource || options.source;
@@ -142,7 +152,7 @@ class SpellParser extends BaseParser {
 				ptrI,
 				toConvert,
 				{
-					fnStop: (curLine) => /^(?:At Higher Levels|Force Potency|Classes)/gi.test(curLine),
+					fnStop: (curLine) => /^(?:At Higher Levels|Force Potency|Overcharge Tech|Classes)/gi.test(curLine),
 				},
 			);
 			i = ptrI._;
@@ -450,6 +460,12 @@ class SpellParser extends BaseParser {
 			return stats.duration = [out];
 		}
 
+		const mUntilShortOrLongRest = /^or until the end of your next short or long rest; whichever happens first$/i.exec(dur);
+		if (mUntilShortOrLongRest) {
+			const out = {type: "special", ends: ["at the end of your next short or long rest"]};
+			return stats.duration = [out];
+		}
+
 		// TODO handle splitting "or"'d durations up as required
 
 		options.cbWarning(`${stats.name ? `(${stats.name}) ` : ""}Duration part "${dur}" requires manual conversion`);
@@ -490,11 +506,6 @@ class SpellParser extends BaseParser {
 			});
 
 		if (!stats.classes.fromClassList.length) delete stats.classes;
-	}
-
-    static _getSpellSource (spellName) {
-		if (spellName && SpellcastingTraitConvert.SPELL_SRC_MAP[spellName.toLowerCase()]) return SpellcastingTraitConvert.SPELL_SRC_MAP[spellName.toLowerCase()];
-		return null;
 	}
 
 	static _getFinalState (spell, options) {

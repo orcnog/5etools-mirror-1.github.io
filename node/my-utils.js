@@ -1,4 +1,5 @@
 fs = require('fs');
+ut = require("./util.js");
 /**
  * @param {String} path file path to write to
  * @param {String} data string to write
@@ -28,12 +29,13 @@ function yellow (str) {
 	return '\x1b[33m' + str + '\x1b[0m';
 }
 
-function copyObjectsFromFile (finalObjToUpdate, finalObjFromFile, prop, total) {
-	finalObjToUpdate[prop] = finalObjFromFile[prop];
-	const length = finalObjFromFile[prop].length;
+function copyObjectsFromFile (finalObjToUpdate, filePath, prop, total) {
+	const copiedObj = ut.readJson(filePath)[prop];
+	finalObjToUpdate[prop] = copiedObj;
+	const length = Object.keys(copiedObj).length;
 	total.count += length;
-	console.log('Copying '+ yellow(length) +' baseitem objects from data/items-base-sw5e.json...');
-	return finalObjToUpdate;
+	console.log(`Copying ${yellow(length)} ${prop} objects from ${filePath}...`);
+	return {final: finalObjToUpdate, total: total};
 }
 
 function countFileLines (filePath) {

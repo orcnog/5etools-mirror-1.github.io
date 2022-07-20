@@ -76,6 +76,7 @@ class SpellTag {
 			.forEach(sp => SpellTag._SPELL_NAMES[sp.name.toLowerCase()] = {name: sp.name, source: sp.source});
 
 		SpellTag._SPELL_NAME_REGEX = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")})\\b`, "gi");
+		SpellTag._SPELL_NAME_REGEX_ITALIC = new RegExp(`(?:\\*|_|<i>|<em>)(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")})(?:\\*|_|</i>|</em>)`, "gi");
 		SpellTag._SPELL_NAME_REGEX_SPELL = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")}) (spell|power|cantrip)`, "gi");
 		SpellTag._SPELL_NAME_REGEX_AND = new RegExp(`\\b(${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")}) (and {@spell)`, "gi");
 		SpellTag._SPELL_NAME_REGEX_CAST = new RegExp(`(?<prefix>casts? (?:the )?)(?<spell>${Object.keys(SpellTag._SPELL_NAMES).map(it => it.escapeRegexp()).join("|")})\\b`, "gi");
@@ -119,18 +120,12 @@ class SpellTag {
 				return `{@spell ${m[1]}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}}`;
 			});
 
-		strMod
-			.replace(SpellTag._SPELL_NAME_REGEX_CAST, (...m) => {
-				const spellMeta = SpellTag._SPELL_NAMES[m.last().spell.toLowerCase()];
-				return `${m.last().prefix}{@spell ${m.last().spell}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}}`;
-			});
-
 		return strMod
 			.replace(SpellTag._SPELL_NAME_REGEX_AND, (...m) => {
 				const spellMeta = SpellTag._SPELL_NAMES[m[1].toLowerCase()];
 				return `{@spell ${m[1]}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}} ${m[2]}`;
 			})
-			.replace(/(spells(?:|[^.!?:{]*): )([^.!?]+)/gi, (...m) => {
+			.replace(/((?:spells|powers)(?:|[^.!?:{]*): )([^.!?]+)/gi, (...m) => {
 				const spellPart = m[2].replace(SpellTag._SPELL_NAME_REGEX, (...n) => {
 					const spellMeta = SpellTag._SPELL_NAMES[n[1].toLowerCase()];
 					return `{@spell ${n[1]}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}}`;
@@ -141,11 +136,16 @@ class SpellTag {
 				const spellMeta = SpellTag._SPELL_NAMES[m.last().spell.toLowerCase()];
 				return `${m.last().prefix}{@spell ${m.last().spell}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}}`;
 			})
+            .replace(SpellTag._SPELL_NAME_REGEX_ITALIC, (...m) => {
+                const spellMeta = SpellTag._SPELL_NAMES[m[1].toLowerCase()];
+                return `{@spell ${m[1]}${spellMeta.source !== SRC_PHB ? `|${spellMeta.source}` : ""}}`;
+            });
 		;
 	}
 }
 SpellTag._SPELL_NAMES = {};
 SpellTag._SPELL_NAME_REGEX = null;
+SpellTag._SPELL_NAME_REGEX_ITALIC = null;
 SpellTag._SPELL_NAME_REGEX_SPELL = null;
 SpellTag._SPELL_NAME_REGEX_AND = null;
 SpellTag._SPELL_NAME_REGEX_CAST = null;

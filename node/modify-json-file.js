@@ -9,7 +9,8 @@ mu = require("./my-utils.js");
 
 const args = process.argv.slice(2);
 // const path = args[0];
-const path = '../5etools-brew/sw5e/source/sw5e.json';  // uncomment this line (and comment the previous) to ignore the CLI argument and define the file path manually here.
+// const path = '../5etools-brew/sw5e/source/sw5e.json';  // uncomment this line (and comment the previous) to ignore the CLI argument and define the file path manually here.
+const path = 'data/spells/spells-sw5ephb.json';
 
 let finalObj = ut.readJson(path);
 let logOutput = {
@@ -22,7 +23,9 @@ let logOutput = {
     // Do something to manipulate the finalObj object...
     // increment total.count if desired
 
-
+    var arr = finalObj.spell;
+    arr = arr.sort((a, b) => (a.name > b.name) ? 1 : -1);
+    finalObj.spell = arr;
 
     // Finished manipulation.
 

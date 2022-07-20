@@ -5,6 +5,10 @@ const equipmentConfig = {
 	// The ID of the main nested property by which entities should be uniquely keyed (no duplicates). Ex: "name".
 	entityKeyByID: 'name',
 
+	// Whether the merged entities should be reordered in alphabetical order in the returned merged object
+	alphabetizeByKey: true,
+
+
 	/**
 	 * @function
 	 * @description Convert a sw5eapi object into a valid 5eTools obj, providing flexibility to customize the structure of the returned object.
@@ -96,38 +100,24 @@ const equipmentConfig = {
 			ret.stealth = getItemStealth(obj);
 			ret.strength = getItemStrength(obj);
 
-			// TODO: ret.immune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
-			// TODO: ret.conditionImmune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
-			// TODO: ret.bonusSpellAttack // String like "+2"
-			// TODO: ret.bonusSpellSaveDc // String like "+2"
-			// TODO: ret.bonusSpellDamage // String like "+2"
-			// TODO: ret.bonusSavingThrow // String like "+1"
-			// TODO: ret.bonusAbilityCheck // String like "+1"
-			// TODO: ret.bonusProficiencyBonus // String like "+1"
-			// TODO: ret.bonusAc // String like "+1"
-			// TODO: ret.bonusWeapon // String like "+3"
-			// TODO: ret.bonusWeaponAttack // String like "+3"
-			// TODO: ret.bonusWeaponDamage // String like "+2"
-			// TODO: ret.bonusWeaponCritDamage // String like "4d6"
-			// TODO: ret.critThreshold // Integer. Ex: 19
-			// TODO: ret.modifySpeed // Ex: {"equal":{"swim:"walk"}}, Ex2: "bonus":{"*":5}, Ex3: {"multiply":{"walk":2}}, Ex4: {"static":{"fly":150}}
-			// TODO: ret.focus // Boolean, OR Array with class names. Ex: ["Druid","Warlock"]
-			// TODO: ret.scfType // String enum "arcane","druid","holy"
 			// TODO: ret.packContents // Array of item name strings, or objects (see D:\Development\5etools-mirror-1.github.io\data\items.json)
 			// TODO: ret.containerCapacity // Complex object. Ex: {"weight":[6],"item":[{"sling bullet|phb":20,"blowgun needle|phb":50}],"weightless":true}
 			// TODO: ret.atomicPackContents // Boolean. If the item's pack contents should be treated as one atomic unit, rather than handled as individual sub-items.
 			// TODO: ret.carryingCapacity // Integer. Of a mount/beast, not a container.
-			// TODO: ret.resist // Array of damage type strings Ex: ["lightning"]
-			// TODO: ret.grantsProficiency // Boolean
-			// TODO: ret.ability // Object with ability abbrevs. and int value, maybe wrapped with "static". Ex: {"str":2}, Ex 2: {"static": {"str": 21}}
-			// TODO: ret.attachedSpells // Array of spell name strings. Ex: ["reincarnate"]
-			// TODO: ret.spellScrollLevel // Integer
-			// TODO: ret.additionalEntries // complex object (see D:\Development\5etools-mirror-1.github.io\data\items.json)
-			// TODO: ret.detail1 // String. A descriptive field that can be used to complete entries in variants.
-			// TODO: ret.dexterityMax // not sure if i need this?  Max dex for medium armor
 
+            // MAYBE TODO: properties that I'm not sure even apply to sw5e items, or are redundant in that context...
+
+            // Possible TODO: ret.valueMult // Number // haven't seen any instances of this in sw5e items
+			// Possible TODO: ret.weightMult // Number // same as above
+			// Possible TODO: ret.wondrous // Boolean // so far, not a sw5e thing
+			// Possible TODO: ret.tatoo // Boolean // so far, not a sw5e thing, right?
+			// Possible TODO: ret.curse // Boolean // so far, not a sw5e thing, right?
+			// Possible TODO: ret.sentient // Boolean // okay so.... sw5e has "Smart", but also Droid stuff... do we want to mark every smart/droid object as Sentient? seems unnec.
+			// Possible TODO: ret.detail1 // String. A descriptive field that can be used to complete entries in variants. // This may come in handy for variants if i ever convert existing items into actual variants
+            
 			// MAYBE TODO: Vehicles as Items...
-			// Possible Veh TODO: "crew": 1
+
+            // Possible Veh TODO: "crew": 1
 			// Possible Veh TODO: "crewMax": 13
 			// Possible Veh TODO: "crewMin": 3
 			// Possible Veh TODO: "vehAc": 11
@@ -140,16 +130,34 @@ const equipmentConfig = {
 			// Possible Veh TODO: "shippingCost": 10, // in copper pieces per 100 lbs. per mi.
 			// Possible Veh TODO: "seeAlsoVehicle": ["Sailing Ship"]
 
-			// Possible TODO: ret.tier // String like "major" // would probably require going through every single item to decide a tier. Not likely going to do that.
-			// Possible TODO: ret.reqAttuneAlt // String OR Boolean. Used for filtering.  // there's only one item in core that uses this so, probably not needed for sw5e.
-			// Possible TODO: ret.reqAttuneTags // Array of objects (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json). // Nothing in sw5e seems to have any attunement conditions though
-			// Possible TODO: ret.valueMult // Number
-			// Possible TODO: ret.weightMult // Number
-			// Possible TODO: ret.wondrous // Boolean
-			// Possible TODO: ret.tatoo // Boolean
-			// Possible TODO: ret.curse // Boolean
-			// Possible TODO: ret.sentient // Boolean
-			// Possible TODO: ret.typeAlt // not sure if i need this?
+            // Properties for which SW5e provides no data. Will rely on the 5etools text parser magic to glean this info...
+
+            // Probably not TODO: ret.tier // String like "major" // would probably require going through every single item to decide a tier. Not likely going to do that.
+			// Probably not TODO: ret.reqAttuneAlt // String OR Boolean. Used for filtering.  // there's only one item in core that uses this so, probably not needed for sw5e.
+			// Probably not TODO: ret.reqAttuneTags // Array of objects (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json). // Nothing in sw5e seems to have any attunement conditions though
+			// Probably not TODO: ret.typeAlt // not sure if i need this?
+			// Probably not TODO: ret.immune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
+			// Probably not TODO: ret.conditionImmune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
+			// Probably not TODO: ret.bonusSpellAttack // String like "+2"
+			// Probably not TODO: ret.bonusSpellSaveDc // String like "+2"
+			// Probably not TODO: ret.bonusSpellDamage // String like "+2"
+			// Probably not TODO: ret.bonusSavingThrow // String like "+1"
+			// Probably not TODO: ret.bonusAbilityCheck // String like "+1"
+			// Probably not TODO: ret.bonusProficiencyBonus // String like "+1"
+			// Probably not TODO: ret.bonusAc // String like "+1"
+			// Probably not TODO: ret.bonusWeapon // String like "+3"
+			// Probably not TODO: ret.bonusWeaponAttack // String like "+3"
+			// Probably not TODO: ret.bonusWeaponDamage // String like "+2"
+			// Probably not TODO: ret.bonusWeaponCritDamage // String like "4d6"
+			// Probably not TODO: ret.critThreshold // Integer. Ex: 19
+			// Probably not TODO: ret.modifySpeed // Ex: {"equal":{"swim:"walk"}}, Ex2: "bonus":{"*":5}, Ex3: {"multiply":{"walk":2}}, Ex4: {"static":{"fly":150}}
+			// Probably not TODO: ret.resist // Array of damage type strings Ex: ["lightning"]
+			// Probably not TODO: ret.grantsProficiency // Boolean
+			// Probably not TODO: ret.ability // Object with ability abbrevs. and int value, maybe wrapped with "static". Ex: {"str":2}, Ex 2: {"static": {"str": 21}}
+			// Probably not TODO: ret.attachedSpells // Array of spell name strings. Ex: ["reincarnate"]
+			// Probably not TODO: ret.spellScrollLevel // Integer
+			// Probably not TODO: ret.additionalEntries // complex object (see D:\Development\5etools-mirror-1.github.io\data\items.json)
+			// Probably not TODO: ret.dexterityMax // not sure if i need this?  Max dex for medium armor            
 
 			return ret;
 
@@ -1072,10 +1080,6 @@ const equipmentConfig = {
 		  }
 		return undefined;
 	},
-
-	// Whether the merged entities should be reordered in alphabetical order in the returned merged object
-	alphabetizeByKey: true,
-
 	/**
 	 * @function
 	 * @param {String} json the stringified main "items" object
@@ -1566,14 +1570,16 @@ const equipmentConfig = {
 				repl: "modifiable wristpad chassis"
 			}
 		]
+        let zeroFinds = [];
 		manualChanges.forEach((m) => {
 			const find = new RegExp(m.find.escapeRegexp(), "g");
 			if (json.search(find) < 0) {
-				console.log(`Found zero occurrences text to replace: \"${m.find}\".`);
-				return;
+                zeroFinds.push(m.find);
+                return;
 			}
-			json = json.replace(find, m.repl);
+			json = json.replace(find, m.repl); // do actual patch
 		});
+        if (zeroFinds.length > 0) console.log('Found zero occurrences of the following:'); console.log(zeroFinds);
 		return json;
 	}
 }
