@@ -2,8 +2,8 @@
 
 window.addEventListener("load", () => doSw5ePageInit());
 
-const initialSw5eApiUrl = "https://sw5eapi.azurewebsites.net/api/equipment";
-const initial5eToolsJsonURL = "data/items-sw5e.json";
+// const initialSw5eApiUrl = $('[name=sw5eapi]').val();
+// const initial5eToolsJsonURL = $('[name=sw5eapi]').find(':selected').attr('data-destination');
 
 var editLeft = ace.edit("panel_left", {
     wrap: true,
@@ -20,15 +20,32 @@ var editMerged = ace.edit("panel_output", {
 
 ConverterUi.STORAGE_LEFT = "converterLeft";
 ConverterUi.STORAGE_RIGHT = "converterRight";
+ConverterUi.STORAGE_APIURL = "apisourceURL";
+ConverterUi.STORAGE_JSONURL = "jsondestinationURL";
+ConverterUi.STORAGE_CTYPE = "conversionType";
 
 const saveLeftDebounced = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_LEFT, editLeft.getValue()), 50);
 const saveRightDebounced = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_RIGHT, editRight.getValue()), 50);
+const saveApiSelect = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_APISELECT, $('[name=sw5eapi]').val()), 50);
+const saveApiSourceURL = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_APIURL, $('[name=sourceURL]').val()), 50);
+const saveJsonDestURL = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_JSONURL, $('[name=destinationURL]').val()), 50);
+const saveConversionType = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_CTYPE, $('[name=conversiontype]').val()), 50);
 
 async function doSw5ePageInit () {
-    $('[name=sourceURL]').val(initialSw5eApiUrl);
-    $('[name=destinationURL]').val(initial5eToolsJsonURL);
-    $('[name=sourceURL]').on('change', handle_custom_sourceURL);
+    const initialApiSelection = await StorageUtil.pGetForPage(ConverterUi.STORAGE_APISELECT);
+    if (initialApiSelection) $('[name=sw5eapi]').val(initialApiSelection);
     $('[name=sw5eapi]').on('change', handle_sw5eapiURL_change);
+
+    const initialSw5eApiUrl = await StorageUtil.pGetForPage(ConverterUi.STORAGE_APIURL);
+    if (initialSw5eApiUrl) $('[name=sourceURL]').val(initialSw5eApiUrl);
+    $('[name=sourceURL]').on('input', handle_custom_sourceURL);
+    
+    const initial5eToolsJsonURL = await StorageUtil.pGetForPage(ConverterUi.STORAGE_JSONURL);
+    if (initial5eToolsJsonURL) $('[name=destinationURL]').val(initial5eToolsJsonURL);
+    $('[name=destinationURL]').on('input', handle_destinationURL_input);
+
+    const initialConverstionType = await StorageUtil.pGetForPage(ConverterUi.STORAGE_CTYPE);
+    if (initialConverstionType) $('[name=conversiontype]').val(initialConverstionType);
     $('[name=conversiontype]').on('change', handle_conversiontype_change);
     $('#convert_from_urls').on('click', handle_convert_JSON_from_URLs);
     $('#import_from_urls').on('click', handle_import_JSON_from_URLs);
@@ -47,13 +64,21 @@ async function doSw5ePageInit () {
  * 	into the sourceURL input field and update and hide conversiontype dropdown.
  */
 function handle_sw5eapiURL_change() {
-    let sw5eapi = $('[name=sw5eapi]').val();
-    let conversionType = $('[name=sw5eapi]').find(':selected').attr('data-conversiontype');
+    const sw5eapi = $('[name=sw5eapi]').val();
+    const conversionType = $('[name=sw5eapi]').find(':selected').attr('data-conversiontype');
     if (sw5eapi !== 'none') {
         $('[name=sourceURL]').val(sw5eapi);
         $('.sw5e-conversion-type-selection').removeClass('expanded');
         $('[name=conversiontype]').val(conversionType);
     }
+    // and if there's a local file associated with this convesion type (which there eventually ought to be), update the destination url value to match
+    const destination = $('[name=sw5eapi]').find(':selected').attr('data-destination') || $('[name=destinationURL]').val();
+    $('[name=destinationURL]').val(destination);
+    // update session storage
+    saveApiSelect();
+    saveApiSourceURL();
+    saveJsonDestURL();
+    saveConversionType();
 }
 
 /**
@@ -64,15 +89,26 @@ function handle_sw5eapiURL_change() {
 function handle_custom_sourceURL() {
     $('[name=sw5eapi]').val('none');
     $('.sw5e-conversion-type-selection').addClass('expanded');
+    saveApiSelect();
+    saveApiSourceURL();
 }
 
 /**
  * @function
  * @description if the conversion type dropdown selection changes, make sure to update both dropdowns
  */
-    function handle_conversiontype_change() {
-    let conversionType = $(this).val();
+function handle_conversiontype_change() {
+    const conversionType = $(this).val();
     $('[name=conversiontype]').val(conversionType);
+    saveConversionType()
+}
+
+/**
+ * @function
+ * @description if the destination URL input field is updated, save it to session storage
+ */
+function handle_destinationURL_input() {
+        saveJsonDestURL();
 }
 
 /**
