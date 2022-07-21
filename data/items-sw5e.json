@@ -1708,7 +1708,10 @@
 			"weight": 5,
 			"entries": [
 				"A backpack stores 30 lb., not exceeding 1 cubic foot."
-			]
+			],
+			"containerCapacity": {
+				"weight": 30
+			}
 		},
 		{
 			"name": "Balanced Shielding",
@@ -3337,7 +3340,10 @@
 			"value": 7500,
 			"entries": [
 				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 15 {@skill security kit|sw5ephb} check to force open. It stores 5 lb., not exceeding 1/4 cubic foot, has an AC of 10, and 15 hit points. Destroying the camtono risks damaging any goods stored inside."
-			]
+			],
+			"containerCapacity": {
+				"weight": 5
+			}
 		},
 		{
 			"name": "Camtono (Champion)",
@@ -3347,7 +3353,10 @@
 			"rarity": "artifact",
 			"entries": [
 				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 30 {@skill security kit|sw5ephb} check to force open. It stores 10 lb., not exceeding 3/8 cubic foot, has an AC of 15, and 90 hit points. Destroying the camtono risks damaging any goods stored inside."
-			]
+			],
+			"containerCapacity": {
+				"weight": 10
+			}
 		},
 		{
 			"name": "Camtono (Exceptional)",
@@ -3357,7 +3366,10 @@
 			"rarity": "legendary",
 			"entries": [
 				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 27 {@skill security kit|sw5ephb} check to force open. It stores 9 lb., not exceeding 3/8 cubic foot, has an AC of 14, and 75 hit points. Destroying the camtono risks damaging any goods stored inside."
-			]
+			],
+			"containerCapacity": {
+				"weight": 9
+			}
 		},
 		{
 			"name": "Camtono (Fine)",
@@ -3367,7 +3379,10 @@
 			"rarity": "uncommon",
 			"entries": [
 				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 18 {@skill security kit|sw5ephb} check to force open. It stores 6 lb., not exceeding 1/4 cubic foot, has an AC of 11, and 30 hit points. Destroying the camtono risks damaging any goods stored inside."
-			]
+			],
+			"containerCapacity": {
+				"weight": 6
+			}
 		},
 		{
 			"name": "Camtono (Improved)",
@@ -3377,7 +3392,10 @@
 			"rarity": "rare",
 			"entries": [
 				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 21 {@skill security kit|sw5ephb} check to force open. It stores 7 lb., not exceeding 1/4 cubic foot, has an AC of 12, and 45 hit points. Destroying the camtono risks damaging any goods stored inside."
-			]
+			],
+			"containerCapacity": {
+				"weight": 7
+			}
 		},
 		{
 			"name": "Camtono (Superior)",
@@ -3387,7 +3405,10 @@
 			"rarity": "very rare",
 			"entries": [
 				"A camtono is a secured, handle container used for transporting valuable goods. A camtono comes with one key. Without the key, unlocking the camtono requires a DC 24 {@skill security kit|sw5ephb} check to force open. It stores 8 lb., not exceeding 3/8 cubic foot, has an AC of 13, and 60 hit points. Destroying the camtono risks damaging any goods stored inside."
-			]
+			],
+			"containerCapacity": {
+				"weight": 8
+			}
 		},
 		{
 			"name": "Canteen",
@@ -4166,7 +4187,10 @@
 			"weight": 25,
 			"entries": [
 				"A chest stores 300 lb., not exceeding 12 cubic feet."
-			]
+			],
+			"containerCapacity": {
+				"weight": 300
+			}
 		},
 		{
 			"name": "Chindinkalu horn",
@@ -4277,7 +4301,10 @@
 			"rarity": "common",
 			"entries": [
 				"This article of clothing come with one hidden pocket, which can store up to 1 lb. Finding this hidden pocket requires a DC 15 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clandestine Stitching (Champion)",
@@ -4287,7 +4314,10 @@
 			"rarity": "artifact",
 			"entries": [
 				"This article of clothing come with six hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 30 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clandestine Stitching (Exceptional)",
@@ -4297,7 +4327,10 @@
 			"rarity": "legendary",
 			"entries": [
 				"This article of clothing come with five hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 27 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clandestine Stitching (Fine)",
@@ -4307,7 +4340,10 @@
 			"rarity": "uncommon",
 			"entries": [
 				"This article of clothing come with two hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 18 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clandestine Stitching (Improved)",
@@ -4317,7 +4353,10 @@
 			"rarity": "rare",
 			"entries": [
 				"This article of clothing come with three hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 21 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clandestine Stitching (Superior)",
@@ -4327,7 +4366,10 @@
 			"rarity": "very rare",
 			"entries": [
 				"This article of clothing come with four hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 24 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Claymore-saber",
@@ -4425,7 +4467,10 @@
 			"rarity": "artifact",
 			"entries": [
 				"These clothes come with nine hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 30 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clothes, Clandestine (Exceptional)",
@@ -4435,7 +4480,10 @@
 			"rarity": "legendary",
 			"entries": [
 				"These clothes come with eight hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 27 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clothes, Clandestine (Fine)",
@@ -4445,7 +4493,10 @@
 			"rarity": "uncommon",
 			"entries": [
 				"These clothes come with three hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 18 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clothes, Clandestine (Improved)",
@@ -4455,7 +4506,10 @@
 			"rarity": "rare",
 			"entries": [
 				"These clothes come with five hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 21 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clothes, Clandestine (Superior)",
@@ -4465,7 +4519,10 @@
 			"rarity": "very rare",
 			"entries": [
 				"These clothes come with six hidden pockets, each of which can store up to 1 lb. Finding these hidden pockets requires a DC 24 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clothes, clandestine",
@@ -4477,7 +4534,10 @@
 			"weight": 7,
 			"entries": [
 				"These clothes come with two hidden pockets, each of which can store up to 1.00 lb. Finding these hidden pockets requires a DC 15 {@skill Investigation} check."
-			]
+			],
+			"containerCapacity": {
+				"weight": 1
+			}
 		},
 		{
 			"name": "Clothes, common",
@@ -19274,7 +19334,10 @@
 			"weight": 1,
 			"entries": [
 				"A pouch stores 6.00 lb., not exceeding 1/5 cubic foot."
-			]
+			],
+			"containerCapacity": {
+				"weight": 6
+			}
 		},
 		{
 			"name": "Power Cell (Average)",
@@ -24163,7 +24226,10 @@
 			"entries": [
 				"This {@item backpack|sw5ephb} comes with a main compartment that stores 15.00 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 5 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 15 {@skill Investigation} check."
 			],
-			"baseItem": "backpack"
+			"baseItem": "backpack",
+			"containerCapacity": {
+				"weight": 20
+			}
 		},
 		{
 			"name": "Smugglepack (Champion)",
@@ -24174,7 +24240,10 @@
 			"entries": [
 				"This {@item backpack|sw5ephb} comes with a main compartment that stores 10 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 10 lb., not exceeding 3/8 cubic foot. Finding the hidden compartment requires a DC 30 {@skill Investigation} check."
 			],
-			"baseItem": "backpack"
+			"baseItem": "backpack",
+			"containerCapacity": {
+				"weight": 20
+			}
 		},
 		{
 			"name": "Smugglepack (Exceptional)",
@@ -24185,7 +24254,10 @@
 			"entries": [
 				"This {@item backpack|sw5ephb} comes with a main compartment that stores 11 lb., not exceeding 3/8 cubic foot. Additionally, it has a hidden storage compartment that stores 9 lb., not exceeding 3/8 cubic foot. Finding the hidden compartment requires a DC 27 {@skill Investigation} check."
 			],
-			"baseItem": "backpack"
+			"baseItem": "backpack",
+			"containerCapacity": {
+				"weight": 20
+			}
 		},
 		{
 			"name": "Smugglepack (Fine)",
@@ -24196,7 +24268,10 @@
 			"entries": [
 				"This {@item backpack|sw5ephb} comes with a main compartment that stores 14 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 6 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 18 {@skill Investigation} check."
 			],
-			"baseItem": "backpack"
+			"baseItem": "backpack",
+			"containerCapacity": {
+				"weight": 20
+			}
 		},
 		{
 			"name": "Smugglepack (Improved)",
@@ -24207,7 +24282,10 @@
 			"entries": [
 				"This {@item backpack|sw5ephb} comes with a main compartment that stores 13 lb., not exceeding 1/2 cubic foot. Additionally, it has a hidden storage compartment that stores 7 lb., not exceeding 1/4 cubic foot. Finding the hidden compartment requires a DC 21 {@skill Investigation} check."
 			],
-			"baseItem": "backpack"
+			"baseItem": "backpack",
+			"containerCapacity": {
+				"weight": 20
+			}
 		},
 		{
 			"name": "Smugglepack (Superior)",
@@ -24218,7 +24296,10 @@
 			"entries": [
 				"This {@item backpack|sw5ephb} comes with a main compartment that stores 12 lb., not exceeding 3/8 cubic foot. Additionally, it has a hidden storage compartment that stores 8 lb., not exceeding 3/8 cubic foot. Finding the hidden compartment requires a DC 24 {@skill Investigation} check."
 			],
-			"baseItem": "backpack"
+			"baseItem": "backpack",
+			"containerCapacity": {
+				"weight": 20
+			}
 		},
 		{
 			"name": "Snare",
