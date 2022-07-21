@@ -71,12 +71,12 @@ const equipmentConfig = {
 			ret.page = 0;
 			ret.type = getItemType(obj);
 			ret.rarity = getItemRarity(obj);
-			// ret.age = "futuristic";
+			ret.age = getItemAge(obj);
 			ret.value = getItemValue(obj);
 			ret.weight = getItemWeight(obj);
 			ret.entries = getItemEntries(obj);
 			ret.property = getItemProperty(obj);
-			// ret.foundryType = getItemType(obj, true);
+			ret.foundryType = undefined; //getItemType(obj, true);
 			ret.baseItem = getItemBaseItem(obj);
 			ret.reqAttune = getItemReqAttune(obj);
 			ret.recharge = getItemRecharge(obj);
@@ -84,7 +84,6 @@ const equipmentConfig = {
 			ret.focus = getItemFocus(obj);
 			ret.poison = getItemPoison(obj);
 			ret.poisonTypes = getItemPoisonTypes(obj);
-			ret.vulnerable = getItemVulnerable(obj);
 			ret.weapon = getItemWeapon(obj);
 			ret.weaponCategory = getItemWeaponCategory(obj);
 			ret.dmg1 = getItemDmg1(obj);
@@ -99,25 +98,23 @@ const equipmentConfig = {
 			ret.ac = getItemAc(obj);
 			ret.stealth = getItemStealth(obj);
 			ret.strength = getItemStrength(obj);
+			ret.containerCapacity = getItemContainerCapacity(obj);
 
-			// TODO: ret.packContents // Array of item name strings, or objects (see D:\Development\5etools-mirror-1.github.io\data\items.json)
-			// TODO: ret.containerCapacity // Complex object. Ex: {"weight":[6],"item":[{"sling bullet|phb":20,"blowgun needle|phb":50}],"weightless":true}
-			// TODO: ret.atomicPackContents // Boolean. If the item's pack contents should be treated as one atomic unit, rather than handled as individual sub-items.
-			// TODO: ret.carryingCapacity // Integer. Of a mount/beast, not a container.
+			// MAYBE TODO: properties that I'm not sure even apply to sw5e items, or are redundant in that context...
 
-            // MAYBE TODO: properties that I'm not sure even apply to sw5e items, or are redundant in that context...
-
-            // Possible TODO: ret.valueMult // Number // haven't seen any instances of this in sw5e items
+			// Possible TODO: ret.packContents = getItemPackContents(obj); // i can't seem to find any pre-packed containers like a Dungeoneer's Pack in sw5e
+			// Possible TODO: ret.atomicPackContents = getItemAtomicPackContents(obj); // see above
+			// Possible TODO: ret.valueMult // Number // haven't seen any instances of this in sw5e items
 			// Possible TODO: ret.weightMult // Number // same as above
 			// Possible TODO: ret.wondrous // Boolean // so far, not a sw5e thing
 			// Possible TODO: ret.tatoo // Boolean // so far, not a sw5e thing, right?
 			// Possible TODO: ret.curse // Boolean // so far, not a sw5e thing, right?
 			// Possible TODO: ret.sentient // Boolean // okay so.... sw5e has "Smart", but also Droid stuff... do we want to mark every smart/droid object as Sentient? seems unnec.
 			// Possible TODO: ret.detail1 // String. A descriptive field that can be used to complete entries in variants. // This may come in handy for variants if i ever convert existing items into actual variants
-            
+
 			// MAYBE TODO: Vehicles as Items...
 
-            // Possible Veh TODO: "crew": 1
+			// Possible Veh TODO: "crew": 1
 			// Possible Veh TODO: "crewMax": 13
 			// Possible Veh TODO: "crewMin": 3
 			// Possible Veh TODO: "vehAc": 11
@@ -129,13 +126,15 @@ const equipmentConfig = {
 			// Possible Veh TODO: "travelCost": 100, // in copper pieces per mi. per passenger
 			// Possible Veh TODO: "shippingCost": 10, // in copper pieces per 100 lbs. per mi.
 			// Possible Veh TODO: "seeAlsoVehicle": ["Sailing Ship"]
+			// Possible TODO: ret.carryingCapacity // Integer. Of a mount/beast, not a container.
 
-            // Properties for which SW5e provides no data. Will rely on the 5etools text parser magic to glean this info...
+			// Properties for which SW5e provides no data. Will rely on the 5etools text parser magic to glean this info...
 
-            // Probably not TODO: ret.tier // String like "major" // would probably require going through every single item to decide a tier. Not likely going to do that.
+			// Probably not TODO: ret.tier // String like "major" // would probably require going through every single item to decide a tier. Not likely going to do that.
 			// Probably not TODO: ret.reqAttuneAlt // String OR Boolean. Used for filtering.  // there's only one item in core that uses this so, probably not needed for sw5e.
 			// Probably not TODO: ret.reqAttuneTags // Array of objects (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json). // Nothing in sw5e seems to have any attunement conditions though
 			// Probably not TODO: ret.typeAlt // not sure if i need this?
+			// Probably not TODO: ret.vulnerable // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
 			// Probably not TODO: ret.immune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
 			// Probably not TODO: ret.conditionImmune // Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
 			// Probably not TODO: ret.bonusSpellAttack // String like "+2"
@@ -327,6 +326,11 @@ const equipmentConfig = {
 				return rarity;
 			}
 
+			function getItemAge(o) {
+				// string ["futuristic", "modern", "renaissance"]
+				return undefined;
+			}
+
 			function getItemValue(o) {
 				return o.cost ? parseInt(o.cost) * 10 : undefined;
 			}
@@ -341,9 +345,10 @@ const equipmentConfig = {
 				if ('description' in o) {
 					txt = o.description;
 				} else if ('text' in o) {
-					txt = o.text.replaceAll('�','\'');
-					txt = o.text.replaceAll('—','\\u2014');
-					txt = txt.replaceAll('_**Requires attunement**_\r\n', '');
+					txt = o.text.replace(/\b(.+)�s\b/g,'$1\'s') // e.g. monk's
+					.replace(/\b(can|doesn|don|won|aren|isn)�t\b/g, '$1\'t') // e.g. doesn't
+					.replace(/�|—/g, '\u2014')
+					.replaceAll('_**Requires attunement**_\r\n', '');
 					const bold = /\*\*(.*?)\*\*/gm;
 					txt = txt.replace(bold, '\{@b $1\}');
 					const italic1 = /\*(.*?)\*/gm;
@@ -930,6 +935,38 @@ const equipmentConfig = {
 				return undefined;
 			}
 
+			function getItemFocus(o) {
+				// return a Boolean, or Array
+				if (isFocus) {
+					return true;
+					// TODO: alternatively, return Array with class names. Ex: ["Druid","Warlock"]
+				}
+				return undefined;
+			}
+
+			function getItemContainerCapacity(o) {
+				// return a Complex object. Ex: {"weight":[6],"item":[{"sling bullet|phb":20,"blowgun needle|phb":50}],"weightless":true}
+				if (('description' in o && o.description) || ('text' in o && o.text)) {
+					const txt = o.description || o.text;
+					const matches = txt.matchAll(/stor(?:e|es|ed|ing) (?:up to )?([\d\.]+) lb/g); //array of regex match arrays
+					if (matches) {
+						const capacities = Array.from(matches);
+						let totalcapacity = 0;
+						for (m in capacities) { totalcapacity += Number(capacities[m][1]); }
+						return totalcapacity ? {weight: totalcapacity} : undefined;
+					}
+				}
+				return undefined;
+			}
+
+			function getItemPackContents(o) {
+				// return a Array of item name strings, or objects (see D:\Development\5etools-mirror-1.github.io\data\items.json)
+			}
+
+			function getItemAtomicPackContents(o) {
+				// return a Boolean. If the item's pack contents should be treated as one atomic unit, rather than handled as individual sub-items.
+			}
+
 			function getItemVulnerable(o) {
 				// return a Array (see D:\Development\5etools-mirror-1.github.io\test\schema\items.json)
 				return undefined; // No SW5e items seem to have this property
@@ -995,29 +1032,8 @@ const equipmentConfig = {
 				// return Object, Ex: {"equal":{"swim:"walk"}}, Ex2: "bonus":{"*":5}, Ex3: {"multiply":{"walk":2}}, Ex4: {"static":{"fly":150}}
 			}
 
-			function getItemFocus(o) {
-				// return a Boolean, or Array
-				if (isFocus) {
-					return true;
-					// TODO: alternatively, return Array with class names. Ex: ["Druid","Warlock"]
-				}
-				return undefined;
-			}
-
 			function getItemScfType(o) {
 				// return a String enum "arcane","druid","holy"
-			}
-
-			function getItemPackContents(o) {
-				// return a Array of item name strings, or objects (see D:\Development\5etools-mirror-1.github.io\data\items.json)
-			}
-
-			function getItemContainerCapacity(o) {
-				// return a Complex object. Ex: {"weight":[6],"item":[{"sling bullet|phb":20,"blowgun needle|phb":50}],"weightless":true}
-			}
-
-			function getItemAtomicPackContents(o) {
-				// return a Boolean. If the item's pack contents should be treated as one atomic unit, rather than handled as individual sub-items.
 			}
 
 			function getItemCarryingCapacity(o) {
@@ -1570,16 +1586,16 @@ const equipmentConfig = {
 				repl: "modifiable wristpad chassis"
 			}
 		]
-        let zeroFinds = [];
+		let zeroFinds = [];
 		manualChanges.forEach((m) => {
 			const find = new RegExp(m.find.escapeRegexp(), "g");
 			if (json.search(find) < 0) {
-                zeroFinds.push(m.find);
-                return;
+				zeroFinds.push(m.find);
+				return;
 			}
 			json = json.replace(find, m.repl); // do actual patch
 		});
-        if (zeroFinds.length > 0) console.log('Found zero occurrences of the following:'); console.log(zeroFinds);
+		if (zeroFinds.length > 0) console.log('Found zero occurrences of the following:'); console.log(zeroFinds);
 		return json;
 	}
 }

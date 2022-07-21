@@ -65,8 +65,8 @@ const powerConfig = {
 			const description = obj.description
 				.replace(/\*\*\*?(.+?)\*\*\*?/g, '$1')
 				.replace(/\n- /g, '\n•')
-				.replace(/\b(.+)�s\b/g,'$1\'s')
-				.replace(/\b(can|doesn|won|aren|isn)�t\b/g, '$1\'t')
+				.replace(/\b(.+)�s\b/g,'$1\'s') // e.g. monk's
+				.replace(/\b(can|don|doesn|won|aren|isn)�t\b/g, '$1\'t') // e.g. doesn't
 				.replace(/�/g, '\u2014');
 
 			let txt = `${name}\t${level}\t${school}${castingTime}\t${range}\t${duration}\t${concentration}\t${prereq}${source}\r\n${description}`;
