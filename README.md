@@ -153,8 +153,9 @@ This project is licensed under the terms of the MIT license.
     * Hover on the top left hamburger menu icon, and from the flyout, select an API source.
     * Click the "Import JSON" blue button in the flyout.
     * Once the data loads into the 2 large textareas in the page, click the "Convert!" blue button below.
+    * Optionally, for *items*, if you want to pull in both Equipment and Enhanced Items, you will need to do them one by one, but you can use the resulting converted JSON from the first as the "5eTools Destination JSON" value for the second. The resulting converted JSON from the second will contain all changes (from both the Equipment and the Enhanced Items APIs).
 
-2. Copy/paste the converted object into the repo JSON file (example: data/items-sw5e.json), and save the file.
+2. Copy/paste the final converted JSON into the repo JSON file (example: data/items-sw5e.json), and save the file.
 
 3. Open the "diff" or "differences" view to see exactly what has changed, line-by-line.
 
@@ -164,13 +165,13 @@ This project is licensed under the terms of the MIT license.
 
 6. Repeat the copy/paste/diff/fix process from #2 thru #5 until only your tweaks show up in the diff (they will show up as though they are to be reverted, but we won't revert them).
 
-7. Record each of your tweaks in the `patchManualChanges()` function in the appropriate converter script (example: sw5e/convertItems.js)
+7. Record each of your tweaks in the `patchManualChanges()` function in the appropriate converter script (example: sw5e/convertItems.js). This function is the new method; the old method is detailed below, and could still be useful.
 
 8. Save the script, and repeat steps #1 thru #3 above.  You should end up with a diff showing no changes.
 
 9. Commit the updated script and the final updated JSON.
 
-10. In the CLI, type `npm run cobble` and press enter.  This will port all of the new JSON updates into the other repo's JSON, which can then be uploaded to the live 5etools site as a homebrew source file.
+10. In the CLI, run `npm run cobble`.  This will merge all of the new JSON updates into the other repo's corresponding JSON file, which can then be uploaded to the live 5etools site as a homebrew source file.
 ### Old Method:
 to apply custom items fixes (those not covered or incorrectly interpretted by the converter script), run one of these two commands, resolve issues, then try again:
 ```
