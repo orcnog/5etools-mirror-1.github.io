@@ -10914,7 +10914,7 @@
 				"This modifiable {@item focus generator|sw5ewh} chassis comes with vacant modification slots for {@item focus generator|sw5ewh} modifications, as well as one augment slot. It can house modifications of advanced rarity or lower."
 			],
 			"reqAttune": true,
-			"baseItem": "force|sw5ephb",
+			"baseItem": "focus|sw5ephb",
 			"focus": true
 		},
 		{
@@ -10927,7 +10927,7 @@
 				"This modifiable {@item focus generator|sw5ewh} chassis comes with vacant modification slots for {@item focus generator|sw5ewh} modifications, as well as two augment slots. It can house modifications of artifact rarity or lower."
 			],
 			"reqAttune": true,
-			"baseItem": "force|sw5ephb",
+			"baseItem": "focus|sw5ephb",
 			"focus": true
 		},
 		{
@@ -10940,7 +10940,7 @@
 				"This modifiable {@item focus generator|sw5ewh} chassis comes with vacant modification slots for {@item focus generator|sw5ewh} modifications, as well as two augment slots. It can house modifications of legendary rarity or lower."
 			],
 			"reqAttune": true,
-			"baseItem": "force|sw5ephb",
+			"baseItem": "focus|sw5ephb",
 			"focus": true
 		},
 		{
@@ -10953,7 +10953,7 @@
 				"This modifiable {@item focus generator|sw5ewh} chassis comes with vacant modification slots for {@item focus generator|sw5ewh} modifications. It can house modifications of premium rarity or lower."
 			],
 			"reqAttune": true,
-			"baseItem": "force|sw5ephb",
+			"baseItem": "focus|sw5ephb",
 			"focus": true
 		},
 		{
@@ -10966,7 +10966,7 @@
 				"This modifiable {@item focus generator|sw5ewh} chassis comes with vacant modification slots for {@item focus generator|sw5ewh} modifications, as well as one augment slot. It can house modifications of prototype rarity or lower."
 			],
 			"reqAttune": true,
-			"baseItem": "force|sw5ephb",
+			"baseItem": "focus|sw5ephb",
 			"focus": true
 		},
 		{
@@ -10979,7 +10979,7 @@
 				"This modifiable {@item focus generator|sw5ewh} chassis comes with vacant modification slots for {@item focus generator|sw5ewh} modifications. It can house modifications of standard rarity."
 			],
 			"reqAttune": true,
-			"baseItem": "force|sw5ephb",
+			"baseItem": "focus|sw5ephb",
 			"focus": true
 		},
 		{
@@ -22631,7 +22631,7 @@
 			"value": 7500,
 			"weight": 3,
 			"entries": [
-				"A repair kit includes the basic tools needed to repair a droid or construct after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
+				"A repair kit includes the basic tools needed to repair a droid after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
 			]
 		},
 		{
