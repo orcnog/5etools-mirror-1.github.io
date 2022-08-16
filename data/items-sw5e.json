@@ -24963,7 +24963,7 @@
 			"type": "M",
 			"rarity": "artifact",
 			"entries": [
-				"Mounted in the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +3 bonus to attack rolls and deal an additional {@damage 1d10} damage with this enhanced shoulder cannon, which has the smart (20, +6) property."
+				"Mounted in the shoulder slot, a {@item shoulder cannon|sw5ewh} does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +3 bonus to attack rolls and deal an additional {@damage 1d10} damage with this enhanced {@item shoulder cannon|sw5ewh}, which has the smart (20, +6) property."
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -24977,7 +24977,7 @@
 			"type": "M",
 			"rarity": "legendary",
 			"entries": [
-				"Mounted in the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +3 bonus to attack rolls and deal an additional {@damage 1d8} damage with this enhanced shoulder cannon, which has the smart (19, +5) property."
+				"Mounted in the shoulder slot, a {@item shoulder cannon|sw5ewh} does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +3 bonus to attack rolls and deal an additional {@damage 1d8} damage with this enhanced {@item shoulder cannon|sw5ewh}, which has the smart (19, +5) property."
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -24991,7 +24991,7 @@
 			"type": "M",
 			"rarity": "uncommon",
 			"entries": [
-				"Mounted in the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +1 bonus to attack and damage rolls made with this enhanced shoulder cannon, which has the smart (16, +2) property."
+				"Mounted in the shoulder slot, a {@item shoulder cannon|sw5ewh} does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +1 bonus to attack and damage rolls made with this enhanced {@item shoulder cannon|sw5ewh}, which has the smart (16, +2) property."
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -25005,7 +25005,7 @@
 			"type": "M",
 			"rarity": "rare",
 			"entries": [
-				"Mounted in the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +2 bonus to attack and damage rolls made with this enhanced shoulder cannon, which has the smart (17, +3) property."
+				"Mounted in the shoulder slot, a {@item shoulder cannon|sw5ewh} does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +2 bonus to attack and damage rolls made with this enhanced {@item shoulder cannon|sw5ewh}, which has the smart (17, +3) property."
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -25019,7 +25019,7 @@
 			"type": "M",
 			"rarity": "very rare",
 			"entries": [
-				"Mounted in the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +3 bonus to attack and damage rolls made with this enhanced shoulder cannon, which has the smart (18, +4) property."
+				"Mounted in the shoulder slot, a {@item shoulder cannon|sw5ewh} does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon. You have a +3 bonus to attack and damage rolls made with this enhanced {@item shoulder cannon|sw5ewh}, which has the smart (18, +4) property."
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
