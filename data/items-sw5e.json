@@ -1094,7 +1094,7 @@
 			]
 		},
 		{
-			"name": "Anti-materiel Blaster",
+			"name": "Anti-materiel blaster",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -1126,7 +1126,7 @@
 			"penetrating": 2
 		},
 		{
-			"name": "Anti-materiel Rifle",
+			"name": "Anti-materiel rifle",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -1827,7 +1827,7 @@
 			"value": 1000,
 			"weight": 2,
 			"entries": [
-				"A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a vibrodagger, a fragmentation grenade, or a {@item power cell|sw5ephb}. Once per turn, drawing an item from a bandolier does not require your object interaction."
+				"A bandolier is worn across the chest. It has 12 pockets that can each hold a single item that weighs less than 2.00 lb, such as a {@item vibrodagger|sw5ephb}, a {@item Grenade, Fragmentation (Average)|sw5ewh|fragmentation grenade}, or a {@item power cell|sw5ephb}. Once per turn, drawing an item from a bandolier does not require your object interaction."
 			]
 		},
 		{
@@ -7234,7 +7234,7 @@
 			]
 		},
 		{
-			"name": "Dire Vibroblade",
+			"name": "Dire vibroblade",
 			"source": "sw5ewh",
 			"page": 0,
 			"type": "M",
@@ -7732,7 +7732,7 @@
 			"shocking": 13
 		},
 		{
-			"name": "Diving Suit",
+			"name": "Diving suit",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "G",
@@ -10779,7 +10779,7 @@
 			"type": "G",
 			"rarity": "common",
 			"entries": [
-				"While you are wearing no armor, this clothing has the impermeable 2 (space suit, diving suit) property."
+				"While you are wearing no armor, this clothing has the impermeable 2 ({@item space suit|sw5eec}, {@item diving suit|sw5eec}) property."
 			]
 		},
 		{
