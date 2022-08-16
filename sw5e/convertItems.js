@@ -736,7 +736,9 @@ const equipmentConfig = {
 			function getItemBaseItem(o) {
 				// String, ID of an existing item, pipe, then source
 				if ((isWeapon || isFocus) && "subtype" in o && !o.subtype.match(/any /)) {
-					return o.subtype + "|sw5ephb";
+                    var baseItem = o.subtype;
+                    if (baseItem === 'force') baseItem = 'focus';
+					return baseItem + "|sw5ephb";
 				}
 				return undefined;
 			}
@@ -1219,7 +1221,7 @@ const equipmentConfig = {
 				repl: "A quiver which can hold up to 20 {@item arrow|sw5eec|arrows}, 10 {@item bolt|sw5eec|bolts}, or 10 {@item dart|sw5ephb|darts}. Drawing an item from the quiver does not require an object interaction."
 			},
 			{
-				find: "A repair kit included the basic tools needed to repair a droid after being damaged in combat. The kit has three",
+				find: "A repair kit included the basic tools needed to repair a droid or construct after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal",
 				repl: "A repair kit includes the basic tools needed to repair a droid after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
 			},
 			{
@@ -1584,6 +1586,26 @@ const equipmentConfig = {
 			{
 				find: "modifiable {@item wristpad|sw5ephb} chassis",
 				repl: "modifiable wristpad chassis"
+			},
+			{
+				find: "A bandolier is worn across the {@item chest|sw5ephb}.",
+				repl: "A bandolier is worn across the chest."
+			},
+			{
+				find: "such as a {@item vibrodagger|sw5ephb}, a fragmentation grenade, or a {@item power cell|sw5ephb}",
+				repl: "such as a {@item vibrodagger|sw5ephb}, a {@item Grenade, Fragmentation (Average)|sw5ewh|fragmentation grenade}, or a {@item power cell|sw5ephb}"
+			},
+			{
+				find: "commlinks are simple handheld communication devices,",
+				repl: "Commlinks are simple handheld communication devices,"
+			},
+			{
+				find: `"force|sw5ephb"`,
+				repl: `"focus|sw5ephb"`
+			},
+			{
+				find: `{@skill Stealth} field generators are`,
+				repl: `Stealth field generators are`
 			}
 		]
 		let zeroFinds = [];
@@ -1595,7 +1617,7 @@ const equipmentConfig = {
 			}
 			json = json.replace(find, m.repl); // do actual patch
 		});
-		if (zeroFinds.length > 0) console.log('Found zero occurrences of the following:'); console.log(zeroFinds);
+		if (zeroFinds.length > 0) console.log('Found zero occurrences of the following:'); console.log(zeroFinds); // debugging: help identify unnec patches that may be able to be removed.
 		return json;
 	}
 }
