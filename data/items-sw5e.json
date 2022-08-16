@@ -634,6 +634,38 @@
 			"bonusWeaponDamage": "+3"
 		},
 		{
+			"name": "Affixed Rifle",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 7000,
+			"weight": 8,
+			"entries": [
+				null
+			],
+			"rapid": 4,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"FXD",
+				"POW",
+				"RAP",
+				"STR"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy",
+			"firearm": true,
+			"ammunition": true,
+			"ammoType": "energy cell",
+			"reload": 8,
+			"range": "90/360",
+			"strength": 11
+		},
+		{
 			"name": "Afixed Rifle",
 			"source": "sw5eec",
 			"page": 0,
@@ -1639,7 +1671,7 @@
 			"type": "G",
 			"rarity": "uncommon",
 			"entries": [
-				"This armor or shield gains the avoidant 1 property. If it already has the avoidant property, its avoidant property increases by 1, to a maximum of 3."
+				"This armor or shield gains the avoidant 1 property. If it already has the avoidant property, its avoidant number increases by 1, to a maximum of 3."
 			]
 		},
 		{
@@ -1660,6 +1692,36 @@
 			"rarity": "artifact",
 			"entries": [
 				"This armor or shield gains the avoidant 3 property. If it already has the avoidant property, its avoidant number increases to 3."
+			]
+		},
+		{
+			"name": "Avoidant Weave (Basic)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the avoidant 1 armor property. If it already has the avoidant armor property, its avoidant number increases by 1, to a maximum of 3."
+			]
+		},
+		{
+			"name": "Avoidant Weave (Choice)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"This clothing gains the avoidant 2 armor property. If it already has the avoidant armor property, its avoidant number increases by 2, to a maximum of 3."
+			]
+		},
+		{
+			"name": "Avoidant Weave (Exquisite)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "artifact",
+			"entries": [
+				"This clothing gains the avoidant 3 armor property. If it already has the avoidant armor property, its avoidant number increases to 3."
 			]
 		},
 		{
@@ -2123,7 +2185,7 @@
 			"value": 2000,
 			"weight": 2,
 			"entries": [
-				"A bipod is a device mounted to a two-handed blaster weapon to offer increased stability while {@condition prone}. As an action, you can deploy or collapse the bipod. While deployed, you ignore the Strength requirement on the attached blaster weapon with the strength property while you are {@condition prone}, and your speed is reduced to 0. Additionally, while deployed and {@condition prone}, you have a +10 bonus to ability checks and saving throws to avoid being disarmed of the weapon."
+				"A bipod is a device mounted to a two-handed blaster that lacks the fixed property to offer increased stability while {@condition prone}. As an action, you can deploy or collapse the bipod. While deployed, you ignore the Strength requirement on the attached blaster with the strength property while you are {@condition prone}, and your speed is reduced to 0. Additionally, while deployed and {@condition prone}, you have a +10 bonus to ability checks and saving throws to avoid being disarmed of the weapon."
 			],
 			"bonusSavingThrow": "+1"
 		},
@@ -2149,6 +2211,29 @@
 			"entries": [
 				null
 			]
+		},
+		{
+			"name": "Bitesaber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 18000,
+			"weight": 2.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWV",
+				"HID",
+				"LUM",
+				"BIT"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Acid",
+			"dmg2": "2d4"
 		},
 		{
 			"name": "Biting Crystal (Adept)",
@@ -2461,6 +2546,29 @@
 				null
 			],
 			"corruption": 13
+		},
+		{
+			"name": "Blightsaber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 18000,
+			"weight": 2.5,
+			"entries": [
+				null
+			],
+			"corruption": 13,
+			"property": [
+				"SWV",
+				"HID",
+				"COR"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Necrotic",
+			"dmg2": "2d4"
 		},
 		{
 			"name": "Blueprint (Advanced)",
@@ -2842,6 +2950,50 @@
 			"bonusAc": "+3"
 		},
 		{
+			"name": "Bonded Weave (Basic)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"You gain a +1 bonus to AC against melee attacks and a -1 penalty to AC against ranged attacks while wearing this clothing."
+			],
+			"bonusAc": "+1"
+		},
+		{
+			"name": "Bonded Weave (Choice)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"You gain a +3 bonus to AC against melee attacks while wearing this clothing."
+			],
+			"bonusAc": "+3"
+		},
+		{
+			"name": "Bonded Weave (Favored)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "rare",
+			"entries": [
+				"You gain a +2 bonus to AC against melee attacks while wearing this clothing."
+			],
+			"bonusAc": "+2"
+		},
+		{
+			"name": "Bonded Weave (Fine)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"You gain a +1 bonus to AC against melee attacks while wearing this clothing."
+			],
+			"bonusAc": "+1"
+		},
+		{
 			"name": "Bone light shield",
 			"source": "sw5ewh",
 			"page": 0,
@@ -2894,7 +3046,7 @@
 		},
 		{
 			"name": "Bottle",
-			"source": "sw5eec",
+			"source": "sw5ephb",
 			"page": 0,
 			"type": "G",
 			"rarity": "none",
@@ -3105,6 +3257,30 @@
 			"bright": 13
 		},
 		{
+			"name": "Brightsaber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 18000,
+			"weight": 2.5,
+			"entries": [
+				null
+			],
+			"bright": 13,
+			"property": [
+				"SWV",
+				"HID",
+				"LUM",
+				"BRT"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Fire",
+			"dmg2": "2d4"
+		},
+		{
 			"name": "Broad-saber",
 			"source": "sw5ewh",
 			"page": 0,
@@ -3130,6 +3306,31 @@
 			"dire": 1
 		},
 		{
+			"name": "Broadsaber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 10000,
+			"weight": 2.75,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"dire": 1,
+			"property": [
+				"SWV",
+				"DEX",
+				"LUM",
+				"DIR"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Energy",
+			"dmg2": "1d8"
+		},
+		{
 			"name": "Brutal Cell",
 			"source": "sw5ewh",
 			"page": 0,
@@ -3144,7 +3345,7 @@
 			"source": "sw5ewh",
 			"page": 0,
 			"type": "G",
-			"rarity": "none",
+			"rarity": "very rare",
 			"entries": [
 				"This weapon gains the brutal 2 property. If it already has the brutal property, its brutal number increases by 2, to a maximum of 3."
 			]
@@ -3298,6 +3499,34 @@
 			"dexterity": 19,
 			"brutal": 1,
 			"keen": 1
+		},
+		{
+			"name": "Bustersaber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 29000,
+			"weight": 7.25,
+			"entries": [
+				null
+			],
+			"dexterity": 19,
+			"brutal": 1,
+			"keen": 1,
+			"property": [
+				"SWH",
+				"R",
+				"SW2",
+				"DEX",
+				"LUM",
+				"BRU",
+				"KEN"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Energy"
 		},
 		{
 			"name": "Byrothsis Adept Cell",
@@ -3499,8 +3728,8 @@
 			"page": 0,
 			"type": "M",
 			"rarity": "none",
-			"value": 6750,
-			"weight": 4.75,
+			"value": 9750,
+			"weight": 5.75,
 			"entries": [
 				"This specialized gungan staff can be used to throw grenades or similar objects at long distances. If you are wielding this weapon, as part of the action to throw a grenade, you can instead throw it using a cesta you are holding. The grenade can be thrown at a short distance of 60ft and a long distance of 240ft. When throwing a grenade at long range, creatures within the radius of the grenade's explosion have advantage on the saving throw. If you lack proficiency in the cesta, you must roll the damage dice twice and take the lesser total."
 			],
@@ -3508,13 +3737,15 @@
 				"SWF",
 				"SWV",
 				"SWS",
-				"DSG"
+				"DSG",
+				"DBL"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
-			"dmg1": "1d6",
+			"dmg1": "1d8",
 			"dmgType": "Kinetic",
-			"dmg2": "2d4"
+			"dmg2": "2d4",
+			"double": " finesse"
 		},
 		{
 			"name": "Chained dagger",
@@ -4178,6 +4409,18 @@
 			]
 		},
 		{
+			"name": "Chemical suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 30000,
+			"weight": 15,
+			"entries": [
+				null
+			]
+		},
+		{
 			"name": "Chest",
 			"source": "sw5ephb",
 			"page": 0,
@@ -4392,6 +4635,28 @@
 				null
 			],
 			"dexterity": 13
+		},
+		{
+			"name": "Claymoresaber",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 23000,
+			"weight": 3.5,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"property": [
+				"SW2",
+				"DEX",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "3d4",
+			"dmgType": "Energy"
 		},
 		{
 			"name": "Cloak Chassis (Advanced)",
@@ -4687,7 +4952,7 @@
 			"value": 4500,
 			"weight": 3,
 			"entries": [
-				"A comm jammer is a device used to scramble communications. A comm jammer can block transmissions from unenhanced communications devices in a 100 foot radius."
+				"A device used to scramble and block transmissions from communications devices in a 300 foot radius. The device can be activated or deactivated as an action. Any creature sending incoming or outgoing communications within range must succeed on a DC 15 Intelligence ({@skill Technology}) check. On a failure, their communications are jammed until the comm jammer is deactivated or they move out of its range. The comm jammer lasts for 1 hour and can be recharged by connecting to a power source or by replacing the {@item power cell|sw5ephb}."
 			]
 		},
 		{
@@ -4699,7 +4964,19 @@
 			"value": 500,
 			"weight": 0.5,
 			"entries": [
-				"Commlinks are standard handheld communication devices, fitted with microphones and receivers. Standard, personal commlinks have a range of up to 30 miles, but are reduced in dense, urban areas or areas of high level interference."
+				"Commlinks are simple handheld communication devices, fitted with microphones and receivers. Basic, personal commlinks have a range of up to 30 miles, but are reduced in dense, urban areas or areas of high level interference. The commlink lasts for 10 hours and can be recharged by connecting to a power source or by replacing the {@item power cell|sw5ephb}."
+			]
+		},
+		{
+			"name": "Commlink, hands-free",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 2000,
+			"weight": 1,
+			"entries": [
+				"A hands-free {@item commlink|sw5ephb} functions as a {@item commlink|sw5ephb}, but can be installed in a helmet or worn independently, such as on your head or ear."
 			]
 		},
 		{
@@ -4869,6 +5146,18 @@
 			"entries": [
 				"{@i {@b Prerequiste:} Shield}",
 				"This shield gains the concealing property."
+			]
+		},
+		{
+			"name": "Conductive suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 36000,
+			"weight": 12.5,
+			"entries": [
+				null
 			]
 		},
 		{
@@ -5589,38 +5878,28 @@
 			"defensive": 1
 		},
 		{
-			"name": "Cryo Cannon",
-			"source": "sw5ewh",
+			"name": "Crosssaber",
+			"source": "sw5eec",
 			"page": 0,
-			"type": "R",
+			"type": "M",
 			"rarity": "none",
-			"value": 33000,
-			"weight": 12.5,
+			"value": 16500,
+			"weight": 5.25,
+			"entries": [
+				null
+			],
+			"dexterity": 15,
 			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"AUT",
-				"BST",
-				"POW",
-				"STR",
-				"VSC"
+				"SWH",
+				"R",
+				"DEX",
+				"DBL",
+				"LUM"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
 			"dmg1": "2d4",
-			"dmgType": "Cold",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 4,
-			"range": "75/300",
-			"entries": [
-				null
-			],
-			"ammunition": true,
-			"strength": 13,
-			"burst": 2,
-			"vicious": 1
+			"dmgType": "Energy"
 		},
 		{
 			"name": "Cryo Cell (Average)",
@@ -5678,17 +5957,19 @@
 			"bonusWeapon": "+2"
 		},
 		{
-			"name": "Cryo Rifle",
+			"name": "Cryo cannon",
 			"source": "sw5ewh",
 			"page": 0,
 			"type": "R",
 			"rarity": "none",
-			"value": 24000,
-			"weight": 10.5,
+			"value": 33000,
+			"weight": 12.5,
 			"property": [
 				"AF",
 				"RLD",
 				"SW2",
+				"AUT",
+				"BST",
 				"POW",
 				"STR",
 				"VSC"
@@ -5700,12 +5981,13 @@
 			"firearm": true,
 			"ammoType": "energy cell",
 			"reload": 4,
-			"range": "50/200",
+			"range": "75/300",
 			"entries": [
 				null
 			],
 			"ammunition": true,
-			"strength": 11,
+			"strength": 13,
+			"burst": 2,
 			"vicious": 1
 		},
 		{
@@ -5775,6 +6057,37 @@
 				null
 			],
 			"ammunition": true,
+			"vicious": 1
+		},
+		{
+			"name": "Cryo rifle",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 24000,
+			"weight": 10.5,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"POW",
+				"STR",
+				"VSC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Cold",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 4,
+			"range": "50/200",
+			"entries": [
+				null
+			],
+			"ammunition": true,
+			"strength": 11,
 			"vicious": 1
 		},
 		{
@@ -6014,6 +6327,18 @@
 			]
 		},
 		{
+			"name": "Dampening suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 25000,
+			"weight": 18,
+			"entries": [
+				null
+			]
+		},
+		{
 			"name": "Daring Acrobat Package",
 			"source": "sw5ewh",
 			"page": 0,
@@ -6226,7 +6551,7 @@
 			"value": 1000,
 			"weight": 0.5,
 			"entries": [
-				"A datapad is a small electronic device used for the input, storage and displaying of inform-ation. It features a holoprojective surface for 3D viewing."
+				"A datapad is a small electronic device used for the input, storage and displaying of information. It features a holoprojective surface for 3D viewing."
 			]
 		},
 		{
@@ -7407,6 +7732,18 @@
 			"shocking": 13
 		},
 		{
+			"name": "Diving Suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 20000,
+			"weight": 22.5,
+			"entries": [
+				null
+			]
+		},
+		{
 			"name": "Dominator Belt",
 			"source": "sw5ewh",
 			"page": 0,
@@ -7525,6 +7862,94 @@
 				null
 			],
 			"double": "1d8 kinetic"
+		},
+		{
+			"name": "Doubleblade",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4000,
+			"weight": 3.5,
+			"entries": [
+				null
+			],
+			"double": "1d6 kinetic",
+			"property": [
+				"SWF",
+				"SWL",
+				"DBL"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Doublesaber",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7250,
+			"weight": 2.25,
+			"entries": [
+				null
+			],
+			"double": "1d8 energy",
+			"property": [
+				"SWF",
+				"DBL",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Doubleshoto",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7000,
+			"weight": 1.75,
+			"entries": [
+				null
+			],
+			"double": "1d6 energy",
+			"property": [
+				"SWF",
+				"SWL",
+				"DBL",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Doublesword",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4500,
+			"weight": 5.5,
+			"entries": [
+				null
+			],
+			"double": "1d8 kinetic",
+			"property": [
+				"SWF",
+				"DBL"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Kinetic"
 		},
 		{
 			"name": "Droid Dura Plating Mk I",
@@ -8211,6 +8636,145 @@
 			"shocking": 13
 		},
 		{
+			"name": "Electrobaton",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2750,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"shocking": 13,
+			"property": [
+				"SWF",
+				"SWL",
+				"SHO"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Electrohammer",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 9500,
+			"weight": 8.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"shocking": 13,
+			"property": [
+				"SWH",
+				"SW2",
+				"DEX",
+				"SHO"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Electroprod",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6500,
+			"weight": 6,
+			"entries": [
+				null
+			],
+			"shocking": 13,
+			"property": [
+				"SW2",
+				"DSR",
+				"SHO"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d8",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Electrostaff",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6000,
+			"weight": 5,
+			"entries": [
+				null
+			],
+			"double": "1d6 kinetic",
+			"shocking": 13,
+			"property": [
+				"SWF",
+				"DBL",
+				"SHO"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Electrovoulge",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 12500,
+			"weight": 10,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"shocking": 13,
+			"property": [
+				"R",
+				"SW2",
+				"DEX",
+				"SHO"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Electrowhip",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7250,
+			"weight": 4.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"shocking": 13,
+			"property": [
+				"R",
+				"DEX",
+				"DSR",
+				"SHO"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
+		},
+		{
 			"name": "Elongating Dataport Mk I",
 			"source": "sw5ewh",
 			"page": 0,
@@ -8388,7 +8952,7 @@
 		},
 		{
 			"name": "Emergency shelter",
-			"source": "sw5eec",
+			"source": "sw5ephb",
 			"page": 0,
 			"type": "G",
 			"rarity": "none",
@@ -9709,6 +10273,18 @@
 			]
 		},
 		{
+			"name": "Flame-proof suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 22500,
+			"weight": 20,
+			"entries": [
+				null
+			]
+		},
+		{
 			"name": "Flashlight Attachment",
 			"source": "sw5ewh",
 			"page": 0,
@@ -10194,6 +10770,16 @@
 			"weight": 5,
 			"entries": [
 				"Flight suits, or jumpsuits, are a type of outfit worn by pilots. They are worn in conjunction with flight helmets. They come in a variety of different colors and provide life support, and protect from hostile environments."
+			]
+		},
+		{
+			"name": "Flightsuit",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"While you are wearing no armor, this clothing has the impermeable 2 (space suit, diving suit) property."
 			]
 		},
 		{
@@ -11108,7 +11694,7 @@
 			"weaponCategory": "Martial",
 			"firearm": true,
 			"ammoType": "energy cell",
-			"reload": 16,
+			"reload": 1,
 			"range": "90/360",
 			"dmgType": "Unknown",
 			"ammunition": true,
@@ -12053,7 +12639,7 @@
 			"ammunition": true,
 			"strength": 15,
 			"brutal": 1,
-			"disintegrate": 1,
+			"disintegrate": 13,
 			"keen": 1
 		},
 		{
@@ -12074,7 +12660,7 @@
 			"weapon": true,
 			"weaponCategory": "Martial",
 			"dmg1": "1d4",
-			"dmgType": "Kinetic",
+			"dmgType": "Energy",
 			"firearm": true,
 			"ammoType": "energy cell",
 			"reload": 8,
@@ -12312,6 +12898,18 @@
 			]
 		},
 		{
+			"name": "Hazard suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 18750,
+			"weight": 24,
+			"entries": [
+				null
+			]
+		},
+		{
 			"name": "Headcomm",
 			"source": "sw5ephb",
 			"page": 0,
@@ -12440,7 +13038,8 @@
 				"RLD",
 				"POW",
 				"RAP",
-				"STR"
+				"STR",
+				"SW2"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -13082,6 +13681,126 @@
 			]
 		},
 		{
+			"name": "Impermeable Inlay (Basic)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"This clothing gains the impermeable 2 armor property (suits chosen by the GM). If it already has the impermeable armor property, its impermeable number increases by 2, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Inlay (Champion)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "artifact",
+			"entries": [
+				"This clothing gains the impermeable 9 armor property (suits chosen by the GM). If it already has the impermeable armor property, its impermeable number increases to 9."
+			]
+		},
+		{
+			"name": "Impermeable Inlay (Exceptional)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "legendary",
+			"entries": [
+				"This clothing gains the impermeable 8 armor property (suits chosen by the GM). If it already has the impermeable armor property, its impermeable number increases by 8, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Inlay (Fine)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the impermeable 3 armor property (suits chosen by the GM). If it already has the impermeable armor property, its impermeable number increases by 3, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Inlay (Improved)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "rare",
+			"entries": [
+				"This clothing gains the impermeable 5 armor property (suits chosen by the GM). If it already has the impermeable armor property, its impermeable number increases by 5, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Inlay (Superior)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"This clothing gains the impermeable 6 armor property (suits chosen by the GM). If it already has the impermeable armor property, its impermeable number increases by 6, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Overlay Mk I",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"This armor gains the impermeable 2 property (suits chosen by the GM). If it already has the impermeable property, its impermeable number increases by 2, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Overlay Mk II",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This armor gains the impermeable 3 property (suits chosen by the GM). If it already has the impermeable property, its impermeable number increases by 3, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Overlay Mk III",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "rare",
+			"entries": [
+				"This armor gains the impermeable 5 property (suits chosen by the GM). If it already has the impermeable property, its impermeable number increases by 5, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Overlay Mk IV",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"This armor gains the impermeable 6 property (suits chosen by the GM). If it already has the impermeable property, its impermeable number increases by 6, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Overlay Mk V",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "legendary",
+			"entries": [
+				"This armor gains the impermeable 8 property (suits chosen by the GM). If it already has the impermeable property, its impermeable number increases by 8, to a maximum of 9."
+			]
+		},
+		{
+			"name": "Impermeable Overlay Mk VI",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "artifact",
+			"entries": [
+				"This armor gains the impermeable 9 property (suits chosen by the GM). If it already has the impermeable property, its impermeable number increases to 9."
+			]
+		},
+		{
 			"name": "Incendiary Cell (Average)",
 			"source": "sw5eec",
 			"page": 0,
@@ -13677,6 +14396,66 @@
 			"bonusAc": "+1"
 		},
 		{
+			"name": "Insulated Pattern (Basic)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"This clothing gains the insulated 5 armor property. If it already has the insulated armor property, its insulated number increases by 1, to a maximum of 10."
+			]
+		},
+		{
+			"name": "Insulated Pattern (Champion)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "artifact",
+			"entries": [
+				"This clothing gains the insulated 10 armor property. If it already has the insulated armor property, its insulated number increases to 10."
+			]
+		},
+		{
+			"name": "Insulated Pattern (Exceptional)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "legendary",
+			"entries": [
+				"This clothing gains the insulated 9 armor property. If it already has the insulated armor property, its insulated number increases by 5, to a maximum of 10."
+			]
+		},
+		{
+			"name": "Insulated Pattern (Fine)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the insulated 6 armor property. If it already has the insulated armor property, its insulated number increases by 2, to a maximum of 10."
+			]
+		},
+		{
+			"name": "Insulated Pattern (Improved)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "rare",
+			"entries": [
+				"This clothing gains the insulated 7 armor property. If it already has the insulated armor property, its insulated number increases by 3, to a maximum of 10."
+			]
+		},
+		{
+			"name": "Insulated Pattern (Superior)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"This clothing gains the insulated 8 armor property. If it already has the insulated armor property, its insulated number increases by 4, to a maximum of 3."
+			]
+		},
+		{
 			"name": "Insulated Reinforcement (Basic)",
 			"source": "sw5ewh",
 			"page": 0,
@@ -13733,7 +14512,7 @@
 			"type": "G",
 			"rarity": "very rare",
 			"entries": [
-				"This armor or shield gains the insulated 8 property. If it already has the insulated property, its insulated number increases by 4, to a maximum of 3."
+				"This armor or shield gains the insulated 8 property. If it already has the insulated property, its insulated number increases by 4, to a maximum of 10."
 			]
 		},
 		{
@@ -15182,6 +15961,71 @@
 			"range": "25/75"
 		},
 		{
+			"name": "Lightaxe",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 15500,
+			"weight": 3.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"SWH",
+				"SW2",
+				"DEX",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightbaton",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4000,
+			"weight": 1.25,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWL",
+				"HID",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d8",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightblade",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 3750,
+			"weight": 1.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"HID",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Energy"
+		},
+		{
 			"name": "Lightbow",
 			"source": "sw5ewh",
 			"page": 0,
@@ -15213,7 +16057,194 @@
 			"piercing": 1
 		},
 		{
-			"name": "Lightning Cannon",
+			"name": "Lightclub",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 13000,
+			"weight": 3.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"SWH",
+				"SW2",
+				"DEX",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d10",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightcutlass",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7250,
+			"weight": 1.5,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"DEX",
+				"HID",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "2d4",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightdagger",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4250,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWT",
+				"SWF",
+				"SWL",
+				"HID",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d4",
+			"dmgType": "Energy",
+			"range": "20/60"
+		},
+		{
+			"name": "Lightfist",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6500,
+			"weight": 1.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWL",
+				"DSG",
+				"FXD",
+				"LUM",
+				"DSR"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightfoil",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4750,
+			"weight": 1.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"HID",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightglaive",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 20500,
+			"weight": 5.75,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"brutal": 1,
+			"property": [
+				"R",
+				"SW2",
+				"DEX",
+				"LUM",
+				"BRU"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightkatana",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 9250,
+			"weight": 2.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"piercing": 1,
+			"property": [
+				"SWV",
+				"DEX",
+				"HID",
+				"LUM",
+				"PRC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy",
+			"dmg2": "1d10"
+		},
+		{
+			"name": "Lightlance",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 12750,
+			"weight": 4.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"R",
+				"SW2",
+				"DEX",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "2d4",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightning cannon",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -15242,37 +16273,6 @@
 			"range": "90/360",
 			"ammunition": true,
 			"strength": 15,
-			"penetrating": 2
-		},
-		{
-			"name": "Lightning Rifle",
-			"source": "sw5eec",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 21250,
-			"weight": 8.5,
-			"entries": [
-				"Whenever you deal damage with this weapon and roll the maximum on the weapon damage die, the creature hit becomes shocked until the end of its next turn."
-			],
-			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"PEN",
-				"POW",
-				"STR"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d6",
-			"dmgType": "Lightning",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 8,
-			"range": "60/240",
-			"ammunition": true,
-			"strength": 11,
 			"penetrating": 2
 		},
 		{
@@ -15333,6 +16333,87 @@
 			],
 			"ammunition": true,
 			"penetrating": 8
+		},
+		{
+			"name": "Lightning rifle",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 21250,
+			"weight": 8.5,
+			"entries": [
+				"Whenever you deal damage with this weapon and roll the maximum on the weapon damage die, the creature hit becomes shocked until the end of its next turn."
+			],
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"PEN",
+				"POW",
+				"STR"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Lightning",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 8,
+			"range": "60/240",
+			"ammunition": true,
+			"strength": 11,
+			"penetrating": 2
+		},
+		{
+			"name": "Lightnodachi",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 30500,
+			"weight": 4.5,
+			"entries": [
+				null
+			],
+			"dexterity": 17,
+			"piercing": 1,
+			"vicious": 1,
+			"property": [
+				"SW2",
+				"DEX",
+				"LUM",
+				"PRC",
+				"VSC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "3d4",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Lightring",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 5750,
+			"weight": 2,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWT",
+				"SWF",
+				"HID",
+				"LUM",
+				"RET"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Energy",
+			"range": "25/75"
 		},
 		{
 			"name": "Lightsaber",
@@ -15475,6 +16556,16 @@
 			"rarity": "very rare",
 			"entries": [
 				"This weapon loses the two-handed property."
+			]
+		},
+		{
+			"name": "Lightweight Weave",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"This clothing gains the lightweight armor property."
 			]
 		},
 		{
@@ -15812,7 +16903,7 @@
 			"charges": 10
 		},
 		{
-			"name": "Marksman Blaster",
+			"name": "Marksman blaster",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -16173,6 +17264,18 @@
 			"rarity": "uncommon",
 			"entries": [
 				"This weapon gains the mighty property."
+			]
+		},
+		{
+			"name": "Mind-shielding suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 45000,
+			"weight": 10,
+			"entries": [
+				null
 			]
 		},
 		{
@@ -17346,7 +18449,7 @@
 			]
 		},
 		{
-			"name": "Mortar Launcher",
+			"name": "Mortar launcher",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -17638,7 +18741,8 @@
 				"SWS",
 				"SLG",
 				"PRC",
-				"SIL"
+				"SIL",
+				"RLD"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -17648,7 +18752,8 @@
 			"ammoType": "energy cell",
 			"range": "30/160",
 			"ammunition": true,
-			"piercing": 1
+			"piercing": 1,
+			"reload": 12
 		},
 		{
 			"name": "Nerve-baton",
@@ -17670,6 +18775,27 @@
 				"NEU"
 			],
 			"neuralizing": 13
+		},
+		{
+			"name": "Nervebaton",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 3750,
+			"weight": 2,
+			"entries": [
+				null
+			],
+			"neuralizing": 13,
+			"property": [
+				"DSR",
+				"NEU"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
 		},
 		{
 			"name": "Net",
@@ -17902,7 +19028,7 @@
 				"AST",
 				"INS"
 			],
-			"insulated": 1
+			"insulated": 5
 		},
 		{
 			"name": "Nighthawk Ocular Implant",
@@ -17915,6 +19041,36 @@
 				"You can activate or deactivate this implant as a bonus action. While active, you gain {@sense darkvision} to a range of 120 feet.",
 				"{@b Side Effect:} While active and in bright light, you have disadvantage on attack rolls, as well as on Wisdom ({@skill Perception}) checks that rely on sight."
 			]
+		},
+		{
+			"name": "Nightstinger rifle",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 10750,
+			"weight": 11,
+			"entries": [
+				null
+			],
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"POW",
+				"STR",
+				"SIL"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Energy",
+			"firearm": true,
+			"ammunition": true,
+			"ammoType": "energy cell",
+			"reload": 2,
+			"range": "125/500",
+			"strength": 11
 		},
 		{
 			"name": "Nightstringer Rifle",
@@ -18015,6 +19171,16 @@
 			"rarity": "uncommon",
 			"entries": [
 				"This armor gains the obscured property."
+			]
+		},
+		{
+			"name": "Obscured Stitching",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the obscured armor property."
 			]
 		},
 		{
@@ -18444,6 +19610,18 @@
 				"You can use this feature twice. You regain all expended uses when you complete a short or long rest."
 			],
 			"recharge": "restLong"
+		},
+		{
+			"name": "Oyxgen tank",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 1000,
+			"weight": 20,
+			"entries": [
+				null
+			]
 		},
 		{
 			"name": "Pacnorval Chem Integrator",
@@ -18913,7 +20091,8 @@
 				null
 			],
 			"dexterity": 11,
-			"keen": 1
+			"keen": 1,
+			"vicious": 1
 		},
 		{
 			"name": "Phobium Echoer (Improved)",
@@ -19113,8 +20292,31 @@
 			"dexterity": 11
 		},
 		{
+			"name": "Pikesaber",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 16750,
+			"weight": 5.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"R",
+				"SW2",
+				"DEX",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Energy"
+		},
+		{
 			"name": "Pitcher",
-			"source": "sw5eec",
+			"source": "sw5ephb",
 			"page": 0,
 			"type": "G",
 			"rarity": "none",
@@ -19493,7 +20695,7 @@
 			"value": 12500,
 			"weight": 5,
 			"entries": [
-				"Power generators energize the {@item rotary cannon|sw5ephb}."
+				"Power generators energize the {@item blaster cannon|sw5eec}."
 			]
 		},
 		{
@@ -20302,13 +21504,13 @@
 			]
 		},
 		{
-			"name": "Radiation Cannon",
+			"name": "Radiation cannon",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
 			"rarity": "none",
-			"value": 33000,
-			"weight": 12.5,
+			"value": 39000,
+			"weight": 13.5,
 			"property": [
 				"AF",
 				"RLD",
@@ -20317,11 +21519,12 @@
 				"BST",
 				"POW",
 				"STR",
-				"KEN"
+				"KEN",
+				"PRC"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
-			"dmg1": "1d10",
+			"dmg1": "2d4",
 			"dmgType": "Necrotic",
 			"firearm": true,
 			"ammoType": "energy cell",
@@ -20331,9 +21534,10 @@
 				null
 			],
 			"ammunition": true,
-			"strength": 13,
+			"strength": 15,
 			"burst": 2,
-			"keen": 1
+			"keen": 1,
+			"piercing": 1
 		},
 		{
 			"name": "Radrifle",
@@ -20537,6 +21741,36 @@
 			]
 		},
 		{
+			"name": "Reactive Stitching (Adequate)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the reactive 1 armor property. If it already has the reactive armor property, its reactive number increases by 1, to a maximum of 3."
+			]
+		},
+		{
+			"name": "Reactive Stitching (Excellent)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"This clothing gains the reactive 2 armor property. If it already has the reactive armor property, its reactive number increases by 2, to a maximum of 3."
+			]
+		},
+		{
+			"name": "Reactive Stitching (Prime)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "artifact",
+			"entries": [
+				"This clothing gains the reactive 3 armor property. If it already has the reactive armor property, its reactive number increases to 3."
+			]
+		},
+		{
 			"name": "Reactive Ultrachrome Armor",
 			"source": "sw5ewh",
 			"page": 0,
@@ -20685,6 +21919,16 @@
 			]
 		},
 		{
+			"name": "Regulated Weave",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the regulated armor property."
+			]
+		},
+		{
 			"name": "Reinforced Armoring",
 			"source": "sw5ewh",
 			"page": 0,
@@ -20703,6 +21947,50 @@
 			"entries": [
 				"You've reinforced your chassis. When you don't have armor integrated, your AC is 13 + your Dexterity modifier."
 			]
+		},
+		{
+			"name": "Reinforced Stitching (Basic)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "common",
+			"entries": [
+				"You gain a +1 bonus to AC against ranged attacks and a -1 penalty to AC against melee attacks while wearing this clothing."
+			],
+			"bonusAc": "+1"
+		},
+		{
+			"name": "Reinforced Stitching (Fine)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"You gain a +1 bonus to AC against ranged attacks while wearing this clothing."
+			],
+			"bonusAc": "+1"
+		},
+		{
+			"name": "Reinforced Stitching (Improved)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "rare",
+			"entries": [
+				"You gain a +2 bonus to AC against ranged attacks while wearing this clothing."
+			],
+			"bonusAc": "+2"
+		},
+		{
+			"name": "Reinforced Stitching (Superior)",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "very rare",
+			"entries": [
+				"You gain a +3 bonus to AC against ranged attacks while wearing this clothing."
+			],
+			"bonusAc": "+3"
 		},
 		{
 			"name": "Reinforced Underlay (Basic)",
@@ -21343,11 +22631,11 @@
 			"value": 7500,
 			"weight": 3,
 			"entries": [
-				"A repair kit includes the basic tools needed to repair a droid after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
+				"A repair kit includes the basic tools needed to repair a droid or construct after being damaged in combat. The kit has three uses. As an action, you can expend one use of the kit to restore hit points to a droid or construct within 5 feet. The creature rolls one die equal to the size of their Hit Die and regains hit points equal to the amount rolled + their Constitution modifier (minimum of one hit point). If the creature has Hit Dice of different sizes, use whichever Hit Die size they have the most of."
 			]
 		},
 		{
-			"name": "Repeating Blaster",
+			"name": "Repeating blaster",
 			"source": "sw5ephb",
 			"page": 0,
 			"type": "R",
@@ -21658,7 +22946,7 @@
 			"value": 2000,
 			"weight": 1,
 			"entries": [
-				"A respirator, or breath mask, is a portable device that allowed an oxygen-breather to survive in low-oxygen atmospheres. Although not suitable for use in outer-space, these hands-free masks were essential equipment for deep-space travel that might require activity outside of a starship."
+				"A respirator, or breath mask, is a portable device that includes 1 hour's worth of oxygen. The respirator is designed to function in all environments."
 			]
 		},
 		{
@@ -22124,7 +23412,24 @@
 			}
 		},
 		{
-			"name": "Rocket Launcher",
+			"name": "Rocket boots",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 25000,
+			"weight": 3,
+			"entries": [
+				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|sw5ephb}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}."
+			],
+			"modifySpeed": {
+				"static": {
+					"fly": 25
+				}
+			}
+		},
+		{
+			"name": "Rocket launcher",
 			"source": "sw5ewh",
 			"page": 0,
 			"type": "R",
@@ -22152,7 +23457,7 @@
 			"strength": 13
 		},
 		{
-			"name": "Rocket Rifle",
+			"name": "Rocket rifle",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -22177,23 +23482,6 @@
 			"dmgType": "Unknown",
 			"ammunition": true,
 			"strength": 11
-		},
-		{
-			"name": "Rocket boots",
-			"source": "sw5ephb",
-			"page": 0,
-			"type": "G",
-			"rarity": "none",
-			"value": 25000,
-			"weight": 3,
-			"entries": [
-				"Rocket boots are a form of rocket propulsion system affixed to a pair of boots instead of being worn on the back like a standard {@item jetpack|sw5ephb}. Activating or deactivating the boots requires a bonus action and, while active, you have a flying speed of 25 feet. The rocket boots last for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}."
-			],
-			"modifySpeed": {
-				"static": {
-					"fly": 25
-				}
-			}
 		},
 		{
 			"name": "Rocket, Fragmentation (Average)",
@@ -22665,6 +23953,95 @@
 			]
 		},
 		{
+			"name": "Saberaxe",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6000,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"property": [
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Sabergauntlet",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4750,
+			"weight": 1.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"FXD",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Sabermace",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 9500,
+			"weight": 2.75,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"brutal": 1,
+			"property": [
+				"SWV",
+				"DEX",
+				"HID",
+				"LUM",
+				"BRU"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d8",
+			"dmgType": "Energy",
+			"dmg2": "1d10"
+		},
+		{
+			"name": "Saberspear",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4500,
+			"weight": 2,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWT",
+				"SWV",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Energy",
+			"dmg2": "2d4",
+			"range": "20/60"
+		},
+		{
 			"name": "Saberstaff",
 			"source": "sw5eec",
 			"page": 0,
@@ -22680,6 +24057,28 @@
 			"property": [
 				"DBL"
 			]
+		},
+		{
+			"name": "Saberwhip",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7500,
+			"weight": 3.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"R",
+				"HID",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Energy"
 		},
 		{
 			"name": "Sack",
@@ -22903,7 +24302,7 @@
 			"recharge": "restLong"
 		},
 		{
-			"name": "Sentry Gun",
+			"name": "Sentry gun",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -22974,7 +24373,7 @@
 			]
 		},
 		{
-			"name": "Shatter Cannon",
+			"name": "Shatter cannon",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -23007,36 +24406,6 @@
 			"burst": 4
 		},
 		{
-			"name": "Shatter Rifle",
-			"source": "sw5eec",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 7500,
-			"weight": 9.5,
-			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"SLG",
-				"STR",
-				"SIL"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "2d4",
-			"dmgType": "Kinetic",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 8,
-			"range": "100/400",
-			"entries": [
-				null
-			],
-			"ammunition": true,
-			"strength": 11
-		},
-		{
 			"name": "Shatter pistol",
 			"source": "sw5eec",
 			"page": 0,
@@ -23060,6 +24429,36 @@
 			"ammoType": "energy cell",
 			"reload": 12,
 			"range": "60/240",
+			"entries": [
+				null
+			],
+			"ammunition": true,
+			"strength": 11
+		},
+		{
+			"name": "Shatter rifle",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 7500,
+			"weight": 9.5,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"SLG",
+				"STR",
+				"SIL"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Kinetic",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 8,
+			"range": "100/400",
 			"entries": [
 				null
 			],
@@ -23558,71 +24957,6 @@
 			]
 		},
 		{
-			"name": "Shoulder Blaster",
-			"source": "sw5ewh",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 12750,
-			"weight": 3,
-			"entries": [
-				"Mounted by the shoulder slot, a shoulder blaster does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon."
-			],
-			"property": [
-				"AF",
-				"RLD",
-				"SWS",
-				"POW",
-				"RAP",
-				"SMT"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d6",
-			"dmgType": "Energy",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 16,
-			"range": "40/160",
-			"ammunition": true,
-			"rapid": 4,
-			"smart": "15/+2"
-		},
-		{
-			"name": "Shoulder Cannon",
-			"source": "sw5ewh",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 16250,
-			"weight": 8.5,
-			"entries": [
-				"Mounted by the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon."
-			],
-			"property": [
-				"AF",
-				"RLD",
-				"SWS",
-				"AUT",
-				"BST",
-				"POW",
-				"STR",
-				"SMT"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d8",
-			"dmgType": "Energy",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 8,
-			"range": "60/240",
-			"ammunition": true,
-			"strength": 11,
-			"burst": 8,
-			"smart": "15/+2"
-		},
-		{
 			"name": "Shoulder Cannon (Champion)",
 			"source": "sw5ewh",
 			"page": 0,
@@ -23693,6 +25027,71 @@
 			"bonusWeapon": "+3"
 		},
 		{
+			"name": "Shoulder blaster",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 12750,
+			"weight": 3,
+			"entries": [
+				"Mounted by the shoulder slot, a shoulder blaster does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon."
+			],
+			"property": [
+				"AF",
+				"RLD",
+				"SWS",
+				"POW",
+				"RAP",
+				"SMT"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Energy",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 16,
+			"range": "40/160",
+			"ammunition": true,
+			"rapid": 4,
+			"smart": "15/+2"
+		},
+		{
+			"name": "Shoulder cannon",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 16250,
+			"weight": 8.5,
+			"entries": [
+				"Mounted by the shoulder slot, a shoulder cannon does not require a free hand to use. Additionally, you have advantage on Strength ability checks and saving throws to avoid being disarmed of this weapon."
+			],
+			"property": [
+				"AF",
+				"RLD",
+				"SWS",
+				"AUT",
+				"BST",
+				"POW",
+				"STR",
+				"SMT"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 8,
+			"range": "60/240",
+			"ammunition": true,
+			"strength": 11,
+			"burst": 8,
+			"smart": "15/+2"
+		},
+		{
 			"name": "Shovel",
 			"source": "sw5ephb",
 			"page": 0,
@@ -23728,6 +25127,31 @@
 			],
 			"dexterity": 11,
 			"dire": 1
+		},
+		{
+			"name": "Sicklesaber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7000,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"dire": 1,
+			"property": [
+				"SWL",
+				"DEX",
+				"HID",
+				"LUM",
+				"DIR"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Energy"
 		},
 		{
 			"name": "Siege Weapon",
@@ -23777,6 +25201,16 @@
 			"rarity": "uncommon",
 			"entries": [
 				"This armor gains the silent property."
+			]
+		},
+		{
+			"name": "Silent Stitching",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "G",
+			"rarity": "uncommon",
+			"entries": [
+				"This clothing gains the silent armor property."
 			]
 		},
 		{
@@ -23866,31 +25300,6 @@
 			"bonusWeaponDamage": "+3"
 		},
 		{
-			"name": "Sith Saber",
-			"source": "sw5ewh",
-			"page": 0,
-			"type": "M",
-			"rarity": "none",
-			"value": 9250,
-			"weight": 2.75,
-			"property": [
-				"SWV",
-				"DEX",
-				"HID",
-				"KEN"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "2d4",
-			"dmgType": "Energy",
-			"dmg2": "1d10",
-			"entries": [
-				null
-			],
-			"dexterity": 11,
-			"keen": 1
-		},
-		{
 			"name": "Sith Strength Belt",
 			"source": "sw5ewh",
 			"page": 0,
@@ -23914,6 +25323,31 @@
 			],
 			"reqAttune": true,
 			"bonusWeaponDamage": "+2"
+		},
+		{
+			"name": "Sith saber",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 9250,
+			"weight": 2.75,
+			"property": [
+				"SWV",
+				"DEX",
+				"HID",
+				"KEN"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Energy",
+			"dmg2": "1d10",
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"keen": 1
 		},
 		{
 			"name": "Skills Enhancement Package",
@@ -24087,42 +25521,6 @@
 			"ammunition": true
 		},
 		{
-			"name": "Smart Cannon",
-			"source": "sw5ewh",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 22500,
-			"weight": 13.5,
-			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"AUT",
-				"BST",
-				"RAP",
-				"SLG",
-				"STR",
-				"SMT"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d10",
-			"dmgType": "Kinetic",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 4,
-			"range": "75/300",
-			"entries": [
-				null
-			],
-			"ammunition": true,
-			"strength": 15,
-			"burst": 2,
-			"rapid": 2,
-			"smart": "15/+2"
-		},
-		{
 			"name": "Smart Interface (Basic)",
 			"source": "sw5ewh",
 			"page": 0,
@@ -24183,7 +25581,43 @@
 			]
 		},
 		{
-			"name": "Smart Pistol",
+			"name": "Smart cannon",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 22500,
+			"weight": 13.5,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"AUT",
+				"BST",
+				"RAP",
+				"SLG",
+				"STR",
+				"SMT"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Kinetic",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 4,
+			"range": "75/300",
+			"entries": [
+				null
+			],
+			"ammunition": true,
+			"strength": 15,
+			"burst": 2,
+			"rapid": 2,
+			"smart": "15/+2"
+		},
+		{
+			"name": "Smart pistol",
 			"source": "sw5ewh",
 			"page": 0,
 			"type": "R",
@@ -24393,7 +25827,7 @@
 			"strength": 13
 		},
 		{
-			"name": "Sonic Cannon",
+			"name": "Sonic cannon",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -24426,36 +25860,6 @@
 			"burst": 2
 		},
 		{
-			"name": "Sonic Rifle",
-			"source": "sw5eec",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 8750,
-			"weight": 9,
-			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"POW",
-				"STR",
-				"DSR"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d8",
-			"dmgType": "Sonic",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 8,
-			"range": "80/320",
-			"entries": [
-				null
-			],
-			"ammunition": true,
-			"strength": 11
-		},
-		{
 			"name": "Sonic carbine",
 			"source": "sw5eec",
 			"page": 0,
@@ -24468,7 +25872,8 @@
 				"RLD",
 				"POW",
 				"STR",
-				"DSR"
+				"DSR",
+				"SW2"
 			],
 			"weapon": true,
 			"weaponCategory": "Simple",
@@ -24510,6 +25915,36 @@
 				null
 			],
 			"ammunition": true
+		},
+		{
+			"name": "Sonic rifle",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 8750,
+			"weight": 9,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"POW",
+				"STR",
+				"DSR"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Sonic",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 8,
+			"range": "80/320",
+			"entries": [
+				null
+			],
+			"ammunition": true,
+			"strength": 11
 		},
 		{
 			"name": "Sonorous Oscillator",
@@ -24613,6 +26048,18 @@
 				"As an action, you can administer this adrenal to a creature within 5 feet. When you administer this adrenal, the target gains a +3 bonus to its force attack rolls, force save DC, and damage and healing rolls with force powers. This effect lasts for 1 minute. A creature can benefit from only one adrenal at a time."
 			],
 			"bonusWeaponAttack": "+3"
+		},
+		{
+			"name": "Space suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 15000,
+			"weight": 30,
+			"entries": [
+				null
+			]
 		},
 		{
 			"name": "Sparkles",
@@ -24757,6 +26204,51 @@
 			"double": "1d8 energy"
 		},
 		{
+			"name": "Splitsaber",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 15000,
+			"weight": 3,
+			"entries": [
+				null
+			],
+			"double": "2d4 energy",
+			"property": [
+				"DBL",
+				"INL",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Energy"
+		},
+		{
+			"name": "Splitshoto",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 11500,
+			"weight": 2,
+			"entries": [
+				null
+			],
+			"double": "1d8 energy",
+			"property": [
+				"SWL",
+				"DBL",
+				"INL",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy"
+		},
+		{
 			"name": "Stabilizer Ascendancy Cell",
 			"source": "sw5ewh",
 			"page": 0,
@@ -24814,6 +26306,18 @@
 			"rarity": "common",
 			"entries": [
 				"This weapon's dexterity number is reduced by one step (from 21 to 19, 19 to 17, 17 to 15, 15 to 13, or 13 to 11). If the dexterity number is 11, this modification removes the dexterity property from it entirely."
+			]
+		},
+		{
+			"name": "Stabilizer suit",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "G",
+			"rarity": "none",
+			"value": 18000,
+			"weight": 25,
+			"entries": [
+				null
 			]
 		},
 		{
@@ -24899,7 +26403,7 @@
 			]
 		},
 		{
-			"name": "Stealth Carbine",
+			"name": "Stealth carbine",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -24935,7 +26439,7 @@
 			"value": 80000,
 			"weight": 3,
 			"entries": [
-				"Stealth field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}. This effect ends early if you make an attack or cast a force- or tech- power."
+				"Stealth field generators are special devices typically worn on belts that function as a portable, personal cloaking device. Activating or deactivating the generator requires a bonus action and, while active, you have advantage on Dexterity ({@skill Stealth}) ability checks that rely on sight. The generator lasts for 1 minute and can be recharged by a power source or replacing the {@item power cell|sw5ephb}. This effect ends early if you make an attack or cast a force or tech power."
 			]
 		},
 		{
@@ -25673,7 +27177,7 @@
 			]
 		},
 		{
-			"name": "Switch Cannon",
+			"name": "Switch cannon",
 			"source": "sw5eec",
 			"page": 0,
 			"type": "R",
@@ -25703,64 +27207,6 @@
 			"ammunition": true,
 			"strength": 15,
 			"burst": 2
-		},
-		{
-			"name": "Switch Rifle",
-			"source": "sw5eec",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 10250,
-			"weight": 9.5,
-			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"POW",
-				"SWI"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d8",
-			"dmgType": "Energy",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 8,
-			"range": "105/420",
-			"entries": [
-				null
-			],
-			"ammunition": true
-		},
-		{
-			"name": "Switch Sniper",
-			"source": "sw5eec",
-			"page": 0,
-			"type": "R",
-			"rarity": "none",
-			"value": 18000,
-			"weight": 15.5,
-			"property": [
-				"AF",
-				"RLD",
-				"SW2",
-				"POW",
-				"STR",
-				"SWI"
-			],
-			"weapon": true,
-			"weaponCategory": "Martial",
-			"dmg1": "1d12",
-			"dmgType": "Energy",
-			"firearm": true,
-			"ammoType": "energy cell",
-			"reload": 12,
-			"range": "150/600",
-			"entries": [
-				null
-			],
-			"ammunition": true,
-			"strength": 13
 		},
 		{
 			"name": "Switch carbine",
@@ -25816,6 +27262,64 @@
 				null
 			],
 			"ammunition": true
+		},
+		{
+			"name": "Switch rifle",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 10250,
+			"weight": 9.5,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"POW",
+				"SWI"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Energy",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 8,
+			"range": "105/420",
+			"entries": [
+				null
+			],
+			"ammunition": true
+		},
+		{
+			"name": "Switch sniper",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "R",
+			"rarity": "none",
+			"value": 18000,
+			"weight": 15.5,
+			"property": [
+				"AF",
+				"RLD",
+				"SW2",
+				"POW",
+				"STR",
+				"SWI"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Energy",
+			"firearm": true,
+			"ammoType": "energy cell",
+			"reload": 2,
+			"range": "150/600",
+			"entries": [
+				null
+			],
+			"ammunition": true,
+			"strength": 13
 		},
 		{
 			"name": "Synthweaver's implements",
@@ -26021,6 +27525,47 @@
 			"dexterity": 11
 		},
 		{
+			"name": "Techaxe",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 750,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWT",
+				"SWL"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic",
+			"range": "25/75"
+		},
+		{
+			"name": "Techblade",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 1000,
+			"weight": 1.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"SWL"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic"
+		},
+		{
 			"name": "Techie's Pattern (Basic)",
 			"source": "sw5ewh",
 			"page": 0,
@@ -26079,6 +27624,28 @@
 			"entries": [
 				"Your level of proficiency in {@skill Technology} increases by two steps (to proficient, from trained to expertise, from proficient to mastery, from expertise to high mastery, or from mastery to grand mastery)."
 			]
+		},
+		{
+			"name": "Techstaff",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6500,
+			"weight": 5.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"SWL",
+				"DEX",
+				"DBL"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Kinetic"
 		},
 		{
 			"name": "Telgorn Jolt Stabilizer (Improved)",
@@ -26645,7 +28212,7 @@
 			"type": "AF",
 			"rarity": "uncommon",
 			"entries": [
-				"You have a +1 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d6} kinetic damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
+				"You have a +1 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d6} energy damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
 			],
 			"bonusWeapon": "+1"
 		},
@@ -26656,7 +28223,7 @@
 			"type": "AF",
 			"rarity": "very rare",
 			"entries": [
-				"You have a +3 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d10} kinetic damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
+				"You have a +3 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d10} energy damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
 			],
 			"bonusWeapon": "+3"
 		},
@@ -26667,7 +28234,7 @@
 			"type": "AF",
 			"rarity": "artifact",
 			"entries": [
-				"You have a +3 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d20} kinetic damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the {@item power generator|sw5ewh} is depleted, it no longer gives a bonus."
+				"You have a +3 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d20} energy damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the {@item power generator|sw5ewh} is depleted, it no longer gives a bonus."
 			],
 			"bonusWeapon": "+3"
 		},
@@ -26678,7 +28245,7 @@
 			"type": "AF",
 			"rarity": "legendary",
 			"entries": [
-				"You have a +3 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d12} kinetic damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
+				"You have a +3 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d12} energy damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
 			],
 			"bonusWeapon": "+3"
 		},
@@ -26689,7 +28256,7 @@
 			"type": "AF",
 			"rarity": "rare",
 			"entries": [
-				"You have a +2 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d8} kinetic damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
+				"You have a +2 bonus to attack and damage rolls made with this enhanced {@item torpedo launcher|sw5eec} ammunition, which deals {@damage 20d8} energy damage on a hit. This bonus is in addition to any bonuses granted by the weapon. Once the torpedo is depleted, it no longer gives a bonus."
 			],
 			"bonusWeapon": "+2"
 		},
@@ -26789,7 +28356,7 @@
 			"value": 500,
 			"weight": 3,
 			"entries": [
-				"A common traumakit can be stocked with bacta packs, and contains spray-bandages, bone stabilizers, antiseptics, and other essentials for the treatment of wounds. As an action, you can expend a use of the kit to stabilize a creature that has 0 hit points, without needing to make a Wisdom ({@skill Medicine}) check. A traumakit can be used to stabilize 5 times before it must be restocked at its original cost."
+				"A common traumakit is stocked with essentials for the treatment of wounds. A traumakit has five uses. As an action, you can expend a use of the kit to stabilize a creature that has 0 hit points, without needing to make a Wisdom ({@skill Medicine}) check."
 			]
 		},
 		{
@@ -26813,7 +28380,7 @@
 			"value": 4500,
 			"weight": 16,
 			"entries": [
-				"A tripod is a device used to mount a two-handed blaster weapon to offer increased stability. Over the course of 1 minute, you can deploy or collapse the tripod. While deployed, you ignore the Strength requirement on the attached blaster weapon with the strength property, and your speed is reduced to 0. Additionally, while deployed, you have a +10 bonus to ability checks and saving throws to avoid being disarmed of the weapon."
+				"A tripod is a device mounted to a two-handed blaster that lacks the fixed property to offer increased stability. Over the course of 1 minute, you can deploy or collapse the tripod. While deployed, you ignore the Strength requirement on the attached blaster with the strength property, and your speed is reduced to 0. Additionally, while deployed, you have a +10 bonus to ability checks and saving throws to avoid being disarmed of the weapon."
 			],
 			"bonusSavingThrow": "+1"
 		},
@@ -27076,7 +28643,7 @@
 			"charges": 10
 		},
 		{
-			"name": "Vapor Projector",
+			"name": "Vapor projector",
 			"source": "sw5ewh",
 			"page": 0,
 			"type": "R",
@@ -27964,6 +29531,634 @@
 			]
 		},
 		{
+			"name": "Vibroaxe",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 9500,
+			"weight": 9.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"SWH",
+				"SW2",
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrobaton",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2500,
+			"weight": 4,
+			"entries": [
+				null
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrobattleaxe",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 12000,
+			"weight": 10,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"brutal": 1,
+			"property": [
+				"SWH",
+				"SW2",
+				"DEX",
+				"BRU"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibroblade",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2000,
+			"weight": 5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWV"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Kinetic",
+			"dmg2": "1d10"
+		},
+		{
+			"name": "Vibrobuster",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 18500,
+			"weight": 13.25,
+			"entries": [
+				null
+			],
+			"dexterity": 19,
+			"brutal": 1,
+			"keen": 1,
+			"property": [
+				"SWH",
+				"R",
+				"SW2",
+				"DEX",
+				"BRU",
+				"KEN"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibroclaw",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 500,
+			"weight": 0.75,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"SWL",
+				"FXD"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibroclaymore",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 17000,
+			"weight": 10.5,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"property": [
+				"SW2",
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "3d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrocutlass",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6000,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "2d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrocutter",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 500,
+			"weight": 3,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWH"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrodagger",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 500,
+			"weight": 0.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWT",
+				"SWF",
+				"SWL"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic",
+			"range": "20/60"
+		},
+		{
+			"name": "Vibrodart",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 50,
+			"weight": 0.5,
+			"entries": [
+				"Due to their diminutive size, vibrodarts make ineffective melee weapons. Melee attack rolls made with them are made at disadvantage."
+			],
+			"property": [
+				"SWT",
+				"SWF",
+				"SWS"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic",
+			"range": "20/60"
+		},
+		{
+			"name": "Vibroflail",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 5000,
+			"weight": 4.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibroglaive",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 12000,
+			"weight": 10,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"brutal": 1,
+			"property": [
+				"R",
+				"SW2",
+				"DEX",
+				"BRU"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrohammer",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 6000,
+			"weight": 7.5,
+			"entries": [
+				null
+			],
+			"vicious": 1,
+			"property": [
+				"SWH",
+				"SW2",
+				"VSC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrokatana",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 4500,
+			"weight": 5.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"piercing": 1,
+			"property": [
+				"SWV",
+				"DEX",
+				"PRC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Kinetic",
+			"dmg2": "1d10"
+		},
+		{
+			"name": "Vibroknife",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2250,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"piercing": 1,
+			"property": [
+				"SWF",
+				"SWL",
+				"PRC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibroknuckler",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 750,
+			"weight": 1.25,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWL",
+				"HID"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrolance",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 15000,
+			"weight": 8.5,
+			"entries": [
+				null
+			],
+			"dexterity": 13,
+			"property": [
+				"R",
+				"SWS",
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d12",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibromace",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 7000,
+			"weight": 7,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"SWH",
+				"SW2",
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d10",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibronodachi",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 22000,
+			"weight": 12,
+			"entries": [
+				null
+			],
+			"dexterity": 17,
+			"piercing": 1,
+			"vicious": 1,
+			"property": [
+				"SW2",
+				"DEX",
+				"PRC",
+				"VSC"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "3d4",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibropike",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 9500,
+			"weight": 9.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"R",
+				"SW2",
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d10",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrorapier",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 1500,
+			"weight": 3.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrosabre",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 3000,
+			"weight": 1.75,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"keen": 1,
+			"property": [
+				"SWL",
+				"DEX",
+				"KEN"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibroshield",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 3250,
+			"weight": 3.75,
+			"entries": [
+				null
+			],
+			"defensive": 1,
+			"property": [
+				"FXD",
+				"DEF"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d8",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrospear",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 1250,
+			"weight": 4,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWV"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic",
+			"dmg2": "2d4",
+			"range": "25/75"
+		},
+		{
+			"name": "Vibrostaff",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 1000,
+			"weight": 4,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWV"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d6",
+			"dmgType": "Kinetic",
+			"dmg2": "2d4"
+		},
+		{
+			"name": "Vibrostiletto",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2500,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"keen": 1,
+			"property": [
+				"SWT",
+				"SWF",
+				"SWL",
+				"KEN"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic",
+			"range": "30/90"
+		},
+		{
+			"name": "Vibrosword",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 11500,
+			"weight": 9.25,
+			"entries": [
+				null
+			],
+			"dexterity": 11,
+			"property": [
+				"SW2",
+				"DEX"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "2d6",
+			"dmgType": "Kinetic"
+		},
+		{
+			"name": "Vibrotonfa",
+			"source": "sw5ewh",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2250,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"defensive": 1,
+			"property": [
+				"SWF",
+				"SWL",
+				"DEF"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
+		},
+		{
 			"name": "Vibroweapon Chassis (Advanced)",
 			"source": "sw5ewh",
 			"page": 0,
@@ -28040,6 +30235,26 @@
 			"weapon": true,
 			"weaponCategory": "Simple",
 			"reqAttune": true
+		},
+		{
+			"name": "Vibrowhip",
+			"source": "sw5ephb",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 2750,
+			"weight": 3.5,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"R"
+			],
+			"weapon": true,
+			"weaponCategory": "Martial",
+			"dmg1": "1d4",
+			"dmgType": "Kinetic"
 		},
 		{
 			"name": "Vicious Ascendancy Core",
@@ -29465,7 +31680,8 @@
 			"property": [
 				"AF",
 				"RLD",
-				"POW"
+				"POW",
+				"FXD"
 			],
 			"weapon": true,
 			"weaponCategory": "Martial",
@@ -29479,6 +31695,28 @@
 				null
 			],
 			"ammunition": true
+		},
+		{
+			"name": "Wristsaber",
+			"source": "sw5eec",
+			"page": 0,
+			"type": "M",
+			"rarity": "none",
+			"value": 3750,
+			"weight": 1,
+			"entries": [
+				null
+			],
+			"property": [
+				"SWF",
+				"SWL",
+				"FXD",
+				"LUM"
+			],
+			"weapon": true,
+			"weaponCategory": "Simple",
+			"dmg1": "1d4",
+			"dmgType": "Energy"
 		},
 		{
 			"name": "Writer's implements",
