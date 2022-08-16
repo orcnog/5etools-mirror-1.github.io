@@ -120,7 +120,47 @@
 		<div class="sidemenu__burger"></div>
 		<div class="sidemenu__burger"></div>
 		<div class="sidemenu__burger"></div>
-		<div class="sidemenu"></div>
+		<div class="sidemenu">
+            <div class="sidemenu__row split-v-center">
+                <label class="sidemenu__row__label" for="sw5eapi">API</label>
+                <select class="form-control input-sm" name="sw5eapi">
+                    <option data-conversiontype="archetype" value="https://sw5eapi.azurewebsites.net/api/archetype">Archetype</option>
+                    <option data-conversiontype="class" value="https://sw5eapi.azurewebsites.net/api/class">Class</option>
+                    <option data-conversiontype="equipment" value="https://sw5eapi.azurewebsites.net/api/enhancedItem" data-destination="data/items-sw5e.json">Enhanced Item</option>
+                    <option data-conversiontype="equipment" value="https://sw5eapi.azurewebsites.net/api/equipment" data-destination="data/items-sw5e.json">Equipment</option>
+                    <option data-conversiontype="feat" value="https://sw5eapi.azurewebsites.net/api/feat">Feat</option>
+                    <option data-conversiontype="feature" value="https://sw5eapi.azurewebsites.net/api/feature">Feature</option>
+                    <option data-conversiontype="monster" value="https://sw5eapi.azurewebsites.net/api/monster">Monster</option>
+                    <option data-conversiontype="power" value="https://sw5eapi.azurewebsites.net/api/power" data-destination="data\spells\spells-sw5ephb.json" selected>Power</option>
+                    <option data-conversiontype="species" value="https://sw5eapi.azurewebsites.net/api/species">Species</option>
+                </select>
+            </div>
+            <hr class="sidemenu__row__divider ">
+            <div class="sw5e-url-field">
+                <label class="sidemenu__row__label" for="sourceURL">Source URL</label>
+                <input class="form-control input-sm code" type="text" name="sourceURL" value="" />
+            </div>
+            <hr class="sidemenu__row__divider ">
+            <div class="sw5e-conversion-type-selection">
+                <label class="sidemenu__row__label" for="conversiontype">Conversion Type</label>
+                <select class="form-control input-sm" name="conversiontype">
+                    <option value="archetype">archetype</option>
+                    <option value="class">class</option>
+                    <option value="equipment">equipment</option>
+                    <option value="feat">feat</option>
+                    <option value="feature">feature</option>
+                    <option value="monster">monster</option>
+                    <option value="power" selected>power</option>
+                    <option value="species">species</option>
+                </select>
+            </div>
+            <hr class="sidemenu__row__divider ">
+            <div class="sw5e-url-field">
+                <label class="sw5e-label" for="destinationURL">Destination URL (optional)</label>
+                <input class="form-control input-sm code" type="text" name="destinationURL" value="" />
+            </div>
+            <button class="sw5e-convert-btn sw5e-button btn btn-sm btn-primary" id="import_from_urls">Import JSON</button>
+        </div>
 	</div>
 
 	<header class="hidden-xs hidden-sm page__header">
@@ -135,102 +175,10 @@
 		</ul>
 	</nav>
 
-	<div class="view-col-wrapper">
-
-		<div class="view-col">
-			<h3 class="conv__head">Input</h3>
-			<pre id="converter_input" class="inputArea ace_editor"></pre>
-			<div class="text-right">
-				<button id="parsestatblock" class="btn btn-sm btn-default">Parse</button>
-				<button id="parsestatblockadd" class="btn btn-sm btn-default">Parse and Add</button>
-			</div>
-		</div>
-
-		<div class="view-col">
-			<h3 class="conv__head">Output</h3>
-
-			<pre id="converter_output" class="outputArea ace_editor"></pre>
-
-			<div class="split conv__out_control__wrp">
-				<button id="editable" class="btn btn-sm btn-default">Enable Editing</button>
-				<div>
-					<button id="save_local" class="btn btn-sm btn-default hidden">Save to Homebrew</button>
-					<button id="download" class="btn btn-sm btn-default">Download JSON</button>
-				</div>
-			</div>
-
-			<div id="lastWarnings" class="code"></div>
-			<div id="lastError" class="code"></div>
-		</div>
-	</div>
-
-    <section  class="sw5e-section sw5e-from-url-section">
-        <h2>Specify JSON URLs</h2>
-        <div class="sw5e-section-wrap">
-            <p class="sw5e-section-description">The JSON from the Source URL will be converted into 5eTools JSON and then merged into the object parsed
-                from JSON at the Destination URL.</p>
-            <div class="sw5e-from-urls">
-                <div class="sw5e-source-formrow">
-                    <div class="sw5e-url-field">
-                        <label class="sw5e-label" for="sourceURL">Source URL</label>
-                        <input class="sw5e-input" type="text" name="sourceURL" value="" />
-                    </div>
-                    <div class="sw5e-api-urls-field">
-                        <label class="sw5e-label" for="sw5eapi">Get sw5eapi URL</label>
-                        <select class="sw5e-select" name="sw5eapi">
-                            <option data-conversiontype="archetype" value="https://sw5eapi.azurewebsites.net/api/archetype">Archetype</option>
-                            <option data-conversiontype="class" value="https://sw5eapi.azurewebsites.net/api/class">Class</option>
-                            <option data-conversiontype="equipment" value="https://sw5eapi.azurewebsites.net/api/enhancedItem" data-destination="data/items-sw5e.json">Enhanced Item</option>
-                            <option data-conversiontype="equipment" value="https://sw5eapi.azurewebsites.net/api/equipment" data-destination="data/items-sw5e.json">Equipment</option>
-                            <option data-conversiontype="feat" value="https://sw5eapi.azurewebsites.net/api/feat">Feat</option>
-                            <option data-conversiontype="feature" value="https://sw5eapi.azurewebsites.net/api/feature">Feature</option>
-                            <option data-conversiontype="monster" value="https://sw5eapi.azurewebsites.net/api/monster">Monster</option>
-                            <option data-conversiontype="power" value="https://sw5eapi.azurewebsites.net/api/power" data-destination="data\spells\spells-sw5ephb.json" selected>Power</option>
-                            <option data-conversiontype="species" value="https://sw5eapi.azurewebsites.net/api/species">Species</option>
-                        </select>
-                    </div>
-                    <div class="sw5e-conversion-type-selection">
-                        <label class="sw5e-label" for="conversiontype">Please select a conversion type:</label>
-                        <select class="sw5e-select" name="conversiontype">
-                            <option value="archetype">archetype</option>
-                            <option value="class">class</option>
-                            <option value="equipment">equipment</option>
-                            <option value="feat">feat</option>
-                            <option value="feature">feature</option>
-                            <option value="monster">monster</option>
-                            <option value="power" selected>power</option>
-                            <option value="species">species</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="sw5e-url-field">
-                    <label class="sw5e-label" for="destinationURL">Destination URL (optional)</label>
-                    <input class="sw5e-input" type="text" name="destinationURL" value="" />
-                </div>
-                <button class="sw5e-convert-btn sw5e-button btn btn-sm btn-default" id="convert_from_urls">Convert!</button>
-                <span>Or, <a href="javascript:void(0)" id="import_from_urls" class="sw5e-import-from-urls">Import from URLs</a> to textareas below.</span>
-            </div>
-        </div>
-    </section>
     <section  class="sw5e-section sw5e-paste-section">
-        <h2>Paste JSON</h2>
         <div class="sw5e-section-wrap">
-            <p class="sw5e-section-description">The JSON from the <b>left</b> panel will be converted into 5eTools JSON and then merged into the object
+            <p class="sw5e-section-description">The SW5e API Source JSON from the <b>left</b> panel will be converted into 5eTools JSON and then merged into the object
                 parsed from JSON in the <b>right</b> panel.</p>
-            <div class="sw5e-conversion-type-selection">
-                <label class="sw5e-label" for="conversiontype">Please select a conversion type:</label>
-                <select class="sw5e-select" name="conversiontype">
-                    <option value="archetype">archetype</option>
-                    <option value="class">class</option>
-                    <option value="equipment" selected>equipment</option>
-                    <option value="enhancedItem">enhancedItem</option>
-                    <option value="feat">feat</option>
-                    <option value="feature">feature</option>
-                    <option value="monster">monster</option>
-                    <option value="power">power</option>
-                    <option value="species">species</option>
-                </select>
-            </div>
             <div class="sw5e-two-panels">
                 <div class="sw5e-panel-left">
                     <label class="sw5e-label">SW5e API Source JSON</label>
@@ -241,7 +189,7 @@
                     <pre class="sw5e-textarea inputArea ace_editor"id="panel_right"></pre>
                 </div>
             </div>
-            <button class="sw5e-convert-btn sw5e-button btn btn-sm btn-default" id="convert_textareas">Convert!</button>
+            <button class="sw5e-convert-btn sw5e-button btn btn-sm btn-primary" id="convert_textareas">Convert!</button>
         </div>
     </section>
     <section class="sw5e-section">
@@ -256,6 +204,7 @@
         </div>
     </section>
 </div>
+<div class="thinking_modal"></div>
 
 <script type="text/javascript" src="js/parser.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
@@ -278,7 +227,7 @@
 <script type="text/javascript" src="js/converterutils-spell.js"></script>
 <script type="text/javascript" src="js/converterutils-item.js"></script>
 <script type="text/javascript" src="js/converterutils-race.js"></script>
-<script type="text/javascript" src="js/converter.js"></script>
+<script type="text/javascript" src="js/sw5econverter.js"></script>
 <script type="text/javascript" src="js/converter-creature.js"></script>
 <script type="text/javascript" src="js/converter-spell.js"></script>
 <script type="text/javascript" src="js/converter-item.js"></script>

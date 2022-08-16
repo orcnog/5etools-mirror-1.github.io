@@ -18,8 +18,11 @@ var editMerged = ace.edit("panel_output", {
     showPrintMargin: false,
 });
 
+// const ConverterUi = {};
+
 ConverterUi.STORAGE_LEFT = "converterLeft";
 ConverterUi.STORAGE_RIGHT = "converterRight";
+ConverterUi.STORAGE_APISELECT = "apiSelection";
 ConverterUi.STORAGE_APIURL = "apisourceURL";
 ConverterUi.STORAGE_JSONURL = "jsondestinationURL";
 ConverterUi.STORAGE_CTYPE = "conversionType";
@@ -32,6 +35,8 @@ const saveJsonDestURL = MiscUtil.debounce(() => StorageUtil.pSetForPage(Converte
 const saveConversionType = MiscUtil.debounce(() => StorageUtil.pSetForPage(ConverterUi.STORAGE_CTYPE, $('[name=conversiontype]').val()), 50);
 
 async function doSw5ePageInit () {
+    $('.sidemenu').append($('.sw5e-from-url-section'));
+
     const initialApiSelection = await StorageUtil.pGetForPage(ConverterUi.STORAGE_APISELECT);
     if (initialApiSelection) $('[name=sw5eapi]').val(initialApiSelection);
     $('[name=sw5eapi]').on('change', handle_sw5eapiURL_change);
@@ -47,7 +52,6 @@ async function doSw5ePageInit () {
     const initialConverstionType = await StorageUtil.pGetForPage(ConverterUi.STORAGE_CTYPE);
     if (initialConverstionType) $('[name=conversiontype]').val(initialConverstionType);
     $('[name=conversiontype]').on('change', handle_conversiontype_change);
-    $('#convert_from_urls').on('click', handle_convert_JSON_from_URLs);
     $('#import_from_urls').on('click', handle_import_JSON_from_URLs);
     $('#convert_textareas').on('click', handle_convert_textareas_JSON);
     const prevLeftInput = await StorageUtil.pGetForPage(ConverterUi.STORAGE_LEFT);
@@ -116,33 +120,13 @@ function handle_destinationURL_input() {
  * @description grab the JSON from the two provided URLs and copy it inot the "paste" textareas
  */
 function handle_import_JSON_from_URLs() {
-    $('#import_from_urls').addClass('thinking');
-    const sourceURL = $('[name=sourceURL]').val();
-    const destinationURL = $('[name=destinationURL]').val();
-    get_JSON_from_URLs(sourceURL, destinationURL).then((srcAndDestArr) => {
-        editLeft.setValue(stringify(srcAndDestArr[0]), -1)
-        editRight.setValue(stringify(srcAndDestArr[1]), -1)
-        $('#import_from_urls').removeClass('thinking');
-    });
-}
-
-/**
- * @function
- * @description grab the JSON from the two provided URLs and pass it thru the convertJSON function.
- */
-function handle_convert_JSON_from_URLs() {
-    $('#convert_from_urls').addClass('thinking');
-    const sourceURL = $('[name=sourceURL]').val();
-    const destinationURL = $('[name=destinationURL]').val();
-    const conversionType = $('[name=conversiontype]').val();
-    get_JSON_from_URLs(sourceURL, destinationURL).then((srcAndDestArr) => {
-        const leftObj = srcAndDestArr[0];
-        const rightObj = srcAndDestArr[1];
-        // Main function
-        const convertedAndMerged = convertAndMerge(leftObj, rightObj, conversionType);
-        editMerged.setValue(stringify(convertedAndMerged), -1)
-        editMerged.focus();
-        $('#convert_from_urls').removeClass('thinking');
+    thinking(true).then(()=>{
+        const sourceURL = $('[name=sourceURL]').val();
+        const destinationURL = $('[name=destinationURL]').val();
+        get_JSON_from_URLs(sourceURL, destinationURL).then((srcAndDestArr) => {
+            editLeft.setValue(stringify(srcAndDestArr[0]), -1)
+            editRight.setValue(stringify(srcAndDestArr[1]), -1)
+        }).finally(() => { thinking(false); });
     });
 }
 
@@ -151,18 +135,33 @@ function handle_convert_JSON_from_URLs() {
  * @description grab the JSON from the two static textareas and pass it thru the convertJSON function.
  */
 function handle_convert_textareas_JSON() {
-    $('#convert_textareas').addClass('thinking');
-    const leftString = editLeft.getValue();
-    const rightString = editRight.getValue();
-    const conversionType = $('[name=conversiontype]').val();
-    const leftObj = parse(leftString);
-    const rightObj = parse(rightString);
-    // Main function
-    const convertedAndMerged = convertAndMerge(leftObj, rightObj, conversionType);
-    const convertedMergedStringified = patchJsonResults(stringify(convertedAndMerged), conversionType);
-    editMerged.setValue(convertedMergedStringified);
-    editMerged.focus();
-    $('#convert_textareas').removeClass('thinking');
+    thinking(true).then(()=>{
+        const leftString = editLeft.getValue();
+        const rightString = editRight.getValue();
+        const conversionType = $('[name=conversiontype]').val();
+        const leftObj = parse(leftString);
+        const rightObj = parse(rightString);
+        // Main function
+        convertAndMerge(leftObj, rightObj, conversionType).then((result) => {
+            const convertedAndMerged = result;
+            const convertedMergedStringified = patchJsonResults(stringify(convertedAndMerged), conversionType);
+            editMerged.setValue(convertedMergedStringified);
+            editMerged.focus();
+        }).finally(() => { thinking(false); });
+    });
+}
+
+/**
+ * @function
+ * @description apply a (mostly) invisible modal to the window and change the mouse cursor to a timer/spinning icon
+ * @param onOff {Boolean} optional toggle thinking treatment on or off. if undefined, it will just toggle to the opposite of current state.
+ * @return {Promise}
+ */
+function thinking (onOff) {
+    return new Promise(function(resolve, reject) {
+        $('body').toggleClass('thinking', onOff);
+        setTimeout(() => {resolve()}, 0);
+    });
 }
 
 /**
@@ -187,21 +186,23 @@ function get_JSON_from_URLs(sourceURL, destinationURL) {
  * @param {Object} srcObj source object in valid sw5eapi structure
  * @param {Object} destObj destination object in valid 5etools structure
  * @param {String} conversionType sw5eapi database name, ex: "enhancedItem"
- * @return {Object} converted and merged object in valid 5etools structure
+ * @return {Promise} returns a promise resolving with the converted and merged object in valid 5etools structure
  */
 function convertAndMerge(srcObj, destObj, conversionType) {
-    const config = getConfig(conversionType);
-    if (typeof config !== 'object' || typeof config.convertTo5eToolsObj !== 'function') {
-        return null;
-    }
+    return new Promise(function(resolve, reject) {
+        const config = getConfig(conversionType);
+        if (typeof config !== 'object' || typeof config.convertTo5eToolsObj !== 'function') {
+            return null;
+        }
 
-    // Convert sw5eapi object into a 5etools object
-    const convertedSrcObj = config.convertTo5eToolsObj(srcObj);
+        // Convert sw5eapi object into a 5etools object
+        const convertedSrcObj = config.convertTo5eToolsObj(srcObj);
 
-    // Merge the converted source object into the existing (provided) destination object
-    const mergedObj = merge5eToolsObjects(destObj, convertedSrcObj, config);
+        // Merge the converted source object into the existing (provided) destination object
+        const mergedObj = merge5eToolsObjects(destObj, convertedSrcObj, config);
 
-    return mergedObj;
+        resolve(mergedObj);
+    });
 }
 
 /**

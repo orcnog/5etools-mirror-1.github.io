@@ -145,8 +145,25 @@ This project is licensed under the terms of the MIT license.
 
 ---
 
-## My Notes
+## SW5e Notes
 
+### Process for pulling in API changes
+1. Get and convert the latest API changes with the SW5e Converter.
+    * Open the SW5e Converter page (example: https://orcnog.github.io/sw5e.html, or http://192.168.1.151:5000/sw5e.html)
+    * Hover on the top left hamburger menu icon, and from the flyout, select an API source.
+    * Click the "Import JSON" blue button in the flyout.
+    * Once the data loads into the 2 large textareas in the page, click the "Convert!" blue button below.
+
+2. Copy/paste the converted object into the repo JSON file (example: data/items-sw5e.json), and save the file.
+3. Open the "diff" or "differences" view to see exactly what has changed, line-by-line.
+4. Sanity-check each change, making corrections if needed.
+5. Commit the changes.
+6. Repeat the copy/paste/diff/fix process from #2 thru #5 until only your tweaks show up in the diff (they will show up as though they are to be reverted, but we won't revert them).
+7. Record each of your tweaks in the `patchManualChanges()` function in the appropriate converter script (example: sw5e/convertItems.js)
+8. Save the script, and repeat steps #1 thru #3 above.  You should end up with a diff showing no changes.
+9. Commit the updated script and the final updated JSON.
+10. In the CLI, type `npm run cobble` and press enter.  This will port all of the new JSON updates into the other repo's JSON, which can then be uploaded to the live 5etools site as a homebrew source file.
+### Old:
 to apply custom items fixes (those not covered or incorrectly interpretted by the converter script), run one of these two commands, resolve issues, then try again:
 ```
 git apply -v --ignore-space-change --ignore-whitespace patch/items-fix.patch
