@@ -330,7 +330,8 @@
 											"hrefThumbnail": {
 												"type": "internal",
 												"path": "book/EGW/thumbnail/121-5.11-brokenveil-marsh.webp"
-											}
+											},
+											"id": "000"
 										},
 										{
 											"type": "image",
@@ -341,7 +342,10 @@
 											"title": "Map 5.11: Brokenveil Marsh (Player Version)",
 											"width": 2550,
 											"height": 1650,
-											"imageType": "mapPlayer"
+											"imageType": "mapPlayer",
+											"mapParent": {
+												"id": "000"
+											}
 										}
 									]
 								}
@@ -1128,7 +1132,8 @@
 													"hrefThumbnail": {
 														"type": "internal",
 														"path": "book/EGW/thumbnail/123-5.12-fort-venture.webp"
-													}
+													},
+													"id": "001"
 												},
 												{
 													"type": "image",
@@ -1139,7 +1144,11 @@
 													"title": "Map 5.12: Fort Venture (Player Version)",
 													"width": 2550,
 													"height": 1560,
-													"imageType": "mapPlayer"
+													"imageType": "mapPlayer",
+													"mapParent": {
+														"id": "001",
+														"autoScale": true
+													}
 												}
 											]
 										}

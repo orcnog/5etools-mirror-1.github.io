@@ -1466,6 +1466,9 @@
 				"R",
 				"S"
 			],
+			"spellcastingTags": [
+				"O"
+			],
 			"miscTags": [
 				"AOE",
 				"MW",
@@ -2623,7 +2626,8 @@
 			],
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -3792,7 +3796,8 @@
 			"dragonAge": "ancient",
 			"traitTags": [
 				"Amphibious",
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -4404,6 +4409,9 @@
 				"P",
 				"R",
 				"S"
+			],
+			"spellcastingTags": [
+				"O"
 			],
 			"miscTags": [
 				"AOE",
@@ -6019,7 +6027,8 @@
 			"dragonCastingColor": "black",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -6300,7 +6309,8 @@
 			"dragonCastingColor": "blue",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -6611,7 +6621,8 @@
 			"dragonCastingColor": "brass",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -6926,7 +6937,8 @@
 			"dragonCastingColor": "bronze",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -7241,7 +7253,8 @@
 			"dragonCastingColor": "copper",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -7773,7 +7786,8 @@
 			],
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -7806,7 +7820,6 @@
 				"prone",
 				"restrained"
 			],
-			"hasToken": true,
 			"hasFluff": true
 		},
 		{
@@ -8555,6 +8568,9 @@
 				"O",
 				"P"
 			],
+			"spellcastingTags": [
+				"O"
+			],
 			"miscTags": [
 				"AOE",
 				"MW",
@@ -8704,6 +8720,9 @@
 				"S"
 			],
 			"damageTagsSpell": [
+				"O"
+			],
+			"spellcastingTags": [
 				"O"
 			],
 			"miscTags": [
@@ -8911,7 +8930,8 @@
 			"traitTags": [
 				"Incorporeal Movement",
 				"Legendary Resistances",
-				"Rejuvenation"
+				"Rejuvenation",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"B",
@@ -9181,6 +9201,9 @@
 				"F",
 				"R"
 			],
+			"spellcastingTags": [
+				"O"
+			],
 			"miscTags": [
 				"MW"
 			],
@@ -9396,6 +9419,9 @@
 			],
 			"damageTags": [
 				"T"
+			],
+			"spellcastingTags": [
+				"O"
 			],
 			"conditionInflictSpell": [
 				"charmed",
@@ -9802,7 +9828,8 @@
 				}
 			],
 			"traitTags": [
-				"Magic Resistance"
+				"Magic Resistance",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"D"
@@ -10946,7 +10973,8 @@
 			],
 			"traitTags": [
 				"Legendary Resistances",
-				"Siege Monster"
+				"Siege Monster",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"B"
@@ -11481,7 +11509,8 @@
 			],
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -11652,6 +11681,9 @@
 					]
 				}
 			],
+			"traitTags": [
+				"Unusual Nature"
+			],
 			"senseTags": [
 				"SD"
 			],
@@ -11811,7 +11843,8 @@
 				}
 			],
 			"traitTags": [
-				"Spider Climb"
+				"Spider Climb",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"SD"
@@ -11963,7 +11996,8 @@
 			],
 			"traitTags": [
 				"Incorporeal Movement",
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"B",
@@ -12328,7 +12362,8 @@
 			"dragonCastingColor": "gold",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -12613,7 +12648,8 @@
 			"dragonCastingColor": "green",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -13797,7 +13833,8 @@
 			"dragonCastingColor": "red",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -14351,7 +14388,8 @@
 			],
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -14666,7 +14704,8 @@
 			"dragonCastingColor": "silver",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -15306,7 +15345,8 @@
 			],
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -15590,7 +15630,8 @@
 			"dragonCastingColor": "white",
 			"dragonAge": "greatwyrm",
 			"traitTags": [
-				"Legendary Resistances"
+				"Legendary Resistances",
+				"Unusual Nature"
 			],
 			"senseTags": [
 				"U"
@@ -16992,6 +17033,9 @@
 				"P",
 				"R",
 				"S"
+			],
+			"spellcastingTags": [
+				"O"
 			],
 			"miscTags": [
 				"AOE",
