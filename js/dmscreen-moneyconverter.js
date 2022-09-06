@@ -25,7 +25,7 @@ class MoneyConverter {
 		}).reverse();
 		const DEFAULT_CURRENCY = 3;
 
-		const $wrpConverter = $(`<div class="dm_money dm__panel-bg split-column"/>`);
+		const $wrpConverter = $(`<div class="dm_money dm-money dm__panel-bg split-column"/>`);
 
 		const doUpdate = () => {
 			if (!$wrpRows.find(`.dm-money__row`).length) {
@@ -143,15 +143,16 @@ class MoneyConverter {
 			board.doSaveStateDebounced();
 		};
 
-		const buildCurrency$Select = (isOutput) => $(`<select class="form-control input-sm" style="padding: 5px">${isOutput ? `<option value="-1">(No conversion)</option>` : ""}${CURRENCY.map((c, i) => `<option value="${i}">${c.n}</option>`).join("")}</select>`);
+        const isMobile = window.matchMedia('(min-width: 768px)').matches === false;
+		const buildCurrency$Select = (isOutput) => $(`<select class="form-control input-sm" style="padding: 5px" ${isMobile ? 'tabindex="-1"' : ''}>${isOutput ? `<option value="-1">(No conversion)</option>` : ""}${CURRENCY.map((c, i) => `<option value="${i}">${c.n}</option>`).join("")}</select>`);
 
 		const addRow = (currency, count) => {
 			const $row = $(`<div class="dm-money__row"/>`).appendTo($wrpRows);
-			const $iptCount = $(`<input type="number" step="1" placeholder="Coins" class="form-control input-sm">`).appendTo($row).change(doUpdate);
+			const $iptCount = $(`<input type="number" step="1" placeholder="Coins" pattern="\\d*" class="form-control input-sm">`).appendTo($row).change(doUpdate);
 			if (count != null) $iptCount.val(count);
 			const $selCurrency = buildCurrency$Select().appendTo($row).change(doUpdate);
 			$selCurrency.val(currency == null ? DEFAULT_CURRENCY : currency);
-			const $btnRemove = $(`<button class="btn btn-sm btn-danger" title="Remove Row"><span class="glyphicon glyphicon-trash"></span></button>`).appendTo($row).click(() => {
+			const $btnRemove = $(`<button class="btn btn-sm btn-danger" title="Remove Row" ${isMobile ? 'tabindex="-1"' : ''}><span class="glyphicon glyphicon-trash"></span></button>`).appendTo($row).click(() => {
 				$row.remove();
 				doUpdate();
 			});
@@ -162,13 +163,13 @@ class MoneyConverter {
 		const $wrpCtrl = $(`<div class="split dm-money__ctrl"/>`).appendTo($wrpConverter);
 		const $wrpCtrlLhs = $(`<div class="dm-money__ctrl__lhs split-child" style="width: 66%;"/>`).appendTo($wrpCtrl);
 		const $wrpBtnAddSettings = $(`<div class="split"/>`).appendTo($wrpCtrlLhs);
-		const $btnAddRow = $(`<button class="btn btn-primary btn-sm" title="Add Row"><span class="glyphicon glyphicon-plus"/></button>`)
+		const $btnAddRow = $(`<button class="btn btn-primary btn-sm" title="Add Row" ${isMobile ? 'tabindex="-1"' : ''}><span class="glyphicon glyphicon-plus"/></button>`)
 			.appendTo($wrpBtnAddSettings)
 			.click(() => {
 				addRow();
 				doUpdate();
 			});
-		const $btnSettings = $(`<button class="btn btn-default btn-sm" title="Settings"><span class="glyphicon glyphicon-cog"/></button>`)
+		const $btnSettings = $(`<button class="btn btn-default btn-sm" title="Settings" ${isMobile ? 'tabindex="-1"' : ''}><span class="glyphicon glyphicon-cog"/></button>`)
 			.appendTo($wrpBtnAddSettings)
 			.click(() => {
 				const {$modalInner} = UiUtil.getShowModal({
@@ -187,7 +188,7 @@ class MoneyConverter {
 			});
 
 		const $wrpCtrlRhs = $(`<div class="dm-money__ctrl__rhs split-child" style="width: 33%;"/>`).appendTo($wrpCtrl);
-		const $iptSplit = $(`<input type="number" min="1" step="1" placeholder="Split Between..." class="form-control input-sm">`).appendTo($wrpCtrlRhs).change(doUpdate);
+		const $iptSplit = $(`<input type="number" min="1" step="1" placeholder="Split Between..." class="form-control input-sm" pattern="\\d*">`).appendTo($wrpCtrlRhs).change(doUpdate);
 		const $selOut = buildCurrency$Select(true).appendTo($wrpCtrlRhs).change(doUpdate);
 
 		$wrpConverter.data("getState", () => {

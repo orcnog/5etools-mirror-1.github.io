@@ -883,6 +883,15 @@ textarea.dm_init__pl_textarea {
 	width: 100%;
 	height: 100%;
 	padding-top: 22px;
+    
+    @media (max-width: 991px) {
+        padding: 10%;
+    }
+
+    .input-sm {
+        font-size: 15px;
+        height: auto;
+    }
 
 	&__ {
 		&rows {
