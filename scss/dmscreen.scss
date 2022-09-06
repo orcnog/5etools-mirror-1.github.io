@@ -881,16 +881,20 @@ textarea.dm_init__pl_textarea {
 // region Coin converter
 .dm-money {
 	width: 100%;
-	height: 100%;
 	padding-top: 22px;
     
     @media (max-width: 991px) {
         padding: 10%;
     }
+    @media (min-width: 992px) {
+        height: 100%;
+    }
 
     .input-sm {
-        font-size: 15px;
-        height: auto;
+        @media (max-width: 991px) {
+            font-size: 16px;
+            height: auto;
+        }
     }
 
 	&__ {
