@@ -345,17 +345,18 @@ const equipmentConfig = {
 				if ('description' in o) {
 					txt = o.description;
 				} else if ('text' in o) {
-					txt = o.text.replace(/\b(.+)�s\b/g,'$1\'s') // e.g. monk's
-					.replace(/\b(can|doesn|don|won|aren|isn)�t\b/g, '$1\'t') // e.g. doesn't
-					.replace(/�|—/g, '\u2014')
-					.replaceAll('_**Requires attunement**_\r\n', '');
-					const bold = /\*\*(.*?)\*\*/gm;
-					txt = txt.replace(bold, '\{@b $1\}');
-					const italic1 = /\*(.*?)\*/gm;
-					const italic2 = /_(.*?)_/gm;
-					txt = txt.replace(italic1, '\{@i $1\}');
-					txt = txt.replace(italic2, '\{@i $1\}');
-				}
+                    txt = o.text;
+                }
+                txt = txt.replaceAll('_**Requires attunement**_\r\n', '');
+                txt = txt.replace(/\b(.+)�s\b/g,'$1\'s') // e.g. monk's
+                .replace(/\b(can|doesn|don|won|aren|isn)�t\b/g, '$1\'t') // e.g. doesn't
+                .replace(/�|—/g, '\u2014')
+                const bold = /\*\*(.*?)\*\*/gm;
+                txt = txt.replace(bold, '\{@b $1\}');
+                const italic1 = /\*(.*?)\*/gm;
+                const italic2 = /_(.*?)_/gm;
+                txt = txt.replace(italic1, '\{@i $1\}');
+                txt = txt.replace(italic2, '\{@i $1\}');
 				description = txt?.split(/(?:\r\n)+/) || [txt]; // handle new lines as new entry array items (strings)
 				description.forEach((str,i,arr) => {
 					if (str) arr[i] = cleanString(str);
