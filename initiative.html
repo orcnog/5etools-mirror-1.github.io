@@ -71,47 +71,66 @@
             const input = document.getElementById('speechInput').value;
             let convertedInput = processInput(input, numberMap);
 
-            // Extracting entries and orders
-            const parts = convertedInput.split(" rolled ");
-            for (let i = 0; i < parts.length - 1; i++) {
-                let name = parts[i].trim().split(" ");
-                let order = parseInt(parts[i + 1], 10);
+            const regex = /([\w\s]+?) rolled(?: a| an| and)? (?:(negative) )?(\w+|\d+)/g;
+            let matches;
+
+            while ((matches = regex.exec(convertedInput)) !== null) {
+                let name = matches[1].trim();
+                let negativeModifier = matches[2] ? -1 : 1;  // Check for "negative"
+                let orderString = matches[3];
+
+                let order;
+                if (isNaN(orderString)) {
+                    order = numberMap[orderString.toLowerCase()] || NaN;
+                    order *= negativeModifier;
+                } else {
+                    order = parseInt(orderString, 10);
+                    order *= negativeModifier;
+                }
 
                 // Capitalize the name
-                name = name.map(capitalize).join(" ");
-
+                name = name.split(" ").map(capitalize).join(" ");
                 entries.push({ name: name, order: order });
-
-                // Removing the parsed part to continue processing
-                parts[i + 1] = parts[i + 1].replace(order.toString(), "").trim();
             }
 
             // Sorting and rendering the entries
-            entries.sort((a, b) => a.order - b.order);
+            entries.sort((a, b) => b.order - a.order);
             renderEntries();
         }
 
         function processInput(input, numberMap) {
             // Handle hyphenated numbers adjacent to "rolled" 
             for (const [word, number] of Object.entries(numberMap)) {
-                if(!word.includes('-')) continue;
+                if (!word.includes('-')) continue;
 
                 let patternBefore = new RegExp(`\\b${word}(?= rolled)`, 'g');
-                let patternAfter = new RegExp(`(?<=rolled )${word}\\b`, 'g');
+                let patternAfter = new RegExp(`(?<=rolled )${word}(?= )`, 'g');
+                let patternAfterA = new RegExp(`(?<=rolled a )${word}\\b`, 'g');
+                let patternAfterAn = new RegExp(`(?<=rolled an )${word}\\b`, 'g');
+                let patternAfterAnd = new RegExp(`(?<=rolled and )${word}\\b`, 'g');
 
                 input = input.replace(patternBefore, `${number}`);
                 input = input.replace(patternAfter, `${number}`);
+                input = input.replace(patternAfterA, `${number}`);
+                input = input.replace(patternAfterAn, `${number}`);
+                input = input.replace(patternAfterAnd, `${number}`);
             }
 
             // Then handle non-hyphenated numbers adjacent to "rolled"
             for (const [word, number] of Object.entries(numberMap)) {
-                if(word.includes('-')) continue;
+                if (word.includes('-')) continue;
 
                 let patternBefore = new RegExp(`\\b${word}(?= rolled)`, 'g');
-                let patternAfter = new RegExp(`(?<=rolled )${word}\\b`, 'g');
+                let patternAfter = new RegExp(`(?<=rolled )${word}(?= )`, 'g');
+                let patternAfterA = new RegExp(`(?<=rolled a )${word}\\b`, 'g');
+                let patternAfterAn = new RegExp(`(?<=rolled an )${word}\\b`, 'g');
+                let patternAfterAnd = new RegExp(`(?<=rolled and )${word}\\b`, 'g');
 
                 input = input.replace(patternBefore, `${number}`);
                 input = input.replace(patternAfter, `${number}`);
+                input = input.replace(patternAfterA, `${number}`);
+                input = input.replace(patternAfterAn, `${number}`);
+                input = input.replace(patternAfterAnd, `${number}`);
             }
 
             // Handle negative numbers after "rolled"
