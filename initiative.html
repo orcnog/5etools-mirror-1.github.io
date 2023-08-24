@@ -65,6 +65,15 @@
                 currentTurn = parseInt(savedTurn, 10);
                 highlightCurrentTurn();
             }
+            document.getElementById('speechInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    parseAndAddEntries();
+                }
+            });
+
+            document.getElementById('speechInput').addEventListener('focus', function() {
+                this.select();
+            });
         };
 
         function parseAndAddEntries() {
@@ -185,13 +194,20 @@
             for (let entry of entries) {
                 const li = document.createElement('li');
                 
-                const span = document.createElement('span');
-                span.textContent = `${entry.name} (${entry.order})`;
-                span.onclick = function() {
-                    makeEditable(span, entry);
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = entry.name;
+                nameSpan.onclick = function() {
+                    makeEditable(nameSpan, entry, 'name');
                 };
                 
-                li.appendChild(span);
+                const orderSpan = document.createElement('span');
+                orderSpan.textContent = `(${entry.order})`;
+                orderSpan.onclick = function() {
+                    makeEditable(orderSpan, entry, 'order');
+                };
+                
+                li.appendChild(nameSpan);
+                li.appendChild(orderSpan);
                 list.appendChild(li);
             }
             const advanceButton = document.createElement('button');
@@ -200,14 +216,28 @@
             list.appendChild(advanceButton);
         }
 
-        function makeEditable(element, entry) {
+
+        function makeEditable(element, entry, field) {
             const input = document.createElement('input');
-            input.value = entry.name;
-            input.onblur = function() {
-                entry.name = input.value;
+            input.value = entry[field];
+            
+            // Handle "submit" when Enter key is pressed
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    handleEdit();
+                }
+            });
+
+            // Handle "submit" when input loses focus
+            input.addEventListener('focusout', handleEdit);
+
+            function handleEdit() {
+                entry[field] = field === 'order' ? parseInt(input.value, 10) : input.value;
+                entries.sort((a, b) => b.order - a.order); // Re-sorting on edit
                 renderEntries();
                 setCookie('entries', JSON.stringify(entries));
-            };
+            }
+
             element.replaceWith(input);
             input.select(); 
         }
