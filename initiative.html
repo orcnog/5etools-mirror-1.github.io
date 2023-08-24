@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <p>Dragon rolled 19 cultist one rolled to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers rolled 15 thorn rolled 11</p>
+    <p>Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
     <div>
         <input type="text" id="speechInput" placeholder="Use speech-to-text">
         <button onclick="parseAndAddEntries()">Parse</button>
@@ -68,24 +68,23 @@
         };
 
         function parseAndAddEntries() {
-            const input = document.getElementById('speechInput').value;
+            const input = document.getElementById('speechInput').value + " ";
             let convertedInput = processInput(input, numberMap);
 
-            const regex = /([\w\s]+?) rolled(?: a| an| and)? (?:(negative) )?(\w+|\d+)/g;
+            const regex = /([\w\s]+?)\s*?@ (-?\d+)/g;
             let matches;
 
             while ((matches = regex.exec(convertedInput)) !== null) {
                 let name = matches[1].trim();
-                let negativeModifier = matches[2] ? -1 : 1;  // Check for "negative"
-                let orderString = matches[3];
+                let orderString = matches[2];
 
                 let order;
-                if (isNaN(orderString)) {
+                if (orderString && isNaN(orderString)) {
                     order = numberMap[orderString.toLowerCase()] || NaN;
-                    order *= negativeModifier;
-                } else {
+                } else if(orderString && !isNaN(orderString)) {
                     order = parseInt(orderString, 10);
-                    order *= negativeModifier;
+                } else {
+                    order = NaN;  // default to NaN if orderString is not defined
                 }
 
                 // Capitalize the name
@@ -99,15 +98,42 @@
         }
 
         function processInput(input, numberMap) {
+            console.log(input);
+
+            // Remove punctuation
+            input = input.replace(/[.,!?;:()]/g, '');
+
+            // Replace the roll/role variations with the symbol "@"
+            input = input.replace(/ (rolled|roll|role)( a| an| and)? /g, ' @ ');
+            console.log(input);
+
+            // Handle negative numbers in word format adjacent to "@"
+            const negativeWordPattern = /@ (?:negative|-) (\w+|\d+)/g;
+            input = input.replace(negativeWordPattern, (match, wordOrNum) => {
+                if (numberMap[wordOrNum]) {
+                    return '@ -' + numberMap[wordOrNum];
+                } else {
+                    return '@ -' + wordOrNum;
+                }
+            });
+            console.log(input);
+            
+            // Handle negative numbers in digit format after "@"
+            const negativePatternAfter = /@ negative (\d+)/g;
+            input = input.replace(negativePatternAfter, (match, p1) => {
+                return '@ -' + p1;
+            });
+            console.log(input);
+
             // Handle hyphenated numbers adjacent to "rolled" 
             for (const [word, number] of Object.entries(numberMap)) {
                 if (!word.includes('-')) continue;
 
-                let patternBefore = new RegExp(`\\b${word}(?= rolled)`, 'g');
-                let patternAfter = new RegExp(`(?<=rolled )${word}(?= )`, 'g');
-                let patternAfterA = new RegExp(`(?<=rolled a )${word}\\b`, 'g');
-                let patternAfterAn = new RegExp(`(?<=rolled an )${word}\\b`, 'g');
-                let patternAfterAnd = new RegExp(`(?<=rolled and )${word}\\b`, 'g');
+                let patternBefore = new RegExp(`\\b${word}(?= @)`, 'g');
+                let patternAfter = new RegExp(`(?<=@ )${word}(?= )`, 'g');
+                let patternAfterA = new RegExp(`(?<=@ a )${word}\\b`, 'g');
+                let patternAfterAn = new RegExp(`(?<=@ an )${word}\\b`, 'g');
+                let patternAfterAnd = new RegExp(`(?<=@ and )${word}\\b`, 'g');
 
                 input = input.replace(patternBefore, `${number}`);
                 input = input.replace(patternAfter, `${number}`);
@@ -115,16 +141,17 @@
                 input = input.replace(patternAfterAn, `${number}`);
                 input = input.replace(patternAfterAnd, `${number}`);
             }
+            console.log(input);
 
             // Then handle non-hyphenated numbers adjacent to "rolled"
             for (const [word, number] of Object.entries(numberMap)) {
                 if (word.includes('-')) continue;
 
-                let patternBefore = new RegExp(`\\b${word}(?= rolled)`, 'g');
-                let patternAfter = new RegExp(`(?<=rolled )${word}(?= )`, 'g');
-                let patternAfterA = new RegExp(`(?<=rolled a )${word}\\b`, 'g');
-                let patternAfterAn = new RegExp(`(?<=rolled an )${word}\\b`, 'g');
-                let patternAfterAnd = new RegExp(`(?<=rolled and )${word}\\b`, 'g');
+                let patternBefore = new RegExp(`\\b${word}(?= @)`, 'g');
+                let patternAfter = new RegExp(`(?<=@ )${word}(?= )`, 'g');
+                let patternAfterA = new RegExp(`(?<=@ a )${word}\\b`, 'g');
+                let patternAfterAn = new RegExp(`(?<=@ an )${word}\\b`, 'g');
+                let patternAfterAnd = new RegExp(`(?<=@ and )${word}\\b`, 'g');
 
                 input = input.replace(patternBefore, `${number}`);
                 input = input.replace(patternAfter, `${number}`);
@@ -132,18 +159,7 @@
                 input = input.replace(patternAfterAn, `${number}`);
                 input = input.replace(patternAfterAnd, `${number}`);
             }
-
-            // Handle negative numbers after "rolled"
-            const negativePatternAfter = /(?<=rolled )negative (\d+)/g;
-            input = input.replace(negativePatternAfter, (match, p1) => {
-                return '-' + p1;
-            });
-
-            // Handle negative numbers adjacent to "rolled" in the form of words
-            const negativeWordPattern = /(?<=rolled )negative (\w+)/g;
-            input = input.replace(negativeWordPattern, (match, word) => {
-                return numberMap[word] ? '-' + numberMap[word] : match;
-            });
+            console.log(input);
 
             return input;
         }
