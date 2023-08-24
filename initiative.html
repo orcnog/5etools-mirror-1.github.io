@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turn Counter</title>
+    <style>
+        .highlighted {
+            background-color: yellow;
+        }
+        #entries li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <p>Dragon rolled 19 cultist one rolled to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers rolled 15 thorn rolled 11</p>
+    <div>
+        <input type="text" id="speechInput" placeholder="Use speech-to-text">
+        <button onclick="parseAndAddEntries()">Parse</button>
+    </div>
+    <ul id="entries"></ul>
+    <button onclick="startTurnCounter()">Go</button>
+
+    <script>
+        let entries = [];
+        let currentTurn = 0;
+        const numberMap = {
+            'zero': 0,
+            'one': 1, 'won': 1,
+            'two': 2, 'to': 2, 'too': 2,
+            'three': 3, 'tree': 3,
+            'four': 4, 'fore': 4, 'for': 4,
+            'five': 5,
+            'six': 6, 'sex': 6,
+            'seven': 7,
+            'eight': 8, 'ate': 8,
+            'nine': 9, 'nigh': 9,
+            'ten': 10, 'tin': 10,
+            'eleven': 11,
+            'twelve': 12,
+            'thirteen': 13,
+            'fourteen': 14,
+            'fifteen': 15,
+            'sixteen': 16,
+            'seventeen': 17,
+            'eighteen': 18,
+            'nineteen': 19,
+            'twenty': 20,
+            'twenty-one': 21, 'twenty-two': 22, 'twenty-three': 23,
+            'twenty-four': 24, 'twenty-five': 25, 'twenty-six': 26,
+            'twenty-seven': 27, 'twenty-eight': 28, 'twenty-nine': 29,
+            'thirty': 30, 'thirty-one': 31, 'thirty-two': 32
+        };
+
+        window.onload = function() {
+            const savedEntries = getCookie('entries');
+            if (savedEntries) {
+                entries = JSON.parse(savedEntries);
+                renderEntries();
+            }
+
+            const savedTurn = getCookie('turn');
+            if (savedTurn) {
+                currentTurn = parseInt(savedTurn, 10);
+                highlightCurrentTurn();
+            }
+        };
+
+        function parseAndAddEntries() {
+            const input = document.getElementById('speechInput').value;
+            let convertedInput = processInput(input, numberMap);
+
+            // Extracting entries and orders
+            const parts = convertedInput.split(" rolled ");
+            for (let i = 0; i < parts.length - 1; i++) {
+                let name = parts[i].trim().split(" ");
+                let order = parseInt(parts[i + 1], 10);
+
+                // Capitalize the name
+                name = name.map(capitalize).join(" ");
+
+                entries.push({ name: name, order: order });
+
+                // Removing the parsed part to continue processing
+                parts[i + 1] = parts[i + 1].replace(order.toString(), "").trim();
+            }
+
+            // Sorting and rendering the entries
+            entries.sort((a, b) => a.order - b.order);
+            renderEntries();
+        }
+
+        function processInput(input, numberMap) {
+            // Handle hyphenated numbers adjacent to "rolled" 
+            for (const [word, number] of Object.entries(numberMap)) {
+                if(!word.includes('-')) continue;
+
+                let patternBefore = new RegExp(`\\b${word}(?= rolled)`, 'g');
+                let patternAfter = new RegExp(`(?<=rolled )${word}\\b`, 'g');
+
+                input = input.replace(patternBefore, `${number}`);
+                input = input.replace(patternAfter, `${number}`);
+            }
+
+            // Then handle non-hyphenated numbers adjacent to "rolled"
+            for (const [word, number] of Object.entries(numberMap)) {
+                if(word.includes('-')) continue;
+
+                let patternBefore = new RegExp(`\\b${word}(?= rolled)`, 'g');
+                let patternAfter = new RegExp(`(?<=rolled )${word}\\b`, 'g');
+
+                input = input.replace(patternBefore, `${number}`);
+                input = input.replace(patternAfter, `${number}`);
+            }
+
+            // Handle negative numbers after "rolled"
+            const negativePatternAfter = /(?<=rolled )negative (\d+)/g;
+            input = input.replace(negativePatternAfter, (match, p1) => {
+                return '-' + p1;
+            });
+
+            // Handle negative numbers adjacent to "rolled" in the form of words
+            const negativeWordPattern = /(?<=rolled )negative (\w+)/g;
+            input = input.replace(negativeWordPattern, (match, word) => {
+                return numberMap[word] ? '-' + numberMap[word] : match;
+            });
+
+            return input;
+        }
+
+        function capitalize(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        }
+
+        function startTurnCounter() {
+            highlightCurrentTurn();
+            document.getElementById('goButton').disabled = true;
+        }
+
+        function advanceTurn() {
+            currentTurn = (currentTurn + 1) % entries.length;
+            setCookie('turn', currentTurn);
+            highlightCurrentTurn();
+        }
+
+        function renderEntries() {
+            const list = document.getElementById('entries');
+            list.innerHTML = '';
+            for (let entry of entries) {
+                const li = document.createElement('li');
+                
+                const span = document.createElement('span');
+                span.textContent = `${entry.name} (${entry.order})`;
+                span.onclick = function() {
+                    makeEditable(span, entry);
+                };
+                
+                li.appendChild(span);
+                list.appendChild(li);
+            }
+            const advanceButton = document.createElement('button');
+            advanceButton.textContent = 'Advance Turn';
+            advanceButton.onclick = advanceTurn;
+            list.appendChild(advanceButton);
+        }
+
+        function makeEditable(element, entry) {
+            const input = document.createElement('input');
+            input.value = entry.name;
+            input.onblur = function() {
+                entry.name = input.value;
+                renderEntries();
+                setCookie('entries', JSON.stringify(entries));
+            };
+            element.replaceWith(input);
+            input.select(); 
+        }
+
+        function highlightCurrentTurn() {
+            const listItems = document.querySelectorAll('#entries li');
+            listItems.forEach(li => li.classList.remove('highlighted'));
+            if (listItems[currentTurn]) {
+                listItems[currentTurn].classList.add('highlighted');
+            }
+        }
+
+        function setCookie(name, value) {
+            document.cookie = `${name}=${value};path=/`;
+        }
+
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            const parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+    </script>
+</body>
+</html>
