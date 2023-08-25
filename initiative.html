@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg" href="icon/d20-black-whitebg.svg">
     <title>Turn Counter</title>
     <style>
         .highlighted {
@@ -11,18 +12,34 @@
         #entries li {
             cursor: pointer;
         }
+        .hide {
+            display: none;
+        }
+        body:not(.active-turn) .active-turn-ui {
+            display: none;
+        }
+        .active-turn .no-active-turn-ui {
+            display: none;
+        }
     </style>
 </head>
-<body>
+<body class="no-active-turn">
     <p>Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
     <div>
         <input type="text" id="speechInput" placeholder="Use speech-to-text">
         <button onclick="parseAndAddEntries()">Parse</button>
     </div>
-    <ul id="entries"></ul>
-    <button id="goButton" onclick="startTurnCounter()">Go</button>
+    <h2 id="roundCounter" class="round-counter active-turn-ui">Round 1</h2>
+    <ul id="entries">
+        <!-- will be populated dynamically -->
+    </ul>
+    <button id="prevTurn" class="previous-turn active-turn-ui" onclick="goBackOneTurn()">Previous Turn</button>
+    <button id="nextTurn" class="advance-turn active-turn-ui" onclick="advanceTurn()">Advance Turn</button>
+    <button id="startButton" class="no-active-turn-ui" onclick="startTurnCounter()">Start</button>
+    <button id="clearAll" class="clear-all active-turn-ui" onclick="clearAll()">Clear All</button>
 
-    <button id="clearAllButton" onclick="clearAll()">Clear All</button>
+    <p id="eventlog"></p>
+
     <script>
         let entries = [];
         let currentTurn = 0;
@@ -55,6 +72,45 @@
             'thirty': 30, 'thirty-one': 31, 'thirty-two': 32
         };
 
+        Element.prototype.onClassAdded = function(className, callback) {
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : [];
+                        const newClassList = this.className.split(/\s+/);
+                        if (newClassList.includes(className) && !oldClassList.includes(className)) {
+                            callback();
+                        }
+                    }
+                });
+            });
+            observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
+        };
+
+        Element.prototype.onClassRemoved = function(className, callback) {
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : [];
+                        const newClassList = this.className.split(/\s+/);
+                        if (!newClassList.includes(className) && oldClassList.includes(className)) {
+                            callback();
+                        }
+                    }
+                });
+            });
+            observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
+        };
+
+        // Usage
+        // document.body.onClassAdded('active-turn', function() {
+        //     console.log('active-turn was added');
+        // });
+        // document.body.onClassRemoved('active-turn', function() {
+        //     console.log('active-turn was removed');
+        // });
+
+
         window.onload = function() {
             const savedEntries = getCookie('entries');
             if (savedEntries) {
@@ -65,9 +121,7 @@
             // rehydrate the current turn, if it was recorded
             const turnStarted = getCookie('turnStarted');
             if (turnStarted) {
-                if (document.getElementById('goButton')) {
-                    document.getElementById('goButton').remove();
-                }
+                document.body.classList.remove('no-active-turn');
             }
             const savedRound = getCookie('round');
             if (savedRound) {
@@ -81,15 +135,41 @@
             }
             
             if (document.getElementById('previousTurn')) document.getElementById('previousTurn').disabled = (currentRound < 2 && currentTurn < 1);
+            document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1);
 
+
+            document.getElementById('speechInput').addEventListener('focus', function(e) {
+                console.log(e.type);
+                document.getElementById('eventlog').textContent = e.type;
+                this.select();
+            });
             document.getElementById('speechInput').addEventListener('keydown', function(e) {
+                console.log(e.type);
+                document.getElementById('eventlog').textContent = e.type;
                 if (e.key === 'Enter') {
                     parseAndAddEntries();
                 }
             });
+            document.getElementById('speechInput').addEventListener('input', function(e) {
+                console.log(e.type);
+                document.getElementById('eventlog').textContent = e.type;
+                parseAndAddEntries();
+            });
 
-            document.getElementById('speechInput').addEventListener('focus', function() {
-                this.select();
+            document.body.onClassAdded('active-turn', function() {
+                console.log('active-turn was added');
+                document.getElementById('prevTurn').disabled = true;
+                document.getElementById('nextTurn').disabled = false;
+                document.getElementById('clearAll').disabled = false;
+                document.getElementById('startButton').disabled = true;
+            });
+
+            document.body.onClassRemoved('active-turn', function() {
+                console.log('active-turn was removed');
+                document.getElementById('prevTurn').disabled = true;
+                document.getElementById('nextTurn').disabled = true;
+                document.getElementById('clearAll').disabled = true;
+                document.getElementById('startButton').disabled = false;
             });
         };
 
@@ -197,9 +277,7 @@
 
         function startTurnCounter() {
             highlightCurrentTurn();
-            if (document.getElementById('goButton')) {
-                document.getElementById('goButton').disabled = true;
-            }
+            document.body.classList.add('active-turn');
             setCookie('turnStarted', 'true');
         }
 
@@ -216,13 +294,10 @@
             
             highlightCurrentTurn();
 
-            if (document.getElementById('previousTurn')) {
-                document.getElementById('previousTurn').disabled = false;
-            }
+            document.getElementById('prevTurn').disabled = false;
         }
 
         function goBackOneTurn() {
-            // currentTurn = (currentTurn - 1 + entries.length) % entries.length;
             currentTurn--
             
             // If it wraps back to the last player
@@ -246,7 +321,7 @@
             setCookie('turn', currentTurn);
 
             if (currentRound == 1 && currentTurn == 0) {
-                document.getElementById('previousTurn').disabled = true;
+                document.getElementById('prevTurn').disabled = true;
             }
         }
 
@@ -255,10 +330,7 @@
             currentTurn = 0;
             currentRound = 1;
             renderEntries();
-            if (document.getElementById('roundCounter')) document.getElementById('roundCounter').remove();
-            if (document.getElementById('previousTurn')) document.getElementById('previousTurn').remove();
-            if (document.getElementById('nextTurn')) document.getElementById('nextTurn').remove();
-            if (document.getElementById('goButton')) document.getElementById('goButton').remove();
+            document.body.classList.remove('active-turn');
 
             // Clearing cookies
             document.cookie = "entries=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -282,36 +354,25 @@
                 const orderSpan = document.createElement('span');
                 orderSpan.textContent = `(${entry.order})`;
                 orderSpan.onclick = function() {
-                    makeEditable(orderSpan, entry, 'order');
+                    makeEditable(orderSpan, entry, 'order', 'number');
                 };
                 
                 li.appendChild(nameSpan);
                 li.appendChild(orderSpan);
                 list.appendChild(li);
             }
-            const roundCounter = document.createElement('h2');
-            roundCounter.setAttribute('id', 'roundCounter');
-            roundCounter.classList = 'round-counter';
-            roundCounter.textContent = 'Round 1';
-            list.prepend(roundCounter);
-            const prevButton = document.createElement('button');
-            prevButton.setAttribute('id', 'previousTurn');
-            prevButton.classList = 'previous-turn';
-            prevButton.textContent = 'Previous Turn';
-            prevButton.onclick = goBackOneTurn;
-            list.appendChild(prevButton);
-            const advanceButton = document.createElement('button');
-            advanceButton.setAttribute('id', 'nextTurn');
-            advanceButton.classList = 'advance-turn';
-            advanceButton.textContent = 'Advance Turn';
-            advanceButton.onclick = advanceTurn;
-            list.appendChild(advanceButton);
         }
 
 
-        function makeEditable(element, entry, field) {
-            const input = document.createElement('input');
-            input.value = entry[field];
+        function makeEditable(element, entry, field, type) {
+            const input = document.createElement('input')
+            input.type = type
+            if (type == 'number') {
+                input.setAttribute("pattern", "[0-9]*")
+            } else {
+                input.setAttribute("autocapitalize", "words")
+            }
+            input.value = entry[field]
             
             // Handle "submit" when Enter key is pressed
             input.addEventListener('keydown', function(e) {
