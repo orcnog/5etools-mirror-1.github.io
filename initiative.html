@@ -20,11 +20,13 @@
         <button onclick="parseAndAddEntries()">Parse</button>
     </div>
     <ul id="entries"></ul>
-    <button onclick="startTurnCounter()">Go</button>
+    <button id="goButton" onclick="startTurnCounter()">Go</button>
 
+    <button id="clearAllButton" onclick="clearAll()">Clear All</button>
     <script>
         let entries = [];
         let currentTurn = 0;
+        let currentRound = 1;
         const numberMap = {
             'zero': 0,
             'one': 1, 'won': 1,
@@ -60,11 +62,26 @@
                 renderEntries();
             }
 
+            // rehydrate the current turn, if it was recorded
+            const turnStarted = getCookie('turnStarted');
+            if (turnStarted) {
+                if (document.getElementById('goButton')) {
+                    document.getElementById('goButton').remove();
+                }
+            }
+            const savedRound = getCookie('round');
+            if (savedRound) {
+                currentRound = parseInt(savedRound, 10);
+                document.getElementById('roundCounter').textContent = 'Round ' + savedRound;
+            }
             const savedTurn = getCookie('turn');
             if (savedTurn) {
                 currentTurn = parseInt(savedTurn, 10);
                 highlightCurrentTurn();
             }
+            
+            if (document.getElementById('previousTurn')) document.getElementById('previousTurn').disabled = (currentRound < 2 && currentTurn < 1);
+
             document.getElementById('speechInput').addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     parseAndAddEntries();
@@ -104,6 +121,7 @@
             // Sorting and rendering the entries
             entries.sort((a, b) => b.order - a.order);
             renderEntries();
+            setCookie('entries', JSON.stringify(entries));
         }
 
         function processInput(input, numberMap) {
@@ -179,13 +197,74 @@
 
         function startTurnCounter() {
             highlightCurrentTurn();
-            document.getElementById('goButton').disabled = true;
+            if (document.getElementById('goButton')) {
+                document.getElementById('goButton').disabled = true;
+            }
+            setCookie('turnStarted', 'true');
         }
 
         function advanceTurn() {
             currentTurn = (currentTurn + 1) % entries.length;
             setCookie('turn', currentTurn);
+
+            // If it wraps back to the first player
+            if (currentTurn == 0) {
+                currentRound++;
+                document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
+                setCookie('round', currentRound);
+            }
+            
             highlightCurrentTurn();
+
+            if (document.getElementById('previousTurn')) {
+                document.getElementById('previousTurn').disabled = false;
+            }
+        }
+
+        function goBackOneTurn() {
+            // currentTurn = (currentTurn - 1 + entries.length) % entries.length;
+            currentTurn--
+            
+            // If it wraps back to the last player
+            if (currentTurn == -1) {
+                currentTurn = entries.length-1
+                currentRound--
+
+                // Reset if we went back to "round 0"
+                if (currentRound == 0) {
+                    currentRound = 1;
+                    currentTurn = 0;
+                    turnStarted = false;
+                    setCookie('turnStarted', 'false');
+
+                }
+                document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
+                setCookie('round', currentRound)
+            }
+
+            highlightCurrentTurn();
+            setCookie('turn', currentTurn);
+
+            if (currentRound == 1 && currentTurn == 0) {
+                document.getElementById('previousTurn').disabled = true;
+            }
+        }
+
+        function clearAll() {
+            entries = [];
+            currentTurn = 0;
+            currentRound = 1;
+            renderEntries();
+            if (document.getElementById('roundCounter')) document.getElementById('roundCounter').remove();
+            if (document.getElementById('previousTurn')) document.getElementById('previousTurn').remove();
+            if (document.getElementById('nextTurn')) document.getElementById('nextTurn').remove();
+            if (document.getElementById('goButton')) document.getElementById('goButton').remove();
+
+            // Clearing cookies
+            document.cookie = "entries=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "turn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "round=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "turnStarted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
         function renderEntries() {
@@ -210,7 +289,20 @@
                 li.appendChild(orderSpan);
                 list.appendChild(li);
             }
+            const roundCounter = document.createElement('h2');
+            roundCounter.setAttribute('id', 'roundCounter');
+            roundCounter.classList = 'round-counter';
+            roundCounter.textContent = 'Round 1';
+            list.prepend(roundCounter);
+            const prevButton = document.createElement('button');
+            prevButton.setAttribute('id', 'previousTurn');
+            prevButton.classList = 'previous-turn';
+            prevButton.textContent = 'Previous Turn';
+            prevButton.onclick = goBackOneTurn;
+            list.appendChild(prevButton);
             const advanceButton = document.createElement('button');
+            advanceButton.setAttribute('id', 'nextTurn');
+            advanceButton.classList = 'advance-turn';
             advanceButton.textContent = 'Advance Turn';
             advanceButton.onclick = advanceTurn;
             list.appendChild(advanceButton);
