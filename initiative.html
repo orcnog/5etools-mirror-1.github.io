@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/svg" href="icon/d20-black-whitebg.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Babylonica&family=Bilbo+Swash+Caps&family=Caveat:wght@400;500;600;700&family=Comforter&family=Condiment&family=Dawning+of+a+New+Day&family=East+Sea+Dokdo&family=Fuggles&family=Grape+Nuts&family=Homemade+Apple&family=Inspiration&family=Julee&family=Just+Me+Again+Down+Here&family=Kolker+Brush&family=La+Belle+Aurore&family=Liu+Jian+Mao+Cao&family=Long+Can&family=Nanum+Brush+Script&family=Nothing+You+Could+Do&family=Oooh+Baby&family=Over+the+Rainbow&family=Permanent+Marker&family=Qwitcher+Grypen:wght@400;700&family=Reenie+Beanie&family=Rock+Salt&family=Ruthie&family=Sassy+Frass&family=Sedgwick+Ave&family=Shalimar&family=Smooch&family=Splash&family=Square+Peg&family=Swanky+and+Moo+Moo&family=Vujahday+Script&family=Waiting+for+the+Sunrise&family=Walter+Turncoat&family=Whisper&display=swap" rel="stylesheet">
-    <title>Turn Counter</title>
+    <script src="https://kit.fontawesome.com/d1a29cf881.js" crossorigin="anonymous"></script>
+    <title>Initiative Touch</title>
     <style>
         :root {
             --body-color: #bbb;
@@ -21,25 +22,12 @@
             --button-border-color: rgba(255,255,255,0.1); /*rgba(0,0,0,0.7)*/
             --button-outline-focus: rgba(255,100,0,0.5);
             --mic-color: #8c7f76;
+            --input-placeholder-color: #555;
         }
         body {
-            height: 101vh;
+            margin: 8px;
             background: black var(--body-bg-image) no-repeat;
             background-size: cover;
-        }
-        .main {
-            display: flex;
-            flex-flow: column;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            margin: 0 auto;
-            padding: 5vw;
-            border: 1px solid var(--div-border-color);
-            width: 90vw;
-            max-width: 500px;
-            background: #222 var(--div-bg-image) repeat scroll left top;
-            color: #bbb;
         }
         button {
             margin: 5px;
@@ -59,63 +47,80 @@
         button:focus-visible {
             outline: 2px var(--button-outline-focus) solid;
         }
-        .gn{
+        /* header menu */
+        .header-menu {
+            display: flex;
+            justify-content: flex-end;
+            height: 50px;
+        }
+        /* Hide the default arrow of the select box */
+        .select-hamburger::-ms-expand {
+            display: none;
+        }
+
+        .select-hamburger {
+            /* Appearance: none will remove the default browser styles */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            text-indent: -9999rem; /* Large negative value */
+
+            /* Set background to Font Awesome hamburger (bars) icon */
+            background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path fill='black' d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'></path></svg>") no-repeat center center;
+            background-size: 25px;
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            outline: none;
+        }
+        /* To show a border on focus for accessibility */
+        .select-hamburger:focus {
+            border: 1px solid #aaa;
+            text-indent: initial; /* make text visible again. */
+        }
+        /* Main wrapper */
+        .main {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 5vw;
+            border: 1px solid var(--div-border-color);
+            width: 90vw;
+            height: calc(100vh - 66px);
+            max-width: 600px;
+            background: #222 var(--div-bg-image) repeat scroll left top;
+            color: #bbb;
+        }
+        /* microphone button */
+        #startDictation {
             position:relative;
-            margin: 32px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
             border-radius:50%;
-            width:10em;
-            height:10em;
+            font-size: 15vw;
+            width: 2em;
+            height: 2em;
+            color: var(--mic-color);
             background-color:var(--button-bg-color);
             cursor: pointer;
-            transition: background-color 0.15s, width 0.5s, height 0.5s;
+            transition: background-color 0.15s, width 0.5s, height 0.5s, font-size 0.5s;
         }
-        .gn:hover,
-        .gn:focus {
+        #startDictation:hover,
+        #startDictation:focus {
             background-color: var(--button-bg-color--hover);
         }
-        .gn:focus-visible {
+        #startDictation:focus-visible {
             outline: 2px var(--button-outline-focus) solid;
         }
-        .players-listed .gn {
-            width: 5em;
-            height: 5em;
-        }
-        .gn:before, .gn:after, .mc:before, .mc:after {
-            content:'';
-            position:absolute;
-            background-color:var(--mic-color);
-        }
-        .gn:after{
-            top:30%; left:43%;
-            height:15%; width:14%;
-            border-top-left-radius:50%;
-            border-top-right-radius:50%;
-        }
-        .gn:before{
-            top:40%; left:43%;
-            height:15%; width:14%;
-            border-bottom-left-radius:50%;
-            border-bottom-right-radius:50%;
-        }
-        .mc{
-            position:absolute;
-            top:50%; left:37%;
-            height:24%;
-            width: 26%;
-            font-size: 85%;
-            overflow:hidden;
-        }
-        .mc:before{
-            bottom:50%;
-            width:100%; height:100%;
-            box-sizing:border-box;
-            border-radius:50%;
-            border:0.5em solid var(--mic-color);
-            background:none;
-        }
-        .mc:after{
-            top:50%; left:40%;
-            width:20%; height:25%;
+        .players-listed #startDictation {
+            margin: 16px auto 0;
+            font-size: 5vw;
         }
         input.speech-input {
             display: block;
@@ -155,20 +160,36 @@
             }
         }
         input.speech-input:focus::placeholder {
-            color: #555;
+            color: var(--input-placeholder-color);
         }
         #entries {
+            display: none;
+            flex: 1;
+            padding-left: 0;
             font-size: 2rem;
             list-style: none;
-            padding-left: 0;
+            overflow: auto;
+        }
+        .players-listed #entries {
+            display: flex;
+            flex-flow: column;
         }
         #entries li {
             display: flex;
             justify-content: space-between;
             cursor: pointer;
         }
-        #entries span:last-of-type {
-            padding-left: 1em;
+        #entries .player-order {
+            margin-left: 1em;
+            width: 2em;
+            font-size: inherit;
+            color: var(--input-placeholder-color);
+        }
+        #entries .input-editable[type="number"] {
+            /* possible number input specific styles */
+        }
+        #startButton {
+            margin-top: auto;
         }
         .highlighted {
             background-color: rgba(255,150,0,0.3);
@@ -193,15 +214,19 @@
 <body class="">
 
     <div class="header-menu">
-        <select id="selectFont"></select>
+        <select id="selectFont" class="select-hamburger"></select>
     </div>
-    <p>Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
+    <p style="display:none;">Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
 
     <div class="main">
-        <div id="startDictation" class="gn" tabindex="0"><div class="mc"></div></div>
-        <div id="speechInputs">
-            <!-- will be populated dynamically -->
+        <form action="#" style="display:none;"><input id="testInput" type="text" placeholder="test input"/></form>
+        <!--<div id="startDictation" class="gn" tabindex="0"><div class="mc"></div></div>-->
+        <div id="startDictation">
+            <i class="fa-solid fa-microphone"></i>
         </div>
+        <form id="speechForm" action="">
+            <input id="speechInput" class="speech-input" type="text" placeholder="⇣Dictate with voice key, then press ↵"/>
+        </form>
         <h2 id="roundCounter" class="round-counter active-turn-ui">Round 1</h2>
         <ul id="entries">
             <!-- will be populated dynamically -->
@@ -212,6 +237,7 @@
         <button id="clearAll" class="clear-all" onclick="clearAll()">Clear All</button>
     </div>
 
+    <p id="eventlog" style="display: none; color: white;"></p>
     <script>
         let chosenFont;
         let players = [];
@@ -273,15 +299,15 @@
                 });
             });
             observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
+            // Usage
+            // document.body.onClassAdded('active-turn', function() {
+            //     console.log('active-turn was added');
+            // });
+            // document.body.onClassRemoved('active-turn', function() {
+            //     console.log('active-turn was removed');
+            // });
         };
 
-        // Usage
-        // document.body.onClassAdded('active-turn', function() {
-        //     console.log('active-turn was added');
-        // });
-        // document.body.onClassRemoved('active-turn', function() {
-        //     console.log('active-turn was removed');
-        // });
 
 
         window.onload = function() {
@@ -326,49 +352,68 @@
             document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1);
 
             document.getElementById('startDictation').addEventListener('click', function() {
-                // Create a new input element
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'speech-input'; // Set the class
-                input.placeholder = '⇣ Dictate with voice-to-text ⇣'
-
-                // Append to the speechInputs div
-                document.getElementById('speechInputs').appendChild(input);
-
-                // Focus the input
-                input.focus();
+                // SYMBOLS: ⇣ ↵
+                document.getElementById('speechInput').focus()
             });
 
-            let lastEntryWasKeyboard = false;
-            // Event delegation: Attach listeners to the speechInputs container and delegate to children
-            document.getElementById('speechInputs').addEventListener('focus', function(e) {
-                if (e.target && e.target.classList.contains('speech-input')) {
-                    console.log(e.type)
-                    this.select()
-                }
+
+            // SPEECH INPUT HANDLING ==========================================
+
+
+            // // Example event delegation: Attach listeners to the speechInputs container and delegate to children
+            // document.getElementById('speechInputs').addEventListener('focus', function(e) {
+            //     if (e.target && e.target.classList.contains('speech-input')) {
+            //         console.log(e.type)
+            //         document.getElementById('eventlog').textContent = e.type;
+            //     }
+            // })
+
+            // let lastEntryWasKeyboard = false;
+
+            document.getElementById('speechInput').addEventListener('focus', function(e) {
+                logEvent(e)
+                // this.select()
             })
-            document.getElementById('speechInputs').addEventListener('input', function(e) {
-                if (e.target && e.target.classList.contains('speech-input')) {
-                    console.log(e.type)
-                    if (!lastEntryWasKeyboard) {
-                        parseAndAddEntries()
-                        setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
-                    } else {
-                        lastEntryWasKeyboard = false
-                    }
-                }
+            document.getElementById('speechInput').addEventListener('focusout', function(e) {
+                logEvent(e)
+                // if (!lastEntryWasKeyboard) {
+                //     parseAndAddEntries()
+                //     setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
+                // } else {
+                //     lastEntryWasKeyboard = false
+                // }
+                parseAndAddEntries()
             })
-            document.getElementById('speechInputs').addEventListener('keydown', function(e) {
-                if (e.target && e.target.classList.contains('speech-input')) {
-                    console.log(e.type)
-                    if (e.key === 'Enter') {
-                        parseAndAddEntries()
-                        setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
-                    } else {
-                        lastEntryWasKeyboard = true
-                    }
-                }
+
+            // Submit handler
+            document.getElementById("speechForm").parentElement.addEventListener('submit', function(e) {
+                e.preventDefault()
+                logEvent(e)
+                parseAndAddEntries()
+                setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
             })
+
+            const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit'];
+            events.forEach(function(event) {
+                document.getElementById("testInput").addEventListener(event, function(e) {
+                    logEvent(e)
+                })
+            })
+
+            function logEvent (e) {
+                console.log(e.type)
+                document.getElementById('eventlog').innerHTML += ('<br/>' + e.type + (e.type == 'keydown' ? ' '+e.which : ''))
+            }
+
+            // document.getElementById('speechInput').addEventListener('keydown', function(e) {
+            //     console.log(e.type)
+            //     if (e.key === 'Enter') {
+            //         parseAndAddEntries()
+            //         setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
+            //     // } else {
+            //     //     lastEntryWasKeyboard = true
+            //     }
+            // })
 
             document.body.onClassAdded('active-turn', function() {
                 console.log('active-turn was added');
@@ -410,10 +455,10 @@
 
         function parseAndAddEntries() {
             // Get all input elements with the class 'speech-input'
-            const inputs = document.querySelectorAll('.speech-input');
+            const prompts = document.querySelectorAll('.speech-input');
             
             // Map over each input to get its value and join them with spaces
-            const joinedInput = Array.from(inputs).map(input => input.value).join(' ') + ' ';
+            const joinedInput = Array.from(prompts).map(prompt => prompt.value).join(' ') + ' ';
 
             let convertedInput = processInput(joinedInput, numberMap);
 
@@ -452,7 +497,7 @@
             input = input.replace(/[.,!?;:()]/g, '');
 
             // Replace the roll/role variations with the symbol "@"
-            input = input.replace(/ (rolled|roll|role)( a| an| and)? /g, ' @ ');
+            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road)( a| an| and| of| on)? /g, ' @ ');
             console.log(input);
 
             // Handle negative numbers in word format adjacent to "@"
@@ -573,6 +618,7 @@
             renderPlayers();
             document.body.classList.remove('active-turn');
             document.body.classList.remove('players-listed');
+            document.getElementById('speechInput').value = '';
 
             // Clearing cookies
             document.cookie = "players=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -589,15 +635,25 @@
                 const li = document.createElement('li');
                 
                 const nameSpan = document.createElement('span');
+                nameSpan.className = 'player-name';
+                nameSpan.setAttribute('tabindex', '0');
                 nameSpan.textContent = entry.name;
                 nameSpan.onclick = function() {
-                    makeEditable(nameSpan, entry, 'name');
+                    makeEditable(nameSpan, entry, 'name', 'text');
+                };
+                nameSpan.onfocus = function() {
+                    makeEditable(nameSpan, entry, 'name', 'text');
                 };
                 
-                const orderSpan = document.createElement('span');
-                orderSpan.textContent = `${entry.order}`;
+                const orderSpan = document.createElement('span')
+                orderSpan.textContent = `${entry.order}`
+                orderSpan.className = 'player-order';
+                orderSpan.setAttribute('tabindex', '0')
+                orderSpan.onfocus = function() {
+                    makeEditable(orderSpan, entry, 'order', 'number')
+                };
                 orderSpan.onclick = function() {
-                    makeEditable(orderSpan, entry, 'order', 'number');
+                    makeEditable(orderSpan, entry, 'order', 'number')
                 };
                 
                 li.appendChild(nameSpan);
@@ -610,6 +666,7 @@
 
         function makeEditable(element, entry, field, type) {
             const input = document.createElement('input')
+            input.className = 'input-editable player-order';
             input.type = type
             if (type == 'number') {
                 input.setAttribute("pattern", "[0-9]*")
@@ -657,10 +714,12 @@
             if (parts.length == 2) return parts.pop().split(";").shift();
         }
     </script>
-    <!-- TODOs -->
     <!--
-        1. add other commands to the dicatation input
-        2. move buttons around
+        TODOs
+        1. if the parser doesn't detect any player entries from the input string, then do not go into "players-listed" mode.
+        2. add other commands to the dicatation input
+        3. save the previous 'speechInput values somewhere in a class="speech-input" hidden input or div. maybe remove portions of the string that didn't parse into entries. (might require a rework of the whole parsing system though, like splitting everything by ' ' and then manipulating a big ol array.)
+        4. make subsequent dictations (or "prompts") add more players to the list, instead of replacing. But clear the 'speechInput' field
     -->
 </body>
 </html>
