@@ -12,22 +12,62 @@
     <style>
         :root {
             --body-color: #bbb;
-            --body-bg-image: url(https://foundryvtt.com/static/assets/layout/home-background.webp);
-            --div-bg-image: url(data:image/png;base64,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);
-            --div-border-color: darkred;
+            --body-bg-images: url('https://baldursgate3.game/png/menu-shadow-right-mobile.png'), url('https://baldursgate3.game/png/menu-shadow-left-mobile.png'), url(https://baldursgate3.game/masks/smoke.jpg); /*url(https://foundryvtt.com/static/assets/layout/home-background.webp);*/
+            --body-bg-image-positions: top right, top left, center;
+            --body-bg-image-sizes: auto, auto, cover;
+            --main-text-color: #cba;
+            --main-text-color-alt: #a98;
+            --div-bg-color: transparent; /*#222;*/
+            --div-bg-image: url('icon/slate-bg.png');
+            --div-bg-image-2: url(data:image/png;base64,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);
+            --main-bg-image-mask: url('icon/bottom-splotch-mask.png');
+            --div-border-color: black;
+            --playerlist-bg-img: none; /*url('icon/brown-parchment.jpg');*/ /*url('https://baldursgate3.game/masks/box-background.jpg');*/ /*url('https://baldursgate3.game/masks/box-background.jpg');*/
+            --playerlist-shadow: none; /*0 0 30px 0px rgba(150,120,100,0.4);*/
             --button-font: 'East Sea Dokdo';
             --button-text-color: rgba(255,255,255,0.4);
-            --button-bg-color: rgba(255,100,0,0.15);
-            --button-bg-color--hover: rgba(200,40,0,0.2);
+            --button-bg-color: rgb(99 53 22 / 85%); /*rgba(255,100,0,0.15);*/
+            --button-bg-color--hover: rgb(110 58 21 / 85%); /*rgba(200,40,0,0.2);*/
             --button-border-color: rgba(255,255,255,0.1); /*rgba(0,0,0,0.7)*/
             --button-outline-focus: rgba(255,100,0,0.5);
             --mic-color: #8c7f76;
             --input-placeholder-color: #555;
+            --highlighted-color: rgba(255,200,120,0.25);
+            --highlighted-text-color: #edc;
+        }
+
+        /* Downloaded fonts */
+        @font-face { font-family: "Baron Kuffner"; font-style: normal; font-weight: 400; src: local("Baron Kuffner"), url("../fonts/downloaded/Baron Kuffner.otf") format("opentype"); }
+        @font-face { font-family: "Broken Crush"; font-style: normal; font-weight: 400; src: local("Broken Crush"), url("../fonts/downloaded/Broken Crush.otf") format("opentype"); }
+        @font-face { font-family: "Creatinin-pro"; font-style: normal; font-weight: 400; src: local("Creatinin-pro"), url("../fonts/downloaded/creatinin-pro.otf") format("opentype"); }
+        @font-face { font-family: "Do You Want To Be My Inverted Interrobang"; font-style: normal; font-weight: 400; src: local("Do You Want To Be My Inverted Interrobang"), url("../fonts/downloaded/Do you want to be my Inverted Interrobang.otf") format("opentype"); }
+        @font-face { font-family: "Dracufrankenwolfbb"; font-style: normal; font-weight: 400; src: local("Dracufrankenwolfbb"), url("../fonts/downloaded/DracuFrankenWolfBB.otf") format("opentype"); }
+        @font-face { font-family: "Eordeoghlakat"; font-style: normal; font-weight: 400; src: local("Eordeoghlakat"), url("../fonts/downloaded/Eordeoghlakat.ttf") format("truetype"); }
+        @font-face { font-family: "Fibyngerowa"; font-style: normal; font-weight: 400; src: local("Fibyngerowa"), url("../fonts/downloaded/Fibyngerowa.otf") format("opentype"); }
+        @font-face { font-family: "Grenhil"; font-style: normal; font-weight: 400; src: local("Grenhil"), url("../fonts/downloaded/Grenhil.otf") format("opentype"); }
+        @font-face { font-family: "Ickyticketmono"; font-style: normal; font-weight: 400; src: local("Ickyticketmono"), url("../fonts/downloaded/IckyTicketMono.ttf") format("truetype"); }
+        @font-face { font-family: "Kgbythegraceofgod"; font-style: normal; font-weight: 400; src: local("Kgbythegraceofgod"), url("../fonts/downloaded/KGBytheGraceofGod.ttf") format("truetype"); }
+        @font-face { font-family: "Lincons"; font-style: normal; font-weight: 400; src: local("Lincons"), url("../fonts/downloaded/LINCONS.otf") format("opentype"); }
+        @font-face { font-family: "Lugosi"; font-style: normal; font-weight: 400; src: local("Lugosi"), url("../fonts/downloaded/Lugosi.ttf") format("truetype"); }
+        @font-face { font-family: "Malinsha Rough"; font-style: normal; font-weight: 400; src: local("Malinsha Rough"), url("../fonts/downloaded/Malinsha Rough.otf") format("opentype"); }
+        @font-face { font-family: "Mystic Forest"; font-style: normal; font-weight: 400; src: local("Mystic Forest"), url("../fonts/downloaded/Mystic Forest.otf") format("opentype"); }
+        @font-face { font-family: "Raventame"; font-style: normal; font-weight: 400; src: local("Raventame"), url("../fonts/downloaded/Raventame.otf") format("opentype"); }
+        @font-face { font-family: "Unionagrochem"; font-style: normal; font-weight: 400; src: local("Unionagrochem"), url("../fonts/downloaded/unionagrochem.ttf") format("truetype"); }
+        @font-face { font-family: "Vtks Distress"; font-style: normal; font-weight: 400; src: local("Vtks Distress"), url("../fonts/downloaded/vtks distress.ttf") format("truetype"); }
+
+
+        html {
+            height: 100%;
+            height: -moz-available;          /* WebKit-based browsers will ignore this. */
+            height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+            height: fill-available;
         }
         body {
             margin: 8px;
-            background: black var(--body-bg-image) no-repeat;
-            background-size: cover;
+            background: black  no-repeat;
+            background-image: var(--body-bg-images);
+            background-position: var(--body-bg-image-positions);
+            background-size: var(--body-bg-image-sizes);
         }
         button {
             margin: 5px;
@@ -47,14 +87,13 @@
         button:focus-visible {
             outline: 2px var(--button-outline-focus) solid;
         }
-        /* header menu */
         .header-menu {
             display: flex;
             justify-content: flex-end;
             height: 50px;
         }
-        /* Hide the default arrow of the select box */
         .select-hamburger::-ms-expand {
+            /* Hide the default arrow of the select box */
             display: none;
         }
 
@@ -74,11 +113,11 @@
             cursor: pointer;
             outline: none;
         }
-        /* To show a border on focus for accessibility */
         .select-hamburger:focus {
-            border: 1px solid #aaa;
+            border: 1px solid #aaa; /* To show a border on focus for accessibility */
             text-indent: initial; /* make text visible again. */
         }
+
         /* Main wrapper */
         .main {
             display: flex;
@@ -87,17 +126,29 @@
             align-items: center;
             box-sizing: border-box;
             margin: 0 auto;
-            padding: 5vw;
-            border: 1px solid var(--div-border-color);
+            padding: 32px 5vw 250px;
+            /* border: 1px solid var(--div-border-color);
+            box-shadow: 0px 0px 32px black; */
+            background: var(--div-bg-color) var(--div-bg-image) no-repeat scroll left top;
+            background-size: cover;
+            -webkit-mask-image: var(--main-bg-image-mask); /* For Safari */
+            mask-image: var(--main-bg-image-mask);
+            -webkit-mask-size: cover;
+            mask-size: cover;
+            -webkit-mask-position: bottom;
+            mask-position: bottom;
             width: 90vw;
-            height: calc(100vh - 66px);
+            height: 100%;
+            height: -moz-available;          /* WebKit-based browsers will ignore this. */
+            height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+            height: fill-available;
+
             max-width: 600px;
-            background: #222 var(--div-bg-image) repeat scroll left top;
-            color: #bbb;
+            color: var(--main-text-color);
         }
         /* microphone button */
         #startDictation {
-            position:relative;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,6 +161,32 @@
             background-color:var(--button-bg-color);
             cursor: pointer;
             transition: background-color 0.15s, width 0.5s, height 0.5s, font-size 0.5s;
+        }
+
+        /* Pseudo-element for the hover effect */
+        #startDictation::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border-radius: 50%;
+            width: 0;
+            aspect-ratio: 1;
+            background: radial-gradient(white, rgb(0 66 152));
+            box-shadow: 0 0 15px -3px rgba(255,255,255,1);
+            transform: translate(-50%, -50%);
+            transition: width 0.2s;
+            z-index: -1;
+        }
+
+        #startDictation:active::before {
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            #startDictation {
+                font-size: 115px;
+            }
         }
         #startDictation:hover,
         #startDictation:focus {
@@ -162,10 +239,38 @@
         input.speech-input:focus::placeholder {
             color: var(--input-placeholder-color);
         }
+        .players {
+            border-radius: 30px;
+            padding: 60px 25px 25px;
+            min-width: 340px;
+            background-image: var(--playerlist-bg-img), var(--playerlist-bg-img);
+            background-size: cover, cover;
+            background-blend-mode: darken, darken;
+            background-position: top, bottom;
+            box-shadow: var(--playerlist-shadow);
+        }
+        .round-counter {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .round-tally {
+            width: 80px;
+            height: 53px;
+            background: transparent no-repeat center;
+            background-size: contain;
+            opacity: 0.65;
+        }
+        .round-tally[data-marks="1"] { background-image: url(icon/tally-marks-1.png); }
+        .round-tally[data-marks="2"] { background-image: url(icon/tally-marks-2.png); }
+        .round-tally[data-marks="3"] { background-image: url(icon/tally-marks-3.png); }
+        .round-tally[data-marks="4"] { background-image: url(icon/tally-marks-4.png); }
+        .round-tally[data-marks="5"] { background-image: url(icon/tally-marks-5.png); }
         #entries {
             display: none;
             flex: 1;
-            padding-left: 0;
+            margin: 0;
+            padding: 20px;
             font-size: 2rem;
             list-style: none;
             overflow: auto;
@@ -179,20 +284,35 @@
             justify-content: space-between;
             cursor: pointer;
         }
-        #entries .player-order {
-            margin-left: 1em;
-            width: 2em;
-            font-size: inherit;
-            color: var(--input-placeholder-color);
+        #entries li span {
+            margin: 0 0.5em;
+            min-width: 2em;
+            text-align: center;
         }
-        #entries .input-editable[type="number"] {
-            /* possible number input specific styles */
+        #entries .highlighted .player-name {
+            color: var(--highlighted-text-color);
+        }
+        #entries .player-order {
+            /* margin-left: 1em; */
+            font-size: inherit;
+            color: var(--main-text-color-alt);
         }
         #startButton {
             margin-top: auto;
         }
         .highlighted {
-            background-color: rgba(255,150,0,0.3);
+            position: relative;
+        }
+        .highlighted:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            display: block;
+            border-radius: 15px;
+            height: 0px;
+            width: 80%;
+            box-shadow: 0 0 20px 22px var(--highlighted-color);
         }
         .hide {
             display: none;
@@ -208,7 +328,8 @@
         }
 
         /* Font handling */
-        .font-architects-daughter { font-family: 'Architects Daughter', cursive; } .font-babylonica { font-family: 'Babylonica', cursive; } .font-bilbo-swash-caps { font-family: 'Bilbo Swash Caps', cursive; } .font-caveat { font-family: 'Caveat', cursive; } .font-comforter { font-family: 'Comforter', cursive; } .font-condiment { font-family: 'Condiment', cursive; } .font-dawning-of-a-new-day { font-family: 'Dawning of a New Day', cursive; } .font-east-sea-dokdo { font-family: 'East Sea Dokdo', cursive; } .font-fuggles { font-family: 'Fuggles', cursive; } .font-grape-nuts { font-family: 'Grape Nuts', cursive; } .font-homemade-apple { font-family: 'Homemade Apple', cursive; } .font-inspiration { font-family: 'Inspiration', cursive; } .font-julee { font-family: 'Julee', cursive; } .font-just-me-again-down-here { font-family: 'Just Me Again Down Here', cursive; } .font-kolker-brush { font-family: 'Kolker Brush', cursive; } .font-la-belle-aurore { font-family: 'La Belle Aurore', cursive; } .font-liu-jian-mao-cao { font-family: 'Liu Jian Mao Cao', cursive; } .font-long-cang { font-family: 'Long Cang', cursive; } .font-nanum-brush-script { font-family: 'Nanum Brush Script', cursive; } .font-nothing-you-could-do { font-family: 'Nothing You Could Do', cursive; } .font-oooh-baby { font-family: 'Oooh Baby', cursive; } .font-over-the-rainbow { font-family: 'Over the Rainbow', cursive; } .font-permanent-marker { font-family: 'Permanent Marker', cursive; } .font-qwitcher-grypen { font-family: 'Qwitcher Grypen', cursive; } .font-reenie-beanie { font-family: 'Reenie Beanie', cursive; } .font-rock-salt { font-family: 'Rock Salt', cursive; } .font-ruthie { font-family: 'Ruthie', cursive; } .font-sassy-frass { font-family: 'Sassy Frass', cursive; } .font-sedgwick-ave { font-family: 'Sedgwick Ave', cursive; } .font-shalimar { font-family: 'Shalimar', cursive; } .font-smooch { font-family: 'Smooch', cursive; } .font-splash { font-family: 'Splash', cursive; } .font-square-peg { font-family: 'Square Peg', cursive; } .font-swanky-and-moo-moo { font-family: 'Swanky and Moo Moo', cursive; } .font-vujahday-script { font-family: 'Vujahday Script', cursive; } .font-waiting-for-the-sunrise { font-family: 'Waiting for the Sunrise', cursive; } .font-walter-turncoat { font-family: 'Walter Turncoat', cursive; } .font-whisper { font-family: 'Whisper', cursive; }
+        .font-baron-kuffner { font-family: "Baron Kuffner", sans-serif; } .font-broken-crush { font-family: "Broken Crush", sans-serif; } .font-creatinin-pro { font-family: "Creatinin-pro", sans-serif; } .font-do-you-want-to-be-my-inverted-interrobang { font-family: "Do You Want To Be My Inverted Interrobang", sans-serif; } .font-dracufrankenwolfbb { font-family: "Dracufrankenwolfbb", sans-serif; } .font-eordeoghlakat { font-family: "Eordeoghlakat", sans-serif; } .font-fibyngerowa { font-family: "Fibyngerowa", sans-serif; } .font-grenhil { font-family: "Grenhil", sans-serif; } .font-ickyticketmono { font-family: "Ickyticketmono", sans-serif; } .font-kgbythegraceofgod { font-family: "Kgbythegraceofgod", sans-serif; } .font-lincons { font-family: "Lincons", sans-serif; } .font-lugosi { font-family: "Lugosi", sans-serif; } .font-malinsha-rough { font-family: 
+"Malinsha Rough", sans-serif; } .font-mystic-forest { font-family: "Mystic Forest", sans-serif; } .font-raventame { font-family: "Raventame", sans-serif; } .font-unionagrochem { font-family: "Unionagrochem", sans-serif; } .font-vtks-distress { font-family: "Vtks Distress", sans-serif; } .font-architects-daughter { font-family: 'Architects Daughter', cursive; } .font-babylonica { font-family: 'Babylonica', cursive; } .font-bilbo-swash-caps { font-family: 'Bilbo Swash Caps', cursive; } .font-caveat { font-family: 'Caveat', cursive; } .font-comforter { font-family: 'Comforter', cursive; } .font-condiment { font-family: 'Condiment', cursive; } .font-dawning-of-a-new-day { font-family: 'Dawning of a New Day', cursive; } .font-east-sea-dokdo { font-family: 'East Sea Dokdo', cursive; } .font-fuggles { font-family: 'Fuggles', cursive; } .font-grape-nuts { font-family: 'Grape Nuts', cursive; } .font-homemade-apple { font-family: 'Homemade Apple', cursive; } .font-inspiration { font-family: 'Inspiration', cursive; } .font-julee { font-family: 'Julee', cursive; } .font-just-me-again-down-here { font-family: 'Just Me Again Down Here', cursive; } .font-kolker-brush { font-family: 'Kolker Brush', cursive; } .font-la-belle-aurore { font-family: 'La Belle Aurore', cursive; } .font-liu-jian-mao-cao { font-family: 'Liu Jian Mao Cao', cursive; } .font-long-cang { font-family: 'Long Cang', cursive; } .font-nanum-brush-script { font-family: 'Nanum Brush Script', cursive; } .font-nothing-you-could-do { font-family: 'Nothing You Could Do', cursive; } .font-oooh-baby { font-family: 'Oooh Baby', cursive; } .font-over-the-rainbow { font-family: 'Over the Rainbow', cursive; } .font-permanent-marker { font-family: 'Permanent Marker', cursive; } .font-qwitcher-grypen { font-family: 'Qwitcher Grypen', cursive; } .font-reenie-beanie { font-family: 'Reenie Beanie', cursive; } .font-rock-salt { font-family: 'Rock Salt', cursive; } .font-ruthie { font-family: 'Ruthie', cursive; } .font-sassy-frass { font-family: 'Sassy Frass', cursive; } .font-sedgwick-ave { font-family: 'Sedgwick Ave', cursive; } .font-shalimar { font-family: 'Shalimar', cursive; } .font-smooch { font-family: 'Smooch', cursive; } .font-splash { font-family: 'Splash', cursive; } .font-square-peg { font-family: 'Square Peg', cursive; } .font-swanky-and-moo-moo { font-family: 'Swanky and Moo Moo', cursive; } .font-vujahday-script { font-family: 'Vujahday Script', cursive; } .font-waiting-for-the-sunrise { font-family: 'Waiting for the Sunrise', cursive; } .font-walter-turncoat { font-family: 'Walter Turncoat', cursive; } .font-whisper { font-family: 'Whisper', cursive; }
 </style>
 </head>
 <body class="">
@@ -216,6 +337,11 @@
     <div class="header-menu">
         <select id="selectFont" class="select-hamburger"></select>
     </div>
+    <button id="startSpeech"><i class="fa-solid fa-microphone"></i></button>
+    <button id="stopSpeech"><i class="fa-solid fa-circle-xmark"></i></button>
+    </div>
+    <p id="interimWords" style="color: white;"></p>
+    <p id="eventlog" style="color: white;"></p>
     <p style="display:none;">Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
 
     <div class="main">
@@ -227,22 +353,24 @@
         <form id="speechForm" action="">
             <input id="speechInput" class="speech-input" type="text" placeholder="⇣Dictate with voice key, then press ↵"/>
         </form>
-        <h2 id="roundCounter" class="round-counter active-turn-ui">Round 1</h2>
-        <ul id="entries">
-            <!-- will be populated dynamically -->
-        </ul>
+        <div class="players players-listed-ui">
+            <div id="roundCounter" class="round-counter">
+                <!-- will be populated dynamically with: <div class="round-tally" data-marks="0"></div> -->
+            </div>
+            <ul id="entries">
+                <!-- will be populated dynamically -->
+            </ul>
+        </div>
         <button id="prevTurn" class="previous-turn active-turn-ui" onclick="goBackOneTurn()">Previous Turn</button>
         <button id="nextTurn" class="advance-turn active-turn-ui" onclick="advanceTurn()">Advance Turn</button>
         <button id="startButton" class="no-active-turn-ui players-listed-ui" onclick="startTurnCounter()">Start</button>
         <button id="clearAll" class="clear-all" onclick="clearAll()">Clear All</button>
     </div>
-
-    <p id="eventlog" style="display: none; color: white;"></p>
     <script>
         let chosenFont;
-        let players = [];
-        let currentTurn = 0;
-        let currentRound = 1;
+        let players = []
+        let currentTurn = 0
+        let currentRound = 1
         const numberMap = {
             'zero': 0,
             'one': 1, 'won': 1,
@@ -269,21 +397,21 @@
             'twenty-four': 24, 'twenty-five': 25, 'twenty-six': 26,
             'twenty-seven': 27, 'twenty-eight': 28, 'twenty-nine': 29,
             'thirty': 30, 'thirty-one': 31, 'thirty-two': 32
-        };
+        }
 
         Element.prototype.onClassAdded = function(className, callback) {
             const observer = new MutationObserver(mutations => {
                 mutations.forEach(mutation => {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                        const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : [];
+                        const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : []
                         const newClassList = this.className.split(/\s+/);
                         if (newClassList.includes(className) && !oldClassList.includes(className)) {
-                            callback();
+                            callback()
                         }
                     }
                 });
             });
-            observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
+            observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] })
         };
 
         Element.prototype.onClassRemoved = function(className, callback) {
@@ -291,20 +419,20 @@
                 mutations.forEach(mutation => {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                         const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : [];
-                        const newClassList = this.className.split(/\s+/);
+                        const newClassList = this.className.split(/\s+/)
                         if (!newClassList.includes(className) && oldClassList.includes(className)) {
-                            callback();
+                            callback()
                         }
                     }
                 });
             });
-            observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
+            observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] })
             // Usage
             // document.body.onClassAdded('active-turn', function() {
-            //     console.log('active-turn was added');
+            //     console.log('active-turn was added')
             // });
             // document.body.onClassRemoved('active-turn', function() {
-            //     console.log('active-turn was removed');
+            //     console.log('active-turn was removed')
             // });
         };
 
@@ -312,44 +440,48 @@
 
         window.onload = function() {
             chosenFont = getCookie('fontPreference') || 'font-nothing-you-could-do'
-            setCookie('fontPreference', chosenFont);
-            document.body.classList.add(chosenFont);
-            populateSelectWithFonts();
+            setCookie('fontPreference', chosenFont)
+            document.body.classList.add(chosenFont)
+            populateSelectWithFonts()
             document.querySelector('#selectFont').addEventListener('change', function(event) {
-                const selectedClass = event.target.value;
-                // First, remove any existing font class from the body
-                document.body.classList.remove(...document.body.classList);
+                const selectedClass = event.target.value
+                // First, remove any existing font- class from the body
+                Array.from(document.body.classList).forEach(className => className.startsWith('font-') && document.body.classList.remove(className))
                 // Then, add the new selected class
-                document.body.classList.add(selectedClass);
+                document.body.classList.add(selectedClass)
                 // Remember the setting
-                setCookie('fontPreference', selectedClass);
+                setCookie('fontPreference', selectedClass)
             })
 
             // Recall player entries saved to cookie
-            const savedEntries = getCookie('players');
+            const savedEntries = getCookie('players')
             if (savedEntries) {
-                players = JSON.parse(savedEntries);
-                renderPlayers();
+                players = JSON.parse(savedEntries)
+                renderPlayers()
             }
 
             // rehydrate the current turn, if it was recorded
-            const turnStarted = getCookie('turnStarted');
+            const turnStarted = getCookie('turnStarted')
             if (turnStarted) {
-                document.body.classList.add('active-turn');
+                document.body.classList.add('active-turn')
             }
-            const savedRound = getCookie('round');
+            const savedRound = getCookie('round')
             if (savedRound) {
-                currentRound = parseInt(savedRound, 10);
-                document.getElementById('roundCounter').textContent = 'Round ' + savedRound;
+                currentRound = parseInt(savedRound, 10)
+                // document.getElementById('roundCounter').textContent = 'Round ' + savedRound;
+                // Rehydrate the tally marks on page refresh
+                if (savedRound > 0) {
+                    updateTally(savedRound)
+                }
             }
-            const savedTurn = getCookie('turn');
+            const savedTurn = getCookie('turn')
             if (savedTurn) {
-                currentTurn = parseInt(savedTurn, 10);
-                highlightCurrentTurn();
+                currentTurn = parseInt(savedTurn, 10)
+                highlightCurrentTurn()
             }
             
             // set the state of the Previous buttton based on rehydrated round/turn state
-            document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1);
+            document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
 
             document.getElementById('startDictation').addEventListener('click', function() {
                 // SYMBOLS: ⇣ ↵
@@ -364,11 +496,11 @@
             // document.getElementById('speechInputs').addEventListener('focus', function(e) {
             //     if (e.target && e.target.classList.contains('speech-input')) {
             //         console.log(e.type)
-            //         document.getElementById('eventlog').textContent = e.type;
+            //         document.getElementById('eventlog').textContent = e.type
             //     }
             // })
 
-            // let lastEntryWasKeyboard = false;
+            // let lastEntryWasKeyboard = false
 
             document.getElementById('speechInput').addEventListener('focus', function(e) {
                 logEvent(e)
@@ -376,12 +508,6 @@
             })
             document.getElementById('speechInput').addEventListener('focusout', function(e) {
                 logEvent(e)
-                // if (!lastEntryWasKeyboard) {
-                //     parseAndAddEntries()
-                //     setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
-                // } else {
-                //     lastEntryWasKeyboard = false
-                // }
                 parseAndAddEntries()
             })
 
@@ -416,171 +542,172 @@
             // })
 
             document.body.onClassAdded('active-turn', function() {
-                console.log('active-turn was added');
-                document.getElementById('prevTurn').disabled = true;
-                document.getElementById('nextTurn').disabled = false;
-                document.getElementById('startButton').disabled = true;
+                console.log('active-turn was added')
+                document.getElementById('prevTurn').disabled = true
+                document.getElementById('nextTurn').disabled = false
+                document.getElementById('startButton').disabled = true
             });
 
             document.body.onClassRemoved('active-turn', function() {
-                console.log('active-turn was removed');
-                document.getElementById('prevTurn').disabled = true;
-                document.getElementById('nextTurn').disabled = true;
-                document.getElementById('startButton').disabled = false;
+                console.log('active-turn was removed')
+                document.getElementById('prevTurn').disabled = true
+                document.getElementById('nextTurn').disabled = true
+                document.getElementById('startButton').disabled = false
             });
         };
         function populateSelectWithFonts() {
             const fonts = [
-                'Architects Daughter', 'Babylonica', 'Bilbo Swash Caps', 'Caveat', 'Comforter', 
-                'Condiment', 'Dawning of a New Day', 'East Sea Dokdo', 'Fuggles',
-                'Grape Nuts', 'Homemade Apple', 'Inspiration', 'Julee', 'Just Me Again Down Here', 'Kolker Brush',
-                'La Belle Aurore', 'Liu Jian Mao Cao', 'Long Cang', 'Nanum Brush Script', 
-                'Nothing You Could Do', 'Oooh Baby', 'Over the Rainbow', 'Permanent Marker', 'Qwitcher Grypen', 'Reenie Beanie', 
-                'Rock Salt', 'Ruthie', 'Sassy Frass', 'Sedgwick Ave', 'Shalimar', 'Smooch', 'Splash', 'Square Peg',
-                'Swanky and Moo Moo', 'Vujahday Script', 'Waiting for the Sunrise', 'Walter Turncoat', 'Whisper'
-            ];
+                'Architects Daughter', 'Babylonica', 'Baron Kuffner', 'Bilbo Swash Caps', 'Broken Crush', 'Caveat', 'Comforter', 'Condiment',
+                'Creatinin-pro', 'Dawning of a New Day', 'Do You Want To Be My Inverted Interrobang', 'Dracufrankenwolfbb', 'East Sea Dokdo','Eordeoghlakat',
+                'Fibyngerowa', 'Fuggles', 'Grape Nuts', 'Grenhil', 'Homemade Apple', 'Ickyticketmono', 'Inspiration', 'Julee', 'Just Me Again Down Here',
+                'Kgbythegraceofgod', 'Kolker Brush', 'La Belle Aurore', 'Lincons', 'Liu Jian Mao Cao', 'Long Cang','Lugosi', 'Malinsha Rough', 'Mystic Forest',
+                'Nanum Brush Script', 'Nothing You Could Do', 'Oooh Baby', 'Over the Rainbow','Permanent Marker', 'Qwitcher Grypen', 'Raventame',
+                'Reenie Beanie', 'Rock Salt', 'Ruthie', 'Sassy Frass', 'Sedgwick Ave', 'Shalimar','Smooch', 'Splash', 'Square Peg', 'Swanky and Moo Moo',
+                'Unionagrochem', 'Vtks Distress', 'Vujahday Script', 'Waiting for the Sunrise', 'Walter Turncoat', 'Whisper'
+            ]
 
-            const selectElement = document.querySelector('#selectFont');
+            const selectElement = document.querySelector('#selectFont')
             fonts.forEach(font => {
-                const option = document.createElement('option');
-                const val = 'font-' + font.toLowerCase().replace(/\s+/g, '-'); // Convert font name to classname format
+                const option = document.createElement('option')
+                const val = 'font-' + font.toLowerCase().replace(/\s+/g, '-') // Convert font name to classname format
                 option.value = val;
                 if (val == chosenFont) {
                     option.selected = true
                 }
-                option.textContent = font;
-                selectElement.appendChild(option);
+                option.textContent = font
+                selectElement.appendChild(option)
             });
         }
 
         function parseAndAddEntries() {
             // Get all input elements with the class 'speech-input'
-            const prompts = document.querySelectorAll('.speech-input');
+            const prompts = document.querySelectorAll('.speech-input')
             
             // Map over each input to get its value and join them with spaces
-            const joinedInput = Array.from(prompts).map(prompt => prompt.value).join(' ') + ' ';
+            const joinedInput = Array.from(prompts).map(prompt => prompt.value).join(' ') + ' '
 
-            let convertedInput = processInput(joinedInput, numberMap);
+            let convertedInput = processInput(joinedInput, numberMap)
 
-            const regex = /([\w\s]+?)\s*?@ (-?\d+)/g;
-            let matches;
+            const regex = /([\w\s]+?)\s*?@ (-?\d+)/g
+            let matches
 
             players = [];
             while ((matches = regex.exec(convertedInput)) !== null) {
-                let name = matches[1].trim();
-                let orderString = matches[2];
+                let name = matches[1].trim()
+                let orderString = matches[2]
 
                 let order;
                 if (orderString && isNaN(orderString)) {
-                    order = numberMap[orderString.toLowerCase()] || NaN;
+                    order = numberMap[orderString.toLowerCase()] || NaN
                 } else if(orderString && !isNaN(orderString)) {
-                    order = parseInt(orderString, 10);
+                    order = parseInt(orderString, 10)
                 } else {
                     order = NaN;  // default to NaN if orderString is not defined
                 }
 
                 // Capitalize the name
-                name = name.split(" ").map(capitalize).join(" ");
-                players.push({ name: name, order: order });
+                name = name.split(" ").map(capitalize).join(" ")
+                players.push({ name: name, order: order })
             }
 
             // Sorting and rendering the players
-            players.sort((a, b) => b.order - a.order);
-            renderPlayers();
-            setCookie('players', JSON.stringify(players));
+            players.sort((a, b) => b.order - a.order)
+            renderPlayers()
+            setCookie('players', JSON.stringify(players))
         }
 
         function processInput(input, numberMap) {
-            console.log(input);
+            console.log(input)
 
             // Remove punctuation
-            input = input.replace(/[.,!?;:()]/g, '');
+            input = input.replace(/[.,!?;:()]/g, '')
 
             // Replace the roll/role variations with the symbol "@"
-            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road)( a| an| and| of| on)? /g, ' @ ');
-            console.log(input);
+            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road)( a| an| and| of| on)? /g, ' @ ')
+            console.log(input)
 
             // Handle negative numbers in word format adjacent to "@"
             const negativeWordPattern = /@ (?:negative|-) (\w+|\d+)/g;
             input = input.replace(negativeWordPattern, (match, wordOrNum) => {
                 if (numberMap[wordOrNum]) {
-                    return '@ -' + numberMap[wordOrNum];
+                    return '@ -' + numberMap[wordOrNum]
                 } else {
-                    return '@ -' + wordOrNum;
+                    return '@ -' + wordOrNum
                 }
             });
-            console.log(input);
+            console.log(input)
             
             // Handle negative numbers in digit format after "@"
             const negativePatternAfter = /@ negative (\d+)/g;
             input = input.replace(negativePatternAfter, (match, p1) => {
-                return '@ -' + p1;
+                return '@ -' + p1
             });
-            console.log(input);
+            console.log(input)
 
             // Handle hyphenated numbers adjacent to "rolled" 
             for (const [word, number] of Object.entries(numberMap)) {
-                if (!word.includes('-')) continue;
+                if (!word.includes('-')) continue
 
-                let patternBefore = new RegExp(`\\b${word}(?= @)`, 'g');
-                let patternAfter = new RegExp(`(?<=@ )${word}(?= )`, 'g');
-                let patternAfterA = new RegExp(`(?<=@ a )${word}\\b`, 'g');
-                let patternAfterAn = new RegExp(`(?<=@ an )${word}\\b`, 'g');
-                let patternAfterAnd = new RegExp(`(?<=@ and )${word}\\b`, 'g');
+                let patternBefore = new RegExp(`\\b${word}(?= @)`, 'g')
+                let patternAfter = new RegExp(`(?<=@ )${word}(?= )`, 'g')
+                let patternAfterA = new RegExp(`(?<=@ a )${word}\\b`, 'g')
+                let patternAfterAn = new RegExp(`(?<=@ an )${word}\\b`, 'g')
+                let patternAfterAnd = new RegExp(`(?<=@ and )${word}\\b`, 'g')
 
-                input = input.replace(patternBefore, `${number}`);
-                input = input.replace(patternAfter, `${number}`);
-                input = input.replace(patternAfterA, `${number}`);
-                input = input.replace(patternAfterAn, `${number}`);
-                input = input.replace(patternAfterAnd, `${number}`);
+                input = input.replace(patternBefore, `${number}`)
+                input = input.replace(patternAfter, `${number}`)
+                input = input.replace(patternAfterA, `${number}`)
+                input = input.replace(patternAfterAn, `${number}`)
+                input = input.replace(patternAfterAnd, `${number}`)
             }
             console.log(input);
 
             // Then handle non-hyphenated numbers adjacent to "rolled"
             for (const [word, number] of Object.entries(numberMap)) {
-                if (word.includes('-')) continue;
+                if (word.includes('-')) continue
 
-                let patternBefore = new RegExp(`\\b${word}(?= @)`, 'g');
-                let patternAfter = new RegExp(`(?<=@ )${word}(?= )`, 'g');
-                let patternAfterA = new RegExp(`(?<=@ a )${word}\\b`, 'g');
-                let patternAfterAn = new RegExp(`(?<=@ an )${word}\\b`, 'g');
-                let patternAfterAnd = new RegExp(`(?<=@ and )${word}\\b`, 'g');
+                let patternBefore = new RegExp(`\\b${word}(?= @)`, 'g')
+                let patternAfter = new RegExp(`(?<=@ )${word}(?= )`, 'g')
+                let patternAfterA = new RegExp(`(?<=@ a )${word}\\b`, 'g')
+                let patternAfterAn = new RegExp(`(?<=@ an )${word}\\b`, 'g')
+                let patternAfterAnd = new RegExp(`(?<=@ and )${word}\\b`, 'g')
 
-                input = input.replace(patternBefore, `${number}`);
-                input = input.replace(patternAfter, `${number}`);
-                input = input.replace(patternAfterA, `${number}`);
-                input = input.replace(patternAfterAn, `${number}`);
-                input = input.replace(patternAfterAnd, `${number}`);
+                input = input.replace(patternBefore, `${number}`)
+                input = input.replace(patternAfter, `${number}`)
+                input = input.replace(patternAfterA, `${number}`)
+                input = input.replace(patternAfterAn, `${number}`)
+                input = input.replace(patternAfterAnd, `${number}`)
             }
-            console.log(input);
+            console.log(input)
 
-            return input;
+            return input
         }
 
         function capitalize(word) {
-            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         }
 
         function startTurnCounter() {
-            highlightCurrentTurn();
-            document.body.classList.add('active-turn');
-            setCookie('turnStarted', 'true');
+            highlightCurrentTurn()
+            document.body.classList.add('active-turn')
+            setCookie('turnStarted', 'true')
         }
 
         function advanceTurn() {
-            currentTurn = (currentTurn + 1) % players.length;
-            setCookie('turn', currentTurn);
+            currentTurn = (currentTurn + 1) % players.length
+            setCookie('turn', currentTurn)
 
-            // If it wraps back to the first player
+            // Start a new round if it wraps back to the first player
             if (currentTurn == 0) {
-                currentRound++;
-                document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
-                setCookie('round', currentRound);
+                currentRound++
+                // document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
+                updateTally(currentRound)
+                setCookie('round', currentRound)
             }
             
-            highlightCurrentTurn();
+            highlightCurrentTurn()
 
-            document.getElementById('prevTurn').disabled = false;
+            document.getElementById('prevTurn').disabled = false
         }
 
         function goBackOneTurn() {
@@ -593,61 +720,91 @@
 
                 // Reset if we went back to "round 0"
                 if (currentRound == 0) {
-                    currentRound = 1;
-                    currentTurn = 0;
-                    turnStarted = false;
-                    setCookie('turnStarted', 'false');
+                    currentRound = 1
+                    currentTurn = 0
+                    turnStarted = false
+                    setCookie('turnStarted', 'false')
 
                 }
-                document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
+                // document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
+                updateTally(currentRound)
                 setCookie('round', currentRound)
             }
 
-            highlightCurrentTurn();
-            setCookie('turn', currentTurn);
+            highlightCurrentTurn()
+            setCookie('turn', currentTurn)
 
             if (currentRound == 1 && currentTurn == 0) {
-                document.getElementById('prevTurn').disabled = true;
+                document.getElementById('prevTurn').disabled = true
+            }
+        }
+
+        // Update the round counter tally marks
+        function updateTally(roundNumber) {
+            const roundCounter = document.getElementById('roundCounter')
+            let existingTallies = roundCounter.querySelectorAll('.round-tally')
+            
+            let requiredTallies = Math.ceil(roundNumber / 5)
+            let difference = requiredTallies - existingTallies.length
+
+            // Add required tally elements if they're less than needed
+            for (let i = 0; i < difference; i++) {
+                const element = document.createElement('div')
+                element.classList.add('round-tally')
+                roundCounter.appendChild(element)
+            }
+
+            // Remove extra tally elements if they're more than needed
+            for (let i = 0; i < -difference; i++) {
+                roundCounter.removeChild(roundCounter.lastChild)
+            }
+
+            // Update the data-marks attribute for all tally elements
+            existingTallies = roundCounter.querySelectorAll('.round-tally');  // fetch the tallies again after potential changes
+            for (let i = 0; i < existingTallies.length; i++) {
+                const marks = (i === existingTallies.length - 1) ? (roundNumber % 5 === 0 ? 5 : roundNumber % 5) : 5
+                existingTallies[i].setAttribute('data-marks', marks.toString())
             }
         }
 
         function clearAll() {
-            players = [];
-            currentTurn = 0;
-            currentRound = 1;
-            renderPlayers();
-            document.body.classList.remove('active-turn');
-            document.body.classList.remove('players-listed');
-            document.getElementById('speechInput').value = '';
+            players = []
+            currentTurn = 0
+            currentRound = 1
+            renderPlayers()
+            document.body.classList.remove('active-turn')
+            document.body.classList.remove('players-listed')
+            document.getElementById('speechInput').value = ''
+            document.getElementById('eventlog').textContent = ''
 
             // Clearing cookies
-            document.cookie = "players=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "turn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "round=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "turnStarted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "fontPreference=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "players=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "turn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "round=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "turnStarted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "fontPreference=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         }
 
         function renderPlayers() {
-            const list = document.getElementById('entries');
-            list.innerHTML = '';
+            const list = document.getElementById('entries')
+            list.innerHTML = ''
             for (let entry of players) {
-                const li = document.createElement('li');
+                const li = document.createElement('li')
                 
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'player-name';
-                nameSpan.setAttribute('tabindex', '0');
-                nameSpan.textContent = entry.name;
+                const nameSpan = document.createElement('span')
+                nameSpan.className = 'player-name'
+                nameSpan.setAttribute('tabindex', '0')
+                nameSpan.textContent = entry.name
                 nameSpan.onclick = function() {
-                    makeEditable(nameSpan, entry, 'name', 'text');
+                    makeEditable(nameSpan, entry, 'name', 'text')
                 };
                 nameSpan.onfocus = function() {
-                    makeEditable(nameSpan, entry, 'name', 'text');
+                    makeEditable(nameSpan, entry, 'name', 'text')
                 };
                 
                 const orderSpan = document.createElement('span')
                 orderSpan.textContent = `${entry.order}`
-                orderSpan.className = 'player-order';
+                orderSpan.className = 'player-order'
                 orderSpan.setAttribute('tabindex', '0')
                 orderSpan.onfocus = function() {
                     makeEditable(orderSpan, entry, 'order', 'number')
@@ -656,17 +813,17 @@
                     makeEditable(orderSpan, entry, 'order', 'number')
                 };
                 
-                li.appendChild(nameSpan);
-                li.appendChild(orderSpan);
-                list.appendChild(li);
+                li.appendChild(nameSpan)
+                li.appendChild(orderSpan)
+                list.appendChild(li)
             }
-            document.body.classList.add('players-listed');
+            document.body.classList.add('players-listed')
         }
 
 
         function makeEditable(element, entry, field, type) {
             const input = document.createElement('input')
-            input.className = 'input-editable player-order';
+            input.className = 'input-editable player-order'
             input.type = type
             if (type == 'number') {
                 input.setAttribute("pattern", "[0-9]*")
@@ -678,41 +835,122 @@
             // Handle "submit" when Enter key is pressed
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
-                    handleEdit();
+                    handleEdit()
                 }
             });
 
             // Handle "submit" when input loses focus
-            input.addEventListener('focusout', handleEdit);
+            input.addEventListener('focusout', handleEdit)
 
             function handleEdit() {
-                entry[field] = field === 'order' ? parseInt(input.value, 10) : input.value;
-                players.sort((a, b) => b.order - a.order); // Re-sorting on edit
-                renderPlayers();
-                setCookie('players', JSON.stringify(players));
+                entry[field] = field === 'order' ? parseInt(input.value, 10) : input.value
+                players.sort((a, b) => b.order - a.order) // Re-sorting on edit
+                renderPlayers()
+                setCookie('players', JSON.stringify(players))
             }
 
-            element.replaceWith(input);
-            input.select(); 
+            element.replaceWith(input)
+            input.select()
         }
 
         function highlightCurrentTurn() {
-            const listItems = document.querySelectorAll('#entries li');
-            listItems.forEach(li => li.classList.remove('highlighted'));
+            const listItems = document.querySelectorAll('#entries li')
+            listItems.forEach(li => li.classList.remove('highlighted'))
             if (listItems[currentTurn]) {
-                listItems[currentTurn].classList.add('highlighted');
+                listItems[currentTurn].classList.add('highlighted')
             }
         }
 
         function setCookie(name, value) {
-            document.cookie = `${name}=${value};path=/`;
+            document.cookie = `${name}=${value};path=/`
         }
 
         function getCookie(name) {
-            const value = "; " + document.cookie;
-            const parts = value.split("; " + name + "=");
-            if (parts.length == 2) return parts.pop().split(";").shift();
+            const value = "; " + document.cookie
+            const parts = value.split("; " + name + "=")
+            if (parts.length == 2) return parts.pop().split(";").shift()
         }
+
+        // Speech Recognition!
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+        var recognition = new SpeechRecognition()
+
+        // SPEECH API GRAMMER LIST ISN'T SUPPORTED IN CHROME... I GUESS?
+        // var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList;
+        // 
+        // Fetch the grammar words from a local file
+        // fetch('/spellcheck/monster-names.txt')
+        //   .then(response => response.text())
+        //   .then(text => {
+        //     var words = text.split('\n'); // Assuming words are separated by newlines
+        // 
+        //     if (SpeechGrammarList) {
+        //       var speechRecognitionList = new SpeechGrammarList();
+        //       var grammar = '#JSGF V1.0; grammar words; public <word> = ' + words.join(' | ') + ' ;';
+        //       speechRecognitionList.addFromString(grammar, 1);
+        //       recognition.grammars = speechRecognitionList;
+        //     }
+        //   })
+        //   .catch(error => {
+        //     console.error("Error fetching the grammar words:", error);
+        //   });
+
+        recognition.continuous = true
+        recognition.lang = 'en-US'
+        recognition.interimResults = true
+        recognition.maxAlternatives = 1
+
+        var interimOutput = document.getElementById('interimWords')
+        var finalOutput = document.getElementById('eventlog')
+
+        document.getElementById('startSpeech').onclick = function() {
+            recognition.start()
+            console.log('Ready to receive a word.')
+        }
+
+        let final_transcript = ''
+        
+        recognition.onresult = function(event) {
+
+            let interim_transcript = ''
+
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                // If the result item is Final, add it to Final Transcript, Else add it to Interim transcript
+                if (event.results[i].isFinal) {
+                    final_transcript += event.results[i][0].transcript
+                } else {
+                    interim_transcript += event.results[i][0].transcript
+                }
+                console.log('Confidence: ' + event.results[i][0].confidence)
+            }
+            
+            interimOutput.innerHTML  = interim_transcript
+            finalOutput.innerHTML = final_transcript
+            
+            console.log(event.results)
+
+            // const i = event.results.length - 1;
+            // const word = event.results[i][0].transcript;
+            // interimOutput.textContent = word;
+            // finalOutput.textContent += word;
+            // console.log(event.results);
+        }
+
+        // recognition.onspeechend = function() {
+        document.getElementById('stopSpeech').onclick = function() {
+            recognition.stop()
+        }
+
+        recognition.onnomatch = function(event) {
+            interimOutput.textContent = "I didn't recognize that word."
+            console.log(event)
+        }
+
+        recognition.onerror = function(event) {
+            interimOutput.textContent = 'Error occurred in recognition: ' + event.error
+            console.log(event)
+        }
+        
     </script>
     <!--
         TODOs
@@ -720,6 +958,7 @@
         2. add other commands to the dicatation input
         3. save the previous 'speechInput values somewhere in a class="speech-input" hidden input or div. maybe remove portions of the string that didn't parse into entries. (might require a rework of the whole parsing system though, like splitting everything by ' ' and then manipulating a big ol array.)
         4. make subsequent dictations (or "prompts") add more players to the list, instead of replacing. But clear the 'speechInput' field
+        5. consider using speech interpretor API
     -->
 </body>
 </html>
