@@ -579,11 +579,6 @@
         }
 
         function parseAndAddEntries() {
-            // // Get all input elements with the class 'speech-input'
-            // const prompts = document.querySelectorAll('.speech-input')
-            
-            // // Map over each input to get its value and join them with spaces
-            // const joinedInput = Array.from(prompts).map(prompt => prompt.value).join(' ') + ' '
 
             const joinedInput = allTranscripts.join(' ')
             let convertedInput = processInput(joinedInput, numberMap)
