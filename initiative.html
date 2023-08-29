@@ -28,12 +28,14 @@
             --button-text-color: rgba(255,255,255,0.4);
             --button-bg-color: rgb(99 53 22 / 85%); /*rgba(255,100,0,0.15);*/
             --button-bg-color--hover: rgb(110 58 21 / 85%); /*rgba(200,40,0,0.2);*/
-            --button-border-color: rgba(255,255,255,0.1); /*rgba(0,0,0,0.7)*/
+            --button-border-color: none; /*rgba(255,255,255,0.1);*/ /*rgba(0,0,0,0.7)*/
             --button-outline-focus: rgba(255,100,0,0.5);
             --mic-color: #8c7f76;
             --input-placeholder-color: #555;
             --highlighted-color: rgba(255,200,120,0.25);
             --highlighted-text-color: #edc;
+            --grungy-mask1: url('icon/grungy-mask3.png');
+            --grungy-mask2: url('icon/grungy-mask2.png');
         }
 
         /* Downloaded fonts */
@@ -71,12 +73,19 @@
         }
         button {
             margin: 5px;
+            padding: 0.1em 1.5em;
             border: 2px solid var(--button-border-color);
             border-radius: 10px;
             font-size: 1.5rem;
             font-family: var(--button-font);
             color: var(--button-text-color);
             background: var(--button-bg-color);
+            -webkit-mask-image: var(--grungy-mask1);
+            mask-image: var(--grungy-mask1);
+            -webkit-mask-size: cover;
+            mask-size: cover;
+            -webkit-mask-position: bottom;
+            mask-position: bottom;
             cursor: pointer;
             transition: background-color 0.15s;
         }
@@ -152,13 +161,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: auto;
+            margin: 1em auto;
             border-radius:50%;
             font-size: 15vw;
             width: 2em;
             height: 2em;
             color: var(--mic-color);
             background-color:var(--button-bg-color);
+            -webkit-mask-image: var(--grungy-mask1);
+            mask-image: var(--grungy-mask1);
+            -webkit-mask-size: cover;
+            mask-size: cover;
+            -webkit-mask-position: center;
+            mask-position: center;
             cursor: pointer;
             transition: background-color 0.15s, width 0.5s, height 0.5s, font-size 0.5s;
         }
@@ -196,7 +211,6 @@
             outline: 2px var(--button-outline-focus) solid;
         }
         .players-listed #startDictation {
-            margin: 16px auto 0;
             font-size: 5vw;
         }
         input.speech-input {
@@ -241,7 +255,7 @@
         }
         .players {
             border-radius: 30px;
-            padding: 60px 25px 25px;
+            padding: 0 25px 25px;
             min-width: 340px;
             background-image: var(--playerlist-bg-img), var(--playerlist-bg-img);
             background-size: cover, cover;
@@ -337,11 +351,11 @@
     <div class="header-menu">
         <select id="selectFont" class="select-hamburger"></select>
     </div>
-    <button id="startSpeech"><i class="fa-solid fa-microphone"></i></button>
-    <button id="stopSpeech"><i class="fa-solid fa-circle-xmark"></i></button>
+    <!-- <button id="startSpeech"><i class="fa-solid fa-microphone"></i></button>
+    <button id="stopSpeech"><i class="fa-solid fa-circle-xmark"></i></button> -->
     </div>
     <p id="interimWords" style="color: white;"></p>
-    <p id="eventlog" style="color: white;"></p>
+    <p id="eventlog" style="display: none; color: white;"></p>
     <p style="display:none;">Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
 
     <div class="main">
@@ -483,10 +497,23 @@
             // set the state of the Previous buttton based on rehydrated round/turn state
             document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
 
-            document.getElementById('startDictation').addEventListener('click', function() {
-                // SYMBOLS: ⇣ ↵
-                document.getElementById('speechInput').focus()
-            });
+            // document.getElementById('startDictation').addEventListener('click', function() {
+            //     // SYMBOLS: ⇣ ↵
+            //     document.getElementById('speechInput').focus()
+            // });
+
+            document.getElementById('startDictation').addEventListener('mousedown', function() {
+                handleMicPress()
+            })
+            document.getElementById('startDictation').addEventListener('touchstart', function() {
+                handleMicPress()
+            })
+            document.getElementById('startDictation').addEventListener('mouseup', function() {
+                handleMicRelease()
+            })
+            document.getElementById('startDictation').addEventListener('touchend', function() {
+                handleMicRelease()
+            })
 
 
             // SPEECH INPUT HANDLING ==========================================
@@ -623,7 +650,7 @@
             input = input.replace(/[.,!?;:()]/g, '')
 
             // Replace the roll/role variations with the symbol "@"
-            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road)( a| an| and| of| on)? /g, ' @ ')
+            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|world|whirled|whirl)( a| an| and| of| on)? /g, ' @ ')
             console.log(input)
 
             // Handle negative numbers in word format adjacent to "@"
@@ -872,6 +899,7 @@
         }
 
         // Speech Recognition!
+
         var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
         var recognition = new SpeechRecognition()
 
@@ -903,43 +931,55 @@
         var interimOutput = document.getElementById('interimWords')
         var finalOutput = document.getElementById('eventlog')
 
-        document.getElementById('startSpeech').onclick = function() {
-            recognition.start()
-            console.log('Ready to receive a word.')
-        }
+        // document.getElementById('startSpeech').onclick = function() {
+        //     recognition.start()
+        //     console.log('Ready to receive a word.')
+        // }
 
         let final_transcript = ''
-        
-        recognition.onresult = function(event) {
+        let speechHasEnded = false;
+        let pauseTimer = null // Initialize the pause timer variable
+        const PAUSE_THRESHOLD = 150 // Adjust this value to set the threshold for pauses (e.g., 1000ms or 1 second)
 
+        recognition.onresult = function(event) {
             let interim_transcript = ''
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
-                // If the result item is Final, add it to Final Transcript, Else add it to Interim transcript
                 if (event.results[i].isFinal) {
                     final_transcript += event.results[i][0].transcript
                 } else {
                     interim_transcript += event.results[i][0].transcript
+                    // Reset the pause timer whenever we receive interim results
+                    clearTimeout(pauseTimer)
+                    pauseTimer = setTimeout(() => {
+                        final_transcript += '...'
+                        finalOutput.innerHTML = final_transcript // Update the final transcript with the ...
+                    }, PAUSE_THRESHOLD)
                 }
                 console.log('Confidence: ' + event.results[i][0].confidence)
             }
-            
-            interimOutput.innerHTML  = interim_transcript
+
+            interimOutput.innerHTML = interim_transcript
             finalOutput.innerHTML = final_transcript
-            
+
             console.log(event.results)
 
-            // const i = event.results.length - 1;
-            // const word = event.results[i][0].transcript;
-            // interimOutput.textContent = word;
-            // finalOutput.textContent += word;
-            // console.log(event.results);
+            if (speechHasEnded == true) {
+                document.getElementById('speechInput').value = final_transcript
+                parseAndAddEntries()
+            }
+
+            // const i = event.results.length - 1
+            // const word = event.results[i][0].transcript
+            // interimOutput.textContent = word
+            // finalOutput.textContent += word
+            // console.log(event.results)
         }
 
-        // recognition.onspeechend = function() {
-        document.getElementById('stopSpeech').onclick = function() {
-            recognition.stop()
-        }
+        // document.getElementById('stopSpeech').onclick = function() {
+        //     recognition.stop()
+        //     clearTimeout(pauseTimer) // Clear the pause timer if speech stops
+        // }
 
         recognition.onnomatch = function(event) {
             interimOutput.textContent = "I didn't recognize that word."
@@ -950,7 +990,27 @@
             interimOutput.textContent = 'Error occurred in recognition: ' + event.error
             console.log(event)
         }
-        
+
+        recognition.onaudioend = function (event) {
+            console.log('audio end')
+        }
+        recognition.onspeechend = function (event) {
+            console.log('speech end')
+        }
+        recognition.onsoundend = function (event) {
+            console.log('sound end')
+        }
+
+        function handleMicPress() {
+            recognition.start()
+        }
+
+        function handleMicRelease() {
+            recognition.stop()
+            clearTimeout(pauseTimer) // Clear the pause timer if speech stops
+            speechHasEnded = true;
+        }
+
     </script>
     <!--
         TODOs
