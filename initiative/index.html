@@ -59,10 +59,10 @@
 
 
         html {
-            height: 100%;
-            height: -moz-available;          /* WebKit-based browsers will ignore this. */
-            height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-            height: fill-available;
+            min-height: 100%;
+            min-height: -moz-available;          /* WebKit-based browsers will ignore this. */
+            min-height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+            min-height: fill-available;
         }
         body {
             margin: 8px;
@@ -144,13 +144,13 @@
             mask-image: var(--main-bg-image-mask);
             -webkit-mask-size: cover;
             mask-size: cover;
-            -webkit-mask-position: bottom;
-            mask-position: bottom;
+            -webkit-mask-position: right bottom;
+            mask-position: right bottom;
             width: 90vw;
-            height: 100%;
-            height: -moz-available;          /* WebKit-based browsers will ignore this. */
-            height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-            height: fill-available;
+            min-height: 100%;
+            min-height: -moz-available;          /* WebKit-based browsers will ignore this. */
+            min-height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+            min-height: fill-available;
 
             max-width: 600px;
             color: var(--main-text-color);
@@ -165,7 +165,7 @@
             border-radius:50%;
             font-size: 15vw;
             width: 2em;
-            height: 2em;
+            min-height: 2em;
             color: var(--mic-color);
             background-color:var(--button-bg-color);
             -webkit-mask-image: var(--grungy-mask1);
@@ -175,7 +175,7 @@
             -webkit-mask-position: center;
             mask-position: center;
             cursor: pointer;
-            transition: background-color 0.15s, width 0.5s, height 0.5s, font-size 0.5s;
+            transition: background-color 0.15s, width 0.5s, min-height 0.5s, font-size 0.5s;
         }
 
         /* Pseudo-element for the hover effect */
@@ -982,8 +982,9 @@
     </script>
     <!--
         TODOs
+        0. Fix the bottom of the slate tablet so it shows the actual bottom edge if the div is tall enough, somehow.
         1. Fix Speech API parsing - parse times and 3+ digit numbers correctly. Ex: "3:15" or "124"
-        2. if the parser doesn't detect any player entries from the input string, then do not go into "players-listed" mode.
+        2. If the parser doesn't detect any player entries from the input string, then do not go into "players-listed" mode.
         3. Refactor prompt storage - do not aggregate all prompt strings to reprocess on subsequent prompts. instead, weave into existing players list. MUST HAVE for #4 and #5 below.
         4. Allow ability to manually remove a player.  on <li> hover: an X icon shows.  on swipe left, an X field slides in; player is removed on further swipe or X click.
         5. Add ability to manually add a player to the list manual (voice entry already works)
