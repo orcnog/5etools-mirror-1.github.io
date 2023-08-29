@@ -600,8 +600,8 @@
                     order = NaN;  // default to NaN if orderString is not defined
                 }
 
-                // Capitalize the name
-                name = name.split(" ").map(capitalize).join(" ")
+                // Remove leading "and ", then capitalize the names
+                name = name.replace(/^and /, '').split(" ").map(capitalize).join(" ")
                 players.push({ name: name, order: order })
             }
 
@@ -612,15 +612,17 @@
         }
 
         function processInput(input, numberMap) {
-            console.log(input)
+            console.log('Before processing: '+input)
 
             // Remove punctuation
             input = input.replace(/[.,!?;:()]/g, '').toLowerCase();
 
-            // Replace the roll/role variations with the symbol "@"
-            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|world|whirled|whirl)( a| an| and| of| on)? /g, ' @ ')
-            console.log(input)
+            // Add a space to the end
+            input = input + ' '
 
+            // Replace the roll/role variations with the symbol "@"
+            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|ruled|rule|world|whirled|whirl)( a| an| and| of| on| ah)? /g, ' @ ')
+            
             // Handle negative numbers in word format adjacent to "@"
             const negativeWordPattern = /@ (?:negative|-) (\w+|\d+)/g;
             input = input.replace(negativeWordPattern, (match, wordOrNum) => {
@@ -630,14 +632,12 @@
                     return '@ -' + wordOrNum
                 }
             });
-            console.log(input)
             
             // Handle negative numbers in digit format after "@"
             const negativePatternAfter = /@ negative (\d+)/g;
             input = input.replace(negativePatternAfter, (match, p1) => {
                 return '@ -' + p1
             });
-            console.log(input)
 
             // Handle hyphenated numbers adjacent to "rolled" 
             for (const [word, number] of Object.entries(numberMap)) {
@@ -655,7 +655,6 @@
                 input = input.replace(patternAfterAn, `${number}`)
                 input = input.replace(patternAfterAnd, `${number}`)
             }
-            console.log(input);
 
             // Then handle non-hyphenated numbers adjacent to "rolled"
             for (const [word, number] of Object.entries(numberMap)) {
@@ -673,7 +672,8 @@
                 input = input.replace(patternAfterAn, `${number}`)
                 input = input.replace(patternAfterAnd, `${number}`)
             }
-            console.log(input)
+
+            console.log('After processing: '+input)
 
             return input
         }
@@ -685,6 +685,8 @@
         function startTurnCounter() {
             highlightCurrentTurn()
             document.body.classList.add('active-turn')
+            updateTally(currentRound)
+            setCookie('round', currentRound)
             setCookie('turnStarted', 'true')
         }
 
@@ -868,104 +870,123 @@
             if (parts.length == 2) return parts.pop().split(";").shift()
         }
 
-        // Speech Recognition!
-
         var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
         var recognition = new SpeechRecognition()
 
         // SPEECH API GRAMMER LIST ISN'T SUPPORTED IN CHROME... I GUESS?
+        // // Speech Recognition!
         // var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList;
-        // 
-        // Fetch the grammar words from a local file
+                    
+        // // Fetch the grammar words from a local file
         // fetch('/spellcheck/monster-names.txt')
-        //   .then(response => response.text())
-        //   .then(text => {
-        //     var words = text.split('\n'); // Assuming words are separated by newlines
-        // 
-        //     if (SpeechGrammarList) {
-        //       var speechRecognitionList = new SpeechGrammarList();
-        //       var grammar = '#JSGF V1.0; grammar words; public <word> = ' + words.join(' | ') + ' ;';
-        //       speechRecognitionList.addFromString(grammar, 1);
-        //       recognition.grammars = speechRecognitionList;
-        //     }
-        //   })
-        //   .catch(error => {
-        //     console.error("Error fetching the grammar words:", error);
-        //   });
+        //     .then(response => response.text())
+        //     .then(text => {
+        //         var words = text.split('\n'); // Assuming words are separated by newlines
+        
+        //         if (SpeechGrammarList) {
+        //             var speechRecognitionList = new SpeechGrammarList()
+        //             var grammar = '#JSGF V1.0; grammar words; public <word> = ' + words.join(' | ') + ' ;'
+        //             speechRecognitionList.addFromString(grammar, 1)
+        //             recognition.grammars = speechRecognitionList
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error("Error fetching the grammar words:", error)
+        //     })
 
         recognition.continuous = true
         recognition.lang = 'en-US'
         recognition.interimResults = true
-        recognition.maxAlternatives = 1
+        recognition.maxAlternatives = 3
 
+        let isListening = false
         var interimOutput = document.getElementById('interimWords')
         var finalOutput = document.getElementById('eventlog')
-
-        let speechHasEnded = false;
         let pauseTimer = null // Initialize the pause timer variable
         const PAUSE_THRESHOLD = 150 // Adjust this value to set the threshold for pauses (e.g., 1000ms or 1 second)
+        let speechProcessedEvent = new Event('speechprocessed');
+ 
+        recognition.onstart = function(event) {
+            console.log('Speech started.')
+            isListening = true
+            final_transcript = ''
+            finalOutput.innerHTML = final_transcript
+            document.getElementById('speechInput').value = final_transcript
+        }
 
         recognition.onresult = function(event) {
             let interim_transcript = ''
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
-                    final_transcript += event.results[i][0].transcript
+                    const spokenWords = event.results[i][0].transcript
+                    final_transcript += spokenWords
+                    console.log('final: '+spokenWords)
                     interim_transcript = ''
                 } else {
                     interim_transcript += event.results[i][0].transcript
-                    // // Reset the pause timer whenever we receive interim results
-                    // clearTimeout(pauseTimer)
-                    // pauseTimer = setTimeout(() => {
-                    //     final_transcript += '...'
-                    //     finalOutput.innerHTML = final_transcript // Update the final transcript with the ...
-                    //     speechHasEnded = true;
-                    // }, PAUSE_THRESHOLD)
-                    finalOutput.innerHTML = final_transcript // Update the final transcript with the ...
-                    speechHasEnded = true;
                 }
                 console.log('Confidence: ' + event.results[i][0].confidence)
             }
 
             interimOutput.innerHTML = interim_transcript
-            finalOutput.innerHTML = final_transcript
-
             console.log(event.results)
-
-            if (speechHasEnded == true) {
-                // clearTimeout(pauseTimer) // Clear the pause timer if speech stops
-                document.getElementById('speechInput').value = final_transcript
-                allTranscripts.push(final_transcript)
-                parseAndAddEntries()
-            }
         }
-
+        
         recognition.onnomatch = function(event) {
-            interimOutput.textContent = ['[incoherent]', '???', '[mumbling]', '[drunken slurring]', '[something something...]'][Math.floor(Math.random()*5)];
+            const huh = ['[incoherent]', '???', '[mumbling]', '[drunken slurring]', '[something something...]'][Math.floor(Math.random()*5)];
+            interimOutput.textContent = huh
+            console.warn(huh)
             console.log(event)
         }
-
+        
         recognition.onerror = function(event) {
             interimOutput.textContent = 'Error occurred in recognition: ' + event.error
-            console.log(event)
+            console.error(event)
         }
 
+        recognition.onend = function(event) {
+            isListening = false
+            console.warn('Speech ended. Parsing results.')
+            finalOutput.innerHTML = final_transcript
+            document.getElementById('speechInput').value = final_transcript
+            allTranscripts.push(final_transcript)
+            parseAndAddEntries()
+            document.dispatchEvent(speechProcessedEvent)
+        }
+        
         function handleMicPress() {
-            recognition.start()
+            let speechProcessedHandler = function() {
+                recognition.start()
+            }
+            if (isListening) {
+                // Wait until the previous speech recognition proccess finishes before trying to start a new one.
+                document.addEventListener('speechprocessed', speechProcessedHandler)
+                // Remove the speechprocessed event listener if the user releases the mic button early.
+                document.getElementById('startDictation').addEventListener('mouseup', function() {
+                    document.removeEventListener('speechprocessed', speechProcessedHandler)
+                });
+                document.getElementById('startDictation').addEventListener('touchend', function() {
+                    document.removeEventListener('speechprocessed', speechProcessedHandler)
+                });
+            } else {
+                recognition.start()
+            }
         }
 
         function handleMicRelease() {
             recognition.stop()
+            console.log('Mic button released.')
         }
-
+        
     </script>
     <!--
         TODOs
         1. Fix Speech API parsing - parse times and 3+ digit numbers correctly. Ex: "3:15" or "124"
         2. if the parser doesn't detect any player entries from the input string, then do not go into "players-listed" mode.
-        3. fix bug: tallys or round count not getting cleared on Clear All
-        4. fix bug: speechInput or final_output not getting cleared on Clear All
-        5. Add ability to manually add a player to the list (manual entry at first. voice entry to come.)
+        3. Refactor prompt storage - do not aggregate all prompt strings to reprocess on subsequent prompts. instead, weave into existing players list. MUST HAVE for #4 and #5 below.
+        4. Allow ability to manually remove a player.  on <li> hover: an X icon shows.  on swipe left, an X field slides in; player is removed on further swipe or X click.
+        5. Add ability to manually add a player to the list manual (voice entry already works)
         6. save the previous 'speechInput values somewhere in a class="speech-input" hidden input or div. maybe remove portions of the string that didn't parse into entries. (might require a rework of the whole parsing system though, like splitting everything by ' ' and then manipulating a big ol array.)
         7. add other commands to the dicatation input - make subsequent dictations (or "prompts") add more players to the list, instead of replacing. But clear the 'speechInput' field
     -->

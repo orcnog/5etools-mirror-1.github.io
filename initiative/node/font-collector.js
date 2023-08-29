@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const FONTS_DIR = path.join(__dirname, '../fonts/downloaded');
+const FONTS_DIR = path.join(__dirname, '../fonts');
 
 // Helper function to generate a CSS-friendly class name
 function generateCssClassName(fontName) {

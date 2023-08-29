@@ -1,0 +1,16 @@
+{
+    "name": "initiative-app",
+    "version": "1.0.0",
+    "description": "Speak to setup an initiative order!",
+    "scripts": {
+      "monsterNames": "node monster-names.js",
+      "fontCollector": "node font-collector.js"
+    },
+    "author": "orcnog",
+    "license": "ISC",
+    "dependencies": {
+      "fontkit": "^2.0.2",
+      "fs-extra": "^11.1.1"
+    }
+}
+  

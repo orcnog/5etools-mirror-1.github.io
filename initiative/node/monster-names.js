@@ -2,10 +2,10 @@ const fs = require('fs-extra');
 const path = require('path');
 
 // The directory containing the bestiary JSON files
-const BESTIARY_DIR = path.join(__dirname, '..', 'data', 'bestiary');
+const BESTIARY_DIR = path.join(__dirname, '..', '..', 'data', 'bestiary');
 
 // The output file path
-const OUTPUT_FILE = path.join(__dirname, '..', 'spellcheck', 'monster-names.txt');
+const OUTPUT_FILE = path.join(__dirname, 'monster-names.txt');
 
 // Helper function to remove text inside parentheses
 function removeParentheticals(text) {
