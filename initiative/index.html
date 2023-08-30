@@ -394,27 +394,31 @@
             'one': 1, 'won': 1,
             'two': 2, 'to': 2, 'too': 2,
             'three': 3, 'tree': 3,
-            'four': 4, 'fore': 4, 'for': 4,
-            'five': 5,
-            'six': 6, 'sex': 6,
-            'seven': 7,
-            'eight': 8, 'ate': 8,
-            'nine': 9, 'nigh': 9,
-            'ten': 10, 'tin': 10,
-            'eleven': 11,
-            'twelve': 12,
-            'thirteen': 13,
-            'fourteen': 14,
-            'fifteen': 15,
-            'sixteen': 16,
-            'seventeen': 17,
-            'eighteen': 18,
-            'nineteen': 19,
-            'twenty': 20,
+            'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, '4th': 4,
+            'five': 5, 'fi': 5, 'fife': 5,
+            'six': 6, 'sex': 6, 'sixth': 6, '6th': 6,
+            'seven': 7, '7th': 7,
+            'eight': 8, 'ate': 8, 'eighth': 8, '8th': 8,
+            'nine': 9, 'nigh': 9, 'ninth': 9, '9th': 9,
+            'ten': 10, 'tin': 10, 'tenth': 10, '10th': 10,
+            'eleven': 11, 'eleventh': 11, '11th': 11,
+            'twelve': 12, 'twelveth': 12, '12th': 12,
+            'thirteen': 13,'thirteenth': 13,'13th': 13,
+            'fourteen': 14, 'fourteenth': 14, '14th': 14,
+            'fifteen': 15, 'fifteenth': 15, '15th': 15,
+            'sixteen': 16, 'sixteenth': 16, '16th': 16,
+            'seventeen': 17, 'seventeenth': 17, '17th': 17,
+            'eighteen': 18, 'eighteenth': 18, '18th': 18,
+            'nineteen': 19, 'nineteenth': 19, '19th': 19,
+            'twenty': 20, 'twentieth': 20,
             'twenty-one': 21, 'twenty-two': 22, 'twenty-three': 23,
-            'twenty-four': 24, 'twenty-five': 25, 'twenty-six': 26,
-            'twenty-seven': 27, 'twenty-eight': 28, 'twenty-nine': 29,
-            'thirty': 30, 'thirty-one': 31, 'thirty-two': 32
+            'twenty-four': 24, 'twenty-fourth': 24, 'twenty-five': 25,
+            'twenty-six': 26, 'twenty-sixth': 26, '26th': 26,
+            'twenty-seven': 27, 'twenty-seventh': 27, '27th': 27,
+            'twenty-eight': 28, 'twenty-eighth': 28, '28th': 28,
+            'twenty-nine': 29, 'twenty-ninth': 29, '29th': 29,
+            'thirty': 30, 'thirtieth': 30, '30th': 30,
+            'thirty-one': 31, 'thirty-two': 32
         }
 
         Element.prototype.onClassAdded = function(className, callback) {
@@ -627,7 +631,7 @@
             input = input + ' '
 
             // Replace the roll/role variations with the symbol "@"
-            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|ruled|rule|world|whirled|whirl)( a| an| and| of| on| ah)? /g, ' @ ')
+            input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|rd|ruled|rules|rule|world|whirled|whirl)( a| an| and| of| on| ah)? /g, ' @ ')
             
             // Handle negative numbers in word format adjacent to "@"
             const negativeWordPattern = /@ (?:negative|-) (\w+|\d+)/g;
