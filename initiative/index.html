@@ -11,6 +11,7 @@
     <title>Initiative Touch</title>
     <style>
         :root {
+            --brightness-level: 1;
             --body-color: #777;
             --body-bg-images: url('https://baldursgate3.game/png/menu-shadow-right-mobile.png'), url('https://baldursgate3.game/png/menu-shadow-left-mobile.png'), url(https://baldursgate3.game/masks/smoke.jpg); /*url(https://foundryvtt.com/static/assets/layout/home-background.webp);*/
             --body-bg-image-positions: top right, top left, center;
@@ -27,11 +28,12 @@
             --playerlist-shadow: none; /*0 0 30px 0px rgba(150,120,100,0.4);*/
             --button-font: 'East Sea Dokdo';
             --button-text-color: rgba(255,255,255,0.4);
-            --button-bg-color: rgb(99 53 22 / 85%); /*rgba(255,100,0,0.15);*/
-            --button-bg-color--hover: rgb(110 58 21 / 85%); /*rgba(200,40,0,0.2);*/
+            --button-bg-color: rgb(114 65 32 / 85%); /*rgb(99 53 22 / 85%);*/ /*rgba(255,100,0,0.15);*/
+            --button-bg-color--hover: rgb(143 77 30 / 85%); /*rgb(110 58 21 / 85%);*/ /*rgba(200,40,0,0.2);*/
             --button-border-color: none; /*rgba(255,255,255,0.1);*/ /*rgba(0,0,0,0.7)*/
             --button-outline-focus: rgba(255,100,0,0.5);
             --mic-color: #8c7f76;
+            --input-bg-color: rgba(0,0,0,0.8);
             --input-placeholder-color: #555;
             --highlighted-color: rgba(119,153,225,0.25);
             --highlighted-text-color: #bbb;
@@ -70,15 +72,17 @@
         }
         body {
             margin: 8px;
+            line-height: 1.2; /* but some fonts override this */
             background: black  no-repeat;
             background-image: var(--body-bg-images);
             background-position: var(--body-bg-image-positions);
             background-size: var(--body-bg-image-sizes);
+            touch-action: manipulation;
+            filter: brightness(var(--brightness-level));
         }
         p,
         li {
             font-size: 2em;
-            line-height: 1.2;
             text-shadow: var(--main-text-shadow);
             text-rendering: optimizelegibility;
             color: var(--main-text-color);
@@ -86,6 +90,36 @@
             mask-image: var(--grungy-mask3);
             -webkit-mask-size: cover;
             mask-size: cover;
+        }
+        label {
+            font-size: 1.5em;
+        }
+        input {
+            margin: 0;
+            outline: none !important;
+            padding: 0 1.25em;
+            border: none;
+            border-radius: 15px;
+            box-sizing: border-box;
+            width: calc(100% - 4em);
+            font-family: inherit;
+            font-size: 0.5em;
+            background: var(--input-bg-color);
+            color: var(--main-text-color);
+            -webkit-mask-image: var(--grungy-mask1);
+            mask-image: var(--grungy-mask1);
+            -webkit-mask-size: cover;
+            mask-size: cover;
+        }
+        /* Hide number incr/decr buttons in  most modern browsers */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Hide number incr/decr buttons in Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
         button {
             margin: 5px;
@@ -96,13 +130,14 @@
             font-family: var(--button-font);
             color: var(--button-text-color);
             background: var(--button-bg-color);
-            -webkit-mask-image: var(--grungy-mask2);
-            mask-image: var(--grungy-mask2);
+            -webkit-mask-image: var(--grungy-mask1);
+            mask-image: var(--grungy-mask1);
             -webkit-mask-size: cover;
             mask-size: cover;
             -webkit-mask-position: bottom;
             mask-position: bottom;
             cursor: pointer;
+            user-select: none;
             transition: background-color 0.2s;
         }
         button:hover,
@@ -115,49 +150,73 @@
         button[disabled] {
             opacity: 0.25;
             pointer-events: none;
-            user-select: none;
         }
         .button-group {
             display: flex;
             width: 100%;
-            justify-content: stretch;
+            justify-content: space-between;
+            align-items: center;
         }
-        .button-group > * {
-            flex: 1;
+        .button-group button {
+            margin: 0;
+            padding: 0.2em 0.5em 0.25em;
+            font-size: 1.5em;
         }
+        .button-group-number-bump {
+            justify-content: center;
+        }
+        .input-number-bump {
+            margin: 0 0.5em;
+            padding: 0;
+            width: 4em;
+            height: 2.25em;
+            text-align: center;
+            font-size: 1em;
+        }
+        select {
+            padding: 0 1em;
+            outline: none;
+            border: none;
+            border-radius: 0.5em;
+            height: 2.5em;
+            font-family: inherit;
+            font-size: 1em;
+            color: var(--main-text-color);
+            background: var(--input-bg-color);
+            -webkit-mask-image: var(--grungy-mask1), var(--grungy-mask4);
+            mask-image: var(--grungy-mask1), var(--grungy-mask4);
+            -webkit-mask-size: cover, contain;
+            mask-size: cover, contain;
+            -webkit-mask-position: left, right;
+            mask-position: left, right;
+        }
+        .select::-ms-expand {
+            /* Hide the default arrow of the select box */
+            display: none;
+        }
+        
+        /* Nav bar */
         .header-menu {
             display: flex;
             justify-content: flex-end;
             height: 50px;
         }
-        .select-hamburger::-ms-expand {
-            /* Hide the default arrow of the select box */
+        .toggle-settings-menu {
+            display: flex;
+            align-items: center;
+            padding: 0.25em;
+            background-color: #421;
+        }
+        .toggle-settings-menu:not(.back) .back-ui {
+            display: none;
+        }
+        .toggle-settings-menu.back .no-back-ui {
             display: none;
         }
 
-        .select-hamburger {
-            /* Appearance: none will remove the default browser styles */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            text-indent: -9999rem; /* Large negative value */
-
-            /* Set background to Font Awesome hamburger (bars) icon */
-            background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path fill='black' d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'></path></svg>") no-repeat center center;
-            background-size: 25px;
-            border: none;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            outline: none;
-        }
-        .select-hamburger:focus {
-            border: 1px solid #aaa; /* To show a border on focus for accessibility */
-            text-indent: initial; /* make text visible again. */
-        }
-
         /* Main wrapper */
-        .main {
+        .main,
+        .settings-menu {
             position: relative;
             display: flex;
             flex-flow: column;
@@ -185,6 +244,17 @@
             max-width: 600px;
             color: var(--main-text-color);
         }
+
+        /* Settings menu */
+        .settings-menu-group {
+            margin: 1em auto 1em 0;
+            padding-left: 0.5em;
+            font-size: 1.25em;
+        }
+        .settings-input {
+            margin: 0.5em 0 0;
+        }
+
         /* Close (X) button */
         .clear-all {
             position: absolute;
@@ -267,8 +337,8 @@
             outline: 2px var(--button-outline-focus) solid;
         }
         .players-listed #startDictation {
-            margin-top: 1em;
-            font-size: 8vw;
+            margin: 0 auto;
+            font-size: 9vw;
         }
         @media (min-width: 768px) {
             #startDictation {
@@ -320,7 +390,7 @@
         }
         .players {
             border-radius: 30px;
-            padding: 0 0 25px;
+            padding: 2.5em 0;
             min-width: 300px;
             max-width: 100%;
             box-sizing: border-box;
@@ -331,16 +401,32 @@
             box-shadow: var(--playerlist-shadow);
         }
         .round-counter {
+            position: absolute;
+            top: 20px;
+            left: 40px;
             margin: 0;
             display: flex;
+            align-items: center;
             justify-content: center;
+            color: #341603;
+            /* font-weight: bold; */
+            font-size: 12vw;
+            font-family: 'East Sea Dokdo';
+            line-height: 0.85;
+        }
+        .round-label {
+            display: none;
+            line-height: 0.75;
         }
         .round-tally {
-            width: 80px;
-            height: 53px;
+            margin-left: 0.2em;
+            width: 1em;
+            height: 0.75em;
             background: transparent no-repeat center;
             background-size: contain;
-            opacity: 0.65;
+            transform: skew(-5deg, 0deg);
+            opacity: 1;
+            filter: grayscale(1) brightness(0.75);
         }
         .round-tally[data-marks="1"] { background-image: url("images/tally-marks-1.png"); }
         .round-tally[data-marks="2"] { background-image: url("images/tally-marks-2.png"); }
@@ -357,6 +443,9 @@
             overflow: auto;
         }
         @media (min-width: 592px) {
+            .round-counter {
+                font-size: 4.5rem;
+            }
             #entries {
                 font-size: 1.85rem;
             }
@@ -379,8 +468,8 @@
             color: var(--highlighted-text-color);
         }
         #entries .player-order {
-            /* margin-left: 1em; */
-            /* font-size: inherit; */
+            flex: 0 0 1em;
+            min-width: 1em;
             color: var(--main-text-color-alt);
         }
         .input-editable {
@@ -400,7 +489,10 @@
             text-align: center;
         }
         #startButton {
-            margin-top: auto;
+            margin-top: 1.5em;
+            padding: 0.4em 0.6em;
+            -webkit-mask-size: contain;
+            mask-size: contain;
         }
         .highlighted {
             position: relative;
@@ -416,6 +508,12 @@
             width: 80%;
             box-shadow: 0 0 20px 22px var(--highlighted-color);
         }
+        button.previous-turn,
+        button.advance-turn {
+            margin: 0;
+            padding: 0.4em 1.5em 0.25em;
+            font-size: 1.5em;
+        }
         .hide {
             display: none;
         }
@@ -430,18 +528,43 @@
         }
 
         /* Font handling */
-        .font-baron-kuffner { font-family: "Baron Kuffner", sans-serif; } .font-broken-crush { font-family: "Broken Crush", sans-serif; } .font-creatinin-pro { font-family: "Creatinin-pro", sans-serif; } .font-do-you-want-to-be-my-inverted-interrobang { font-family: "Do You Want To Be My Inverted Interrobang", sans-serif; } .font-dracufrankenwolfbb { font-family: "Dracufrankenwolfbb", sans-serif; } .font-eordeoghlakat { font-family: "Eordeoghlakat", sans-serif; } .font-fibyngerowa { font-family: "Fibyngerowa", sans-serif; } .font-grenhil { font-family: "Grenhil", sans-serif; } .font-ickyticketmono { font-family: "Ickyticketmono", sans-serif; } .font-kgbythegraceofgod { font-family: "Kgbythegraceofgod", sans-serif; } .font-lincons { font-family: "Lincons", sans-serif; } .font-lugosi { font-family: "Lugosi", sans-serif; } .font-malinsha-rough { font-family: 
-"Malinsha Rough", sans-serif; } .font-mystic-forest { font-family: "Mystic Forest", sans-serif; } .font-raventame { font-family: "Raventame", sans-serif; } .font-unionagrochem { font-family: "Unionagrochem", sans-serif; } .font-vtks-distress { font-family: "Vtks Distress", sans-serif; } .font-architects-daughter { font-family: 'Architects Daughter', cursive; } .font-babylonica { font-family: 'Babylonica', cursive; } .font-bilbo-swash-caps { font-family: 'Bilbo Swash Caps', cursive; } .font-caveat { font-family: 'Caveat', cursive; } .font-comforter { font-family: 'Comforter', cursive; } .font-condiment { font-family: 'Condiment', cursive; } .font-dawning-of-a-new-day { font-family: 'Dawning of a New Day', cursive; } .font-east-sea-dokdo { font-family: 'East Sea Dokdo', cursive; } .font-fuggles { font-family: 'Fuggles', cursive; } .font-grape-nuts { font-family: 'Grape Nuts', cursive; } .font-homemade-apple { font-family: 'Homemade Apple', cursive; } .font-inspiration { font-family: 'Inspiration', cursive; } .font-julee { font-family: 'Julee', cursive; } .font-just-me-again-down-here { font-family: 'Just Me Again Down Here', cursive; } .font-kolker-brush { font-family: 'Kolker Brush', cursive; } .font-la-belle-aurore { font-family: 'La Belle Aurore', cursive; } .font-liu-jian-mao-cao { font-family: 'Liu Jian Mao Cao', cursive; } .font-long-cang { font-family: 'Long Cang', cursive; } .font-nanum-brush-script { font-family: 'Nanum Brush Script', cursive; } .font-nothing-you-could-do { font-family: 'Nothing You Could Do', cursive; } .font-oooh-baby { font-family: 'Oooh Baby', cursive; } .font-over-the-rainbow { font-family: 'Over the Rainbow', cursive; } .font-permanent-marker { font-family: 'Permanent Marker', cursive; } .font-qwitcher-grypen { font-family: 'Qwitcher Grypen', cursive; } .font-reenie-beanie { font-family: 'Reenie Beanie', cursive; } .font-rock-salt { font-family: 'Rock Salt', cursive; } .font-ruthie { font-family: 'Ruthie', cursive; } .font-sassy-frass { font-family: 'Sassy Frass', cursive; } .font-sedgwick-ave { font-family: 'Sedgwick Ave', cursive; } .font-shalimar { font-family: 'Shalimar', cursive; } .font-smooch { font-family: 'Smooch', cursive; } .font-splash { font-family: 'Splash', cursive; } .font-square-peg { font-family: 'Square Peg', cursive; } .font-swanky-and-moo-moo { font-family: 'Swanky and Moo Moo', cursive; } .font-vujahday-script { font-family: 'Vujahday Script', cursive; } .font-waiting-for-the-sunrise { font-family: 'Waiting for the Sunrise', cursive; } .font-walter-turncoat { font-family: 'Walter Turncoat', cursive; } .font-whisper { font-family: 'Whisper', cursive; }
+        .font-baron-kuffner { font-family: "Baron Kuffner", sans-serif; } .font-broken-crush { font-family: "Broken Crush", sans-serif; } .font-creatinin-pro { font-family: "Creatinin-pro", sans-serif; } .font-inverted-interrobang { font-family: "Do You Want To Be My Inverted Interrobang", sans-serif; } .font-dracufrankenwolfbb { font-family: "Dracufrankenwolfbb", sans-serif; } .font-eordeoghlakat { font-family: "Eordeoghlakat", sans-serif; } .font-fibyngerowa { font-family: "Fibyngerowa", sans-serif; } .font-grenhil { font-family: "Grenhil", sans-serif; } .font-ickyticketmono { font-family: "Ickyticketmono", sans-serif; } .font-kgbythegraceofgod { font-family: "Kgbythegraceofgod", sans-serif; } .font-lincons { font-family: "Lincons", sans-serif; } .font-lugosi { font-family: "Lugosi", sans-serif; } .font-malinsha-rough { font-family: "Malinsha Rough", sans-serif; } .font-mystic-forest { font-family: "Mystic Forest", sans-serif; } .font-raventame { font-family: "Raventame", sans-serif; } .font-unionagrochem { font-family: "Unionagrochem", sans-serif; } .font-vtks-distress { font-family: "Vtks Distress", sans-serif; } .font-architects-daughter { font-family: 'Architects Daughter', cursive; } .font-babylonica { font-family: 'Babylonica', cursive; } .font-bilbo-swash-caps { font-family: 'Bilbo Swash Caps', cursive; } .font-caveat { font-family: 'Caveat', cursive; } .font-comforter { font-family: 'Comforter', cursive; } .font-condiment { font-family: 'Condiment', cursive; } .font-dawning-of-a-new-day { font-family: 'Dawning of a New Day', cursive; } .font-east-sea-dokdo { font-family: 'East Sea Dokdo', cursive; line-height: 0.85;} .font-fuggles { font-family: 'Fuggles', cursive; } .font-grape-nuts { font-family: 'Grape Nuts', cursive; } .font-homemade-apple { font-family: 'Homemade Apple', cursive; } .font-inspiration { font-family: 'Inspiration', cursive; } .font-julee { font-family: 'Julee', cursive; } .font-just-me-again-down-here { font-family: 'Just Me Again Down Here', cursive; } .font-kolker-brush { font-family: 'Kolker Brush', cursive; } .font-la-belle-aurore { font-family: 'La Belle Aurore', cursive; } .font-liu-jian-mao-cao { font-family: 'Liu Jian Mao Cao', cursive; } .font-long-cang { font-family: 'Long Cang', cursive; } .font-nanum-brush-script { font-family: 'Nanum Brush Script', cursive; } .font-nothing-you-could-do { font-family: 'Nothing You Could Do', cursive; } .font-oooh-baby { font-family: 'Oooh Baby', cursive; } .font-over-the-rainbow { font-family: 'Over the Rainbow', cursive; } .font-permanent-marker { font-family: 'Permanent Marker', cursive; } .font-qwitcher-grypen { font-family: 'Qwitcher Grypen', cursive; } .font-reenie-beanie { font-family: 'Reenie Beanie', cursive; } .font-rock-salt { font-family: 'Rock Salt', cursive; } .font-ruthie { font-family: 'Ruthie', cursive; } .font-sassy-frass { font-family: 'Sassy Frass', cursive; } .font-sedgwick-ave { font-family: 'Sedgwick Ave', cursive; } .font-shalimar { font-family: 'Shalimar', cursive; } .font-smooch { font-family: 'Smooch', cursive; } .font-splash { font-family: 'Splash', cursive; } .font-square-peg { font-family: 'Square Peg', cursive; } .font-swanky-and-moo-moo { font-family: 'Swanky and Moo Moo', cursive; } .font-vujahday-script { font-family: 'Vujahday Script', cursive; } .font-waiting-for-the-sunrise { font-family: 'Waiting for the Sunrise', cursive; } .font-walter-turncoat { font-family: 'Walter Turncoat', cursive; } .font-whisper { font-family: 'Whisper', cursive; }
 </style>
 </head>
 <body class="">
 
     <div class="header-menu">
-        <select id="selectFont" class="select-hamburger"></select>
+        <button id="settingsMenuBtn" class="toggle-settings-menu" onclick="toggleSettingsMenu()">
+            <i class="fas fa-ellipsis no-back-ui"></i>
+            <i class="fas fa-xmark back-ui"></i>
+        </button>
     </div>
-    <!-- <button id="startSpeech"><i class="fa-solid fa-microphone"></i></button>
-    <button id="stopSpeech"><i class="fa-solid fa-circle-xmark"></i></button> -->
+
+    <div class="settings-menu hide">
+        <div class="settings-menu-group">
+            <label>Brightness</label>
+            <div class="settings-input">
+                <div class="button-group button-group-number-bump">
+                    <button id="decrBrightness" onclick="decreaseBrightness()">-</button>
+                    <input id="brightness" class="input-number-bump" value="1" type="number" onchange="updateBrightnessLevel(this.value)"/>
+                    <button id="incrBrightness" onclick="increaseBrightness()">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="settings-menu-group">
+            <label>Font</label>
+            <div class="settings-input">
+                <select id="selectFont"></select>
+            </div>
+        </div>
+        <div class="settings-menu-group" style="display: none;">
+            <label>Round Counter</label>
+            <div class="settings-input">
+                <input id="toggleRoundCounter" type="checkbox"/>
+            </div>
+        </div>
     </div>
+
     <p id="interimWords" style="display: none; color: white;"></p>
     <p id="eventlog" style="display: none; color: white;"></p>
 
@@ -456,6 +579,7 @@
         </form>
         <div class="players players-listed-ui">
             <div id="roundCounter" class="round-counter">
+                <span class="round-label"></span>
                 <!-- will be populated dynamically with: <div class="round-tally" data-marks="0"></div> -->
             </div>
             <ul id="entries">
@@ -463,13 +587,13 @@
             </ul>
         </div>
         <div class="button-group">
-            <button id="prevTurn" class="previous-turn active-turn-ui" onclick="goBackOneTurn()">Back</button>
-            <button id="nextTurn" class="advance-turn active-turn-ui" onclick="advanceTurn()">Next</button>
+            <button id="prevTurn" class="previous-turn active-turn-ui" onclick="goBackOneTurn()"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <div id="startDictation">
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+            <button id="nextTurn" class="advance-turn active-turn-ui" onclick="advanceTurn()"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
         </div>
         <button id="startButton" class="no-active-turn-ui players-listed-ui" onclick="startTurnCounter()">Start</button>
-        <div id="startDictation">
-            <i class="fa-solid fa-microphone"></i>
-        </div>
     </div>
     <script>
         let micAllowed = false
@@ -545,6 +669,7 @@
         };
 
         window.onload = function() {
+            /* Get font config from cookie */
             chosenFont = getCookie('fontPreference') || 'font-nothing-you-could-do'
             setCookie('fontPreference', chosenFont)
             document.body.classList.add(chosenFont)
@@ -558,6 +683,11 @@
                 // Remember the setting
                 setCookie('fontPreference', selectedClass)
             })
+
+            /* Get brightness conif from cookie */
+            const cookieBrightness = getCookie('brightnessPreference') || 1
+            document.getElementById('brightness').value = parseFloat(cookieBrightness);
+            document.documentElement.style.setProperty('--brightness-level', parseFloat(cookieBrightness));
 
             // Recall player entries saved to cookie
             const savedEntries = getCookie('players')
@@ -591,10 +721,6 @@
             // Asynchronously check to see if the microphone permission has been granted during the session
             navigator.permissions.query({ name: 'microphone' }).then(function(permissionStatus) {
                 if (micAllowed || players.length > 0) return // assume they know what they're doing
-                // alert(navigator)
-                // alert(navigator.permissions)
-                // alert(permissionStatus)
-                // alert(permissionStatus.state)
                 if (permissionStatus.state !== 'granted') {
                     // Microphone permission is not yet granted
                     console.log('Microphone permission is not yet granted.')
@@ -721,11 +847,43 @@
             })
         };
 
+        function toggleSettingsMenu() {
+            const settingsMenuButton = document.getElementById('settingsMenuBtn');
+            const settingsMenu = document.querySelector('.settings-menu');
+            const mainAppBody = document.querySelector('.main');
+            settingsMenuButton.classList.toggle('back');
+            settingsMenu.classList.toggle('hide');
+            mainAppBody.classList.toggle('hide');
+        }
+
+        function updateBrightnessLevel(value) {
+            document.documentElement.style.setProperty('--brightness-level', parseFloat(value));
+            setCookie('brightnessPreference', parseFloat(value))
+        }
+
+        function increaseBrightness() {
+            var brightnessInput = document.getElementById('brightness');
+            const currentValue = parseFloat(brightnessInput.value);
+            if (currentValue < 3) {
+                brightnessInput.value = parseFloat(brightnessInput.value) + 0.25;
+                brightnessInput.dispatchEvent(new Event('change'));
+            }
+        }
+
+        function decreaseBrightness() {
+            var brightnessInput = document.getElementById('brightness');
+            const currentValue = parseFloat(brightnessInput.value);
+            if (currentValue > 0.25) {
+                   brightnessInput.value = currentValue - 0.25;
+                brightnessInput.dispatchEvent(new Event('change'));
+            }
+        }
+
         function populateSelectWithFonts() {
             const fonts = [
                 'Architects Daughter', 'Babylonica', 'Baron Kuffner', 'Bilbo Swash Caps', 'Broken Crush', 'Caveat', 'Comforter', 'Condiment',
-                'Creatinin-pro', 'Dawning of a New Day', 'Do You Want To Be My Inverted Interrobang', 'Dracufrankenwolfbb', 'East Sea Dokdo','Eordeoghlakat',
-                'Fibyngerowa', 'Fuggles', 'Grape Nuts', 'Grenhil', 'Homemade Apple', 'Ickyticketmono', 'Inspiration', 'Julee', 'Just Me Again Down Here',
+                'Creatinin-pro', 'Dawning of a New Day', 'Dracufrankenwolfbb', 'East Sea Dokdo','Eordeoghlakat', 'Fibyngerowa', 'Fuggles',
+                'Grape Nuts', 'Grenhil', 'Homemade Apple', 'Ickyticketmono', 'Inspiration', 'Inverted Interrobang', 'Julee', 'Just Me Again Down Here',
                 'Kgbythegraceofgod', 'Kolker Brush', 'La Belle Aurore', 'Lincons', 'Liu Jian Mao Cao', 'Long Cang','Lugosi', 'Malinsha Rough', 'Mystic Forest',
                 'Nanum Brush Script', 'Nothing You Could Do', 'Oooh Baby', 'Over the Rainbow','Permanent Marker', 'Qwitcher Grypen', 'Raventame',
                 'Reenie Beanie', 'Rock Salt', 'Ruthie', 'Sassy Frass', 'Sedgwick Ave', 'Shalimar','Smooch', 'Splash', 'Square Peg', 'Swanky and Moo Moo',
@@ -909,6 +1067,8 @@
             let requiredTallies = Math.ceil(roundNumber / 5)
             let difference = requiredTallies - existingTallies.length
 
+            // In round 1, use the label "Round ", then remove it for round 2+
+            roundCounter.querySelector('.round-label').textContent = (roundNumber == 1 ? 'Round ' : '');
             // Add required tally elements if they're less than needed
             for (let i = 0; i < difference; i++) {
                 const element = document.createElement('div')
@@ -918,7 +1078,7 @@
 
             // Remove extra tally elements if they're more than needed
             for (let i = 0; i < -difference; i++) {
-                roundCounter.removeChild(roundCounter.lastChild)
+                roundCounter.removeChild(existingTallies[existingTallies.length - 1]);
             }
 
             // Update the data-marks attribute for all tally elements
