@@ -197,12 +197,6 @@
         #startDictation:active::before {
             width: 100%;
         }
-
-        @media (min-width: 768px) {
-            #startDictation {
-                font-size: 115px;
-            }
-        }
         #startDictation:hover,
         #startDictation:focus {
             background-color: var(--button-bg-color--hover);
@@ -211,7 +205,15 @@
             outline: 2px var(--button-outline-focus) solid;
         }
         .players-listed #startDictation {
-            font-size: 5vw;
+            font-size: 8vw;
+        }
+        @media (min-width: 768px) {
+            #startDictation {
+                font-size: 100px;
+            }
+            .players-listed #startDictation {
+                font-size: 60px;
+            }
         }
         input.speech-input {
             display: block;
@@ -354,7 +356,7 @@
     <!-- <button id="startSpeech"><i class="fa-solid fa-microphone"></i></button>
     <button id="stopSpeech"><i class="fa-solid fa-circle-xmark"></i></button> -->
     </div>
-    <p id="interimWords" style="color: white;"></p>
+    <p id="interimWords" style="display: none; color: white;"></p>
     <p id="eventlog" style="display: none; color: white;"></p>
     <p style="display:none;">Dragon rolled a 19 cultist one rolled and to cultist two rolled 20 Kalar is rolled three anya rolled one whiskers roll an 15 thorn role a negative 11</p>
 
@@ -509,24 +511,24 @@
             })
 
 
-            // SPEECH INPUT HANDLING ==========================================
+            // // SPEECH INPUT BUTTON HANDLING ==========================================
 
-            document.getElementById('speechInput').addEventListener('focus', function(e) {
-                logEvent(e)
-                // this.select()
-            })
-            document.getElementById('speechInput').addEventListener('focusout', function(e) {
-                logEvent(e)
-                parseAndAddEntries()
-            })
+            // document.getElementById('speechInput').addEventListener('focus', function(e) {
+            //     logEvent(e)
+            //     this.select()
+            // })
+            // document.getElementById('speechInput').addEventListener('focusout', function(e) {
+            //     logEvent(e)
+            //     parseAndAddEntries()
+            // })
 
-            // Submit handler
-            document.getElementById("speechForm").parentElement.addEventListener('submit', function(e) {
-                e.preventDefault()
-                logEvent(e)
-                parseAndAddEntries()
-                setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
-            })
+            // // Submit handler
+            // document.getElementById("speechForm").parentElement.addEventListener('submit', function(e) {
+            //     e.preventDefault()
+            //     logEvent(e)
+            //     parseAndAddEntries()
+            //     setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
+            // })
 
             const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit'];
             events.forEach(function(event) {
@@ -948,11 +950,20 @@
         recognition.onend = function(event) {
             isListening = false
             console.warn('Speech ended. Parsing results.')
+            if (isClearCommand(final_transcript)) {
+                clearAll()
+                return
+            }
             finalOutput.innerHTML = final_transcript
-            document.getElementById('speechInput').value = final_transcript
+            // document.getElementById('speechInput').value = final_transcript
             allTranscripts.push(final_transcript)
-            parseAndAddEntries()
+            parseAndAddEntries(final_transcript)
             document.dispatchEvent(speechProcessedEvent)
+        }
+
+        function isClearCommand(str) {
+            // Test whether the user said (and said only) "clear", "cancel", or "start over".
+            return /^(clear|cancel|start over)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim())
         }
         
         function handleMicPress() {
@@ -988,8 +999,9 @@
         3. Refactor prompt storage - do not aggregate all prompt strings to reprocess on subsequent prompts. instead, weave into existing players list. MUST HAVE for #4 and #5 below.
         4. Allow ability to manually remove a player.  on <li> hover: an X icon shows.  on swipe left, an X field slides in; player is removed on further swipe or X click.
         5. Add ability to manually add a player to the list manual (voice entry already works)
-        6. save the previous 'speechInput values somewhere in a class="speech-input" hidden input or div. maybe remove portions of the string that didn't parse into entries. (might require a rework of the whole parsing system though, like splitting everything by ' ' and then manipulating a big ol array.)
-        7. add other commands to the dicatation input - make subsequent dictations (or "prompts") add more players to the list, instead of replacing. But clear the 'speechInput' field
+        6. Save the previous 'speechInput values somewhere in a class="speech-input" hidden input or div. maybe remove portions of the string that didn't parse into entries. (might require a rework of the whole parsing system though, like splitting everything by ' ' and then manipulating a big ol array.)
+        7. Add other commands to the dicatation input - make subsequent dictations (or "prompts") add more players to the list, instead of replacing. But clear the 'speechInput' field
+        8. Handle spelled-out words, so they show without all-caps or spaces between letters.
     -->
 </body>
 </html>
