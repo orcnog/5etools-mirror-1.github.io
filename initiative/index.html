@@ -590,12 +590,12 @@
 
             // Asynchronously check to see if the microphone permission has been granted during the session
             navigator.permissions.query({ name: 'microphone' }).then(function(permissionStatus) {
-                if (micAllowed || players.length > 0) return; // assume they know what they're doing
+                if (micAllowed || players.length > 0) return // assume they know what they're doing
                 // alert(navigator)
                 // alert(navigator.permissions)
                 // alert(permissionStatus)
                 // alert(permissionStatus.state)
-                if(permissionStatus.state !== 'granted') {
+                if (permissionStatus.state !== 'granted') {
                     // Microphone permission is not yet granted
                     console.log('Microphone permission is not yet granted.')
                     document.querySelector('.pre-microphone-msg').classList.add('show')
@@ -652,25 +652,25 @@
                 } else {
                     micAllowed = true
                 }
-            });
+            })
             
             // set the state of the Previous buttton based on rehydrated round/turn state
             document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
 
             document.getElementById('startDictation').addEventListener('mousedown', function(e) {
-                e.preventDefault();
+                e.preventDefault()
                 handleMicPress()
             })
             document.getElementById('startDictation').addEventListener('touchstart', function(e) {
-                e.preventDefault();
+                e.preventDefault()
                 handleMicPress()
             })
             document.getElementById('startDictation').addEventListener('mouseup', function(e) {
-                e.preventDefault();
+                e.preventDefault()
                 handleMicRelease()
             })
             document.getElementById('startDictation').addEventListener('touchend', function(e) {
-                e.preventDefault();
+                e.preventDefault()
                 handleMicRelease()
             })
 
@@ -711,14 +711,14 @@
                 document.getElementById('prevTurn').disabled = true
                 document.getElementById('nextTurn').disabled = false
                 document.getElementById('startButton').disabled = true
-            });
+            })
 
             document.body.onClassRemoved('active-turn', function() {
                 console.log('active-turn was removed')
                 document.getElementById('prevTurn').disabled = true
                 document.getElementById('nextTurn').disabled = true
                 document.getElementById('startButton').disabled = false
-            });
+            })
         };
 
         function populateSelectWithFonts() {
@@ -736,13 +736,13 @@
             fonts.forEach(font => {
                 const option = document.createElement('option')
                 const val = 'font-' + font.toLowerCase().replace(/\s+/g, '-') // Convert font name to classname format
-                option.value = val;
+                option.value = val
                 if (val == chosenFont) {
                     option.selected = true
                 }
                 option.textContent = font
                 selectElement.appendChild(option)
-            });
+            })
         }
 
         function parseAndAddEntries() {
@@ -753,18 +753,18 @@
             const regex = /([\w\s]+?)\s*?@ (-?\d+)/g
             let matches
 
-            players = [];
+            players = []
             while ((matches = regex.exec(convertedInput)) !== null) {
                 let name = matches[1].trim()
                 let orderString = matches[2]
 
-                let order;
+                let order
                 if (orderString && isNaN(orderString)) {
                     order = numberMap[orderString.toLowerCase()] || NaN
                 } else if(orderString && !isNaN(orderString)) {
                     order = parseInt(orderString, 10)
                 } else {
-                    order = NaN;  // default to NaN if orderString is not defined
+                    order = NaN  // default to NaN if orderString is not defined
                 }
 
                 // Remove leading "and ", then capitalize the names
@@ -782,7 +782,7 @@
             console.log('Before processing: '+input)
 
             // Remove punctuation
-            input = input.replace(/[.,!?;:()]/g, '').toLowerCase();
+            input = input.replace(/[.,!?;:()]/g, '').toLowerCase()
 
             // Add a space to the end
             input = input + ' '
@@ -791,20 +791,20 @@
             input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|rd|ruled|rules|rule|world|whirled|whirl|wrote|rote)( a| an| and| of| on| ah)? /g, ' @ ')
             
             // Handle negative numbers in word format adjacent to "@"
-            const negativeWordPattern = /@ (?:negative|-) (\w+|\d+)/g;
+            const negativeWordPattern = /@ (?:negative|-) (\w+|\d+)/g
             input = input.replace(negativeWordPattern, (match, wordOrNum) => {
                 if (numberMap[wordOrNum]) {
                     return '@ -' + numberMap[wordOrNum]
                 } else {
                     return '@ -' + wordOrNum
                 }
-            });
+            })
             
             // Handle negative numbers in digit format after "@"
-            const negativePatternAfter = /@ negative (\d+)/g;
+            const negativePatternAfter = /@ negative (\d+)/g
             input = input.replace(negativePatternAfter, (match, p1) => {
                 return '@ -' + p1
-            });
+            })
 
             // Handle hyphenated numbers adjacent to "rolled" 
             for (const [word, number] of Object.entries(numberMap)) {
@@ -864,7 +864,6 @@
             // Start a new round if it wraps back to the first player
             if (currentTurn == 0) {
                 currentRound++
-                // document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
                 updateTally(currentRound)
                 setCookie('round', currentRound)
             }
@@ -890,7 +889,6 @@
                     setCookie('turnStarted', 'false')
 
                 }
-                // document.getElementById('roundCounter').textContent = 'Round ' + currentRound;
                 updateTally(currentRound)
                 setCookie('round', currentRound)
             }
@@ -964,10 +962,10 @@
                 nameSpan.textContent = entry.name
                 nameSpan.onclick = function() {
                     makeEditable(nameSpan, entry, 'name', 'text')
-                };
+                }
                 nameSpan.onfocus = function() {
                     makeEditable(nameSpan, entry, 'name', 'text')
-                };
+                }
                 
                 const orderSpan = document.createElement('span')
                 orderSpan.textContent = `${entry.order}`
@@ -975,10 +973,10 @@
                 orderSpan.setAttribute('tabindex', '0')
                 orderSpan.onfocus = function() {
                     makeEditable(orderSpan, entry, 'order', 'number')
-                };
+                }
                 orderSpan.onclick = function() {
                     makeEditable(orderSpan, entry, 'order', 'number')
-                };
+                }
                 
                 li.appendChild(nameSpan)
                 li.appendChild(orderSpan)
@@ -1005,7 +1003,7 @@
                 if (e.key === 'Enter') {
                     handleEdit()
                 }
-            });
+            })
 
             // Handle "submit" when input loses focus
             input.addEventListener('focusout', handleEdit)
@@ -1050,7 +1048,7 @@
         // fetch('/spellcheck/monster-names.txt')
         //     .then(response => response.text())
         //     .then(text => {
-        //         var words = text.split('\n'); // Assuming words are separated by newlines
+        //         var words = text.split('\n') // Assuming words are separated by newlines
         
         //         if (SpeechGrammarList) {
         //             var speechRecognitionList = new SpeechGrammarList()
@@ -1073,7 +1071,7 @@
         var finalOutput = document.getElementById('eventlog')
         let pauseTimer = null // Initialize the pause timer variable
         const PAUSE_THRESHOLD = 150 // Adjust this value to set the threshold for pauses (e.g., 1000ms or 1 second)
-        let speechProcessedEvent = new Event('speechprocessed');
+        let speechProcessedEvent = new Event('speechprocessed')
  
         recognition.onstart = function(event) {
             console.log('Speech started.')
@@ -1085,6 +1083,7 @@
 
         recognition.onresult = function(event) {
             let interim_transcript = ''
+            micAllowed = true // if we got this far, mic is obv allowed
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
@@ -1135,7 +1134,7 @@
 
         function isEmpty(str) {
             // Test whether the user said (and said only) "clear", "cancel", or "start over".
-            return str.trim() == '';
+            return str.trim() == ''
         }
 
         function isClearCommand(str) {
@@ -1153,10 +1152,10 @@
                 // Remove the speechprocessed event listener if the user releases the mic button early.
                 document.getElementById('startDictation').addEventListener('mouseup', function() {
                     document.removeEventListener('speechprocessed', speechProcessedHandler)
-                });
+                })
                 document.getElementById('startDictation').addEventListener('touchend', function() {
                     document.removeEventListener('speechprocessed', speechProcessedHandler)
-                });
+                })
             } else {
                 recognition.start()
             }
