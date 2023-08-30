@@ -497,16 +497,20 @@
             // set the state of the Previous buttton based on rehydrated round/turn state
             document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
 
-            document.getElementById('startDictation').addEventListener('mousedown', function() {
+            document.getElementById('startDictation').addEventListener('mousedown', function(e) {
+                e.preventDefault();
                 handleMicPress()
             })
-            document.getElementById('startDictation').addEventListener('touchstart', function() {
+            document.getElementById('startDictation').addEventListener('touchstart', function(e) {
+                e.preventDefault();
                 handleMicPress()
             })
-            document.getElementById('startDictation').addEventListener('mouseup', function() {
+            document.getElementById('startDictation').addEventListener('mouseup', function(e) {
+                e.preventDefault();
                 handleMicRelease()
             })
-            document.getElementById('startDictation').addEventListener('touchend', function() {
+            document.getElementById('startDictation').addEventListener('touchend', function(e) {
+                e.preventDefault();
                 handleMicRelease()
             })
 
@@ -950,6 +954,9 @@
         recognition.onend = function(event) {
             isListening = false
             console.warn('Speech ended. Parsing results.')
+            if (isEmpty(final_transcript)) {
+                return
+            }
             if (isClearCommand(final_transcript)) {
                 clearAll()
                 return
@@ -959,6 +966,11 @@
             allTranscripts.push(final_transcript)
             parseAndAddEntries(final_transcript)
             document.dispatchEvent(speechProcessedEvent)
+        }
+
+        function isEmpty(str) {
+            // Test whether the user said (and said only) "clear", "cancel", or "start over".
+            return str.trim() == '';
         }
 
         function isClearCommand(str) {
