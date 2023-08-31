@@ -1677,14 +1677,16 @@
     </script>
     <!--
         BUGS
+        0. If the parser doesn't detect any player entries from the input string, then do not go into "players-listed" mode.
         1. Sometimes when starting combat, the first tally mark doesn't show up.  Test this first.
         2. Previous prompts array should be saved to a cookie, so it can be reused after a page refresh if needed.
 
         TODOs
-        1. Fix the bottom of the slate tablet so it shows the actual bottom edge if the div is tall enough, somehow.
-        2. If the parser doesn't detect any player entries from the input string, then do not go into "players-listed" mode.
+        1. Add a radial menu on hover or touch of player name. Menu to include: Edit, Delete, Bloodied/not, Dead/not, Unconscious/not, Custom Condition
+            a. Swipe right on a player name to instantly bloody them.
+            b. Swipe right again (or swipe left?) to instantly cross them out (dead).
+        2. Fix the bottom of the slate tablet so it shows the actual bottom edge if the div is tall enough, somehow.
         3. Refactor prompt storage - do not aggregate all prompt strings to reprocess on subsequent prompts. instead, weave into existing players list. MUST HAVE for #4 and #5 below.
-        4. Allow ability to manually remove a player.  on <li> hover: an X icon shows.  on swipe left, an X field slides in; player is removed on further swipe or X click.
         5. Add ability to manually add a player to the list manual (voice entry already works)
         6. Save the previous 'speechInput values somewhere in a class="speech-input" hidden input or div. maybe remove portions of the string that didn't parse into entries. (might require a rework of the whole parsing system though, like splitting everything by ' ' and then manipulating a big ol array.)
         7. Handle spelled-out words, so they show without all-caps or spaces between letters.
