@@ -1,4 +1,6 @@
 :root {
+    --adjustable-font-size: 2em;
+    --adjustable-chalkiness: 0;
     --brightness-level: 1;
     --body-color: #ddd;
     --body-bg-images: url('images/637744211130347368.jpg');
@@ -217,12 +219,12 @@ body {
 
 p,
 li {
-    font-size: 2em;
+    font-size: var(--adjustable-font-size);
     text-shadow: var(--main-text-shadow);
     text-rendering: optimizelegibility;
     color: var(--main-text-color);
-    -webkit-mask-image: var(--grungy-mask3);
-    mask-image: var(--grungy-mask3);
+    -webkit-mask-image: var(--grungy-mask3), linear-gradient(rgba(0 0 0 / var(--adjustable-chalkiness)), rgba(0 0 0 / var(--adjustable-chalkiness)));
+    mask-image: var(--grungy-mask3), linear-gradient(rgba(0 0 0 / var(--adjustable-chalkiness)), rgba(0 0 0 / var(--adjustable-chalkiness)));
     -webkit-mask-size: cover;
     mask-size: cover;
 }
@@ -240,7 +242,7 @@ input {
     box-sizing: border-box;
     width: calc(100% - 4em);
     font-family: inherit;
-    font-size: 0.5em;
+    font-size: 1em;
     background: var(--input-bg-color);
     color: var(--main-text-color);
     -webkit-mask-image: var(--grungy-mask1);
@@ -331,7 +333,7 @@ input[type="number"] {
 }
 
 .button-group-number-bump {
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .input-number-bump {
@@ -544,7 +546,6 @@ body.players-listed .microphone-msg {
 #startDictation.disabled,
 #startDictation.thinking {
     background-color: rgba(87, 87, 109, 0.3);
-    /*rgba(34, 56, 102, 0.4);*/
     color: rgba(255, 255, 255, 0.2);
     -webkit-mask-image: var(--grungy-mask2);
     mask-image: var(--grungy-mask2);
@@ -675,7 +676,7 @@ input.speech-input {
     flex: 1;
     margin: 0;
     padding: 2em 1em 0.25em;
-    font-size: 1.5em;
+    font-size: 1em;
     list-style: none;
     overflow: auto;
 }
@@ -700,15 +701,17 @@ input.speech-input {
     position: relative;
     display: flex;
     justify-content: space-between;
+    padding: 0.2em 0;
     cursor: pointer;
 }
 
 #entries li input {
     flex: 1 1 auto;
     display: block;
-    padding: 10px 0;
+    padding: 0;
     height: auto;
     width: auto;
+    min-width: 0;
     box-sizing: border-box;
     text-align: center;
     background: transparent;
@@ -769,11 +772,11 @@ input.speech-input {
 .highlighted:before {
     content: "";
     position: absolute;
-    top: -0.1em;
+    top: 0;
     left: 10%;
     display: block;
     border-radius: 15px;
-    height: 1.2em;
+    height: 100%;
     width: 80%;
     background: radial-gradient(ellipse at center, var(--highlighted-color) 30%, transparent 80%);
     -webkit-mask-image: var(--grungy-mask3);

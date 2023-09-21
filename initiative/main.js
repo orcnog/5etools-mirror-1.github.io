@@ -98,8 +98,18 @@ async function main() {
 
     /* Rehydrate the brightness config from cookie */
     const cookieBrightness = getCookie('brightnessPreference') || 1
-    document.getElementById('brightness').value = parseFloat(cookieBrightness)
+    document.getElementById('brightnessPref').value = parseFloat(cookieBrightness)
     document.documentElement.style.setProperty('--brightness-level', parseFloat(cookieBrightness))
+    
+    /* Rehydrate the font size config from cookie */
+    const cookieFontSize = getCookie('fontSizePreference') || 2
+    document.getElementById('fontSizePref').value = parseFloat(cookieFontSize)
+    document.documentElement.style.setProperty('--adjustable-font-size', parseFloat(cookieFontSize) + 'em')
+    
+    /* Rehydrate the font size config from cookie */
+    const cookieChalkiness = getCookie('chalkinessPreference') || 0.75
+    document.getElementById('chalkinessPref').value = parseFloat(cookieChalkiness)
+    document.documentElement.style.setProperty('--adjustable-chalkiness', 1 - parseFloat(cookieChalkiness))
 
     /* Rehydrate the current player entries from cookie */
     const savedPlayers = getCookie('players')
@@ -148,8 +158,32 @@ async function main() {
         increaseBrightness()
     })
 
-    document.getElementById('brightness').addEventListener('change', (e)=> {
+    document.getElementById('brightnessPref').addEventListener('change', (e)=> {
         updateBrightnessLevel(e.target.value)
+    })
+
+    document.getElementById('decrFontSize').addEventListener('click', ()=> {
+        decreaseFontSize()
+    })
+
+    document.getElementById('incrFontSize').addEventListener('click', ()=> {
+        increaseFontSize()
+    })
+
+    document.getElementById('fontSizePref').addEventListener('change', (e)=> {
+        updateFontSize(e.target.value)
+    })
+
+    document.getElementById('decrChalkiness').addEventListener('click', ()=> {
+        decreaseChalkiness()
+    })
+
+    document.getElementById('incrChalkiness').addEventListener('click', ()=> {
+        increaseChalkiness()
+    })
+
+    document.getElementById('chalkinessPref').addEventListener('change', (e)=> {
+        updateChalkiness(e.target.value)
     })
 
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
@@ -317,7 +351,7 @@ function updateBrightnessLevel(value) {
 }
 
 function increaseBrightness() {
-    var brightnessInput = document.getElementById('brightness')
+    var brightnessInput = document.getElementById('brightnessPref')
     const currentValue = parseFloat(brightnessInput.value)
     if (currentValue < 3) {
         brightnessInput.value = parseFloat(brightnessInput.value) + 0.25
@@ -326,11 +360,57 @@ function increaseBrightness() {
 }
 
 function decreaseBrightness() {
-    var brightnessInput = document.getElementById('brightness')
+    var brightnessInput = document.getElementById('brightnessPref')
     const currentValue = parseFloat(brightnessInput.value)
     if (currentValue > 0.25) {
         brightnessInput.value = currentValue - 0.25
         brightnessInput.dispatchEvent(new Event('change'))
+    }
+}
+
+function updateFontSize(value) {
+    document.documentElement.style.setProperty('--adjustable-font-size', parseFloat(value) + 'em')
+    setCookie('fontSizePreference', parseFloat(value))
+}
+
+function increaseFontSize() {
+    var fontSizeInput = document.getElementById('fontSizePref')
+    const currentValue = parseFloat(fontSizeInput.value)
+    if (currentValue < 4) {
+        fontSizeInput.value = parseFloat(fontSizeInput.value) + 0.25
+        fontSizeInput.dispatchEvent(new Event('change'))
+    }
+}
+
+function decreaseFontSize() {
+    var fontSizeInput = document.getElementById('fontSizePref')
+    const currentValue = parseFloat(fontSizeInput.value)
+    if (currentValue > 0.5) {
+        fontSizeInput.value = currentValue - 0.25
+        fontSizeInput.dispatchEvent(new Event('change'))
+    }
+}
+
+function updateChalkiness(value) {
+    document.documentElement.style.setProperty('--adjustable-chalkiness', 1 - parseFloat(value))
+    setCookie('chalkinessPreference', parseFloat(value))
+}
+
+function increaseChalkiness() {
+    var chalkinessInput = document.getElementById('chalkinessPref')
+    const currentValue = parseFloat(chalkinessInput.value)
+    if (currentValue < 1) {
+        chalkinessInput.value = parseFloat(chalkinessInput.value) + 0.25
+        chalkinessInput.dispatchEvent(new Event('change'))
+    }
+}
+
+function decreaseChalkiness() {
+    var chalkinessInput = document.getElementById('chalkinessPref')
+    const currentValue = parseFloat(chalkinessInput.value)
+    if (currentValue > 0) {
+        chalkinessInput.value = currentValue - 0.25
+        chalkinessInput.dispatchEvent(new Event('change'))
     }
 }
 
