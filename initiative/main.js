@@ -752,7 +752,7 @@ function isClearCommand(str) {
 
 function isStartCommand(str) {
     // Test whether the user said (and said only) "start", "begin", "go", "round one", or "fight".
-    return /^(and )?(start|begin|go|round one|round 1|fight|let the games begin|let's go|let's begin|let's party|let's rock|let's rock and roll|let's boogie|ready)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+    return /^(and )?(let's )?(start|begin|let us begin|go|round one|round 1|fight|let the games begin|party|rock|rock and roll|rock 'n' roll|boogie|get ready to rumble|ready|ready set go)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
 }
 
 function handleMicPress() {
