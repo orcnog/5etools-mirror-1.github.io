@@ -1,30 +1,35 @@
-
 :root {
     --brightness-level: 1;
-    --body-color: #777;
-    --body-bg-images: url('https://baldursgate3.game/png/menu-shadow-right-mobile.png'), url('https://baldursgate3.game/png/menu-shadow-left-mobile.png'), url('https://baldursgate3.game/masks/smoke.jpg'); /*url(https://foundryvtt.com/static/assets/layout/home-background.webp);*/
-    --body-bg-image-positions: top right, top left, center;
-    --body-bg-image-sizes: auto, auto, cover;
-    --main-text-color: #999;
-    --main-text-color-alt: #777;
-    --div-bg-color: transparent; /*#222;*/
+    --body-color: #ddd;
+    --body-bg-images: url('images/637744211130347368.jpg');
+    --body-bg-image-positions: left center;
+    --body-bg-image-sizes: cover;
+    --main-text-color: #ddd;
+    --main-text-color-alt: #fff;
+    --header-menu-height: 50px;
+    --div-bg-color: transparent;
     --div-bg-image: url('images/slate-bg.png');
     --div-bg-image-2: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGBAMAAACDAP+3AAAAGFBMVEUfHx8eHh4dHR0bGxshISEiIiIlJSUjIyM9IpsJAAAFjUlEQVR4AT3UuZLcOBaF4QuI2XJxboIhF/eQFe1WovoBAAqccpkaZpc5+4yrXa8/RGpx/lrIXPjFCYjTp9z8REqF4VYNWB3Av3zQJ6b6xBwlKB/9kRkCjXVwGH3ziK5UcjFHVkmgY6osiBsGDFfseqq2ZbTz7E00qBDpzOxnD7ToABeros1vM6MX0rBQaG1ith1A/HJkvkHxsPGJ82dP8vVCyWmbyPTaAfGzg40bgIdrv2f3pBVPycUcufx+BSUUWDuCZi6zBqdM50ElKYPODqtLDjc31rBb9CZ59lbN/JScuMxHLUBcGiy6QRH9zpwgZGhRj8qSydPVgNNVgbWqYX3HbM9K2rqTnKVmsmwKWzc1ffEd20+Zq3Ji65kl6TSjALNvzmJt4Pi2f1etytGJmy5erLAgbNY4bjykC3YCLIS3nSZMKgwRsBarWgjdeVzIEDzpTkoOUArTF4WFXYHwxY585sT0nmTYMxmXfs8fzwswfnam8TMU49bvqSRnyRPnqlno4tVQQiH2A9Za8tNTfXQ0lxbSxUaZna0uLlj9Q0XzD96CpsOZUftolINKBWJpAOoAJC0T6QqZnOtfvcfJFcDrD4Cuy5Hng316XrqzJ204HynyHwWed6i+XGF40Uw2T7Lc71HyssngEOrgONfBY7wvW0UZdVAma5xmSNjRp3xkvKJkW6aSg7PK4K0+mbKqYB0WYBgWwxCXiS74zBCVlEFpYQDEwjcA1qccb5yO6ZL8ozt/h3wHSCdWzLuqxU2ZZ9ev9MvRMbMvV9BQgN0qrFjlkzPQanI9nuaGCokVK2LV1Y2egyY1aFQGxjM9I7RBBAgyGEJtpKHP0lUySSeWCpyKHMT2pmM/vyP55u2Rw5lcSeabAfgiG5TPDX3uP3QvcoSipJXQByUCjS4C8VXqxEEZOJxzmJoyogFNJBRsCJs2XmoWWrWFqTsnbwtSn43gNFTTob9/SEpaPJNhUBKDGoZGCMINxvBv8vuKbb//lg/sK0wfPgBica/QsSk5F3KK4Ui6Yw+uv4+DWEOFbhdPOnbY5PLFpzrZMhakeqomY0Vz0TO+elQGTWdCk1IYFAOaoZg0IJQhT+YreXF+yia+O1cgtGufjXxQw28f85RPXfd15zv13ABoD15kB7FKJ/7pbHKP6+9TgNgkVj68NeV8Tp24f7OOndCgJzR3RNJBPNFReCmstMVqvjjzBoeK4GOFoBN32CPxu+4TwwBDa4DJTe/OU9c9ku7EGyfOVxh+fw9g/AATxPqKTEXJKEdCIBkB4iBUlO6MjUrWi6M5Kz31YAqFsYaCeB0KJC5d1+foo3LQWSfRaDrwdAQrMEC27yDZXJf7TlOJ2Bczr1di3OWvZB6XrvvqPuWJPDk9dAHgm7LvuZJTEdKqO3J3XgostArEnvkqgUznx3PX7cSzz1FXZyvakTA4XVVMbCPFPK1cFj66S0WoqQI1XG2uoU7CMPquO2VaUDJFQMdVgXKD2bpz6ufzzxXbxszHQ9fGO/F7A998yBQG6cShE+P+Pk7t1FwfF1QHN1Eui1VapRxCdj8tCtI1bog1Fo011Sx9u3o6c9bufI6wAT26Av9xJ+WWpTKbbBPp3K/1LbC4Vuhv396RCbJw4untjxVPndj+dIB9dVD8z2dylZ+6vMeJwbYChHJkvHV2J3fdHsJPASeHhrXq6QheXu1nBhUr5u6ryT0I13BFKD01ViZ/n3oaziRG7c6Ayg7g1LPeztNdT36ueMqcN4XGv3finjfv+7I/kMJ4d046MUanOA1QtMH1kLlfFasm99NiutSw63yNDeH4zeL1Uu8XKHNfcThPSSNwchGMbgUETScwkCcK77pH2jsgrAssvVyB8FLJ7GrmwyD8eVqsHoY/FwIv9T7lPu9+Yf8/9+w4nS1ma78AAAAASUVORK5CYII=);
     --main-bg-image-mask: url('images/bottom-splotch-mask.png');
-    --main-text-shadow: -0.05em -0.05em rgba(0, 0, 0, 0.5);  /*black;*/
-    --playerlist-bg-img: none; /*url('images/brown-parchment.jpg');*/ /*url('https://baldursgate3.game/masks/box-background.jpg');*/  /*url('https://baldursgate3.game/masks/box-background.jpg');*/
-    --playerlist-shadow: none;  /*0 0 30px 0px rgba(150,120,100,0.4);*/
+    --main-text-shadow: -0.05em -0.05em rgba(0, 0, 0, 0.5);
+    --playerlist-bg-img: none;
+    --playerlist-shadow: none;
     --button-font: 'East Sea Dokdo';
-    --button-text-color: rgba(255, 255, 255, 0.4);
-    --button-bg-color: rgb(114 65 32 / 85%);  /*rgb(99 53 22 / 85%);*/  /*rgba(255,100,0,0.15);*/
-    --button-bg-color--hover: rgb(143 77 30 / 85%);  /*rgb(110 58 21 / 85%);*/  /*rgba(200,40,0,0.2);*/
-    --button-border-color: none;  /*rgba(255,255,255,0.1);*/  /*rgba(0,0,0,0.7)*/
+    --button-text-color: rgba(255, 255, 255, 0.8);
+    --button-bg-color: rgb(150 76 27);
+    --button-bg-color--hover: rgb(140 70 23);
+    --button-bg-color-alt: #222;
+    --button-bg-color-alt--hover: #322;
+    --button-bg-color-clear: transparent;
+    --button-bg-color-clear--hover: rgba(0, 0, 0, 0.25);
+    --button-border-color: none;
     --button-outline-focus: rgba(255, 100, 0, 0.5);
-    --mic-color: #8c7f76;
+    --mic-color: #ddd;
+    --mic-bg-color: rgb(150 76 27);
     --input-bg-color: rgba(0, 0, 0, 0.8);
     --input-placeholder-color: #555;
-    --highlighted-color: rgba(119, 153, 225, 0.25);
-    --highlighted-text-color: #bbb;
+    --highlighted-color: rgba(100, 150, 225, 0.4);
+    --highlighted-text-color: #fff;
     --grungy-mask1: url('images/grungy-mask4.png');
     --grungy-mask2: url('images/grungy-mask3.png');
     --grungy-mask3: url('images/grungy-mask2.png');
@@ -152,17 +157,56 @@
     src: local("Vtks Distress"), url("fonts/vtks distress.ttf") format("truetype");
 }
 
+/* CSS Reset */
+body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol,ul {
+    list-style: none;
+}
+blockquote,q {
+    quotes: none;
+}
+blockquote:before,blockquote:after,q:before,q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* End CSS Reset */
 
 html {
+    /* height: 100%; */
     min-height: 100%;
-    min-height: -moz-available; /* WebKit-based browsers will ignore this. */
-    min-height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    min-height: -moz-available;
+    /* WebKit-based browsers will ignore this. */
+    min-height: -webkit-fill-available;
+    /* Mozilla-based browsers will ignore this. */
     min-height: fill-available;
 }
 
 body {
-    margin: 8px;
-    line-height: 1.2; /* but some fonts override this */
+    padding: 8px;
+    /* height: 100%; */
+    min-height: 100%;
+    box-sizing: border-box;
+    line-height: 1.2;
+    /* but some fonts override this */
     background: black no-repeat;
     background-image: var(--body-bg-images);
     background-position: var(--body-bg-image-positions);
@@ -205,6 +249,10 @@ input {
     mask-size: cover;
 }
 
+input::placeholder {
+    color: var(--input-placeholder-color);
+}
+
 /* Hide number incr/decr buttons in  most modern browsers */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -217,7 +265,7 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-button {
+.btn {
     margin: 5px;
     padding: 0.1em 1.5em;
     border: 2px solid var(--button-border-color);
@@ -225,6 +273,7 @@ button {
     font-size: 2rem;
     font-family: var(--button-font);
     color: var(--button-text-color);
+    text-transform: uppercase;
     background: var(--button-bg-color);
     -webkit-mask-image: var(--grungy-mask1);
     mask-image: var(--grungy-mask1);
@@ -237,19 +286,36 @@ button {
     transition: background-color 0.2s;
 }
 
-button:hover,
-button:focus {
+.btn:hover,
+.btn:focus,
+.btn:active {
     background-color: var(--button-bg-color--hover);
 }
 
-button:focus-visible {
+.btn:focus-visible {
     outline: 2px var(--button-outline-focus) solid;
 }
 
-button[disabled] {
+.btn[disabled] {
     opacity: 0.25;
     pointer-events: none;
 }
+
+.btn-clear {
+    color: var(--main-text-color-alt);
+    text-shadow: var(--main-text-shadow);
+    -webkit-mask-image: var(--grungy-mask1);
+    mask-image: var(--grungy-mask1);
+    background: var(--button-bg-color-clear);
+    appearance: none;
+}
+
+.btn-clear:hover,
+.btn-clear:focus,
+.btn-clear:active {
+    background-color: var(--button-bg-color-clear--hover);
+}
+
 
 .button-group {
     display: flex;
@@ -303,23 +369,36 @@ select {
 /* Nav bar */
 .header-menu {
     display: flex;
-    justify-content: flex-end;
-    height: 50px;
+    justify-content: space-between;
+    height: var(--header-menu-height);
 }
 
-.toggle-settings-menu {
+.header-menu-btn {
     display: flex;
     align-items: center;
     padding: 0.25em;
-    background-color: #421;
+    background-color: var(--button-bg-color-alt);
+    -webkit-mask-image: var(--grungy-mask2);
+    mask-image: var(--grungy-mask2);
 }
 
-.toggle-settings-menu:not(.back) .back-ui {
+.header-menu-btn:hover,
+.header-menu-btn:focus {
+    background-color: var(--button-bg-color-alt--hover);
+}
+
+.header-menu-btn:not(.menu-open) .settings-menu-open-ui {
     display: none;
 }
 
-.toggle-settings-menu.back .no-back-ui {
+.header-menu-btn.menu-open .settings-menu-closed-ui {
     display: none;
+}
+
+.header-menu-btn i {
+    color: var(--main-text-color-alt);
+    -webkit-mask-image: var(--grungy-mask3);
+    mask-image: var(--grungy-mask3);
 }
 
 /* Main wrapper */
@@ -332,27 +411,21 @@ select {
     align-items: center;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 32px 5vw 250px;
+    padding: 20px 20px 150px;
+    height: calc(100% - var(--header-menu-height));
+    min-height: 80vh;
+    width: 100%;
+    max-width: 600px;
     border: 1px solid var(--div-border-color);
-    box-shadow: 0px 0px 32px black;
     background: var(--div-bg-color) var(--div-bg-image) no-repeat scroll left top;
     background-size: cover;
-    -webkit-mask-image: var(--main-bg-image-mask);
-    /* For Safari */
+    -webkit-mask-image: var(--div-bg-image), var(--main-bg-image-mask);
     mask-image: var(--main-bg-image-mask);
-    -webkit-mask-size: cover;
+    -webkit-mask-size: 100% 80%, 100% 32%;
     mask-size: cover;
-    -webkit-mask-position: right bottom;
+    -webkit-mask-position: top, right bottom;
     mask-position: right bottom;
-    width: 90vw;
-    min-height: 100%;
-    min-height: -moz-available;
-    /* WebKit-based browsers will ignore this. */
-    min-height: -webkit-fill-available;
-    /* Mozilla-based browsers will ignore this. */
-    min-height: fill-available;
-
-    max-width: 600px;
+    -webkit-mask-repeat: no-repeat, no-repeat;
     color: var(--main-text-color);
 }
 
@@ -363,6 +436,18 @@ select {
     font-size: 1.25em;
 }
 
+.settings-menu-group.event-log {
+    flex: 1 1 auto;
+}
+
+.settings-menu-group.event-log p {
+    display: block;
+    font: 0.5em courier;
+    color: white;
+    height: 500px;
+    overflow-y: auto;
+}
+
 .settings-input {
     margin: 0.5em 0 0;
 }
@@ -371,34 +456,32 @@ select {
 .clear-all {
     position: absolute;
     top: 0.5em;
-    right: 0.5em;
+    right: 1em;
+    margin: 0;
     padding: 0.5em 0.25em 0.25em;
     width: auto;
     line-height: 0.5;
-    color: var(--main-text-color-alt);
-    text-shadow: var(--main-text-shadow);
-    -webkit-mask-image: var(--grungy-mask1);
-    mask-image: var(--grungy-mask1);
-    background: none;
-    appearance: none;
 }
 
 /* microphone permission messaging */
-.pre-microphone-msg,
-.post-microphone-msg {
+.microphone-msg {
     position: absolute;
-    margin-top: 0.5em;
+    margin-top: 3em;
     width: 90%;
     text-align: center;
     opacity: 0;
+    transition: opacity 1s;
     pointer-events: none;
     user-select: none;
-    transition: opacity 1s;
 }
 
-.pre-microphone-msg.show,
-.post-microphone-msg.show {
+.microphone-msg.show {
     opacity: 1;
+    z-index: 1;
+}
+
+body.players-listed .microphone-msg {
+    display: none;
 }
 
 /* microphone button */
@@ -413,7 +496,7 @@ select {
     width: 2em;
     min-height: 2em;
     color: var(--mic-color);
-    background-color: var(--button-bg-color);
+    background-color: var(--mic-bg-color);
     -webkit-mask-image: var(--grungy-mask1);
     mask-image: var(--grungy-mask1);
     -webkit-mask-size: initial;
@@ -441,7 +524,7 @@ select {
     z-index: -1;
 }
 
-#startDictation:active::before {
+#startDictation:not(.disabled).active::before {
     width: 100%;
 }
 
@@ -454,8 +537,14 @@ select {
     outline: 2px var(--button-outline-focus) solid;
 }
 
+#startDictation.disabled {
+    pointer-events: none;
+}
+
+#startDictation.disabled,
 #startDictation.thinking {
-    background-color: rgba(87, 87, 109, 0.3); /*rgba(34, 56, 102, 0.4);*/
+    background-color: rgba(87, 87, 109, 0.3);
+    /*rgba(34, 56, 102, 0.4);*/
     color: rgba(255, 255, 255, 0.2);
     -webkit-mask-image: var(--grungy-mask2);
     mask-image: var(--grungy-mask2);
@@ -464,8 +553,13 @@ select {
 }
 
 @keyframes moveBackground {
-    0% { background-position: 0 center; }
-    100% { background-position: -1em center; }
+    0% {
+        background-position: 0 center;
+    }
+
+    100% {
+        background-position: -1em center;
+    }
 }
 
 #startDictation.thinking::after {
@@ -496,50 +590,23 @@ select {
     }
 }
 
+#speechForm {
+    margin-top: 3em;
+}
+
+#speechForm:not(.show) {
+    display: none;
+}
+
 input.speech-input {
     display: block;
-    opacity: 0.2;
-    background: #111;
-    color: #ccc;
-    font-size: 2em;
-    transition: font-size 0.15s;
-
-    /* hide for now */
-    opacity: 0 !important;
-    height: 0;
-    /* end hide */
-}
-
-input.speech-input:focus {
-    /* only show when dictating for now */
-    opacity: 1 !important;
-    height: auto;
-}
-
-input.speech-input:last-of-type,
-input.speech-input:focus {
-    opacity: 1;
-}
-
-@media (max-width: 767.9px) {
-    input.speech-input:focus {
-        position: fixed;
-        top: 25%;
-        left: 50%;
-        width: 100%;
-        font-size: 3vw;
-        line-height: 20vw;
-        text-align: center;
-        transform: translateX(-50%);
-    }
-
-    input.speech-input:placeholder-shown {
-        font-size: 7vw;
-    }
-}
-
-input.speech-input:focus::placeholder {
-    color: var(--input-placeholder-color);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    font-size: 1.25em;
+    /* letter-spacing: -0.1em; */
+    color: #777;
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
 .players {
@@ -559,20 +626,17 @@ input.speech-input:focus::placeholder {
     position: absolute;
     top: 20px;
     left: 40px;
-    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #341603;
-    /* font-weight: bold; */
-    font-size: 12vw;
-    font-family: 'East Sea Dokdo';
-    line-height: 0.85;
+    margin: 0;
+    font-size: 7vw;
 }
 
 .round-label {
     display: none;
     line-height: 0.75;
+    color: #341603;
 }
 
 .round-tally {
@@ -583,7 +647,7 @@ input.speech-input:focus::placeholder {
     background-size: contain;
     transform: skew(-5deg, 0deg);
     opacity: 1;
-    filter: grayscale(1) brightness(0.75);
+    filter: grayscale(0.5) brightness(0.55);
 }
 
 .round-tally[data-marks="1"] {
@@ -610,8 +674,8 @@ input.speech-input:focus::placeholder {
     display: none;
     flex: 1;
     margin: 0;
-    padding: 20px 0;
-    font-size: 5vw;
+    padding: 2em 1em 0.25em;
+    font-size: 1.5em;
     list-style: none;
     overflow: auto;
 }
@@ -629,69 +693,96 @@ input.speech-input:focus::placeholder {
 .players-listed #entries {
     display: flex;
     flex-flow: column;
+    max-width: 99%;
 }
 
 #entries li {
+    position: relative;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
 }
 
-#entries li span {
+#entries li input {
     flex: 1 1 auto;
-    min-width: 2em;
+    display: block;
+    padding: 10px 0;
+    height: auto;
+    width: auto;
+    box-sizing: border-box;
     text-align: center;
+    background: transparent;
+    appearance: none;
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
 #entries .highlighted .player-name {
     color: var(--highlighted-text-color);
 }
 
-#entries .player-order {
-    flex: 0 0 1em;
-    min-width: 1em;
-    color: var(--main-text-color-alt);
+#entries .player-order,
+#entries .player-badge {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 0 0 1.2em;
+    min-width: 1.2em;
 }
 
-.input-editable {
-    margin: 0;
-    outline: none !important;
-    padding: 0 1.25em;
-    border: none;
-    border-radius: 15px;
-    box-sizing: border-box;
-    width: calc(100% - 4em);
-    font-size: 0.5em;
-    background: rgba(0, 0, 0, 0.5);
-    color: var(--main-text-color);
-}
-
-.input-editable.player-order {
-    width: 5em;
-    text-align: center;
+@keyframes pulseBtnColor {
+    0%, 100% {
+        background-color: var(--button-bg-color);
+        color: var(--button-text-color);
+    }
+    
+    50% {
+        background-color: rgba(160, 140, 0, 1);
+        color: white;
+    }
 }
 
 #startButton {
-    margin-top: 1.5em;
+    margin-top: 0.5em;
     padding: 0.4em 0.6em;
-    -webkit-mask-size: contain;
-    mask-size: contain;
+    -webkit-mask-size: 94% 100%;
+    mask-size: 94% 100%;
+    /* background-color: #d40c0c; */
+    animation: pulseBtnColor 2.5s infinite;
+}
+
+@keyframes moveMaskLeftToRight {
+    0% {
+        -webkit-mask-position: 0 center;
+    }
+
+    100% {
+        -webkit-mask-position: 400px center;
+    }
 }
 
 .highlighted {
-    position: relative;
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
 .highlighted:before {
     content: "";
     position: absolute;
-    top: 50%;
+    top: -0.1em;
     left: 10%;
     display: block;
     border-radius: 15px;
-    height: 0px;
+    height: 1.2em;
     width: 80%;
-    box-shadow: 0 0 20px 22px var(--highlighted-color);
+    background: radial-gradient(ellipse at center, var(--highlighted-color) 30%, transparent 80%);
+    -webkit-mask-image: var(--grungy-mask3);
+    mask-image: var(--grungy-mask3);
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-size: auto;
+    mask-size: auto;
+    animation: moveMaskLeftToRight 40s linear infinite;
 }
 
 button.previous-turn,

@@ -4,6 +4,7 @@ let chosenFont
 let players = []
 let currentTurn = 0
 let currentRound = 1
+let recognition;
 let final_transcript = ''
 let allTranscripts = []
 const numberMap = {
@@ -12,7 +13,7 @@ const numberMap = {
     'two': 2, 'to': 2, 'too': 2, 'ii': 2,
     'three': 3, 'tree': 3, 'iii': 3,
     'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, '4th': 4, 'iv': 4,
-    'five': 5, 'fi': 5, 'fife': 5, 'v': 5,
+    'five': 5, 'fi': 5, 'fife': 5, 'v': 5, "vie": 5,
     'six': 6, 'sex': 6, 'sixth': 6, '6th': 6, 'vi': 6,
     'seven': 7, '7th': 7, 'vii': 7,
     'eight': 8, 'ate': 8, 'eighth': 8, '8th': 8, 'viii': 8,
@@ -71,9 +72,17 @@ Element.prototype.onClassRemoved = function (className, callback) {
     // document.body.onClassRemoved('active-turn', function() { /* do stuff */ });
 }
 
-window.onload = function () {
-    /* Get font config from cookie */
-    chosenFont = getCookie('fontPreference') || 'font-nothing-you-could-do'
+window.onload = async function () {
+
+    main()
+
+}
+
+async function main() {
+    outLogsToSettingsPage();
+
+    /* Rehydrate the font config from cookie */
+    chosenFont = getCookie('fontPreference') || 'font-eordeoghlakat'
     setCookie('fontPreference', chosenFont)
     document.body.classList.add(chosenFont)
     populateSelectWithFonts()
@@ -87,71 +96,82 @@ window.onload = function () {
         setCookie('fontPreference', selectedClass)
     })
 
-    /* Get brightness conif from cookie */
+    /* Rehydrate the brightness config from cookie */
     const cookieBrightness = getCookie('brightnessPreference') || 1
     document.getElementById('brightness').value = parseFloat(cookieBrightness)
     document.documentElement.style.setProperty('--brightness-level', parseFloat(cookieBrightness))
 
-    // Recall player entries saved to cookie
-    const savedEntries = getCookie('players')
-    if (savedEntries) {
-        players = JSON.parse(savedEntries)
+    /* Rehydrate the current player entries from cookie */
+    const savedPlayers = getCookie('players')
+    if (savedPlayers) {
+        players = JSON.parse(savedPlayers)
+        const prevPlayersTranscript = generatedPlayersTranscript(players)
+        allTranscripts.push(prevPlayersTranscript)
         renderPlayers()
     }
 
-    // Rehydrate the current turn, if it was recorded
+    /* Rehydrate the current turn, if it was recorded */
     const turnStarted = getCookie('turnStarted')
     if (turnStarted) {
         document.body.classList.add('active-turn')
-    }
-    const savedRound = getCookie('round')
-    if (savedRound) {
-        currentRound = parseInt(savedRound, 10)
-
-        // Rehydrate the tally marks on page refresh
-        if (savedRound > 0) {
-            updateTally(savedRound)
-        }
     }
     const savedTurn = getCookie('turn')
     if (savedTurn) {
         currentTurn = parseInt(savedTurn, 10)
         highlightCurrentTurn()
     }
+    
+    /* Rehydrate the current round, if it was recorded */
+    const savedRound = getCookie('round')
+    if (savedRound) {
+        currentRound = parseInt(savedRound, 10)
 
-    // Handle microphone permissions
+        /* Rehydrate the tally marks on page refresh */
+        if (savedRound > 0) {
+            updateTally(savedRound)
+        }
+    }
+
+    document.getElementById('refreshPageBtn').addEventListener('click', ()=> {
+        refreshPage()
+    })
+
+    document.getElementById('settingsMenuBtn').addEventListener('click', ()=> {
+        toggleSettingsMenu()
+    })
+
+    document.getElementById('decrBrightness').addEventListener('click', ()=> {
+        decreaseBrightness()
+    })
+
+    document.getElementById('incrBrightness').addEventListener('click', ()=> {
+        increaseBrightness()
+    })
+
+    document.getElementById('brightness').addEventListener('change', (e)=> {
+        updateBrightnessLevel(e.target.value)
+    })
+
+    document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
+
+    document.getElementById('startButton').addEventListener('click', ()=> {
+        startTurnCounter()
+    })    
+
+    document.getElementById('prevTurn').addEventListener('click', ()=> {
+        goBackOneTurn()
+    })    
+
+    document.getElementById('nextTurn').addEventListener('click', ()=> {
+        advanceTurn()
+    })    
+
+    document.getElementById('clearAll').addEventListener('click', ()=> {
+        clearAll()
+    })
 
     // Asynchronously check to see if the microphone permission has been granted during the session
-    navigator.permissions.query({ name: 'microphone' }).then(function (permissionStatus) {
-        if (micAllowed || players.length > 0) {
-            return // assume they know what they're doing; remove help message
-        }
-        if (permissionStatus.state !== 'granted') {
-            // Microphone permission is not yet granted
-            console.log('Microphone permission is not yet granted.')
-            document.querySelector('.pre-microphone-msg').classList.add('show')
-
-            // Listen for changes to the permission state
-            permissionStatus.onchange = function () {
-                // alert(this.state + ' (onchange event)')
-                if (this.state === 'granted') {
-                    console.log('Microphone permission was just granted')
-                    micAllowed = true
-                    document.querySelector('.pre-microphone-msg').classList.remove('show')
-                    document.querySelector('.post-microphone-msg').classList.add('show')
-                }
-            }
-
-            function showFirstTimerMessageOnce() {
-                document.querySelector('.pre-microphone-msg').classList.remove('show')
-                document.querySelector('.post-microphone-msg').classList.add('show')
-                document.getElementById('startDictation').removeEventListener('touchstart', showFirstTimerMessageOnce)
-            }
-            document.getElementById('startDictation').addEventListener('touchstart', showFirstTimerMessageOnce)
-        } else {
-            micAllowed = true
-        }
-    })
+    micAllowed = await testMicPermission()
 
     // set the state of the Previous buttton based on rehydrated round/turn state
     document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
@@ -159,39 +179,23 @@ window.onload = function () {
     document.getElementById('startDictation').addEventListener('mousedown', function (e) {
         e.preventDefault()
         handleMicPress()
+        this.classList.add('active');
     })
     document.getElementById('startDictation').addEventListener('touchstart', function (e) {
         e.preventDefault()
         handleMicPress()
+        this.classList.add('active');
     })
     document.getElementById('startDictation').addEventListener('mouseup', function (e) {
         e.preventDefault()
         handleMicRelease()
+        this.classList.remove('active');
     })
     document.getElementById('startDictation').addEventListener('touchend', function (e) {
         e.preventDefault()
         handleMicRelease()
+        this.classList.remove('active');
     })
-
-
-    // // SPEECH INPUT BUTTON HANDLING ==========================================
-
-    // document.getElementById('speechInput').addEventListener('focus', function(e) {
-    //     logEvent(e)
-    //     this.select()
-    // })
-    // document.getElementById('speechInput').addEventListener('focusout', function(e) {
-    //     logEvent(e)
-    //     parseAndAddEntries()
-    // })
-
-    // // Submit handler
-    // document.getElementById("speechForm").parentElement.addEventListener('submit', function(e) {
-    //     e.preventDefault()
-    //     logEvent(e)
-    //     parseAndAddEntries()
-    //     setTimeout(()=>{document.getElementById('startButton').focus()}, 1)
-    // })
 
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(function (event) {
@@ -199,11 +203,6 @@ window.onload = function () {
             logEvent(e)
         })
     })
-
-    function logEvent(e) {
-        console.log(e.type)
-        document.getElementById('eventlog').innerHTML += ('<br/>' + e.type + (e.type == 'keydown' ? ' ' + e.which : ''))
-    }
 
     document.body.onClassAdded('active-turn', function () {
         console.log('active-turn was added')
@@ -218,13 +217,96 @@ window.onload = function () {
         document.getElementById('nextTurn').disabled = true
         document.getElementById('startButton').disabled = false
     })
+    
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+    recognition = new SpeechRecognition()
+
+    recognition.continuous = true
+    recognition.lang = 'en-US'
+    recognition.interimResults = true
+    recognition.maxAlternatives = 3
+
+    var interimOutput = document.getElementById('interimWords')
+    var finalOutput = () => document.getElementById('eventlog')
+    let pauseTimer = null // Initialize the pause timer variable
+    let speechProcessedEvent = new Event('speechprocessed')
+
+    recognition.onstart = speechStartHandler
+    recognition.onresult = speechResultHandler
+    recognition.onnomatch = speechNoMatchHandler
+    recognition.onerror = speechErrorHandler
+    recognition.onend = speechEndHandler
+    
+    function speechStartHandler(event) {
+        console.log('Speech started.')
+        final_transcript = ''
+        finalOutput.innerHTML = final_transcript
+    }
+    
+    function speechResultHandler(event) {
+        let interim_transcript = ''
+        micAllowed = true // if we got this far, mic is obviously allowed
+
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+                const spokenWords = event.results[i][0].transcript
+                final_transcript += spokenWords
+                console.log('final: ' + spokenWords)
+                interim_transcript = ''
+            } else {
+                interim_transcript += event.results[i][0].transcript
+            }
+            console.log('Confidence: ' + event.results[i][0].confidence)
+        }
+
+        interimOutput.innerHTML = interim_transcript
+        document.querySelector('.post-mic').classList.remove('show')
+        console.log(event.results)
+    }
+
+    function speechNoMatchHandler(event) {
+        const huh = ['[incoherent]', '???', '[mumbling]', '[drunken slurring]', '[something something...]'][Math.floor(Math.random() * 5)]
+        interimOutput.textContent = huh
+        console.log(event)
+    }
+
+    function speechErrorHandler(event) {
+        interimOutput.textContent = 'Error occurred in recognition: ' + event.error
+        console.error(event)
+    }
+    
+    function speechEndHandler() {
+        console.warn('Speech ended. Parsing results.')
+        if (isEmpty(final_transcript)) {
+            if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
+        } else if (isClearCommand(final_transcript)) {
+            clearAll()
+        }else if( isStartCommand(final_transcript)) {
+            if (players.length) startTurnCounter();
+        } else {
+            finalOutput.innerHTML = final_transcript
+            allTranscripts.push(final_transcript)
+            parseAndAddEntries()
+        }
+        document.getElementById('startDictation').classList.remove('thinking')
+        document.getElementById('startDictation').disabled = false
+        document.dispatchEvent(speechProcessedEvent)
+    }
+}
+
+function refreshPage() {
+    location.reload();
+}
+
+function generatedPlayersTranscript(playersObj) {
+    return playersObj.map(player => `${player.name} @ ${player.order}`).join(', ') + ', '
 }
 
 function toggleSettingsMenu() {
     const settingsMenuButton = document.getElementById('settingsMenuBtn')
     const settingsMenu = document.querySelector('.settings-menu')
     const mainAppBody = document.querySelector('.main')
-    settingsMenuButton.classList.toggle('back')
+    settingsMenuButton.classList.toggle('menu-open')
     settingsMenu.classList.toggle('hide')
     mainAppBody.classList.toggle('hide')
 }
@@ -279,7 +361,7 @@ function populateSelectWithFonts() {
 function parseAndAddEntries() {
 
     const joinedInput = allTranscripts.join(' ')
-    let convertedInput = processInput(joinedInput, numberMap)
+    let convertedInput = parseInput(joinedInput, numberMap)
 
     const regex = /([\w\s]+?)\s*?@ (-?\d+)/g
     let matches
@@ -300,16 +382,19 @@ function parseAndAddEntries() {
 
         // Remove leading "and ", then capitalize the names
         name = name.replace(/^and /, '').split(" ").map(capitalize).join(" ")
-        players.push({ name: name, order: order })
+        players.push({ name: name, order: order, badge: '' })
     }
 
     // Sorting and rendering the players
     players.sort((a, b) => b.order - a.order)
-    renderPlayers()
+    allTranscripts = [generatedPlayersTranscript(players)];
     setCookie('players', JSON.stringify(players))
+    if (players.length) {
+        renderPlayers()
+    }
 }
 
-function processInput(input, numberMap) {
+function parseInput(input, numberMap) {
     console.log('Before processing: ' + input)
 
     // Replace punctuation with spaces
@@ -345,6 +430,16 @@ function processInput(input, numberMap) {
 
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+}
+
+function handleManualInputSubmit(e) {
+    if (e.type === 'submit') {
+        e.preventDefault()
+    }
+    const speechInput = e.target.querySelector('input')
+    allTranscripts.push(speechInput.value)
+    parseAndAddEntries()
+    speechInput.value = ''
 }
 
 function startTurnCounter() {
@@ -408,7 +503,7 @@ function updateTally(roundNumber) {
     let difference = requiredTallies - existingTallies.length
 
     // In round 1, use the label "Round ", then remove it for round 2+
-    roundCounter.querySelector('.round-label').textContent = (roundNumber == 1 ? 'Round ' : '')
+    // roundCounter.querySelector('.round-label').textContent = (roundNumber == 1 ? 'Round ' : '')
     // Add required tally elements if they're less than needed
     for (let i = 0; i < difference; i++) {
         const element = document.createElement('div')
@@ -430,6 +525,7 @@ function updateTally(roundNumber) {
 }
 
 function clearAll() {
+    if (!confirm('Clear Everything?')) return
     players = []
     currentTurn = 0
     currentRound = 1
@@ -451,72 +547,72 @@ function clearAll() {
 }
 
 function renderPlayers() {
-    const list = document.getElementById('entries')
-    list.innerHTML = ''
-    for (let entry of players) {
-        const li = document.createElement('li')
+    const list = document.getElementById('entries');
+    list.innerHTML = '';
 
-        const nameSpan = document.createElement('span')
-        nameSpan.className = 'player-name'
-        nameSpan.setAttribute('tabindex', '0')
-        nameSpan.textContent = entry.name
-        nameSpan.onclick = function () {
-            makeEditable(nameSpan, entry, 'name', 'text')
+    players.forEach(player => {
+        const li = document.createElement('li');
+
+        const orderInput = createInput('player-order', player.order, player);
+        const nameInput = createInput('player-name', player.name, player);
+        const badgeInput = createInput('player-badge', player.badge, player);
+
+        li.appendChild(orderInput);
+        li.appendChild(nameInput);
+        li.appendChild(badgeInput);
+        list.appendChild(li);
+    });
+
+    document.body.classList.add('players-listed');
+
+    function createInput(className, value, player) {
+        const input = document.createElement('input');
+        input.className = className;
+        input.value = value;
+
+        if (className === 'player-order') {
+            input.setAttribute("pattern", "[0-9]*");
+        } else if (className === 'player-name') {
+            input.setAttribute("autocapitalize", "words");
         }
-        nameSpan.onfocus = function () {
-            makeEditable(nameSpan, entry, 'name', 'text')
-        }
 
-        const orderSpan = document.createElement('span')
-        orderSpan.textContent = `${entry.order}`
-        orderSpan.className = 'player-order'
-        orderSpan.setAttribute('tabindex', '0')
-        orderSpan.onfocus = function () {
-            makeEditable(orderSpan, entry, 'order', 'number')
-        }
-        orderSpan.onclick = function () {
-            makeEditable(orderSpan, entry, 'order', 'number')
-        }
+        input.addEventListener('keydown', handleEdit.bind(null, player, input));
+        input.addEventListener('focusout', handleEdit.bind(null, player, input));
 
-        li.appendChild(nameSpan)
-        li.appendChild(orderSpan)
-        list.appendChild(li)
-    }
-    document.body.classList.add('players-listed')
-}
-
-
-function makeEditable(element, entry, field, type) {
-    const input = document.createElement('input')
-    input.classList = element.classList
-    input.classList.add('input-editable')
-    input.type = type
-    if (type == 'number') {
-        input.setAttribute("pattern", "[0-9]*")
-    } else {
-        input.setAttribute("autocapitalize", "words")
-    }
-    input.value = entry[field]
-
-    // Handle "submit" when Enter key is pressed
-    input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            handleEdit()
-        }
-    })
-
-    // Handle "submit" when input loses focus
-    input.addEventListener('focusout', handleEdit)
-
-    function handleEdit() {
-        entry[field] = field === 'order' ? parseInt(input.value, 10) : input.value
-        players.sort((a, b) => b.order - a.order) // Re-sorting on edit
-        renderPlayers()
-        setCookie('players', JSON.stringify(players))
+        return input;
     }
 
-    element.replaceWith(input)
-    input.select()
+    function handleEdit(player, input, e) {
+        if (e.type === 'keydown' && e.key !== 'Enter') return;
+
+        switch (input.className) {
+            case 'player-order':
+                player.order = parseInt(input.value, 10);
+                break;
+            case 'player-name':
+                if (input.value) {
+                    player.name = input.value;
+                } else {
+                    // Mark the player for deletion
+                    player.deleteme = true;
+                }
+                break;
+            case 'player-badge':
+                player.badge = input.value;
+                break;
+        }
+
+        postEditCleanup();
+    }
+
+    function postEditCleanup() {
+        players = players.filter(p => !p.deleteme);
+        players.sort((a, b) => b.order - a.order);
+        
+        allTranscripts = [generatedPlayersTranscript(players)]; // Assuming the function exists
+        renderPlayers();
+        setCookie('players', JSON.stringify(players)); // Assuming the function exists
+    }
 }
 
 function highlightCurrentTurn() {
@@ -537,98 +633,35 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift()
 }
 
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-var recognition = new SpeechRecognition()
+async function testMicPermission () {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      // User has granted microphone access
+      micAllowed = true
+      document.body.classList.remove('no-mic');
+      
+      // Now stop the audio stream
+      stream.getTracks().forEach(track => track.stop())
+      return true
+    })
+    .catch(error => {
+        // Access denied or another error
+        micAllowed = false
+        document.body.classList.add('no-mic');
+        return false
+      });
+  }
 
-// SPEECH API GRAMMER LIST ISN'T SUPPORTED IN CHROME... I GUESS?
-// // Speech Recognition!
-// var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList;
-
-// // Fetch the grammar words from a local file
-// fetch('/spellcheck/monster-names.txt')
-//     .then(response => response.text())
-//     .then(text => {
-//         var words = text.split('\n') // Assuming words are separated by newlines
-
-//         if (SpeechGrammarList) {
-//             var speechRecognitionList = new SpeechGrammarList()
-//             var grammar = '#JSGF V1.0; grammar words; public <word> = ' + words.join(' | ') + ' ;'
-//             speechRecognitionList.addFromString(grammar, 1)
-//             recognition.grammars = speechRecognitionList
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Error fetching the grammar words:", error)
-//     })
-
-recognition.continuous = true
-recognition.lang = 'en-US'
-recognition.interimResults = true
-recognition.maxAlternatives = 3
-
-var interimOutput = document.getElementById('interimWords')
-var finalOutput = document.getElementById('eventlog')
-let pauseTimer = null // Initialize the pause timer variable
-let speechProcessedEvent = new Event('speechprocessed')
-
-recognition.onstart = function (event) {
-    console.log('Speech started.')
-    final_transcript = ''
-    finalOutput.innerHTML = final_transcript
-    document.getElementById('speechInput').value = final_transcript
-}
-
-recognition.onresult = function (event) {
-    let interim_transcript = ''
-    micAllowed = true // if we got this far, mic is obv allowed
-
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-            const spokenWords = event.results[i][0].transcript
-            final_transcript += spokenWords
-            console.log('final: ' + spokenWords)
-            interim_transcript = ''
-        } else {
-            interim_transcript += event.results[i][0].transcript
-        }
-        console.log('Confidence: ' + event.results[i][0].confidence)
-    }
-
-    interimOutput.innerHTML = interim_transcript
-    document.querySelector('.post-microphone-msg').classList.remove('show')
-    console.log(event.results)
-}
-
-recognition.onnomatch = function (event) {
-    const huh = ['[incoherent]', '???', '[mumbling]', '[drunken slurring]', '[something something...]'][Math.floor(Math.random() * 5)]
-    interimOutput.textContent = huh
-    console.warn(huh)
-    console.log(event)
-}
-
-recognition.onerror = function (event) {
-    interimOutput.textContent = 'Error occurred in recognition: ' + event.error
-    console.error(event)
-}
-
-recognition.onend = function (event) {
-    console.warn('Speech ended. Parsing results.')
-    if (isEmpty(final_transcript)) {
-        if (micAllowed && players.length === 0) document.querySelector('.post-microphone-msg').classList.add('show')
-    } else if (isClearCommand(final_transcript)) {
-        clearAll()
-    } else {
-        finalOutput.innerHTML = final_transcript
-        allTranscripts.push(final_transcript)
-        parseAndAddEntries(final_transcript)
-    }
+function handleMicDisallowed() {
+    micAllowed = false;
+    document.body.classList.add('no-mic');
+    document.querySelector('.denied-mic').classList.add('show')
     document.getElementById('startDictation').classList.remove('thinking')
-    document.getElementById('startDictation').disabled = false
-    document.dispatchEvent(speechProcessedEvent)
+    document.getElementById('startDictation').classList.add('disabled')
+    document.getElementById('speechForm').classList.add('show')
 }
 
 function isEmpty(str) {
-    // Test whether the user said (and said only) "clear", "cancel", or "start over".
+    // Test whether the voice transcription is empty.
     return str.trim() == ''
 }
 
@@ -637,13 +670,82 @@ function isClearCommand(str) {
     return /^(clear|cancel|start over)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
 }
 
+function isStartCommand(str) {
+    // Test whether the user said (and said only) "start", "begin", "go", "round one", or "fight".
+    return /^(start|begin|go|round one|round 1|fight)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+}
+
 function handleMicPress() {
-    recognition.start()
+    if (micAllowed) {
+        recognition.start()
+
+    } else {
+        handleMicDisallowed()
+    }
 }
 
 function handleMicRelease() {
-    document.getElementById('startDictation').classList.add('thinking')
-    document.getElementById('startDictation').disabled = true
-    recognition.stop()
+    if (micAllowed) {
+        document.getElementById('startDictation').classList.add('thinking')
+        document.getElementById('startDictation').disabled = true
+        recognition.stop()
+    }
     console.log('Mic button released.')
+}
+
+function logEvent(e) {
+    console.log(e.type)
+    document.getElementById('eventlog').innerHTML += ('<br/>' + e.type + (e.type == 'keydown' ? ' ' + e.which : ''))
+}
+
+function outLogsToSettingsPage() {
+    let outputLogsToText = true; // Toggle this to control logging behavior
+    const eventLog = document.getElementById('eventlog');
+
+    const originalConsole = {
+        log: console.log,
+        warn: console.warn,
+        info: console.info,
+        debug: console.debug,
+        error: console.error
+    };
+
+    function appendToEventLog(type, args) {
+        if (outputLogsToText && eventLog) {
+            eventLog.innerHTML += `[${type.toUpperCase()}]: ${args.join(' ')}<br>`;
+        }
+    }
+
+    console.log = function (...args) {
+        originalConsole.log.apply(console, args);
+        appendToEventLog('log', args);
+    };
+
+    console.warn = function (...args) {
+        originalConsole.warn.apply(console, args);
+        appendToEventLog('warn', args);
+    };
+
+    console.info = function (...args) {
+        originalConsole.info.apply(console, args);
+        appendToEventLog('info', args);
+    };
+
+    console.debug = function (...args) {
+        originalConsole.debug.apply(console, args);
+        appendToEventLog('debug', args);
+    };
+
+    console.error = function (...args) {
+        originalConsole.error.apply(console, args);
+        appendToEventLog('error', args);
+    };
+
+    // Expose the variable to the global scope if you need to toggle it outside of this function
+    window.toggleLogOutput = function(val) {
+        outputLogsToText = !!val;
+    };
+
+    // If you want to stop logging to the <p> element, use:
+    // toggleLogOutput(false);
 }
