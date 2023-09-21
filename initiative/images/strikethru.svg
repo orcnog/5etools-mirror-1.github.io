@@ -1,0 +1,9 @@
+<svg width='100%' height='16' xmlns='http://www.w3.org/2000/svg' viewBox="0 0 100 16">
+    <defs>
+        <filter id='distressedFilter'>
+            <feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='1' result='turbulence'/>
+            <feDisplacementMap in2='turbulence' in='SourceGraphic' scale='3' xChannelSelector='R' yChannelSelector='G'/>
+        </filter>
+    </defs>
+    <path d="M0,8 Q50,0 100,7" fill='#500' stroke="#000" stroke-width="0.5" filter='url(#distressedFilter)' transform="rotate(-3 50 8)"/>
+</svg>

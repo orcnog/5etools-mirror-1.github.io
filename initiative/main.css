@@ -642,9 +642,9 @@ input.speech-input {
 
 .round-tally {
     margin-left: 0.2em;
-    width: 1em;
-    height: 0.75em;
-    background: transparent no-repeat center;
+    width: 2em;
+    height: 1em;
+    background: transparent no-repeat left;
     background-size: contain;
     transform: skew(-5deg, 0deg);
     opacity: 1;
@@ -701,6 +701,7 @@ input.speech-input {
     position: relative;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0.2em 0;
     cursor: pointer;
 }
@@ -727,31 +728,55 @@ input.speech-input {
 #entries .player-order,
 #entries .player-badge {
     display: flex;
-    justify-content: flex-end;
+    align-self: stretch;
+    justify-content: center;
     align-items: center;
     flex: 0 0 1.2em;
     min-width: 1.2em;
 }
 
-@keyframes pulseBtnColor {
-    0%, 100% {
-        background-color: var(--button-bg-color);
-        color: var(--button-text-color);
-    }
-    
-    50% {
-        background-color: rgba(160, 140, 0, 1);
-        color: white;
-    }
+#entries .player-badge i {
+    font-size: 0.6em;
+    opacity: 0.6;
 }
 
-#startButton {
-    margin-top: 0.5em;
-    padding: 0.4em 0.6em;
-    -webkit-mask-size: 94% 100%;
-    mask-size: 94% 100%;
-    /* background-color: #d40c0c; */
-    animation: pulseBtnColor 2.5s infinite;
+#entries .player-name.bloodied {
+    background-image: linear-gradient(var(--main-text-color) 50%, #C43 70%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent;
+}
+
+.strike-thru {
+    position: relative;
+    color: #500;
+    text-shadow: -0.5px -1px 0px rgba(0, 0, 0, 1.5), 0.5px 0.5px 0px rgba(0, 0, 0, 1.5), 0.5px -1px 0px rgba(0, 0, 0, 1.5), -0.5px 0.5px 0px rgba(0, 0, 0, 1.5);
+}
+
+.strike-thru::before {
+    content: "";
+    display: block;
+    width: calc(100% + 1em);
+    height: 0.75em;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    background-image: url(images/strikethru.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 1em;
+}
+
+
+.strike-thru .player-name {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    z-index: 0;  /* Ensures the input field is below the strikethrough */
 }
 
 @keyframes moveMaskLeftToRight {
@@ -785,7 +810,31 @@ input.speech-input {
     mask-repeat: repeat-x;
     -webkit-mask-size: auto;
     mask-size: auto;
+    pointer-events: none;
     animation: moveMaskLeftToRight 40s linear infinite;
+}
+
+@keyframes pulseBtnColor {
+    0%, 100% {
+        background-color: var(--button-bg-color);
+        color: var(--button-text-color);
+        opacity: 0.5;
+    }
+    
+    50% {
+        background-color: rgba(210, 30, 30, 1);
+        color: white;
+        opacity: 1;
+    }
+}
+
+#startButton {
+    margin-top: 0.5em;
+    padding: 0.4em 0.6em;
+    -webkit-mask-size: 94% 100%;
+    mask-size: 94% 100%;
+    /* background-color: #d40c0c; */
+    animation: pulseBtnColor 2.5s infinite;
 }
 
 button.previous-turn,
@@ -902,6 +951,10 @@ body:not(.players-listed) .players-listed-ui {
 
 .font-condiment {
     font-family: 'Condiment', cursive;
+}
+
+.font-courier {
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .font-dawning-of-a-new-day {

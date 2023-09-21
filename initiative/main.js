@@ -7,6 +7,16 @@ let currentRound = 1
 let recognition;
 let final_transcript = ''
 let allTranscripts = []
+let aliasMap = {
+    'brinley': 'brynlee',
+    'zoe': 'zoey',
+    'casey': 'kacie',
+    'claris': 'killaris',
+    'broke off': 'brogoth',
+    'share zoo': 'sherzu',
+    'tensing': 'tenzing',
+    'car': 'kaa'
+}
 const numberMap = {
     'zero': 0,
     'one': 1, 'won': 1,
@@ -38,6 +48,7 @@ const numberMap = {
     'thirty': 30, 'thirtieth': 30, '30th': 30,
     'thirty-one': 31, 'thirty-two': 32
 }
+const aliasesForRolled = ['rolled', 'rolls', 'roll', 'roles', 'role', 'roads', 'road', 'rd', 'ruled', 'rules', 'rule', 'world', 'whirled', 'whirl', 'wrote', 'rote']
 
 Element.prototype.onClassAdded = function (className, callback) {
     const observer = new MutationObserver(mutations => {
@@ -239,14 +250,14 @@ async function main() {
     })
 
     document.body.onClassAdded('active-turn', function () {
-        console.log('active-turn was added')
+        console.debug('active-turn class was added')
         document.getElementById('prevTurn').disabled = true
         document.getElementById('nextTurn').disabled = false
         document.getElementById('startButton').disabled = true
     })
 
     document.body.onClassRemoved('active-turn', function () {
-        console.log('active-turn was removed')
+        console.debug('active-turn class was removed')
         document.getElementById('prevTurn').disabled = true
         document.getElementById('nextTurn').disabled = true
         document.getElementById('startButton').disabled = false
@@ -272,7 +283,7 @@ async function main() {
     recognition.onend = speechEndHandler
     
     function speechStartHandler(event) {
-        console.log('Speech started.')
+        console.debug('Speech started.')
         final_transcript = ''
         finalOutput.innerHTML = final_transcript
     }
@@ -285,37 +296,42 @@ async function main() {
             if (event.results[i].isFinal) {
                 const spokenWords = event.results[i][0].transcript
                 final_transcript += spokenWords
-                console.log('final: ' + spokenWords)
+                console.debug(`heard: "${spokenWords}"`)
+                console.debug(event)
                 interim_transcript = ''
             } else {
                 interim_transcript += event.results[i][0].transcript
             }
-            console.log('Confidence: ' + event.results[i][0].confidence)
+            console.debug(`Confidence: ${event.results[i][0].confidence}`)
         }
 
         interimOutput.innerHTML = interim_transcript
         document.querySelector('.post-mic').classList.remove('show')
-        console.log(event.results)
+        console.debug(`heard: ${event.results[0][0].transcript}`)
     }
 
     function speechNoMatchHandler(event) {
         const huh = ['[incoherent]', '???', '[mumbling]', '[drunken slurring]', '[something something...]'][Math.floor(Math.random() * 5)]
         interimOutput.textContent = huh
-        console.log(event)
+        console.debug(event)
     }
 
     function speechErrorHandler(event) {
-        interimOutput.textContent = 'Error occurred in recognition: ' + event.error
-        console.error(event)
+        interimOutput.textContent = '[Error]'
+        console.error(`Error occurred in recognition: ${event.error}\nError message: ${event.message}`)
+        console.debug(event)
     }
     
     function speechEndHandler() {
-        console.warn('Speech ended. Parsing results.')
+        console.info(`heard: "${final_transcript}"`)
+        console.debug('Speech ended. Parsing results.')
         if (isEmpty(final_transcript)) {
             if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
         } else if (isClearCommand(final_transcript)) {
+            console.info(`clear command detected: ${final_transcript}`)
             clearAll()
         }else if( isStartCommand(final_transcript)) {
+            console.info(`start command detected: ${final_transcript}`)
             if (players.length) startTurnCounter();
         } else {
             finalOutput.innerHTML = final_transcript
@@ -443,7 +459,7 @@ function parseAndAddEntries() {
     const joinedInput = allTranscripts.join(' ')
     let convertedInput = parseInput(joinedInput, numberMap)
 
-    const regex = /([\w\s]+?)\s*?@ (-?\d+)/g
+    const regex = /([a-zA-Z0-9_'-\s]+?)\s*?@ (-?\d+)/g
     let matches
 
     players = []
@@ -475,7 +491,7 @@ function parseAndAddEntries() {
 }
 
 function parseInput(input, numberMap) {
-    console.log('Before processing: ' + input)
+    console.debug('Before processing: ' + input)
 
     // Replace punctuation with spaces
     input = input.replace(/[.,!?;:()]/g, ' ')
@@ -485,13 +501,18 @@ function parseInput(input, numberMap) {
     input = input.toLowerCase()
     // Add a space to the end
     input = input + ' '
-    // Replace the roll/role variations with the symbol "@"
-    input = input.replace(/ (rolled|rolls|roll|roles|role|roads|road|rd|ruled|rules|rule|world|whirled|whirl|wrote|rote)( a| an| and| of| on| ah)? /g, ' @ ')
+    // Replace stored spelling/word corrections
+    for (const [heard, correctWord] of Object.entries(aliasMap)) {
+        let aliasWordpattern = new RegExp(`\\b${heard}\\b`, 'g')
+        input = input.replace(aliasWordpattern, `${correctWord}`)
+    }
     // Replace number words
     for (const [word, number] of Object.entries(numberMap)) {
         let numberWordpattern = new RegExp(`\\b${word}\\b`, 'g')
         input = input.replace(numberWordpattern, `${number}`)
     }
+    // Replace the roll/role variations with the symbol "@"
+    input = input.replace(new RegExp(` (${aliasesForRolled.join('|')})( a| an| and| of| on| [aeu]h+|)? `, 'g'), ' @ ')
     // Split up WORD-## ex: "demon-12" to "demon 12"
     input = input.replace(/([a-z])-(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
     // Handle negative numbers
@@ -503,7 +524,7 @@ function parseInput(input, numberMap) {
     // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said)
     input = input.replace(/([a-z]) (\d\d? (?=[a-z]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`);
 
-    console.log('After processing: ' + input)
+    console.info(`parsed results: ${input}`)
 
     return input
 }
@@ -529,48 +550,73 @@ function startTurnCounter() {
     setCookie('round', currentRound)
     setCookie('turnStarted', 'true')
 }
-
 function advanceTurn() {
-    currentTurn = (currentTurn + 1) % players.length
-    setCookie('turn', currentTurn)
+    let skippedTurns = 0; // Counter to ensure we don't end up in an infinite loop
+    do {
+        currentTurn = (currentTurn + 1) % players.length;
 
-    // Start a new round if it wraps back to the first player
-    if (currentTurn == 0) {
-        currentRound++
-        updateTally(currentRound)
-        setCookie('round', currentRound)
+        // Start a new round if it wraps back to the first player
+        if (currentTurn == 0) {
+            currentRound++;
+            updateTally(currentRound);
+            setCookie('round', currentRound);
+        }
+
+        // Increment the skipped turns counter
+        skippedTurns++;
+    } while (players[currentTurn].dead && skippedTurns < players.length); // Continue if the player is dead, but not if we've looped through all players
+
+    // Handle the situation where all players are dead (if necessary)
+    if (skippedTurns >= players.length) {
+        // Handle the scenario where all players are dead. E.g., display a message or take some other action.
+        console.error("All players are dead.");
+        return;
     }
 
-    highlightCurrentTurn()
+    highlightCurrentTurn();
 
-    document.getElementById('prevTurn').disabled = false
+    document.getElementById('prevTurn').disabled = false;
 }
 
 function goBackOneTurn() {
-    currentTurn--
+    let skippedTurns = 0; // Counter to ensure we don't end up in an infinite loop
 
-    // If it wraps back to the last player
-    if (currentTurn == -1) {
-        currentTurn = players.length - 1
-        currentRound--
+    do {
+        currentTurn--;
 
-        // Reset if we went back to "round 0"
-        if (currentRound == 0) {
-            currentRound = 1
-            currentTurn = 0
-            turnStarted = false
-            setCookie('turnStarted', 'false')
+        // If it wraps back to the last player
+        if (currentTurn == -1) {
+            currentTurn = players.length - 1;
+            currentRound--;
 
+            // Reset if we went back to "round 0"
+            if (currentRound == 0) {
+                currentRound = 1;
+                currentTurn = 0;
+                turnStarted = false;
+                setCookie('turnStarted', 'false');
+            }
+
+            updateTally(currentRound);
+            setCookie('round', currentRound);
         }
-        updateTally(currentRound)
-        setCookie('round', currentRound)
+
+        // Increment the skipped turns counter
+        skippedTurns++;
+    } while (players[currentTurn].dead && skippedTurns < players.length); // Continue if the player is dead, but not if we've looped through all players
+
+    // Handle the situation where all players are dead (if necessary)
+    if (skippedTurns >= players.length) {
+        // Handle the scenario where all players are dead. E.g., display a message or take some other action.
+        console.error("All players are dead.");
+        return;
     }
 
-    highlightCurrentTurn()
-    setCookie('turn', currentTurn)
+    highlightCurrentTurn();
+    setCookie('turn', currentTurn);
 
     if (currentRound == 1 && currentTurn == 0) {
-        document.getElementById('prevTurn').disabled = true
+        document.getElementById('prevTurn').disabled = true;
     }
 }
 
@@ -627,71 +673,117 @@ function clearAll() {
 }
 
 function renderPlayers() {
-    const list = document.getElementById('entries');
-    list.innerHTML = '';
+    const list = document.getElementById('entries')
+    list.innerHTML = ''
 
     players.forEach(player => {
-        const li = document.createElement('li');
+        const li = document.createElement('li')
 
-        const orderInput = createInput('player-order', player.order, player);
-        const nameInput = createInput('player-name', player.name, player);
-        const badgeInput = createInput('player-badge', player.badge, player);
+        const orderInput = createInput('player-order', player.order, player)
+        const nameInput = createInput('player-name', player.name, player)
+        const badgeInput = createInput('player-badge', player.badge, player)
 
-        li.appendChild(orderInput);
-        li.appendChild(nameInput);
-        li.appendChild(badgeInput);
+        li.appendChild(orderInput)
+        li.appendChild(nameInput)
+        li.appendChild(badgeInput)
         list.appendChild(li);
     });
 
-    document.body.classList.add('players-listed');
+    document.body.classList.add('players-listed')
+    highlightCurrentTurn();
 
     function createInput(className, value, player) {
-        const input = document.createElement('input');
-        input.className = className;
-        input.value = value;
-
-        if (className === 'player-order') {
-            input.setAttribute("pattern", "[0-9]*");
-        } else if (className === 'player-name') {
-            input.setAttribute("autocapitalize", "words");
+        let el;
+        if (className === 'player-name' && player.dead) {
+            el = document.createElement('div')
+            el.classList = `${className} strike-thru`
+            el.textContent = value
+        } else if (className === 'player-badge') {
+            if (player.dead) {
+                el = document.createElement('div')
+                el.classList = `${className} isdead`
+                el.setAttribute('tabindex', '0')
+                el.innerHTML = `<i class="fas fa-skull">`
+                el.addEventListener('focus', () => {
+                    // on click, player returns to normal
+                    player.dead = false
+                    player.bloodied = false
+                    postEditCleanup()
+                })
+            } else if (player.bloodied) {
+                el = document.createElement('div')
+                el.classList = `${className} isbloodied`
+                el.setAttribute('tabindex', '0')
+                el.innerHTML = `<i class="fas fa-heart-crack">`
+                el.addEventListener('focus', () => {
+                    // on click, player is marked dead
+                    player.dead = true
+                    player.bloodied = false
+                    postEditCleanup()
+                })
+            } else {
+                el = document.createElement('div')
+                el.classList = `${className}`
+                el.setAttribute('tabindex', '0')
+                el.innerHTML = `<i class="fa-brands fa-d-and-d">`
+                el.addEventListener('focus', () => {
+                    // on click, player becomes bloodied
+                    player.dead = false
+                    player.bloodied = true
+                    postEditCleanup()
+                })
+            }
+        } else {
+            el = document.createElement('input')
+            el.className = className;
+            el.value = value
+    
+            if (className === 'player-order') {
+                el.setAttribute("pattern", "[0-9]*")
+            } else if (className === 'player-name') {
+                el.setAttribute("autocapitalize", "words")
+                if (player.bloodied) {
+                    el.classList.add('bloodied')
+                }
+            }
+    
+            el.addEventListener('keydown', handleEdit.bind(null, player, el))
+            el.addEventListener('focusout', handleEdit.bind(null, player, el))
         }
 
-        input.addEventListener('keydown', handleEdit.bind(null, player, input));
-        input.addEventListener('focusout', handleEdit.bind(null, player, input));
-
-        return input;
+        return el;
     }
 
     function handleEdit(player, input, e) {
-        if (e.type === 'keydown' && e.key !== 'Enter') return;
+        if (e.type === 'keydown' && e.key !== 'Enter') return
 
         switch (input.className) {
             case 'player-order':
-                player.order = parseInt(input.value, 10);
-                break;
+                player.order = parseInt(input.value, 10)
+                break
             case 'player-name':
                 if (input.value) {
-                    player.name = input.value;
+                    player.name = input.value
                 } else {
                     // Mark the player for deletion
-                    player.deleteme = true;
+                    player.deleteme = true
                 }
-                break;
+                break
             case 'player-badge':
-                player.badge = input.value;
-                break;
+                player.badge = input.value
+                break
         }
 
-        postEditCleanup();
+        postEditCleanup()
     }
 
     function postEditCleanup() {
-        players = players.filter(p => !p.deleteme);
-        players.sort((a, b) => b.order - a.order);
+        players = players.filter(p => !p.deleteme)
+        players.sort((a, b) => b.order - a.order)
         
-        allTranscripts = [generatedPlayersTranscript(players)]; // Assuming the function exists
-        renderPlayers();
-        setCookie('players', JSON.stringify(players)); // Assuming the function exists
+        allTranscripts = [generatedPlayersTranscript(players)]
+        renderPlayers()
+        setCookie('players', JSON.stringify(players))
     }
 }
 
@@ -717,7 +809,7 @@ async function testMicPermission () {
     navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       // User has granted microphone access
       micAllowed = true
-      document.body.classList.remove('no-mic');
+      document.body.classList.remove('no-mic')
       
       // Now stop the audio stream
       stream.getTracks().forEach(track => track.stop())
@@ -726,13 +818,13 @@ async function testMicPermission () {
     .catch(error => {
         // Access denied or another error
         micAllowed = false
-        document.body.classList.add('no-mic');
+        document.body.classList.add('no-mic')
         return false
       });
   }
 
 function handleMicDisallowed() {
-    micAllowed = false;
+    micAllowed = false
     document.body.classList.add('no-mic');
     document.querySelector('.denied-mic').classList.add('show')
     document.getElementById('startDictation').classList.remove('thinking')
@@ -770,7 +862,7 @@ function handleMicRelease() {
         document.getElementById('startDictation').disabled = true
         recognition.stop()
     }
-    console.log('Mic button released.')
+    console.debug('Mic button released.')
 }
 
 function logEvent(e) {
@@ -779,7 +871,7 @@ function logEvent(e) {
 }
 
 function outLogsToSettingsPage() {
-    let outputLogsToText = true; // Toggle this to control logging behavior
+    let outputLogsToText = true // Toggle this to control logging behavior
     const eventLog = document.getElementById('eventlog');
 
     const originalConsole = {
@@ -792,40 +884,41 @@ function outLogsToSettingsPage() {
 
     function appendToEventLog(type, args) {
         if (outputLogsToText && eventLog) {
-            eventLog.innerHTML += `[${type.toUpperCase()}]: ${args.join(' ')}<br>`;
+            // eventLog.innerHTML += `[${type.toUpperCase()}]: ${args.join(' ')}<br>`
+            eventLog.innerHTML += `${args.join(' ')}<br>`
         }
     }
 
-    console.log = function (...args) {
-        originalConsole.log.apply(console, args);
-        appendToEventLog('log', args);
-    };
+    // console.log = function (...args) {
+    //     originalConsole.log.apply(console, args)
+    //     appendToEventLog('log', args)
+    // };
 
     console.warn = function (...args) {
-        originalConsole.warn.apply(console, args);
-        appendToEventLog('warn', args);
+        originalConsole.warn.apply(console, args)
+        appendToEventLog('warn', args)
     };
 
     console.info = function (...args) {
-        originalConsole.info.apply(console, args);
-        appendToEventLog('info', args);
+        originalConsole.info.apply(console, args)
+        appendToEventLog('info', args)
     };
 
-    console.debug = function (...args) {
-        originalConsole.debug.apply(console, args);
-        appendToEventLog('debug', args);
-    };
+    // console.debug = function (...args) {
+    //     originalConsole.debug.apply(console, args)
+    //     appendToEventLog('debug', args)
+    // };
 
     console.error = function (...args) {
-        originalConsole.error.apply(console, args);
-        appendToEventLog('error', args);
+        originalConsole.error.apply(console, args)
+        appendToEventLog('error', args)
     };
 
     // Expose the variable to the global scope if you need to toggle it outside of this function
     window.toggleLogOutput = function(val) {
-        outputLogsToText = !!val;
+        outputLogsToText = !!val
     };
 
     // If you want to stop logging to the <p> element, use:
-    // toggleLogOutput(false);
+    // toggleLogOutput(false)
 }
