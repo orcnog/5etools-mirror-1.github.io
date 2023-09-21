@@ -106,6 +106,11 @@ async function main() {
         // Remember the setting
         setCookie('fontPreference', selectedClass)
     })
+    
+    /* Rehydrate the app scale from cookie */
+    const cookieAppScale = getCookie('appScalePreference') || 2
+    document.getElementById('appScalePref').value = parseFloat(cookieAppScale)
+    document.documentElement.style.setProperty('--adjustable-app-scale', (parseFloat(cookieAppScale) * 8) + 'px')
 
     /* Rehydrate the brightness config from cookie */
     const cookieBrightness = getCookie('brightnessPreference') || 1
@@ -161,6 +166,22 @@ async function main() {
         toggleSettingsMenu()
     })
 
+    document.getElementById('appScalePref').addEventListener('change', (e)=> {
+        updateAppScale(e.target.value)
+    })
+
+    document.getElementById('decrAppScale').addEventListener('click', ()=> {
+        decreaseAppScale()
+    })
+
+    document.getElementById('incrAppScale').addEventListener('click', ()=> {
+        increaseAppScale()
+    })
+
+    document.getElementById('brightnessPref').addEventListener('change', (e)=> {
+        updateBrightnessLevel(e.target.value)
+    })
+
     document.getElementById('decrBrightness').addEventListener('click', ()=> {
         decreaseBrightness()
     })
@@ -169,8 +190,8 @@ async function main() {
         increaseBrightness()
     })
 
-    document.getElementById('brightnessPref').addEventListener('change', (e)=> {
-        updateBrightnessLevel(e.target.value)
+    document.getElementById('fontSizePref').addEventListener('change', (e)=> {
+        updateFontSize(e.target.value)
     })
 
     document.getElementById('decrFontSize').addEventListener('click', ()=> {
@@ -181,8 +202,8 @@ async function main() {
         increaseFontSize()
     })
 
-    document.getElementById('fontSizePref').addEventListener('change', (e)=> {
-        updateFontSize(e.target.value)
+    document.getElementById('chalkinessPref').addEventListener('change', (e)=> {
+        updateChalkiness(e.target.value)
     })
 
     document.getElementById('decrChalkiness').addEventListener('click', ()=> {
@@ -191,10 +212,6 @@ async function main() {
 
     document.getElementById('incrChalkiness').addEventListener('click', ()=> {
         increaseChalkiness()
-    })
-
-    document.getElementById('chalkinessPref').addEventListener('change', (e)=> {
-        updateChalkiness(e.target.value)
     })
 
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
@@ -359,6 +376,29 @@ function toggleSettingsMenu() {
     settingsMenuButton.classList.toggle('menu-open')
     settingsMenu.classList.toggle('hide')
     mainAppBody.classList.toggle('hide')
+}
+
+function updateAppScale(value) {
+    document.documentElement.style.setProperty('--adjustable-app-scale', (parseFloat(value) * 8) + 'px')
+    setCookie('appScalePreference', parseFloat(value))
+}
+
+function increaseAppScale() {
+    var appScaleInput = document.getElementById('appScalePref')
+    const currentValue = parseFloat(appScaleInput.value)
+    if (currentValue < 4) {
+        appScaleInput.value = parseFloat(appScaleInput.value) + 0.25
+        appScaleInput.dispatchEvent(new Event('change'))
+    }
+}
+
+function decreaseAppScale() {
+    var appScaleInput = document.getElementById('appScalePref')
+    const currentValue = parseFloat(appScaleInput.value)
+    if (currentValue > 0.25) {
+        appScaleInput.value = currentValue - 0.25
+        appScaleInput.dispatchEvent(new Event('change'))
+    }
 }
 
 function updateBrightnessLevel(value) {
