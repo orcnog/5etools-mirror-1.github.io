@@ -1,6 +1,6 @@
 :root {
     --adjustable-app-scale: 16px;
-    --adjustable-font-size: 2em;
+    --adjustable-font-size: 2rem;
     --adjustable-chalkiness: 0;
     --brightness-level: 1;
     --body-color: #ddd;
@@ -447,7 +447,7 @@ select {
 
 .settings-menu-group.event-log p {
     display: block;
-    font: 0.5em courier;
+    font: 0.75em courier;
     color: white;
     height: 31.25rem;
     overflow-y: auto;
@@ -606,8 +606,7 @@ input.speech-input {
     display: block;
     width: 100%;
     background: rgba(0, 0, 0, 0.4);
-    font-size: 1.25rem;
-    /* letter-spacing: -0.1em; */
+    font-size: calc(var(--adjustable-font-size) * 0.75);
     color: #777;
     -webkit-mask-image: none;
     mask-image: none;

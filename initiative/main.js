@@ -1,10 +1,12 @@
-
+/**
+ * Declarations
+*/
 let micAllowed = false
 let chosenFont
 let players = []
 let currentTurn = 0
 let currentRound = 1
-let recognition;
+let recognition
 let final_transcript = ''
 let allTranscripts = []
 let aliasMap = {
@@ -13,7 +15,8 @@ let aliasMap = {
     'casey': 'kacie',
     'claris': 'killaris',
     'broke off': 'brogoth',
-    'share zoo': 'sherzu',
+    'odd': 'og',
+    'share zoo': 'sharezu',
     'tensing': 'tenzing',
     'car': 'kaa'
 }
@@ -50,48 +53,117 @@ const numberMap = {
 }
 const aliasesForRolled = ['rolled', 'rolls', 'roll', 'roles', 'role', 'roads', 'road', 'rd', 'ruled', 'rules', 'rule', 'world', 'whirled', 'whirl', 'wrote', 'rote']
 
+
+/**
+ * Prototypes
+ */
 Element.prototype.onClassAdded = function (className, callback) {
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : []
-                const newClassList = this.className.split(/\s+/)
-                if (newClassList.includes(className) && !oldClassList.includes(className)) {
-                    callback()
-                }
-            }
-        })
-    })
-    observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] })
+    // Event to listen when a specific class is added to an element
+    observeClassChange(this, className, callback, 'added')
 }
 
 Element.prototype.onClassRemoved = function (className, callback) {
+    // Event to listen when a specific class is removed from an element
+    observeClassChange(this, className, callback, 'removed')
+}
+
+
+/**
+ * Window Load
+ */
+window.onload = async function () {
+    await main()
+}
+
+
+/**
+ * Main Function
+ */
+async function main() {
+    outLogsToSettingsPage()
+    rehydrateSettings()
+    setupEventListeners()
+    setupSpeechDicatation()
+}
+
+
+/**
+ * Helper Functions
+ */
+
+function observeClassChange(element, className, callback, type) {
     const observer = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
             if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                 const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : []
-                const newClassList = this.className.split(/\s+/)
-                if (!newClassList.includes(className) && oldClassList.includes(className)) {
+                const newClassList = element.className.split(/\s+/)
+                const isClassAdded = type === 'added'
+                
+                if (isClassAdded && newClassList.includes(className) && !oldClassList.includes(className)) {
+                    callback()
+                } else if (!isClassAdded && !newClassList.includes(className) && oldClassList.includes(className)) {
                     callback()
                 }
             }
         })
     })
-    observer.observe(this, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] })
-    // Usage
-    // document.body.onClassAdded('active-turn', function() { /* do stuff */ });
-    // document.body.onClassRemoved('active-turn', function() { /* do stuff */ });
+    observer.observe(element, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] })
 }
 
-window.onload = async function () {
+function outLogsToSettingsPage() {
+    let outputLogsToText = true // Toggle this to control logging behavior
+    const eventLog = document.getElementById('eventlog')
 
-    main()
+    const originalConsole = {
+        log: console.log,
+        warn: console.warn,
+        info: console.info,
+        debug: console.debug,
+        error: console.error
+    }
 
+    function appendToEventLog(type, args) {
+        if (outputLogsToText && eventLog) {
+            // eventLog.innerHTML += `[${type.toUpperCase()}]: ${args.join(' ')}<br>`
+            eventLog.innerHTML += `${args.join(' ')}<br>`
+        }
+    }
+
+    // console.log = function (...args) {
+    //     originalConsole.log.apply(console, args)
+    //     appendToEventLog('log', args)
+    // }
+
+    console.warn = function (...args) {
+        originalConsole.warn.apply(console, args)
+        appendToEventLog('warn', args)
+    }
+
+    console.info = function (...args) {
+        originalConsole.info.apply(console, args)
+        appendToEventLog('info', args)
+    }
+
+    // console.debug = function (...args) {
+    //     originalConsole.debug.apply(console, args)
+    //     appendToEventLog('debug', args)
+    // }
+
+    console.error = function (...args) {
+        originalConsole.error.apply(console, args)
+        appendToEventLog('error', args)
+    }
+
+    // Expose the variable to the global scope if you need to toggle it outside of this function
+    window.toggleLogOutput = function(val) {
+        outputLogsToText = !!val
+    }
+
+    // If you want to stop logging to the <p> element, use:
+    // toggleLogOutput(false)
 }
 
-async function main() {
-    outLogsToSettingsPage();
-
+function rehydrateSettings() {
     /* Rehydrate the font config from cookie */
     chosenFont = getCookie('fontPreference') || 'font-eordeoghlakat'
     setCookie('fontPreference', chosenFont)
@@ -120,7 +192,7 @@ async function main() {
     /* Rehydrate the font size config from cookie */
     const cookieFontSize = getCookie('fontSizePreference') || 2
     document.getElementById('fontSizePref').value = parseFloat(cookieFontSize)
-    document.documentElement.style.setProperty('--adjustable-font-size', parseFloat(cookieFontSize) + 'em')
+    document.documentElement.style.setProperty('--adjustable-font-size', parseFloat(cookieFontSize) + 'rem')
     
     /* Rehydrate the font size config from cookie */
     const cookieChalkiness = getCookie('chalkinessPreference') || 0.75
@@ -158,128 +230,99 @@ async function main() {
         }
     }
 
-    document.getElementById('refreshPageBtn').addEventListener('click', ()=> {
-        refreshPage()
-    })
-
-    document.getElementById('settingsMenuBtn').addEventListener('click', ()=> {
-        toggleSettingsMenu()
-    })
-
-    document.getElementById('appScalePref').addEventListener('change', (e)=> {
-        updateAppScale(e.target.value)
-    })
-
-    document.getElementById('decrAppScale').addEventListener('click', ()=> {
-        decreaseAppScale()
-    })
-
-    document.getElementById('incrAppScale').addEventListener('click', ()=> {
-        increaseAppScale()
-    })
-
-    document.getElementById('brightnessPref').addEventListener('change', (e)=> {
-        updateBrightnessLevel(e.target.value)
-    })
-
-    document.getElementById('decrBrightness').addEventListener('click', ()=> {
-        decreaseBrightness()
-    })
-
-    document.getElementById('incrBrightness').addEventListener('click', ()=> {
-        increaseBrightness()
-    })
-
-    document.getElementById('fontSizePref').addEventListener('change', (e)=> {
-        updateFontSize(e.target.value)
-    })
-
-    document.getElementById('decrFontSize').addEventListener('click', ()=> {
-        decreaseFontSize()
-    })
-
-    document.getElementById('incrFontSize').addEventListener('click', ()=> {
-        increaseFontSize()
-    })
-
-    document.getElementById('chalkinessPref').addEventListener('change', (e)=> {
-        updateChalkiness(e.target.value)
-    })
-
-    document.getElementById('decrChalkiness').addEventListener('click', ()=> {
-        decreaseChalkiness()
-    })
-
-    document.getElementById('incrChalkiness').addEventListener('click', ()=> {
-        increaseChalkiness()
-    })
-
-    document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
-
-    document.getElementById('startButton').addEventListener('click', ()=> {
-        startTurnCounter()
-    })    
-
-    document.getElementById('prevTurn').addEventListener('click', ()=> {
-        goBackOneTurn()
-    })    
-
-    document.getElementById('nextTurn').addEventListener('click', ()=> {
-        advanceTurn()
-    })    
-
-    document.getElementById('clearAll').addEventListener('click', ()=> {
-        clearAll()
-    })
-
-    // Asynchronously check to see if the microphone permission has been granted during the session
-    micAllowed = await testMicPermission()
-
     // set the state of the Previous buttton based on rehydrated round/turn state
     document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
+}
 
-    document.getElementById('startDictation').addEventListener('mousedown', function (e) {
-        e.preventDefault()
-        handleMicPress()
-        this.classList.add('active');
-    })
-    document.getElementById('startDictation').addEventListener('touchstart', function (e) {
-        e.preventDefault()
-        handleMicPress()
-        this.classList.add('active');
-    })
-    document.getElementById('startDictation').addEventListener('mouseup', function (e) {
-        e.preventDefault()
-        handleMicRelease()
-        this.classList.remove('active');
-    })
-    document.getElementById('startDictation').addEventListener('touchend', function (e) {
-        e.preventDefault()
-        handleMicRelease()
-        this.classList.remove('active');
-    })
-
+function setupEventListeners() {
+    document.querySelector('#selectFont').addEventListener('change', handleFontChange)
+    document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
+    document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
+    document.getElementById('appScalePref').addEventListener('change', (e)=> {updateAppScale(e.target.value)})
+    document.getElementById('decrAppScale').addEventListener('click', decreaseAppScale)
+    document.getElementById('incrAppScale').addEventListener('click', increaseAppScale)
+    document.getElementById('brightnessPref').addEventListener('change', (e)=> {updateBrightnessLevel(e.target.value)})
+    document.getElementById('decrBrightness').addEventListener('click', decreaseBrightness)
+    document.getElementById('incrBrightness').addEventListener('click', increaseBrightness)
+    document.getElementById('fontSizePref').addEventListener('change', (e)=> {updateFontSize(e.target.value)})
+    document.getElementById('decrFontSize').addEventListener('click', decreaseFontSize)
+    document.getElementById('incrFontSize').addEventListener('click', increaseFontSize)
+    document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
+    document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
+    document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
+    document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
+    document.getElementById('startButton').addEventListener('click', startTurnCounter)
+    document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
+    document.getElementById('nextTurn').addEventListener('click', advanceTurn)
+    document.getElementById('clearAll').addEventListener('click', clearAll)
+    document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
+    document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
+    document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
+    document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
+    
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
-    events.forEach(function (event) {
-        document.getElementById("testInput").addEventListener(event, function (e) {
-            logEvent(e)
-        })
+    events.forEach(event => {
+        document.getElementById("testInput").addEventListener(event, ()=>{console.debug(event)})
     })
 
-    document.body.onClassAdded('active-turn', function () {
+    document.body.onClassAdded('active-turn', handleClassAdded)
+    document.body.onClassRemoved('active-turn', handleClassRemoved)
+
+    // Font Preference
+    function handleFontChange(event) {
+        const selectedClass = event.target.value
+        Array.from(document.body.classList).forEach(className => className.startsWith('font-') && document.body.classList.remove(className))
+        document.body.classList.add(selectedClass)
+        setCookie('fontPreference', selectedClass)
+    }
+    
+    // Dictation
+    function handleDictationMouseDown(e) {
+        e.preventDefault()
+        handleMicPress()
+        this.classList.add('active')
+    }
+    
+    function handleDictationMouseUp(e) {
+        e.preventDefault()
+        handleMicRelease()
+        this.classList.remove('active')
+    }
+    
+    function handleDictationTouchStart(e) {
+        e.preventDefault()
+        handleMicPress()
+        this.classList.add('active')
+    }
+    
+    function handleDictationTouchEnd(e) {
+        e.preventDefault()
+        handleMicRelease()
+        this.classList.remove('active')
+    }
+    
+    // Misc
+    function handleClassAdded() {
         console.debug('active-turn class was added')
         document.getElementById('prevTurn').disabled = true
         document.getElementById('nextTurn').disabled = false
         document.getElementById('startButton').disabled = true
-    })
-
-    document.body.onClassRemoved('active-turn', function () {
+    }
+    
+    function handleClassRemoved() {
         console.debug('active-turn class was removed')
         document.getElementById('prevTurn').disabled = true
         document.getElementById('nextTurn').disabled = true
         document.getElementById('startButton').disabled = false
-    })
-    
+    }
+}
+
+async function setupSpeechDicatation() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        alert('Your browser does not support speech recognition. Please use a compatible browser or manually input your speech.');
+        return;
+    }
+
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
     recognition = new SpeechRecognition()
 
@@ -287,22 +330,23 @@ async function main() {
     recognition.lang = 'en-US'
     recognition.interimResults = true
     recognition.maxAlternatives = 3
-
-    var interimOutput = document.getElementById('interimWords')
-    var finalOutput = () => document.getElementById('eventlog')
-    let pauseTimer = null // Initialize the pause timer variable
-    let speechProcessedEvent = new Event('speechprocessed')
-
     recognition.onstart = speechStartHandler
     recognition.onresult = speechResultHandler
     recognition.onnomatch = speechNoMatchHandler
     recognition.onerror = speechErrorHandler
     recognition.onend = speechEndHandler
+
+    // Asynchronously check to see if the microphone permission has been granted during the session
+    micAllowed = await testMicPermission()
+
+    var interimOutput = document.getElementById('interimWords')
+    let pauseTimer = null // Initialize the pause timer variable
+    let speechProcessedEvent = new Event('speechprocessed')
+
     
     function speechStartHandler(event) {
         console.debug('Speech started.')
         final_transcript = ''
-        finalOutput.innerHTML = final_transcript
     }
     
     function speechResultHandler(event) {
@@ -351,7 +395,6 @@ async function main() {
             console.info(`start command detected: ${final_transcript}`)
             if (players.length) startTurnCounter();
         } else {
-            finalOutput.innerHTML = final_transcript
             allTranscripts.push(final_transcript)
             parseAndAddEntries()
         }
@@ -379,7 +422,8 @@ function toggleSettingsMenu() {
 }
 
 function updateAppScale(value) {
-    document.documentElement.style.setProperty('--adjustable-app-scale', (parseFloat(value) * 8) + 'px')
+    const newCssVal = (parseFloat(value) * 8) + 'px'
+    document.documentElement.style.setProperty('--adjustable-app-scale', newCssVal)
     setCookie('appScalePreference', parseFloat(value))
 }
 
@@ -402,7 +446,8 @@ function decreaseAppScale() {
 }
 
 function updateBrightnessLevel(value) {
-    document.documentElement.style.setProperty('--brightness-level', parseFloat(value))
+    const newCssVal = parseFloat(value)
+    document.documentElement.style.setProperty('--brightness-level', newCssVal)
     setCookie('brightnessPreference', parseFloat(value))
 }
 
@@ -425,7 +470,8 @@ function decreaseBrightness() {
 }
 
 function updateFontSize(value) {
-    document.documentElement.style.setProperty('--adjustable-font-size', parseFloat(value) + 'em')
+    const newCssVal = parseFloat(value) + 'rem'
+    document.documentElement.style.setProperty('--adjustable-font-size', newCssVal)
     setCookie('fontSizePreference', parseFloat(value))
 }
 
@@ -448,7 +494,8 @@ function decreaseFontSize() {
 }
 
 function updateChalkiness(value) {
-    document.documentElement.style.setProperty('--adjustable-chalkiness', 1 - parseFloat(value))
+    const newCssVal = 1 - parseFloat(value)
+    document.documentElement.style.setProperty('--adjustable-chalkiness', newCssVal)
     setCookie('chalkinessPreference', parseFloat(value))
 }
 
@@ -701,7 +748,6 @@ function clearAll() {
     document.body.classList.remove('active-turn')
     document.body.classList.remove('players-listed')
     document.getElementById('speechInput').value = ''
-    document.getElementById('eventlog').textContent = ''
     document.querySelectorAll('.round-tally').forEach(el => el.remove())
 
     // Clearing cookies
@@ -921,11 +967,6 @@ function handleMicRelease() {
         recognition.stop()
     }
     console.debug('Mic button released.')
-}
-
-function logEvent(e) {
-    console.log(e.type)
-    document.getElementById('eventlog').innerHTML += ('<br/>' + e.type + (e.type == 'keydown' ? ' ' + e.which : ''))
 }
 
 function outLogsToSettingsPage() {
