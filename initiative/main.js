@@ -6,7 +6,7 @@ let chosenFont
 let players = []
 let currentTurn = 0
 let currentRound = 1
-let recognition
+let recognition // SpeechRecognition object
 let final_transcript = ''
 let allTranscripts = []
 let aliasMap = {
@@ -55,20 +55,6 @@ const aliasesForRolled = ['rolled', 'rolls', 'roll', 'roles', 'role', 'roads', '
 
 
 /**
- * Prototypes
- */
-Element.prototype.onClassAdded = function (className, callback) {
-    // Event to listen when a specific class is added to an element
-    observeClassChange(this, className, callback, 'added')
-}
-
-Element.prototype.onClassRemoved = function (className, callback) {
-    // Event to listen when a specific class is removed from an element
-    observeClassChange(this, className, callback, 'removed')
-}
-
-
-/**
  * Window Load
  */
 window.onload = async function () {
@@ -91,24 +77,6 @@ async function main() {
  * Helper Functions
  */
 
-function observeClassChange(element, className, callback, type) {
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                const oldClassList = mutation.oldValue ? mutation.oldValue.split(/\s+/) : []
-                const newClassList = element.className.split(/\s+/)
-                const isClassAdded = type === 'added'
-                
-                if (isClassAdded && newClassList.includes(className) && !oldClassList.includes(className)) {
-                    callback()
-                } else if (!isClassAdded && !newClassList.includes(className) && oldClassList.includes(className)) {
-                    callback()
-                }
-            }
-        })
-    })
-    observer.observe(element, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] })
-}
 
 function outLogsToSettingsPage() {
     let outputLogsToText = true // Toggle this to control logging behavior
@@ -207,17 +175,6 @@ function rehydrateSettings() {
         allTranscripts.push(prevPlayersTranscript)
         renderPlayers()
     }
-
-    /* Rehydrate the current turn, if it was recorded */
-    const turnStarted = getCookie('turnStarted')
-    if (turnStarted) {
-        document.body.classList.add('active-turn')
-    }
-    const savedTurn = getCookie('turn')
-    if (savedTurn) {
-        currentTurn = parseInt(savedTurn, 10)
-        highlightCurrentTurn()
-    }
     
     /* Rehydrate the current round, if it was recorded */
     const savedRound = getCookie('round')
@@ -230,8 +187,16 @@ function rehydrateSettings() {
         }
     }
 
-    // set the state of the Previous buttton based on rehydrated round/turn state
-    document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
+    /* Rehydrate the current turn, if it was recorded */
+    const turnStarted = getCookie('turnStarted')
+    if (turnStarted) {
+        beginCombat()
+    }
+    const savedTurn = getCookie('turn')
+    if (savedTurn) {
+        currentTurn = parseInt(savedTurn, 10)
+        highlightCurrentTurn()
+    }
 }
 
 function setupEventListeners() {
@@ -265,9 +230,6 @@ function setupEventListeners() {
         document.getElementById("testInput").addEventListener(event, ()=>{console.debug(event)})
     })
 
-    document.body.onClassAdded('active-turn', handleClassAdded)
-    document.body.onClassRemoved('active-turn', handleClassRemoved)
-
     // Font Preference
     function handleFontChange(event) {
         const selectedClass = event.target.value
@@ -300,20 +262,32 @@ function setupEventListeners() {
         handleMicRelease()
         this.classList.remove('active')
     }
+
+    function handleMicPress() {
+        if (micAllowed) {
+            if ('start' in recognition) recognition.start()
     
-    // Misc
-    function handleClassAdded() {
-        console.debug('active-turn class was added')
-        document.getElementById('prevTurn').disabled = true
-        document.getElementById('nextTurn').disabled = false
-        document.getElementById('startButton').disabled = true
+        } else {
+            handleMicDisallowed()
+        }
     }
     
-    function handleClassRemoved() {
-        console.debug('active-turn class was removed')
-        document.getElementById('prevTurn').disabled = true
-        document.getElementById('nextTurn').disabled = true
-        document.getElementById('startButton').disabled = false
+    function handleMicRelease() {
+        if (micAllowed) {
+            document.getElementById('startDictation').classList.add('thinking')
+            document.getElementById('startDictation').disabled = true
+            if ('stop' in recognition) recognition.stop()
+        }
+        console.debug('Mic button released.')
+    }
+    
+    function handleMicDisallowed() {
+        micAllowed = false
+        document.body.classList.add('no-mic');
+        document.querySelector('.denied-mic').classList.add('show')
+        document.getElementById('startDictation').classList.remove('thinking')
+        document.getElementById('startDictation').classList.add('disabled')
+        document.getElementById('speechForm').classList.add('show')
     }
 }
 
@@ -402,15 +376,45 @@ async function setupSpeechDicatation() {
         document.getElementById('startDictation').disabled = false
         document.dispatchEvent(speechProcessedEvent)
     }
+
+    async function testMicPermission () {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            // User has granted microphone access
+            micAllowed = true
+            document.body.classList.remove('no-mic')
+            
+            // Now stop the audio stream
+            stream.getTracks().forEach(track => track.stop())
+            return true
+        })
+        .catch(error => {
+            // Access denied or another error
+            micAllowed = false
+            document.body.classList.add('no-mic')
+            return false
+        });
+    }
+
+    function isEmpty(str) {
+        // Test whether the voice transcription is empty.
+        return str.trim() == ''
+    }
+
+    function isClearCommand(str) {
+        // Test whether the user said (and said only) "clear", "cancel", or "start over".
+        return /^(clear|cancel|start over)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+    }
+
+    function isStartCommand(str) {
+        // Test whether the user said (and said only) "start", "begin", "go", "round one", or "fight".
+        return /^(and )?(let's )?(start|begin|let us begin|go|round one|round 1|fight|let the games begin|party|rock|rock and roll|rock 'n' roll|boogie|get ready to rumble|ready|ready set go)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+    }
 }
 
-function refreshPage() {
-    location.reload();
-}
 
-function generatedPlayersTranscript(playersObj) {
-    return playersObj.map(player => `${player.name} @ ${player.order}`).join(', ') + ', '
-}
+/**
+ * App Settings Management
+ */
 
 function toggleSettingsMenu() {
     const settingsMenuButton = document.getElementById('settingsMenuBtn')
@@ -541,102 +545,38 @@ function populateSelectWithFonts() {
     })
 }
 
-function parseAndAddEntries() {
-
-    const joinedInput = allTranscripts.join(' ')
-    let convertedInput = parseInput(joinedInput, numberMap)
-
-    const regex = /([a-zA-Z0-9_'-\s]+?)\s*?@ (-?\d+)/g
-    let matches
-
-    players = []
-    while ((matches = regex.exec(convertedInput)) !== null) {
-        let name = matches[1].trim()
-        let orderString = matches[2]
-
-        let order
-        if (orderString && isNaN(orderString)) {
-            order = numberMap[orderString.toLowerCase()] || NaN
-        } else if (orderString && !isNaN(orderString)) {
-            order = parseInt(orderString, 10)
-        } else {
-            order = NaN  // default to NaN if orderString is not defined
-        }
-
-        // Remove leading "and ", then capitalize the names
-        name = name.replace(/^and /, '').split(" ").map(capitalize).join(" ")
-        players.push({ name: name, order: order, badge: '' })
-    }
-
-    // Sorting and rendering the players
-    players.sort((a, b) => b.order - a.order)
-    allTranscripts = [generatedPlayersTranscript(players)];
-    setCookie('players', JSON.stringify(players))
-    if (players.length) {
-        renderPlayers()
-    }
-}
-
-function parseInput(input, numberMap) {
-    console.debug('Before processing: ' + input)
-
-    // Replace punctuation with spaces
-    input = input.replace(/[.,!?;:()]/g, ' ')
-    // Trim all spaces to single space
-    input = input.replace(/\s+/g, ' ')
-    // Make lowercase
-    input = input.toLowerCase()
-    // Add a space to the end
-    input = input + ' '
-    // Replace stored spelling/word corrections
-    for (const [heard, correctWord] of Object.entries(aliasMap)) {
-        let aliasWordpattern = new RegExp(`\\b${heard}\\b`, 'g')
-        input = input.replace(aliasWordpattern, `${correctWord}`)
-    }
-    // Replace number words
-    for (const [word, number] of Object.entries(numberMap)) {
-        let numberWordpattern = new RegExp(`\\b${word}\\b`, 'g')
-        input = input.replace(numberWordpattern, `${number}`)
-    }
-    // Replace the roll/role variations with the symbol "@"
-    input = input.replace(new RegExp(` (${aliasesForRolled.join('|')})( a| an| and| of| on| [aeu]h+|)? `, 'g'), ' @ ')
-    // Split up WORD-## ex: "demon-12" to "demon 12"
-    input = input.replace(/([a-z])-(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
-    // Handle negative numbers
-    input = input.replace(/\bnegative (\d+)/g, (match, p1) => `-${p1}`)
-    // Guess at where roll "@" symbols should be added in: split triple digits into for ex: "311" to "3 @ 11"
-    input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`);
-    // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said)
-    input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`);
-    // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said)
-    input = input.replace(/([a-z]) (\d\d? (?=[a-z]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`);
-
-    console.info(`parsed results: ${input}`)
-
-    return input
-}
-
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
 }
 
-function handleManualInputSubmit(e) {
-    if (e.type === 'submit') {
-        e.preventDefault()
-    }
-    const speechInput = e.target.querySelector('input')
-    allTranscripts.push(speechInput.value)
-    parseAndAddEntries()
-    speechInput.value = ''
-}
+
+/**
+ * Turn Management
+ */
 
 function startTurnCounter() {
     highlightCurrentTurn()
-    document.body.classList.add('active-turn')
+    beginCombat()
     updateTally(currentRound)
     setCookie('round', currentRound)
     setCookie('turnStarted', 'true')
 }
+
+function beginCombat() {
+    document.body.classList.add('active-turn')
+    // set the state of the Previous buttton based on rehydrated round/turn state
+    document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
+    document.getElementById('nextTurn').disabled = false
+    document.getElementById('startButton').disabled = true
+}
+
+function endCombat() {
+    document.body.classList.remove('active-turn')
+    document.getElementById('prevTurn').disabled = true
+    document.getElementById('nextTurn').disabled = true
+    document.getElementById('startButton').disabled = false
+}
+
 function advanceTurn() {
     let skippedTurns = 0; // Counter to ensure we don't end up in an infinite loop
     do {
@@ -737,6 +677,14 @@ function updateTally(roundNumber) {
     }
 }
 
+function highlightCurrentTurn() {
+    const listItems = document.querySelectorAll('#entries li')
+    listItems.forEach(li => li.classList.remove('highlighted'))
+    if (listItems[currentTurn]) {
+        listItems[currentTurn].classList.add('highlighted')
+    }
+}
+
 function clearAll() {
     if (!confirm('Clear Everything?')) return
     players = []
@@ -745,7 +693,7 @@ function clearAll() {
     renderPlayers()
     final_transcript = ''
     allTranscripts = []
-    document.body.classList.remove('active-turn')
+    endCombat()
     document.body.classList.remove('players-listed')
     document.getElementById('speechInput').value = ''
     document.querySelectorAll('.round-tally').forEach(el => el.remove())
@@ -756,6 +704,99 @@ function clearAll() {
     document.cookie = "round=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     document.cookie = "turnStarted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     document.cookie = "fontPreference=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+}
+
+/**
+ * Player Entries Management
+ */
+
+function parseAndAddEntries() {
+
+    const joinedInput = allTranscripts.join(' ')
+    let convertedInput = parseInput(joinedInput, numberMap)
+
+    const regex = /([a-zA-Z0-9_'-\s]+?)\s*?@ (-?\d+)/g
+    let matches
+
+    players = []
+    while ((matches = regex.exec(convertedInput)) !== null) {
+        let name = matches[1].trim()
+        let orderString = matches[2]
+
+        let order
+        if (orderString && isNaN(orderString)) {
+            order = numberMap[orderString.toLowerCase()] || NaN
+        } else if (orderString && !isNaN(orderString)) {
+            order = parseInt(orderString, 10)
+        } else {
+            order = NaN  // default to NaN if orderString is not defined
+        }
+
+        // Remove leading "and ", then capitalize the names
+        name = name.replace(/^and /, '').split(" ").map(capitalize).join(" ")
+        players.push({ name: name, order: order, badge: '' })
+    }
+
+    // Sorting and rendering the players
+    players.sort((a, b) => b.order - a.order)
+    allTranscripts = [generatedPlayersTranscript(players)];
+    setCookie('players', JSON.stringify(players))
+    if (players.length) {
+        renderPlayers()
+    }
+}
+
+function parseInput(input, numberMap) {
+    console.debug('Before processing: ' + input)
+
+    // Replace punctuation with spaces
+    input = input.replace(/[.,!?;:()]/g, ' ')
+    // Trim all spaces to single space
+    input = input.replace(/\s+/g, ' ')
+    // Make lowercase
+    input = input.toLowerCase()
+    // Add a space to the end
+    input = input + ' '
+    // Replace stored spelling/word corrections
+    for (const [heard, correctWord] of Object.entries(aliasMap)) {
+        let aliasWordpattern = new RegExp(`\\b${heard}\\b`, 'g')
+        input = input.replace(aliasWordpattern, `${correctWord}`)
+    }
+    // Replace number words
+    for (const [word, number] of Object.entries(numberMap)) {
+        let numberWordpattern = new RegExp(`\\b${word}\\b`, 'g')
+        input = input.replace(numberWordpattern, `${number}`)
+    }
+    // Replace the roll/role variations with the symbol "@"
+    input = input.replace(new RegExp(` (${aliasesForRolled.join('|')})( a| an| and| of| on| [aeu]h+|)? `, 'g'), ' @ ')
+    // Split up WORD-## ex: "demon-12" to "demon 12"
+    input = input.replace(/([a-z])-(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
+    // Handle negative numbers
+    input = input.replace(/\bnegative (\d+)/g, (match, p1) => `-${p1}`)
+    // Guess at where roll "@" symbols should be added in: split triple digits into for ex: "311" to "3 @ 11"
+    input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`);
+    // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said)
+    input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`);
+    // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said)
+    input = input.replace(/([a-z]) (\d\d? (?=[a-z]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`);
+
+    console.info(`parsed results: ${input}`)
+
+    return input
+}
+
+function handleManualInputSubmit(e) {
+    if (e.type === 'submit') {
+        e.preventDefault()
+    }
+    const speechInput = e.target.querySelector('input')
+    allTranscripts.push(speechInput.value)
+    parseAndAddEntries()
+    speechInput.value = ''
+}
+
+function generatedPlayersTranscript(playersObj) {
+    return playersObj.map(player => `${player.name} @ ${player.order}`).join(', ') + ', '
 }
 
 function renderPlayers() {
@@ -891,13 +932,9 @@ function renderPlayers() {
 }
 
 
-function highlightCurrentTurn() {
-    const listItems = document.querySelectorAll('#entries li')
-    listItems.forEach(li => li.classList.remove('highlighted'))
-    if (listItems[currentTurn]) {
-        listItems[currentTurn].classList.add('highlighted')
-    }
-}
+/**
+ * Cookie Management
+ */
 
 function setCookie(name, value) {
     document.cookie = `${name}=${value};path=/`
@@ -909,66 +946,14 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift()
 }
 
-async function testMicPermission () {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      // User has granted microphone access
-      micAllowed = true
-      document.body.classList.remove('no-mic')
-      
-      // Now stop the audio stream
-      stream.getTracks().forEach(track => track.stop())
-      return true
-    })
-    .catch(error => {
-        // Access denied or another error
-        micAllowed = false
-        document.body.classList.add('no-mic')
-        return false
-      });
-  }
-
-function handleMicDisallowed() {
-    micAllowed = false
-    document.body.classList.add('no-mic');
-    document.querySelector('.denied-mic').classList.add('show')
-    document.getElementById('startDictation').classList.remove('thinking')
-    document.getElementById('startDictation').classList.add('disabled')
-    document.getElementById('speechForm').classList.add('show')
+function refreshPage() {
+    location.reload();
 }
 
-function isEmpty(str) {
-    // Test whether the voice transcription is empty.
-    return str.trim() == ''
-}
 
-function isClearCommand(str) {
-    // Test whether the user said (and said only) "clear", "cancel", or "start over".
-    return /^(clear|cancel|start over)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
-}
-
-function isStartCommand(str) {
-    // Test whether the user said (and said only) "start", "begin", "go", "round one", or "fight".
-    return /^(and )?(let's )?(start|begin|let us begin|go|round one|round 1|fight|let the games begin|party|rock|rock and roll|rock 'n' roll|boogie|get ready to rumble|ready|ready set go)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
-}
-
-function handleMicPress() {
-    if (micAllowed) {
-        recognition.start()
-
-    } else {
-        handleMicDisallowed()
-    }
-}
-
-function handleMicRelease() {
-    if (micAllowed) {
-        document.getElementById('startDictation').classList.add('thinking')
-        document.getElementById('startDictation').disabled = true
-        recognition.stop()
-    }
-    console.debug('Mic button released.')
-}
-
+/**
+ * Logging
+ */
 function outLogsToSettingsPage() {
     let outputLogsToText = true // Toggle this to control logging behavior
     const eventLog = document.getElementById('eventlog');
