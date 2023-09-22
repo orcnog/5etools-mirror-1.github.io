@@ -713,119 +713,137 @@ function clearAll() {
 }
 
 function renderPlayers() {
-    const list = document.getElementById('entries')
-    list.innerHTML = ''
+    const list = document.getElementById('entries');
+    list.innerHTML = '';
 
     players.forEach(player => {
-        const li = document.createElement('li')
-
-        const orderInput = createInput('player-order', player.order, player)
-        const nameInput = createInput('player-name', player.name, player)
-        const badgeInput = createInput('player-badge', player.badge, player)
-
-        li.appendChild(orderInput)
-        li.appendChild(nameInput)
-        li.appendChild(badgeInput)
+        const li = document.createElement('li');
+        li.appendChild(createPlayerRow('player-order', player));
+        li.appendChild(createPlayerRow('player-name', player));
+        li.appendChild(createPlayerRow('player-badge', player));
         list.appendChild(li);
     });
 
-    document.body.classList.add('players-listed')
+    document.body.classList.add('players-listed');
     highlightCurrentTurn();
 
-    function createInput(className, value, player) {
-        let el;
-        if (className === 'player-name' && player.dead) {
-            el = document.createElement('div')
-            el.classList = `${className} strike-thru`
-            el.textContent = value
-        } else if (className === 'player-badge') {
-            if (player.dead) {
-                el = document.createElement('div')
-                el.classList = `${className} isdead`
-                el.setAttribute('tabindex', '0')
-                el.innerHTML = `<i class="fas fa-skull">`
-                el.addEventListener('focus', () => {
-                    // on click, player returns to normal
-                    player.dead = false
-                    player.bloodied = false
-                    postEditCleanup()
-                })
-            } else if (player.bloodied) {
-                el = document.createElement('div')
-                el.classList = `${className} isbloodied`
-                el.setAttribute('tabindex', '0')
-                el.innerHTML = `<i class="fas fa-heart-crack">`
-                el.addEventListener('focus', () => {
-                    // on click, player is marked dead
-                    player.dead = true
-                    player.bloodied = false
-                    postEditCleanup()
-                })
-            } else {
-                el = document.createElement('div')
-                el.classList = `${className}`
-                el.setAttribute('tabindex', '0')
-                el.innerHTML = `<i class="fa-brands fa-d-and-d">`
-                el.addEventListener('focus', () => {
-                    // on click, player becomes bloodied
-                    player.dead = false
-                    player.bloodied = true
-                    postEditCleanup()
-                })
-            }
-        } else {
-            el = document.createElement('input')
-            el.className = className;
-            el.value = value
-    
-            if (className === 'player-order') {
-                el.setAttribute("pattern", "[0-9]*")
-            } else if (className === 'player-name') {
-                el.setAttribute("autocapitalize", "words")
-                if (player.bloodied) {
-                    el.classList.add('bloodied')
+    function createPlayerRow(type, player) {
+        switch (type) {
+            case 'player-order':
+                return createInput(type, player.order, player);
+            case 'player-name':
+                if (player.dead) {
+                    return createDeadPlayerNameElement(type, player.name);
                 }
-            }
-    
-            el.addEventListener('keydown', handleEdit.bind(null, player, el))
-            el.addEventListener('focusout', handleEdit.bind(null, player, el))
+                return createInput(type, player.name, player);
+            case 'player-badge':
+                return createBadgeIcon(type, player);
         }
+    }
+
+    function createInput(className, value, player) {
+        const el = document.createElement('input');
+        el.className = className;
+        el.value = value;
+
+        if (className === 'player-order') {
+            el.setAttribute("pattern", "[0-9]*");
+        } else if (className === 'player-name') {
+            el.setAttribute("autocapitalize", "words");
+            if (player.bloodied) el.classList.add('bloodied');
+        }
+
+        el.addEventListener('keydown', handleEdit.bind(null, player, el));
+        el.addEventListener('focusout', handleEdit.bind(null, player, el));
 
         return el;
     }
 
-    function handleEdit(player, input, e) {
-        if (e.type === 'keydown' && e.key !== 'Enter') return
+    function createDeadPlayerNameElement(type, name) {
+        const el = document.createElement('div');
+        el.classList = `${type} strike-thru`;
+        el.textContent = name;
+        return el;
+    }
 
+    function createBadgeIcon(className, player) {
+        const el = document.createElement('div');
+        el.classList = className;
+        el.setAttribute('tabindex', '0');
+
+        const { icon, action } = getBadgeIconData(player);
+
+        el.innerHTML = `<i class="${icon}">`;
+        el.addEventListener('click', () => {
+            action(player);
+            postEditCleanup();
+        });
+
+        return el;
+    }
+
+    function getBadgeIconData(player) {
+        if (player.dead) {
+            return {
+                icon: 'fas fa-skull',
+                action: (player) => {
+                    player.dead = false;
+                    player.bloodied = false;
+                }
+            };
+        } else if (player.bloodied) {
+            return {
+                icon: 'fas fa-heart-crack',
+                action: (player) => {
+                    player.dead = true;
+                    player.bloodied = false;
+                }
+            };
+        } else {
+            return {
+                icon: 'fa-brands fa-d-and-d',
+                action: (player) => {
+                    player.dead = false;
+                    player.bloodied = true;
+                }
+            };
+        }
+    }
+
+    function handleEdit(player, input, e) {
+        if (e.type === 'keydown' && e.key !== 'Enter') return;
+
+        const newValue = (input.className === 'player-order') ? parseInt(input.value, 10) : input.value;
+        
         switch (input.className) {
             case 'player-order':
-                player.order = parseInt(input.value, 10)
-                break
+                player.order = newValue;
+                break;
             case 'player-name':
-                if (input.value) {
-                    player.name = input.value
+                if (newValue) {
+                    player.name = newValue;
                 } else {
-                    // Mark the player for deletion
-                    player.deleteme = true
+                    player.deleteme = true;
                 }
-                break
+                break;
             case 'player-badge':
-                player.badge = input.value
-                break
+                player.badge = newValue;
+                break;
         }
 
-        postEditCleanup()
+        postEditCleanup();
     }
 
     function postEditCleanup() {
-        players = players.filter(p => !p.deleteme)
-        players.sort((a, b) => b.order - a.order)
-        
-        allTranscripts = [generatedPlayersTranscript(players)]
-        renderPlayers()
-        setCookie('players', JSON.stringify(players))
+        players = players.filter(p => !p.deleteme);
+        players.sort((a, b) => b.order - a.order);
+
+        allTranscripts = [generatedPlayersTranscript(players)];
+        renderPlayers();
+        setCookie('players', JSON.stringify(players));
     }
 }
+
 
 function highlightCurrentTurn() {
     const listItems = document.querySelectorAll('#entries li')
