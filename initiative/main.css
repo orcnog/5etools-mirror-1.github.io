@@ -744,11 +744,16 @@ input.speech-input {
 }
 
 #entries .player-name.bloodied {
-    background-image: linear-gradient(#722 10%, var(--main-text-color) 60%) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
+    /* background-image: linear-gradient(#722 10%, var(--main-text-color) 60%) !important; */
     color: transparent;
     text-shadow: none;
+    background-color: #ddd;
+    background-image: linear-gradient(transparent 50%, var(--main-text-color) 70%), url(images/blood-splat2.png) !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
 }
 
 .strike-thru {
