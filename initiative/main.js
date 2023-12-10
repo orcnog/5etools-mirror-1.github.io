@@ -15,6 +15,7 @@ let aliasMap = {
     'cal': 'kal',
     'casey': 'kacie',
     'claris': 'killaris',
+    'colors': 'killaris',
     'broke off': 'brogoth',
     'odd': 'og',
     'share zoo': 'sharezu',
@@ -221,10 +222,11 @@ function setupEventListeners() {
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
-    document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
-    document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
-    document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
-    document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
+    document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
+    // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
+    // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
+    // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
+    // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(event => {
@@ -240,31 +242,40 @@ function setupEventListeners() {
     }
     
     // Dictation
-    function handleDictationMouseDown(e) {
-        e.preventDefault()
-        handleMicPress()
-        this.classList.add('active')
-    }
-    
-    function handleDictationMouseUp(e) {
-        e.preventDefault()
-        handleMicRelease()
-        this.classList.remove('active')
-    }
-    
-    function handleDictationTouchStart(e) {
-        e.preventDefault()
-        handleMicPress()
-        this.classList.add('active')
-    }
-    
-    function handleDictationTouchEnd(e) {
-        e.preventDefault()
-        handleMicRelease()
-        this.classList.remove('active')
+    function handleDictationToggle(e) {
+        this.classList.toggle('active')
+        if (this.classList.contains('active')) {
+            handleMicOn(e)
+        } else {
+            handleMicOff(e)
+        }
     }
 
-    function handleMicPress() {
+    // function handleDictationMouseDown(e) {
+    //     e.preventDefault()
+    //     handleMicOn()
+    //     this.classList.add('active')
+    // }
+    
+    // function handleDictationMouseUp(e) {
+    //     e.preventDefault()
+    //     handleMicOff()
+    //     this.classList.remove('active')
+    // }
+    
+    // function handleDictationTouchStart(e) {
+    //     e.preventDefault()
+    //     handleMicOn()
+    //     this.classList.add('active')
+    // }
+    
+    // function handleDictationTouchEnd(e) {
+    //     e.preventDefault()
+    //     handleMicOff()
+    //     this.classList.remove('active')
+    // }
+
+    function handleMicOn() {
         if (micAllowed) {
             if ('start' in recognition) recognition.start()
     
@@ -273,7 +284,7 @@ function setupEventListeners() {
         }
     }
     
-    function handleMicRelease() {
+    function handleMicOff() {
         if (micAllowed) {
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
