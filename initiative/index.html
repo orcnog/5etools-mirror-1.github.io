@@ -115,23 +115,27 @@
             <p>Microphone access denied. Please REFRESH the page or use manual entry.</p>
         </div>
             
-        <div class="players players-listed-ui">
+        <div class="players">
             <div id="roundCounter" class="round-counter">
                 <span class="round-label">Round&nbsp;</span>
                 <!-- will be populated dynamically with: <div class="round-tally" data-marks="0"></div> -->
             </div>
+            <div class="prev-next-btns">
+                <button id="prevTurn" class="previous-turn btn btn-clear active-turn-ui"><i
+                    class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                <button id="nextTurn" class="advance-turn btn btn-clear  active-turn-ui"><i
+                    class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                
+            </div>
             <ul id="entries">
                 <!-- will be populated dynamically -->
             </ul>
+            <button id="addPlayer" class="add-a-player btn btn-clear">+</button>
         </div>
         <div class="button-group">
-            <button id="prevTurn" class="previous-turn btn btn-clear active-turn-ui"><i
-                    class="fas fa-chevron-left" aria-hidden="true"></i></button>
             <div id="startDictation">
                 <i class="fa-solid fa-microphone"></i>
             </div>
-            <button id="nextTurn" class="advance-turn btn btn-clear  active-turn-ui"><i
-                    class="fas fa-chevron-right" aria-hidden="true"></i></button>
         </div>
         <button id="startButton" class="btn no-active-turn-ui players-listed-ui">Start</button>
         <form id="speechForm" class="" action="">
@@ -139,5 +143,6 @@
             data-focused-placeholder="⇣ Dictate with voice key, then press ↵" placeholder="Ex: Grog 13, Pike 7" />
         </form>
     </div>
+
 </body>
 </html>

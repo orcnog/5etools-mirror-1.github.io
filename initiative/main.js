@@ -12,6 +12,7 @@ let allTranscripts = []
 let aliasMap = {
     'brinley': 'brynlee',
     'zoe': 'zoey',
+    'cal': 'kal',
     'casey': 'kacie',
     'claris': 'killaris',
     'broke off': 'brogoth',
@@ -216,7 +217,7 @@ function setupEventListeners() {
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
-    document.getElementById('startButton').addEventListener('click', startTurnCounter)
+    document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
@@ -283,7 +284,7 @@ function setupEventListeners() {
     
     function handleMicDisallowed() {
         micAllowed = false
-        document.body.classList.add('no-mic');
+        document.body.classList.add('no-mic')
         document.querySelector('.denied-mic').classList.add('show')
         document.getElementById('startDictation').classList.remove('thinking')
         document.getElementById('startDictation').classList.add('disabled')
@@ -293,8 +294,8 @@ function setupEventListeners() {
 
 async function setupSpeechDicatation() {
     if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-        alert('Your browser does not support speech recognition. Please use a compatible browser or manually input your speech.');
-        return;
+        alert('Your browser does not support speech recognition. Please use a compatible browser or manually input your speech.')
+        return
     }
 
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
@@ -363,11 +364,11 @@ async function setupSpeechDicatation() {
         if (isEmpty(final_transcript)) {
             if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
         } else if (isClearCommand(final_transcript)) {
-            console.info(`clear command detected: ${final_transcript}`)
+            console.info(`CLEAR command detected: ${final_transcript}`)
             clearAll()
         }else if( isStartCommand(final_transcript)) {
-            console.info(`start command detected: ${final_transcript}`)
-            if (players.length) startTurnCounter();
+            console.info(`START command detected: ${final_transcript}`)
+            if (players.length) startTurnCounter()
         } else {
             allTranscripts.push(final_transcript)
             parseAndAddEntries()
@@ -392,7 +393,7 @@ async function setupSpeechDicatation() {
             micAllowed = false
             document.body.classList.add('no-mic')
             return false
-        });
+        })
     }
 
     function isEmpty(str) {
@@ -580,70 +581,70 @@ function endCombat() {
 function advanceTurn() {
     let skippedTurns = 0; // Counter to ensure we don't end up in an infinite loop
     do {
-        currentTurn = (currentTurn + 1) % players.length;
+        currentTurn = (currentTurn + 1) % players.length
 
         // Start a new round if it wraps back to the first player
         if (currentTurn == 0) {
-            currentRound++;
-            updateTally(currentRound);
-            setCookie('round', currentRound);
+            currentRound++
+            updateTally(currentRound)
+            setCookie('round', currentRound)
         }
 
         // Increment the skipped turns counter
-        skippedTurns++;
+        skippedTurns++
     } while (players[currentTurn].dead && skippedTurns < players.length); // Continue if the player is dead, but not if we've looped through all players
 
     // Handle the situation where all players are dead (if necessary)
     if (skippedTurns >= players.length) {
         // Handle the scenario where all players are dead. E.g., display a message or take some other action.
-        console.error("All players are dead.");
-        return;
+        console.error("All players are dead.")
+        return
     }
 
-    highlightCurrentTurn();
+    highlightCurrentTurn()
 
-    document.getElementById('prevTurn').disabled = false;
+    document.getElementById('prevTurn').disabled = false
 }
 
 function goBackOneTurn() {
     let skippedTurns = 0; // Counter to ensure we don't end up in an infinite loop
 
     do {
-        currentTurn--;
+        currentTurn--
 
         // If it wraps back to the last player
         if (currentTurn == -1) {
-            currentTurn = players.length - 1;
-            currentRound--;
+            currentTurn = players.length - 1
+            currentRound--
 
             // Reset if we went back to "round 0"
             if (currentRound == 0) {
-                currentRound = 1;
-                currentTurn = 0;
-                turnStarted = false;
-                setCookie('turnStarted', 'false');
+                currentRound = 1
+                currentTurn = 0
+                turnStarted = false
+                setCookie('turnStarted', 'false')
             }
 
-            updateTally(currentRound);
-            setCookie('round', currentRound);
+            updateTally(currentRound)
+            setCookie('round', currentRound)
         }
 
         // Increment the skipped turns counter
-        skippedTurns++;
+        skippedTurns++
     } while (players[currentTurn].dead && skippedTurns < players.length); // Continue if the player is dead, but not if we've looped through all players
 
     // Handle the situation where all players are dead (if necessary)
     if (skippedTurns >= players.length) {
         // Handle the scenario where all players are dead. E.g., display a message or take some other action.
-        console.error("All players are dead.");
-        return;
+        console.error("All players are dead.")
+        return
     }
 
-    highlightCurrentTurn();
-    setCookie('turn', currentTurn);
+    highlightCurrentTurn()
+    setCookie('turn', currentTurn)
 
     if (currentRound == 1 && currentTurn == 0) {
-        document.getElementById('prevTurn').disabled = true;
+        document.getElementById('prevTurn').disabled = true
     }
 }
 
@@ -739,11 +740,8 @@ function parseAndAddEntries() {
 
     // Sorting and rendering the players
     players.sort((a, b) => b.order - a.order)
-    allTranscripts = [generatedPlayersTranscript(players)];
-    setCookie('players', JSON.stringify(players))
-    if (players.length) {
-        renderPlayers()
-    }
+    allTranscripts = [generatedPlayersTranscript(players)]
+    addPlayersAndGo()
 }
 
 function parseInput(input, numberMap) {
@@ -774,11 +772,11 @@ function parseInput(input, numberMap) {
     // Handle negative numbers
     input = input.replace(/\bnegative (\d+)/g, (match, p1) => `-${p1}`)
     // Guess at where roll "@" symbols should be added in: split triple digits into for ex: "311" to "3 @ 11"
-    input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`);
+    input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`)
     // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said)
-    input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`);
+    input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`)
     // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said)
-    input = input.replace(/([a-z]) (\d\d? (?=[a-z]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`);
+    input = input.replace(/([a-z]) (\d\d? (?=[a-z]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
 
     console.info(`parsed results: ${input}`)
 
@@ -799,74 +797,87 @@ function generatedPlayersTranscript(playersObj) {
     return playersObj.map(player => `${player.name} @ ${player.order}`).join(', ') + ', '
 }
 
+function addPlayer() {
+    players.push({ name: 'NAME', order: 0, badge: '' })
+    addPlayersAndGo()
+}
+
+function addPlayersAndGo() {    
+    setCookie('players', JSON.stringify(players))
+    if (players.length) {
+        renderPlayers()
+        startTurnCounter()
+    }
+}
+
 function renderPlayers() {
-    const list = document.getElementById('entries');
-    list.innerHTML = '';
+    const list = document.getElementById('entries')
+    list.innerHTML = ''
 
     players.forEach(player => {
-        const li = document.createElement('li');
-        li.appendChild(createPlayerRow('player-order', player));
-        li.appendChild(createPlayerRow('player-name', player));
-        li.appendChild(createPlayerRow('player-badge', player));
-        list.appendChild(li);
-    });
+        const li = document.createElement('li')
+        li.appendChild(createPlayerRow('player-order', player))
+        li.appendChild(createPlayerRow('player-name', player))
+        li.appendChild(createPlayerRow('player-badge', player))
+        list.appendChild(li)
+    })
 
-    document.body.classList.add('players-listed');
-    highlightCurrentTurn();
+    document.body.classList.add('players-listed')
+    highlightCurrentTurn()
 
     function createPlayerRow(type, player) {
         switch (type) {
             case 'player-order':
-                return createInput(type, player.order, player);
+                return createInput(type, player.order, player)
             case 'player-name':
                 if (player.dead) {
-                    return createDeadPlayerNameElement(type, player.name);
+                    return createDeadPlayerNameElement(type, player.name)
                 }
-                return createInput(type, player.name, player);
+                return createInput(type, player.name, player)
             case 'player-badge':
-                return createBadgeIcon(type, player);
+                return createBadgeIcon(type, player)
         }
     }
 
     function createInput(className, value, player) {
-        const el = document.createElement('input');
-        el.className = className;
-        el.value = value;
+        const el = document.createElement('input')
+        el.className = className
+        el.value = value
 
         if (className === 'player-order') {
-            el.setAttribute("pattern", "[0-9]*");
+            el.setAttribute("pattern", "[0-9]*")
         } else if (className === 'player-name') {
-            el.setAttribute("autocapitalize", "words");
-            if (player.bloodied) el.classList.add('bloodied');
+            el.setAttribute("autocapitalize", "words")
+            if (player.bloodied) el.classList.add('bloodied')
         }
 
-        el.addEventListener('keydown', handleEdit.bind(null, player, el));
-        el.addEventListener('focusout', handleEdit.bind(null, player, el));
+        el.addEventListener('keydown', handleEdit.bind(null, player, el))
+        el.addEventListener('focusout', handleEdit.bind(null, player, el))
 
-        return el;
+        return el
     }
 
     function createDeadPlayerNameElement(type, name) {
-        const el = document.createElement('div');
-        el.classList = `${type} strike-thru`;
-        el.textContent = name;
-        return el;
+        const el = document.createElement('div')
+        el.classList = `${type} strike-thru`
+        el.textContent = name
+        return el
     }
 
     function createBadgeIcon(className, player) {
-        const el = document.createElement('div');
-        el.classList = className;
-        el.setAttribute('tabindex', '0');
+        const el = document.createElement('div')
+        el.classList = className
+        el.setAttribute('tabindex', '0')
 
-        const { icon, action } = getBadgeIconData(player);
+        const { icon, action } = getBadgeIconData(player)
 
-        el.innerHTML = `<i class="${icon}">`;
+        el.innerHTML = `<i class="${icon}">`
         el.addEventListener('click', () => {
-            action(player);
-            postEditCleanup();
-        });
+            action(player)
+            postEditCleanup()
+        })
 
-        return el;
+        return el
     }
 
     function getBadgeIconData(player) {
@@ -874,60 +885,60 @@ function renderPlayers() {
             return {
                 icon: 'fas fa-skull',
                 action: (player) => {
-                    player.dead = false;
-                    player.bloodied = false;
+                    player.dead = false
+                    player.bloodied = false
                 }
-            };
+            }
         } else if (player.bloodied) {
             return {
                 icon: 'fas fa-heart-crack',
                 action: (player) => {
-                    player.dead = true;
-                    player.bloodied = false;
+                    player.dead = true
+                    player.bloodied = false
                 }
-            };
+            }
         } else {
             return {
-                icon: 'fa-brands fa-d-and-d',
+                icon: 'fas fa-heart',
                 action: (player) => {
-                    player.dead = false;
-                    player.bloodied = true;
+                    player.dead = false
+                    player.bloodied = true
                 }
-            };
+            }
         }
     }
 
     function handleEdit(player, input, e) {
-        if (e.type === 'keydown' && e.key !== 'Enter') return;
+        if (e.type === 'keydown' && e.key !== 'Enter') return
 
-        const newValue = (input.className === 'player-order') ? parseInt(input.value, 10) : input.value;
+        const newValue = (input.className === 'player-order') ? parseInt(input.value, 10) : input.value
         
         switch (input.className) {
             case 'player-order':
-                player.order = newValue;
-                break;
+                player.order = newValue
+                break
             case 'player-name':
                 if (newValue) {
-                    player.name = newValue;
+                    player.name = newValue
                 } else {
-                    player.deleteme = true;
+                    player.deleteme = true
                 }
-                break;
+                break
             case 'player-badge':
-                player.badge = newValue;
-                break;
+                player.badge = newValue
+                break
         }
 
-        postEditCleanup();
+        postEditCleanup()
     }
 
     function postEditCleanup() {
-        players = players.filter(p => !p.deleteme);
-        players.sort((a, b) => b.order - a.order);
+        players = players.filter(p => !p.deleteme)
+        players.sort((a, b) => b.order - a.order)
 
-        allTranscripts = [generatedPlayersTranscript(players)];
-        renderPlayers();
-        setCookie('players', JSON.stringify(players));
+        allTranscripts = [generatedPlayersTranscript(players)]
+        renderPlayers()
+        setCookie('players', JSON.stringify(players))
     }
 }
 
@@ -947,7 +958,7 @@ function getCookie(name) {
 }
 
 function refreshPage() {
-    location.reload();
+    location.reload()
 }
 
 
@@ -956,7 +967,7 @@ function refreshPage() {
  */
 function outLogsToSettingsPage() {
     let outputLogsToText = true // Toggle this to control logging behavior
-    const eventLog = document.getElementById('eventlog');
+    const eventLog = document.getElementById('eventlog')
 
     const originalConsole = {
         log: console.log,
@@ -964,7 +975,7 @@ function outLogsToSettingsPage() {
         info: console.info,
         debug: console.debug,
         error: console.error
-    };
+    }
 
     function appendToEventLog(type, args) {
         if (outputLogsToText && eventLog) {
@@ -976,32 +987,32 @@ function outLogsToSettingsPage() {
     // console.log = function (...args) {
     //     originalConsole.log.apply(console, args)
     //     appendToEventLog('log', args)
-    // };
+    // }
 
     console.warn = function (...args) {
         originalConsole.warn.apply(console, args)
         appendToEventLog('warn', args)
-    };
+    }
 
     console.info = function (...args) {
         originalConsole.info.apply(console, args)
         appendToEventLog('info', args)
-    };
+    }
 
     // console.debug = function (...args) {
     //     originalConsole.debug.apply(console, args)
     //     appendToEventLog('debug', args)
-    // };
+    // }
 
     console.error = function (...args) {
         originalConsole.error.apply(console, args)
         appendToEventLog('error', args)
-    };
+    }
 
     // Expose the variable to the global scope if you need to toggle it outside of this function
     window.toggleLogOutput = function(val) {
         outputLogsToText = !!val
-    };
+    }
 
     // If you want to stop logging to the <p> element, use:
     // toggleLogOutput(false)
