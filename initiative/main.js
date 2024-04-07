@@ -197,7 +197,7 @@ function rehydrateSettings() {
     const savedTurn = getCookie('turn')
     if (savedTurn) {
         currentTurn = parseInt(savedTurn, 10)
-        highlightCurrentTurn()
+        highlightCurrentTurn(true)
     }
 }
 
@@ -567,7 +567,7 @@ function capitalize(word) {
  */
 
 function startTurnCounter() {
-    highlightCurrentTurn()
+    highlightCurrentTurn(true)
     beginCombat()
     updateTally(currentRound)
     setCookie('round', currentRound)
@@ -612,7 +612,7 @@ function advanceTurn() {
         return
     }
 
-    highlightCurrentTurn()
+    highlightCurrentTurn(true)
 
     document.getElementById('prevTurn').disabled = false
 }
@@ -651,7 +651,7 @@ function goBackOneTurn() {
         return
     }
 
-    highlightCurrentTurn()
+    highlightCurrentTurn(true)
     setCookie('turn', currentTurn)
 
     if (currentRound == 1 && currentTurn == 0) {
@@ -689,11 +689,19 @@ function updateTally(roundNumber) {
     }
 }
 
-function highlightCurrentTurn() {
+function highlightCurrentTurn(doScroll) {
     const listItems = document.querySelectorAll('#entries li')
     listItems.forEach(li => li.classList.remove('highlighted'))
     if (listItems[currentTurn]) {
         listItems[currentTurn].classList.add('highlighted')
+        if (doScroll) {
+            // Scroll the highlighted item into view
+            listItems[currentTurn].scrollIntoView({
+                behavior: 'smooth', // Optional: Defines the transition animation.
+                block: 'center',    // Vertical alignment.
+                inline: 'nearest'   // Horizontal alignment.
+            })
+        }
     }
 }
 
@@ -862,6 +870,7 @@ function renderPlayers() {
             if (player.bloodied) el.classList.add('bloodied')
         }
 
+        el.addEventListener('focus', handleFocus.bind(null, player, el))
         el.addEventListener('keydown', handleEdit.bind(null, player, el))
         el.addEventListener('focusout', handleEdit.bind(null, player, el))
 
@@ -917,6 +926,10 @@ function renderPlayers() {
                 }
             }
         }
+    }
+
+    function handleFocus(player, input, e) {
+        e.target.select();
     }
 
     function handleEdit(player, input, e) {
