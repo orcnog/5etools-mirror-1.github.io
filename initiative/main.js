@@ -341,20 +341,30 @@ async function setupSpeechDicatation() {
 
         for (let i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
+                // heard the completion of some word or phrase, and made a final decision about what it heard.
+                // probably triggered by a tiny (but obvious) pause in speech
                 const spokenWords = event.results[i][0].transcript
+                // interim_transcript += spokenWords
                 final_transcript += spokenWords
-                console.debug(`heard: "${spokenWords}"`)
+                console.debug(`Recognized: "${spokenWords}"`)
+                console.debug(`Confidence: ${event.results[i][0].confidence}`)
                 console.debug(event)
+                // Try to parse initiatives and output them to the screen in real time?/////////////////////
+                // const interpreted = parseInput(interim_transcript, numberMap)
+                // console.info(`parsed results: ${input}`)
+                // if (interpreted.indexOf('@') > 0) {
+                //     console.info(`Initiatives found: ${interpreted.match(/@/g).length}`)
+                // }
                 interim_transcript = ''
             } else {
+                // heard small part, maybe just a syllable, but has not yet made a final decision about what it heard.
                 interim_transcript += event.results[i][0].transcript
+                console.debug(`maybe: ${interim_transcript}`)
             }
-            console.debug(`Confidence: ${event.results[i][0].confidence}`)
         }
 
         interimOutput.innerHTML = interim_transcript
         document.querySelector('.post-mic').classList.remove('show')
-        console.debug(`heard: ${event.results[0][0].transcript}`)
     }
 
     function speechNoMatchHandler(event) {
@@ -370,19 +380,23 @@ async function setupSpeechDicatation() {
     }
     
     function speechEndHandler() {
-        console.info(`heard: "${final_transcript}"`)
+        console.info(`Heard altogether: "${final_transcript}"`)
         console.debug('Speech ended. Parsing results.')
         if (isEmpty(final_transcript)) {
             if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
         } else if (isClearCommand(final_transcript)) {
-            console.info(`CLEAR command detected: ${final_transcript}`)
+            console.info(`CLEAR command detected: "${final_transcript}"`)
             clearAll()
-        }else if( isStartCommand(final_transcript)) {
-            console.info(`START command detected: ${final_transcript}`)
-            if (players.length) startTurnCounter()
+        }else if( isCancelCommand(final_transcript)) {
+            console.info(`CANCEL command detected: "${final_transcript}"`)
+            final_transcript = ''
         } else {
-            allTranscripts.push(final_transcript)
-            parseAndAddEntries()
+            let interpretedTranscript = parseInput(final_transcript, numberMap)
+            interpretedTranscript = trimIncompletePattern(interpretedTranscript)
+            console.info(`parsed results: ${interpretedTranscript}`)
+            allTranscripts.push(interpretedTranscript)
+            const joinedInput = allTranscripts.join(' ')
+            parseAndAddEntries(joinedInput)
         }
         document.getElementById('startDictation').classList.remove('thinking')
         document.getElementById('startDictation').disabled = false
@@ -413,13 +427,13 @@ async function setupSpeechDicatation() {
     }
 
     function isClearCommand(str) {
-        // Test whether the user said (and said only) "clear", "cancel", or "start over".
-        return /^(clear|cancel|start over)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+        // Test whether the user said (and only said) "clear", "cancel", "reset", "start over", "new list", "new encounter", "next encounter", "new initiaive", or "new initiaive order".
+        return /^(clear|cancel|reset|start over|new list|new encounter|next encounter|new initiative|new initiative order)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
     }
 
-    function isStartCommand(str) {
-        // Test whether the user said (and said only) "start", "begin", "go", "round one", or "fight".
-        return /^(and )?(let's )?(start|begin|let us begin|go|round one|round 1|fight|let the games begin|party|rock|rock and roll|rock 'n' roll|boogie|get ready to rumble|ready|ready set go)$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+    function isCancelCommand(str) {
+        // Test whether the user said something clearly ending with "cancel"
+        return /.*cancel$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
     }
 }
 
@@ -730,12 +744,9 @@ function clearAll() {
  * Player Entries Management
  */
 
-function parseAndAddEntries() {
-
-    const joinedInput = allTranscripts.join(' ')
-    let convertedInput = parseInput(joinedInput, numberMap)
-
-    const regex = /([a-zA-Z0-9_'-\s]+?)\s*?@ (-?\d+)/g
+function parseAndAddEntries(convertedInput) {
+    // match full "character @ roll" entries. Ex: "goblin #2 @ 15"
+    const regex = /([a-zA-Z#0-9\._'-\s]+?)\s*?@ (-?\d+)/g
     let matches
 
     players = []
@@ -763,6 +774,23 @@ function parseAndAddEntries() {
     addPlayersAndGo()
 }
 
+// Trim incomplete 'player @ order" pairs
+function trimIncompletePattern(str) {
+    // Regex that matches everything up to the last occurrence of "@ [number]"
+    const regex = /(.+@ \d+)(?:\s|$).*/;
+  
+    // Execute the regex on the string
+    const match = str.match(regex);
+  
+    // If a match is found, return the matched part that leads up to and includes the last "@ [number]"
+    if (match) {
+      return match[1];
+    }
+  
+    // If no match is found or regex doesn't apply, return the original string
+    return str;
+}
+
 function parseInput(input, numberMap) {
     console.debug('Before processing: ' + input)
 
@@ -786,18 +814,20 @@ function parseInput(input, numberMap) {
     }
     // Replace the roll/role variations with the symbol "@"
     input = input.replace(new RegExp(` (${aliasesForRolled.join('|')})( a| an| and| of| on| [aeu]h+|)? `, 'g'), ' @ ')
-    // Split up WORD-## ex: "demon-12" to "demon 12"
-    input = input.replace(/([a-z])-(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
-    // Handle negative numbers
-    input = input.replace(/\bnegative (\d+)/g, (match, p1) => `-${p1}`)
-    // Guess at where roll "@" symbols should be added in: split triple digits into for ex: "311" to "3 @ 11"
+    // Split up WORD-## or WORD##. Ex: "demon-12" or "demon12" to "demon 12"
+    input = input.replace(/([a-z\*])-?(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
+    // Handle negative numbers. Ex: "negative 4" to "-4"
+    input = input.replace(/\b[Nn]egative (\d+)/g, (match, p1) => `-${p1}`)
+    // Remove the word "number". Ex: "goblin number 3" becomes "goblin 3"
+    input = input.replace(/\b[Nn]umber (\d)/g, (match, p1) => `${p1}`)
+    // Guess at where roll "@" symbols should be added in: split 4-digit numbers into 2 groups. Ex: "1110" to "11 @ 10"
+    input = input.replace(/\b(\d\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`)
+    // Guess at where roll "@" symbols should be added in: split 3-digit numbers into 2 groups. Ex: "311" to "3 @ 11"
     input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`)
-    // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said)
+    // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said). Ex: "3 11" to "3 @ 11"
     input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`)
-    // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said)
-    input = input.replace(/([a-z]) (\d\d? (?=[a-z]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
-
-    console.info(`parsed results: ${input}`)
+    // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said). \* handles curse words =) Ex: "john 4" to "john @ 4"
+    input = input.replace(/([a-z\*]) (\d\d? (?=[a-z\*]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
 
     return input
 }
@@ -808,7 +838,11 @@ function handleManualInputSubmit(e) {
     }
     const speechInput = e.target.querySelector('input')
     allTranscripts.push(speechInput.value)
-    parseAndAddEntries()
+    const joinedInput = allTranscripts.join(' ')
+    const convertedInput = parseInput(joinedInput, numberMap)
+    input = trimIncompletePattern(input)
+    console.info(`parsed results: ${input}`)
+    parseAndAddEntries(convertedInput)
     speechInput.value = ''
 }
 
@@ -1008,11 +1042,6 @@ function outLogsToSettingsPage() {
         }
     }
 
-    // console.log = function (...args) {
-    //     originalConsole.log.apply(console, args)
-    //     appendToEventLog('log', args)
-    // }
-
     console.warn = function (...args) {
         originalConsole.warn.apply(console, args)
         appendToEventLog('warn', args)
@@ -1022,11 +1051,6 @@ function outLogsToSettingsPage() {
         originalConsole.info.apply(console, args)
         appendToEventLog('info', args)
     }
-
-    // console.debug = function (...args) {
-    //     originalConsole.debug.apply(console, args)
-    //     appendToEventLog('debug', args)
-    // }
 
     console.error = function (...args) {
         originalConsole.error.apply(console, args)

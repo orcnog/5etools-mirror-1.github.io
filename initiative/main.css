@@ -443,6 +443,7 @@ select {
 
 .settings-menu-group.event-log {
     flex: 1 1 auto;
+    padding-bottom: 10rem;
 }
 
 .settings-menu-group.event-log p {
