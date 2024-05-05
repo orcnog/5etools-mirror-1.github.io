@@ -205,6 +205,7 @@ function setupEventListeners() {
     document.querySelector('#selectFont').addEventListener('change', handleFontChange)
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
+    document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.getElementById('appScalePref').addEventListener('change', (e)=> {updateAppScale(e.target.value)})
     document.getElementById('decrAppScale').addEventListener('click', decreaseAppScale)
     document.getElementById('incrAppScale').addEventListener('click', increaseAppScale)
@@ -227,6 +228,7 @@ function setupEventListeners() {
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
     // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
+    if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.getElementById('toggleFullScreenBtn').remove() };
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(event => {
@@ -449,6 +451,34 @@ function toggleSettingsMenu() {
     settingsMenuButton.classList.toggle('menu-open')
     settingsMenu.classList.toggle('hide')
     mainAppBody.classList.toggle('hide')
+}
+
+function toggleFullScreenMode() {
+    if (this.checked) openFullscreen()
+    else closeFullscreen()
+}
+
+/* View in fullscreen */
+function openFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
 }
 
 function updateAppScale(value) {
