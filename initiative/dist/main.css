@@ -1,0 +1,1181 @@
+:root {
+    --adjustable-app-scale: 16px;
+    --adjustable-font-size: 2rem;
+    --adjustable-chalkiness: 0;
+    --brightness-level: 1;
+    --body-color: #ddd;
+    --body-bg-images: url('themes/dnd/images/dnd-wizards.webp');
+    --body-bg-image-positions: center center;
+    --body-bg-image-sizes: cover;
+    --main-text-color: #ddd;
+    --main-text-color-alt: #fff;
+    --header-menu-height: 3.125rem;
+    --div-bg-color: transparent;
+    --div-bg-image: url('images/slate-bg-tiled.webp');
+    --div-bg-image-top: url('images/slate-bg-top.webp');
+    --div-bg-image-bottom: url('images/slate-bg-bottom.webp');
+    --div-bg-image-2: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGBAMAAACDAP+3AAAAGFBMVEUfHx8eHh4dHR0bGxshISEiIiIlJSUjIyM9IpsJAAAFjUlEQVR4AT3UuZLcOBaF4QuI2XJxboIhF/eQFe1WovoBAAqccpkaZpc5+4yrXa8/RGpx/lrIXPjFCYjTp9z8REqF4VYNWB3Av3zQJ6b6xBwlKB/9kRkCjXVwGH3ziK5UcjFHVkmgY6osiBsGDFfseqq2ZbTz7E00qBDpzOxnD7ToABeros1vM6MX0rBQaG1ith1A/HJkvkHxsPGJ82dP8vVCyWmbyPTaAfGzg40bgIdrv2f3pBVPycUcufx+BSUUWDuCZi6zBqdM50ElKYPODqtLDjc31rBb9CZ59lbN/JScuMxHLUBcGiy6QRH9zpwgZGhRj8qSydPVgNNVgbWqYX3HbM9K2rqTnKVmsmwKWzc1ffEd20+Zq3Ji65kl6TSjALNvzmJt4Pi2f1etytGJmy5erLAgbNY4bjykC3YCLIS3nSZMKgwRsBarWgjdeVzIEDzpTkoOUArTF4WFXYHwxY585sT0nmTYMxmXfs8fzwswfnam8TMU49bvqSRnyRPnqlno4tVQQiH2A9Za8tNTfXQ0lxbSxUaZna0uLlj9Q0XzD96CpsOZUftolINKBWJpAOoAJC0T6QqZnOtfvcfJFcDrD4Cuy5Hng316XrqzJ204HynyHwWed6i+XGF40Uw2T7Lc71HyssngEOrgONfBY7wvW0UZdVAma5xmSNjRp3xkvKJkW6aSg7PK4K0+mbKqYB0WYBgWwxCXiS74zBCVlEFpYQDEwjcA1qccb5yO6ZL8ozt/h3wHSCdWzLuqxU2ZZ9ev9MvRMbMvV9BQgN0qrFjlkzPQanI9nuaGCokVK2LV1Y2egyY1aFQGxjM9I7RBBAgyGEJtpKHP0lUySSeWCpyKHMT2pmM/vyP55u2Rw5lcSeabAfgiG5TPDX3uP3QvcoSipJXQByUCjS4C8VXqxEEZOJxzmJoyogFNJBRsCJs2XmoWWrWFqTsnbwtSn43gNFTTob9/SEpaPJNhUBKDGoZGCMINxvBv8vuKbb//lg/sK0wfPgBica/QsSk5F3KK4Ui6Yw+uv4+DWEOFbhdPOnbY5PLFpzrZMhakeqomY0Vz0TO+elQGTWdCk1IYFAOaoZg0IJQhT+YreXF+yia+O1cgtGufjXxQw28f85RPXfd15zv13ABoD15kB7FKJ/7pbHKP6+9TgNgkVj68NeV8Tp24f7OOndCgJzR3RNJBPNFReCmstMVqvjjzBoeK4GOFoBN32CPxu+4TwwBDa4DJTe/OU9c9ku7EGyfOVxh+fw9g/AATxPqKTEXJKEdCIBkB4iBUlO6MjUrWi6M5Kz31YAqFsYaCeB0KJC5d1+foo3LQWSfRaDrwdAQrMEC27yDZXJf7TlOJ2Bczr1di3OWvZB6XrvvqPuWJPDk9dAHgm7LvuZJTEdKqO3J3XgostArEnvkqgUznx0.1875rem7cSzz1FXZyvakTA4XVVMbCPFPK1cFj66S0WoqQI1XG2uoU7CMPquO2VaUDJFQMdVgXKD2bpz6ufzzxXbxszHQ9fGO/F7A998yBQG6cShE+P+Pk7t1FwfF1QHN1Eui1VapRxCdj8tCtI1bog1Fo011Sx9u3o6c9bufI6wAT26Av9xJ+WWpTKbbBPp3K/1LbC4Vuhv396RCbJw4untjxVPndj+dIB9dVD8z2dylZ+6vMeJwbYChHJkvHV2J3fdHsJPASeHhrXq6QheXu1nBhUr5u6ryT0I13BFKD01ViZ/n3oaziRG7c6Ayg7g1LPeztNdT36ueMqcN4XGv3finjfv+7I/kMJ4d046MUanOA1QtMH1kLlfFasm99NiutSw63yNDeH4zeL1Uu8XKHNfcThPSSNwchGMbgUETScwkCcK77pH2jsgrAssvVyB8FLJ7GrmwyD8eVqsHoY/FwIv9T7lPu9+Yf8/9+w4nS1ma78AAAAASUVORK5CYII=);
+    --main-bg-image-mask: url('images/bottom-splotch-mask.webp');
+    --main-text-shadow: -0.033em -0.033em rgba(0, 0, 0, 0.6);
+    --playerlist-bg-img: none;
+    --playerlist-shadow: none;
+    --button-font: 'East Sea Dokdo';
+    --button-text-color: rgba(255, 255, 255, 0.8);
+    --button-bg-color: rgb(150 76 27);
+    --button-bg-color--hover: rgb(140 70 23);
+    --button-bg-color-alt: #222;
+    --button-bg-color-alt--hover: #322;
+    --button-bg-color-clear: transparent;
+    --button-bg-color-clear--hover: rgba(0, 0, 0, 0.25);
+    --button-border-color: none;
+    --button-outline-focus: rgba(255, 100, 0, 0.5);
+    --mic-color: #ddd;
+    --mic-bg-color: rgb(150 76 27);
+    --input-bg-color: rgba(0, 0, 0, 0.8);
+    --input-placeholder-color: #555;
+    --highlighted-color: rgba(100, 150, 225, 0.4);
+    --highlighted-text-color: #fff;
+    --grungy-mask1: url('images/grungy-mask4.webp');
+    --grungy-mask2: url('images/grungy-mask3.webp');
+    --grungy-mask3: url('images/grungy-mask2.webp');
+    --grungy-mask4: url('images/grungy-mask1.webp');
+    --grungy-mask5: url('images/grungy-mask5.webp');
+}
+
+/* Downloaded fonts */
+@font-face {
+    font-family: "Baron Kuffner";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Baron Kuffner"), url("themes/dnd/fonts/Baron Kuffner.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Broken Crush";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Broken Crush"), url("themes/dnd/fonts/Broken Crush.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Creatinin-pro";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Creatinin-pro"), url("themes/dnd/fonts/creatinin-pro.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Do You Want To Be My Inverted Interrobang";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Do You Want To Be My Inverted Interrobang"), url("themes/dnd/fonts/Do you want to be my Inverted Interrobang.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Dracufrankenwolfbb";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Dracufrankenwolfbb"), url("themes/dnd/fonts/DracuFrankenWolfBB.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Eordeoghlakat";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Eordeoghlakat"), url("themes/dnd/fonts/Eordeoghlakat.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fibyngerowa";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Fibyngerowa"), url("themes/dnd/fonts/Fibyngerowa.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Grenhil";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Grenhil"), url("themes/dnd/fonts/Grenhil.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Ickyticketmono";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Ickyticketmono"), url("themes/dnd/fonts/IckyTicketMono.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Kgbythegraceofgod";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Kgbythegraceofgod"), url("themes/dnd/fonts/KGBytheGraceofGod.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Lincons";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Lincons"), url("themes/dnd/fonts/LINCONS.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Lugosi";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Lugosi"), url("themes/dnd/fonts/Lugosi.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Malinsha Rough";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Malinsha Rough"), url("themes/dnd/fonts/Malinsha Rough.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Mystic Forest";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Mystic Forest"), url("themes/dnd/fonts/Mystic Forest.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Raventame";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Raventame"), url("themes/dnd/fonts/Raventame.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Unionagrochem";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Unionagrochem"), url("themes/dnd/fonts/unionagrochem.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Vtks Distress";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Vtks Distress"), url("themes/dnd/fonts/vtks distress.ttf") format("truetype");
+}
+
+/* CSS Reset */
+body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol,ul {
+    list-style: none;
+}
+blockquote,q {
+    quotes: none;
+}
+blockquote:before,blockquote:after,q:before,q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* End CSS Reset */
+
+html {
+    font-size: var(--adjustable-app-scale);
+    /* height: 100%; */
+    min-height: 100%;
+    min-height: -moz-available;
+    /* WebKit-based browsers will ignore this. */
+    min-height: -webkit-fill-available;
+    /* Mozilla-based browsers will ignore this. */
+    min-height: fill-available;
+}
+
+body {
+    padding: 0.5rem;
+    /* height: 100%; */
+    min-height: 100%;
+    box-sizing: border-box;
+    line-height: 1.2;
+    /* but some fonts override this */
+    background: black no-repeat;
+    background-image: var(--body-bg-images);
+    background-position: var(--body-bg-image-positions);
+    background-size: var(--body-bg-image-sizes);
+    touch-action: manipulation;
+    filter: brightness(var(--brightness-level));
+}
+
+p,
+li {
+    font-size: var(--adjustable-font-size);
+    text-shadow: var(--main-text-shadow);
+    text-rendering: optimizelegibility;
+    color: var(--main-text-color);
+    -webkit-mask-image: var(--grungy-mask3), linear-gradient(rgba(0 0 0 / var(--adjustable-chalkiness)), rgba(0 0 0 / var(--adjustable-chalkiness)));
+    mask-image: var(--grungy-mask3), linear-gradient(rgba(0 0 0 / var(--adjustable-chalkiness)), rgba(0 0 0 / var(--adjustable-chalkiness)));
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+label {
+    font-size: 1.5rem;
+}
+
+input {
+    margin: 0;
+    outline: none !important;
+    padding: 0 1.25em;
+    border: none;
+    border-radius: 0.9375rem;
+    box-sizing: border-box;
+    width: calc(100% - 4em);
+    font-family: inherit;
+    font-size: 1em;
+    background: var(--input-bg-color);
+    color: var(--main-text-color);
+    -webkit-mask-image: var(--grungy-mask1);
+    mask-image: var(--grungy-mask1);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+input::placeholder {
+    color: var(--input-placeholder-color);
+}
+
+/* Hide number incr/decr buttons in  most modern browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide number incr/decr buttons in Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    accent-color: var(--button-bg-color);
+    font-size: 30px;
+    height: 2rem;
+    width: 2rem;
+    color: black;
+    box-shadow: inset 2px -1px 1px 7px var(--button-bg-color);
+    background: rgba(0, 0, 0, 0.25);
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+input[type="checkbox"]:checked::before {
+    content: "×";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+}
+
+.btn {
+    margin: 0.3125rem;
+    padding: 0.1em 1.5em;
+    border: 0.125rem solid var(--button-border-color);
+    border-radius: 0.625rem;
+    font-size: 2rem;
+    font-family: var(--button-font);
+    color: var(--button-text-color);
+    text-transform: uppercase;
+    background: var(--button-bg-color);
+    -webkit-mask-image: var(--grungy-mask1);
+    mask-image: var(--grungy-mask1);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-position: bottom;
+    mask-position: bottom;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+    background-color: var(--button-bg-color--hover);
+}
+
+.btn:focus-visible {
+    outline: 0.125rem var(--button-outline-focus) solid;
+}
+
+.btn[disabled] {
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.btn-clear {
+    color: var(--main-text-color-alt);
+    text-shadow: var(--main-text-shadow);
+    -webkit-mask-image: var(--grungy-mask1);
+    mask-image: var(--grungy-mask1);
+    background: var(--button-bg-color-clear);
+    appearance: none;
+}
+
+.btn-clear:hover,
+.btn-clear:focus,
+.btn-clear:active {
+    background-color: var(--button-bg-color-clear--hover);
+}
+
+
+.button-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button-group button {
+    margin: 0;
+    padding: 0.2em 0.5em 0.25em;
+    font-size: 1.5rem;
+}
+
+.button-group-number-bump {
+    justify-content: flex-start;
+}
+
+.input-number-bump {
+    margin: 0 0.5em;
+    padding: 0;
+    width: 4em;
+    height: 2.25em;
+    text-align: center;
+    font-size: 1rem;
+}
+
+select {
+    padding: 0 1em 0 2em;
+    outline: none;
+    border: none;
+    border-radius: 0.5em;
+    height: 2.5em;
+    font-family: sans-serif;
+    font-size: 1rem;
+    color: var(--main-text-color);
+    background: var(--input-bg-color);
+    -webkit-mask-image: var(--grungy-mask1), var(--grungy-mask4);
+    mask-image: var(--grungy-mask1), var(--grungy-mask4);
+    -webkit-mask-size: cover, contain;
+    mask-size: cover, contain;
+    -webkit-mask-position: left, right;
+    mask-position: left, right;
+}
+
+.select::-ms-expand {
+    /* Hide the default arrow of the select box */
+    display: none;
+}
+
+/* Nav bar */
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    height: var(--header-menu-height);
+}
+
+.header-menu-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.25em;
+    background-color: var(--button-bg-color-alt);
+    -webkit-mask-image: var(--grungy-mask2);
+    mask-image: var(--grungy-mask2);
+}
+
+.header-menu-btn:hover,
+.header-menu-btn:focus {
+    background-color: var(--button-bg-color-alt--hover);
+}
+
+.header-menu-btn:not(.menu-open) .settings-menu-open-ui {
+    display: none;
+}
+
+.header-menu-btn.menu-open .settings-menu-closed-ui {
+    display: none;
+}
+
+.header-menu-btn i {
+    color: var(--main-text-color-alt);
+    -webkit-mask-image: var(--grungy-mask3);
+    mask-image: var(--grungy-mask3);
+}
+
+/* Main wrapper */
+.main,
+.settings-menu {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 1.25rem 3rem 3rem;
+    height: calc(100% - var(--header-menu-height));
+    min-height: 80vh;
+    width: 100%;
+    max-width: 37.5rem;
+    border: 0.0625rem solid var(--div-border-color);
+    background: var(--div-bg-color) scroll;
+    background-image: var(--div-bg-image-top), var(--div-bg-image-bottom);
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100%, 100%;
+    background-position-x: left, left;
+    background-position-y: top, bottom;
+    /* -webkit-mask-image: var(--div-bg-image), var(--main-bg-image-mask);
+    mask-image: var(--main-bg-image-mask);
+    -webkit-mask-size: 100% 80%, 100% 32%;
+    mask-size: cover;
+    -webkit-mask-position: top, right bottom;
+    mask-position: right bottom;
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    mask-repeat: no-repeat, no-repeat; */
+    color: var(--main-text-color);
+}
+
+.main::before,
+.settings-menu::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 32rem);
+    box-sizing: border-box;
+    background: transparent scroll;
+    background-image: var(--div-bg-image);
+    background-size: 100%;
+    background-repeat: repeat-y;
+    z-index: -1;
+}
+
+.setting-menu-inner {
+    width: 100%;
+}
+
+/* Settings menu */
+.settings-menu-group {
+    margin: 1em auto 1em 0;
+    padding-left: 0.5em;
+    font-size: 1.25rem;
+}
+
+.settings-menu-group.event-log {
+    flex: 1 1 auto;
+    padding-bottom: 1rem;
+}
+
+.settings-menu-group.event-log p {
+    display: block;
+    font: 0.75em courier;
+    color: white;
+    height: 8rem;
+    overflow-y: auto;
+}
+
+.settings-input {
+    margin: 0.5em 0 0;
+}
+
+/* Close (X) button */
+.clear-all {
+    position: absolute;
+    top: 0.5em;
+    right: 1em;
+    margin: 0;
+    padding: 0.5em 0.25em 0.25em;
+    width: auto;
+    line-height: 0.5;
+}
+
+/* microphone permission messaging */
+.microphone-msg {
+    position: absolute;
+    margin-top: 3em;
+    width: 90%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s;
+    pointer-events: none;
+    user-select: none;
+}
+
+.microphone-msg.show {
+    opacity: 1;
+    z-index: 1;
+}
+
+body.players-listed .microphone-msg {
+    display: none;
+}
+
+/* microphone button */
+#startDictation {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 3em auto 0;
+    border-radius: 50%;
+    font-size: 5rem;
+    width: 2em;
+    min-height: 2em;
+    color: var(--mic-color);
+    background-color: var(--mic-bg-color);
+    -webkit-mask-image: var(--grungy-mask1);
+    mask-image: var(--grungy-mask1);
+    -webkit-mask-size: initial;
+    mask-size: initial;
+    -webkit-mask-position: center;
+    mask-position: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s, width 0.5s, min-height 0.5s, font-size 0.5s;
+}
+
+/* Pseudo-element for the hover effect */
+#startDictation::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    width: 0;
+    aspect-ratio: 1;
+    background: radial-gradient(white, rgb(0 66 152));
+    box-shadow: 0 0 0.9375rem -0.1875rem rgba(255, 255, 255, 1);
+    transform: translate(-50%, -50%);
+    transition: width 0.2s;
+    z-index: -1;
+}
+
+#startDictation:not(.disabled).active::before {
+    width: 100%;
+}
+
+#startDictation:hover,
+#startDictation:focus {
+    background-color: var(--mic-bg-color--hover);
+}
+
+#startDictation:focus-visible {
+    outline: 0.125rem var(--mic-outline-focus) solid;
+}
+
+#startDictation.disabled {
+    pointer-events: none;
+}
+
+#startDictation.disabled,
+#startDictation.thinking {
+    background-color: rgba(87, 87, 109, 0.3);
+    color: rgba(255, 255, 255, 0.2);
+    -webkit-mask-image: var(--grungy-mask2);
+    mask-image: var(--grungy-mask2);
+    overflow: hidden;
+    transition: background-color 0.5s;
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: 0 center;
+    }
+
+    100% {
+        background-position: -1em center;
+    }
+}
+
+#startDictation.thinking::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background-image: url('images/sine.webp');
+    background-size: 1em;
+    background-repeat: repeat-x;
+    background-position: center center;
+    animation: moveBackground 0.5s linear infinite;
+}
+
+.players-listed #startDictation {
+    margin: 0 auto;
+    font-size: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+    #startDictation {
+        font-size: 6.25rem;
+    }
+
+    .players-listed #startDictation {
+        font-size: 3.75rem;
+    }
+}
+
+#speechForm {
+    margin-top: 3em;
+}
+
+#speechForm:not(.show) {
+    display: none;
+}
+
+input.speech-input {
+    display: block;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    font-size: calc(var(--adjustable-font-size) * 0.75);
+    color: #777;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.players {
+    border-radius: 1.875rem;
+    padding: 2.5em 0;
+    min-width: 18.75rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-image: var(--playerlist-bg-img), var(--playerlist-bg-img);
+    background-size: cover, cover;
+    background-blend-mode: darken, darken;
+    background-position: top, bottom;
+    box-shadow: var(--playerlist-shadow);
+}
+
+.round-counter {
+    position: absolute;
+    top: 1.25rem;
+    left: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.round-label {
+    display: none;
+    line-height: 0.75;
+    color: #341603;
+}
+
+.round-tally {
+    margin-left: 0.2em;
+    width: 2em;
+    height: 1em;
+    background: transparent no-repeat left;
+    background-size: contain;
+    transform: skew(-5deg, 0deg);
+    opacity: 1;
+    filter: grayscale(0.5) brightness(0.55);
+}
+
+.round-tally[data-marks="1"] {
+    background-image: url("images/tally-marks-1.webp");
+}
+
+.round-tally[data-marks="2"] {
+    background-image: url("images/tally-marks-2.webp");
+}
+
+.round-tally[data-marks="3"] {
+    background-image: url("images/tally-marks-3.webp");
+}
+
+.round-tally[data-marks="4"] {
+    background-image: url("images/tally-marks-4.webp");
+}
+
+.round-tally[data-marks="5"] {
+    background-image: url("images/tally-marks-5.webp");
+}
+
+.add-a-player {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding: 0 0.5em;
+    width: 1.2em;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.players-listed .add-a-player {
+    margin: 0 auto 0 0;
+}
+
+#entries {
+    display: none;
+    flex: 1;
+    margin: 0;
+    padding-top: 2em;
+    padding-bottom: 0.25em;
+    list-style: none;
+    overflow: auto;
+}
+
+@media (min-width: 37rem) {
+    .round-counter {
+        font-size: 4.5rem;
+    }
+
+    #entries {
+        font-size: 1.85rem;
+    }
+}
+
+.players-listed #entries {
+    display: flex;
+    flex-flow: column;
+    max-width: 99%;
+}
+
+#entries li {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.1em 0;
+    cursor: pointer;
+}
+
+#entries li input {
+    flex: 1 1 auto;
+    display: block;
+    padding: 0;
+    height: auto;
+    width: auto;
+    min-width: 0;
+    box-sizing: border-box;
+    text-align: center;
+    text-transform: uppercase;
+    background: transparent;
+    appearance: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+    text-shadow: var(--main-text-shadow);
+}
+
+#entries .highlighted .player-name:not(.strike-thru):not(.bloodied) {
+    color: var(--highlighted-text-color);
+}
+
+#entries .player-order,
+#entries .player-badge,
+#entries .add-a-player {
+    display: flex;
+    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 1.2em;
+    min-width: 1.2em;
+}
+
+#entries .player-badge {
+    mask-image: var(--grungy-mask3);
+    mask-size: cover;
+}
+#entries .player-badge i {
+    font-size: 0.6em;
+    opacity: 0.6;
+}
+
+#entries .player-name.bloodied {
+    /* background-image: linear-gradient(transparent 50%, var(--main-text-color) 70%), url(images/blood-splat2.webp) !important; */
+    color: transparent;
+    text-shadow: none;
+    background-color: #ddd;
+    background-repeat: no-repeat;
+    /* background-image: linear-gradient(#722 10%, var(--main-text-color) 60%) !important; */
+    /* background-size: contain; */
+    background-image: linear-gradient(transparent 20%, var(--main-text-color) 90%), url(images/blood-splat2.webp) !important;
+    background-position: center;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+}
+
+#entries .player-name.bloodied + .player-badge i {
+    color: #FF5555;
+}
+
+.strike-thru {
+    position: relative;
+    line-height: 1;
+    color: #500;
+    /* text-shadow: -0.0313rem -0.0625rem 0rem rgba(0, 0, 0, 1.5), 0.0313rem 0.0313rem 0rem rgba(0, 0, 0, 1.5), 0.0313rem -0.0625rem 0rem rgba(0, 0, 0, 1.5), -0.0313rem 0.0313rem 0rem rgba(0, 0, 0, 1.5); */
+}
+
+.strike-thru::before {
+    content: "";
+    display: block;
+    width: calc(100% + 1em);
+    height: 0.75em;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    background-image: url(images/strikethru.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 1em;
+}
+
+@keyframes moveMaskLeftToRight {
+    0% {
+        -webkit-mask-position: 0 center;
+    }
+
+    100% {
+        -webkit-mask-position: 25rem center;
+    }
+}
+
+.highlighted {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.highlighted:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    display: block;
+    border-radius: 0.9375rem;
+    height: 100%;
+    width: 80%;
+    background: radial-gradient(ellipse at center, var(--highlighted-color) 30%, transparent 80%);
+    -webkit-mask-image: var(--grungy-mask3);
+    mask-image: var(--grungy-mask3);
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-size: auto;
+    mask-size: auto;
+    pointer-events: none;
+    animation: moveMaskLeftToRight 40s linear infinite;
+}
+
+@keyframes pulseBtnColor {
+    0%, 100% {
+        background-color: var(--button-bg-color);
+        color: var(--button-text-color);
+        opacity: 0.5;
+    }
+    
+    50% {
+        background-color: rgba(210, 30, 30, 1);
+        color: white;
+        opacity: 1;
+    }
+}
+
+#startButton {
+    margin-top: 0.5em;
+    padding: 0.4em 0.6em;
+    -webkit-mask-size: 94% 100%;
+    mask-size: 94% 100%;
+    /* background-color: #d40c0c; */
+    animation: pulseBtnColor 2.5s infinite;
+}
+
+.prev-next-btns {
+    position: sticky;
+    top: 80%;
+    width: 100%;
+    overflow: visible;
+    display: flex;
+}
+button.previous-turn,
+button.advance-turn {
+    position: absolute;
+    margin: 0;
+    padding: 0 0.25em;
+    height: 20vh;
+    mask-image: var(--grungy-mask1);
+    text-shadow: none;
+    font-size: 2em;
+}
+button.previous-turn {
+    left: -1em;
+}
+button.advance-turn {
+    right: -1em;
+}
+
+.hide {
+    display: none;
+}
+
+body:not(.active-turn) .active-turn-ui {
+    display: none;
+}
+
+.active-turn .no-active-turn-ui {
+    display: none;
+}
+
+body:not(.players-listed) .players-listed-ui {
+    display: none;
+}
+
+/* Font handling */
+.font-baron-kuffner {
+    font-family: "Baron Kuffner", sans-serif;
+}
+
+.font-broken-crush {
+    font-family: "Broken Crush", sans-serif;
+}
+
+.font-creatinin-pro {
+    font-family: "Creatinin-pro", sans-serif;
+}
+
+.font-inverted-interrobang {
+    font-family: "Do You Want To Be My Inverted Interrobang", sans-serif;
+}
+
+.font-dracufrankenwolfbb {
+    font-family: "Dracufrankenwolfbb", sans-serif;
+}
+
+.font-eordeoghlakat {
+    font-family: "Eordeoghlakat", sans-serif;
+}
+
+.font-fibyngerowa {
+    font-family: "Fibyngerowa", sans-serif;
+}
+
+.font-grenhil {
+    font-family: "Grenhil", sans-serif;
+}
+
+.font-ickyticketmono {
+    font-family: "Ickyticketmono", sans-serif;
+}
+
+.font-kgbythegraceofgod {
+    font-family: "Kgbythegraceofgod", sans-serif;
+}
+
+.font-lincons {
+    font-family: "Lincons", sans-serif;
+}
+
+.font-lugosi {
+    font-family: "Lugosi", sans-serif;
+}
+
+.font-malinsha-rough {
+    font-family: "Malinsha Rough", sans-serif;
+}
+
+.font-mystic-forest {
+    font-family: "Mystic Forest", sans-serif;
+}
+
+.font-raventame {
+    font-family: "Raventame", sans-serif;
+}
+
+.font-unionagrochem {
+    font-family: "Unionagrochem", sans-serif;
+}
+
+.font-vtks-distress {
+    font-family: "Vtks Distress", sans-serif;
+}
+
+.font-architects-daughter {
+    font-family: 'Architects Daughter', cursive;
+}
+
+.font-babylonica {
+    font-family: 'Babylonica', cursive;
+}
+
+.font-bilbo-swash-caps {
+    font-family: 'Bilbo Swash Caps', cursive;
+}
+
+.font-caveat {
+    font-family: 'Caveat', cursive;
+}
+
+.font-comforter {
+    font-family: 'Comforter', cursive;
+}
+
+.font-condiment {
+    font-family: 'Condiment', cursive;
+}
+
+.font-courier {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.font-dawning-of-a-new-day {
+    font-family: 'Dawning of a New Day', cursive;
+}
+
+.font-east-sea-dokdo {
+    font-family: 'East Sea Dokdo', cursive;
+    line-height: 0.85;
+}
+
+.font-fuggles {
+    font-family: 'Fuggles', cursive;
+}
+
+.font-grape-nuts {
+    font-family: 'Grape Nuts', cursive;
+}
+
+.font-homemade-apple {
+    font-family: 'Homemade Apple', cursive;
+}
+
+.font-inspiration {
+    font-family: 'Inspiration', cursive;
+}
+
+.font-julee {
+    font-family: 'Julee', cursive;
+}
+
+.font-just-me-again-down-here {
+    font-family: 'Just Me Again Down Here', cursive;
+}
+
+.font-kolker-brush {
+    font-family: 'Kolker Brush', cursive;
+}
+
+.font-la-belle-aurore {
+    font-family: 'La Belle Aurore', cursive;
+}
+
+.font-liu-jian-mao-cao {
+    font-family: 'Liu Jian Mao Cao', cursive;
+}
+
+.font-long-cang {
+    font-family: 'Long Cang', cursive;
+}
+
+.font-nanum-brush-script {
+    font-family: 'Nanum Brush Script', cursive;
+}
+
+.font-nothing-you-could-do {
+    font-family: 'Nothing You Could Do', cursive;
+}
+
+.font-oooh-baby {
+    font-family: 'Oooh Baby', cursive;
+}
+
+.font-over-the-rainbow {
+    font-family: 'Over the Rainbow', cursive;
+}
+
+.font-permanent-marker {
+    font-family: 'Permanent Marker', cursive;
+}
+
+.font-qwitcher-grypen {
+    font-family: 'Qwitcher Grypen', cursive;
+}
+
+.font-reenie-beanie {
+    font-family: 'Reenie Beanie', cursive;
+}
+
+.font-rock-salt {
+    font-family: 'Rock Salt', cursive;
+}
+
+.font-ruthie {
+    font-family: 'Ruthie', cursive;
+}
+
+.font-sassy-frass {
+    font-family: 'Sassy Frass', cursive;
+}
+
+.font-sedgwick-ave {
+    font-family: 'Sedgwick Ave', cursive;
+}
+
+.font-shalimar {
+    font-family: 'Shalimar', cursive;
+}
+
+.font-smooch {
+    font-family: 'Smooch', cursive;
+}
+
+.font-splash {
+    font-family: 'Splash', cursive;
+}
+
+.font-square-peg {
+    font-family: 'Square Peg', cursive;
+}
+
+.font-swanky-and-moo-moo {
+    font-family: 'Swanky and Moo Moo', cursive;
+}
+
+.font-vujahday-script {
+    font-family: 'Vujahday Script', cursive;
+}
+
+.font-waiting-for-the-sunrise {
+    font-family: 'Waiting for the Sunrise', cursive;
+}
+
+.font-walter-turncoat {
+    font-family: 'Walter Turncoat', cursive;
+}
+
+.font-whisper {
+    font-family: 'Whisper', cursive;
+}

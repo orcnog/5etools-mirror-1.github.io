@@ -1,0 +1,183 @@
+:root {
+    --body-bg-images: url('themes/kenobi/images/vader-versus3.webp');
+    --body-bg-image-positions: top center;
+    --body-bg-image-sizes: cover;
+    --button-bg-color: rgb(125, 16, 17);
+    --button-bg-color--hover: rgb(105, 16, 17);
+    --button-outline-focus: rgba(255, 16, 17, 0.5);
+    --mic-bg-color: rgb(125, 16, 17);
+    --mic-bg-color--hover: rgb(105, 16, 17);
+    --mic-outline-focus: rgba(255, 16, 17, 0.5);
+}
+
+.main-inner::-webkit-scrollbar,
+.settings-menu-inner::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.main-inner,
+.settings-menu-inner {
+    max-height: calc(100vh - var(--header-menu-height) - 6rem);
+    overflow: auto;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none;
+}
+
+@font-face {
+    font-family: "Space Frigate";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Space Frigate"), url("fonts/spacefri.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Jabba the Font Regular";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Jabba the Font Regular"), url("fonts/Jabba the Font Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Extros Backstage";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Extros Backstage"), url("fonts/Extros Backstage.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Mandalore Laser Rough";
+    font-style: normal;
+    font-weight: 400;
+    src: local("mandalorelaserrough"), url("fonts/mandalorelaserrough.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Neuropol";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Neuropol"), url("fonts/Neuropol.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "BoomBox2";
+    font-style: normal;
+    font-weight: 400;
+    src: local("BoomBox2"), url("fonts/boombox2.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Classic Robot Condensed";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Classic Robot Condensed"), url("fonts/Classic Robot Condensed.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Zekton Rg";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Zekton Rg"), url("fonts/Zekton Rg.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Earth Orbiter Cond";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Earth Orbiter Cond"), url("fonts/earthorbitercond.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Aurebesh-English";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Aurebesh-English"), url("fonts/Aurebesh-English.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "iDroid";
+    font-style: normal;
+    font-weight: 400;
+    src: local("iDroid"), url("fonts/iDroid.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Android 7";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Android 7"), url("fonts/android_7.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Android 101";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Android 101"), url("fonts/Android 101.ttf") format("truetype");
+}
+
+/* Rank 1 - but very wide */
+.font-aurebesh {
+    font-family: "Aurebesh-English", sans-serif;
+}
+.font-aurebesh #entries li input {
+    font-size: 0.55em;
+}
+
+/* Rank 2 */
+.font-classicrobot {
+    font-family: "Classic Robot Condensed", sans-serif;
+}
+
+/* Rank 3 */
+.font-android7 {
+    font-family: "Android 7", sans-serif;
+}
+
+/* Rank 4 */
+.font-spacefrigate {
+    font-family: "Space Frigate", sans-serif;
+}
+
+/* Rank 5 - fairly wide. needs letter-spacing: -0.03em;*/
+.font-android101 {
+    font-family: "Android 101", sans-serif;
+}
+
+/* Rank 6*/
+.font-earthorbiter {
+    font-family: "Earth Orbiter Cond", sans-serif;
+}
+
+/* Rank 7 - just really wide, and kinda illegible */
+.font-jabba {
+    font-family: "Jabba the Font Regular", sans-serif;
+}
+
+/* Rank 8 - really thin/light */
+.font-zektonrg {
+    font-family: "Zekton Rg", sans-serif;
+}
+
+/* Rank 9 - tall and thin */
+.font-extrosbackstage {
+    font-family: "Extros Backstage", sans-serif;
+}
+
+/* Rank 10 */
+.font-idroid {
+    font-family: "iDroid", sans-serif;
+}
+
+/* Rank 11 - has a mando inside the O's*/
+.font-mandalorelaser {
+    font-family: "Mandalore Laser Rough", sans-serif;
+}
+
+/* Rank 12 */
+.font-boombox2 {
+    font-family: "Boombox2", sans-serif;
+}
+
+/* Rank 14 - very wide, like a cond classicrobot */
+.font-neuropol {
+    font-family: "Neuropol", sans-serif;
+}
