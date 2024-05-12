@@ -472,7 +472,7 @@ select {
     content: "";
     position: absolute;
     width: 100%;
-    height: calc(100% - 32rem);
+    height: calc(100% - 5rem);
     box-sizing: border-box;
     background: transparent scroll;
     background-image: var(--div-bg-image);
