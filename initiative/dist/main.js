@@ -9,6 +9,7 @@ let players = []
 let currentTurn = 0
 let currentRound = 1
 let recognition // SpeechRecognition object
+let grammarList // SpeechGrammarList object
 let final_transcript = ''
 let allTranscripts = []
 let aliasMap = {
@@ -31,21 +32,21 @@ const numberMap = {
     'three': 3, 'tree': 3, 'iii': 3,
     'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, 'fourths': 4, '4th': 4, 'iv': 4,
     'five': 5, 'fi': 5, 'fife': 5, 'v': 5, "vie": 5,
-    'six': 6, 'sex': 6, 'sixth': 6, '6th': 6, 'vi': 6,
-    'seven': 7, '7th': 7, 'vii': 7,
-    'eight': 8, 'ate': 8, 'eighth': 8, '8th': 8, 'viii': 8,
-    'nine': 9, 'nigh': 9, 'ninth': 9, '9th': 9, 'ix': 9,
-    'ten': 10, 'tin': 10, 'tenth': 10, '10th': 10,
-    'eleven': 11, 'eleventh': 11, '11th': 11,
-    'twelve': 12, 'twelveth': 12, '12th': 12,
-    'thirteen': 13, 'thirteenth': 13, '13th': 13,
-    'fourteen': 14, 'fourteenth': 14, '14th': 14,
-    'fifteen': 15, 'fifteenth': 15, '15th': 15,
-    'sixteen': 16, 'sixteenth': 16, '16th': 16,
-    'seventeen': 17, 'seventeenth': 17, '17th': 17,
-    'eighteen': 18, 'eighteenth': 18, '18th': 18,
-    'nineteen': 19, 'nineteenth': 19, '19th': 19,
-    'twenty': 20, 'twentieth': 20,
+    'six': 6, 'sex': 6, 'sixth': 6, 'sixths': 6, '6th': 6, '6ths': 6, 'vi': 6,
+    'seven': 7, '7th': 7, '7ths': 7, 'seventh': 7, 'sevenths' : 7, 'vii': 7,
+    'eight': 8, 'eights': 8, 'ate': 8, 'eighth': 8, 'eighths': 8, '8th': 8, '8ths': 8, 'viii': 8,
+    'nine': 9, 'nigh': 9, 'ni' : 9, 'ninth': 9, 'ninths': 9, '9th': 9, '9ths': 9, 'ix': 9,
+    'ten': 10, 'tin': 10, 'tenth': 10, 'tenths': 10, '10th': 10, '10ths': 10,
+    'eleven': 11, 'eleventh': 11, 'elevenths': 11, '11th': 11, '11ths': 11,
+    'twelve': 12, 'twelveth': 12, '12th': 12, 'twelveths': 12, '12ths': 12,
+    'thirteen': 13, 'thirteenth': 13, '13th': 13, 'thirteenths': 13, '13ths': 13,
+    'fourteen': 14, 'fourteenth': 14, '14th': 14, 'fourteenths': 14, '14ths': 14,
+    'fifteen': 15, 'fifteenth': 15, '15th': 15, 'fifteenths': 15, '15ths': 15,
+    'sixteen': 16, 'sixteenth': 16, '16th': 16, 'sixteenths': 16, '16ths': 16,
+    'seventeen': 17, 'seventeenth': 17, '17th': 17, 'seventeenths': 17, '17ths': 17,
+    'eighteen': 18, 'eighteenth': 18, '18th': 18, 'eighteenths': 18, '18ths': 18,
+    'nineteen': 19, 'nineteenth': 19, '19th': 19, 'nineteenths': 19, '19ths': 19,
+    'twenty': 20, 'twentieth': 20, 'twentieths': 20, '20th': 20, '20ths': 20,
     'twenty-one': 21, 'twenty-two': 22, 'twenty-three': 23,
     'twenty-four': 24, 'twenty-fourth': 24, 'twenty-five': 25,
     'twenty-six': 26, 'twenty-sixth': 26, '26th': 26,
@@ -328,12 +329,20 @@ async function setupSpeechDicatation() {
     }
 
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+    
+    // Grammar list... works?  but it miiight be eff'ing up the number interpretation.
+    var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+    var numbers = ['one','two','three','four','five','six','seven','eight','nine','ten'];
+    var grammar = '#JSGF V1.0; grammar numbers; public <number> = ' + numbers.join(' | ') + ' ;'
+    
     recognition = new SpeechRecognition()
-
+    grammarList = new SpeechGrammarList();
+    grammarList.addFromString(grammar, 1);
+    recognition.grammars = grammarList;  // comment to turn grammar list off
     recognition.continuous = true
     recognition.lang = 'en-US'
     recognition.interimResults = true
-    recognition.maxAlternatives = 3
+    recognition.maxAlternatives = 12
     recognition.onstart = speechStartHandler
     recognition.onresult = speechResultHandler
     recognition.onnomatch = speechNoMatchHandler
@@ -372,20 +381,12 @@ async function setupSpeechDicatation() {
                 console.debug(`Recognized: "${spokenWords}"`)
                 console.debug(`Confidence: ${probableResult.confidence}`)
                 console.debug(event)
-                // Try to parse initiatives and output them to the screen in real time
-                // let interpretedTranscript = makeSpellingCorrections(final_transcript)
-                // if (interpretedTranscript.indexOf('@') > 0) {
-                //     console.info(`Initiatives found: ${interpretedTranscript.match(/@/g).length}`)
-                // }
-                // console.info(`Interim parsed results: ${interpretedTranscript.replace(' @', ': ')}`)
-                
-                // finalTranscriptOutput.textContent = interpretedTranscript
                 interim_transcript = ''
             } else {
                 // heard small part, maybe just a syllable, but has not yet made a final decision about what it heard.
-                const probableResult = considerAlternatives(event.results[i])
-                interim_transcript += probableResult.transcript
-                console.debug(`maybe: ${interim_transcript}`)
+                interim_transcript += event.results[i][0].transcript
+                // console.debug(`maybe: ${interim_transcript}`)
+                // console.debug(event)
             }
         }
 
@@ -478,21 +479,32 @@ async function setupSpeechDicatation() {
      * result that the SpeechRecognitionResult was most confident in.
      */
     function considerAlternatives(results) {
-        let probableResult = results[0]
-        // Iterate over alternatives
-        for (let i = results.length - 1; i > 0; i--) {
-            if (results[i].confidence < 0.5) return
+        // Sort the results array by confidence values in descending order
+        const sortedResults = [...results].sort((a, b) => b.confidence - a.confidence);
+        
+        // Preselect the highest confidence item
+        let probableResult = sortedResults[0];
+    
+        // Iterate over alternatives from least confident to most
+        for (let i = sortedResults.length - 1; i < 0; i++) {
+            const result = sortedResults[i];
+            if (result.confidence < 0.3) continue;
+
             let isProbableResult = /.*(\s(tutu|(to|two|too|2))){2}$/i.test(results[i].transcript)
             isProbableResult = isProbableResult || /.*(\s(tree|three|3)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(for|four|fore|4)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(for|four|fore|fourth|fourth|fourths|4)){2}$/i.test(results[i].transcript)
             isProbableResult = isProbableResult || /.*(\s(five|fi|5)){2}$/i.test(results[i].transcript)
             isProbableResult = isProbableResult || /.*(\s(six|sick|sic|6)){2}$/i.test(results[i].transcript)
             isProbableResult = isProbableResult || /.*(\s(seven|7)){2}$/i.test(results[i].transcript)
             isProbableResult = isProbableResult || /.*(\s(eight|ate|8)){2}$/i.test(results[i].transcript)
             isProbableResult = isProbableResult || /.*(\s(nine|nigh|9)){2}$/i.test(results[i].transcript)
-            if (isProbableResult) probableResult = results[i]
+            
+            if (isProbableResult) {
+                probableResult = result;
+            }
         }
-        return probableResult
+        
+        return probableResult;
     }
 }
 
@@ -999,7 +1011,7 @@ function convertNumberWordsToNumerals(input) {
 
     // Replace number words
     for (const [word, number] of Object.entries(numberMap)) {
-        let numberWordpattern = new RegExp(`\\b${word}\\b`, 'g')
+        let numberWordpattern = new RegExp(`\\b(${word})+\\b`, 'g')
         input = input.replace(numberWordpattern, `${number}`)
     }
     // Split up WORD-## or WORD##. Ex: "demon-12" or "demon12" to "demon 12"
