@@ -139,8 +139,9 @@
 .font-aurebesh {
     font-family: "Aurebesh-English", sans-serif;
 }
-.font-aurebesh #entries li input {
-    font-size: 0.55em;
+.font-aurebesh #entries li input,
+.font-aurebesh .settings-menu .lorem-ipsum {
+    font-size: calc(var(--adjustable-font-size) / 2);
 }
 
 /* Rank 2 */
