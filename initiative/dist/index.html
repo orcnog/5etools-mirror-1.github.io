@@ -53,6 +53,12 @@
                 </div>
             </div>
             <div class="settings-menu-group">
+                <label>Live Text</label>
+                <div class="settings-input">
+                    <input id="toggleLiveText" type="checkbox" />
+                </div>
+            </div>
+            <div class="settings-menu-group">
                 <label>App Scale</label>
                 <div class="settings-input">
                     <div class="button-group button-group-number-bump">
@@ -115,7 +121,7 @@
     </div>
 
     <!-- Experimental / debugging utility... hidden -->
-    <p id="interimWords" style="display: none; color: white;"></p>
+    <p class="interim-output" id="interimOutput"><span id="finalTranscript"></span> <span id="interimTranscript"></span></p>
 
     <div class="main">
         <button id="clearAll" class="clear-all btn btn-clear players-listed-ui">✕</button>

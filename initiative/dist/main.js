@@ -4,6 +4,7 @@
 let micAllowed = false
 let chosenFont
 let chosenTheme
+let liveTextMode = true
 let players = []
 let currentTurn = 0
 let currentRound = 1
@@ -28,7 +29,7 @@ const numberMap = {
     'one': 1, 'won': 1,
     'two': 2, 'to': 2, 'too': 2, 'ii': 2,
     'three': 3, 'tree': 3, 'iii': 3,
-    'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, '4th': 4, 'iv': 4,
+    'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, 'fourths': 4, '4th': 4, 'iv': 4,
     'five': 5, 'fi': 5, 'fife': 5, 'v': 5, "vie": 5,
     'six': 6, 'sex': 6, 'sixth': 6, '6th': 6, 'vi': 6,
     'seven': 7, '7th': 7, 'vii': 7,
@@ -149,6 +150,7 @@ function rehydrateSettings() {
         // Remember the setting
         setCookie('fontPreference', selectedClass)
     })
+
     /* Rehydrate the chosen theme */
     chosenTheme = getCookie('themePreference') || 'dnd'
     setCookie('themePreference', chosenTheme)
@@ -157,6 +159,9 @@ function rehydrateSettings() {
     loadCSS(themeOptionElem?.dataset.css)
     updateFont(themeOptionElem?.dataset.font)
 
+    /* Rehydrate the live text preference */
+    liveTextMode = getCookie('liveTextMode') || 'true'
+    document.getElementById('toggleLiveText').checked = liveTextMode
 
     /* Rehydrate the app scale from cookie */
     const cookieAppScale = getCookie('appScalePreference') || 2
@@ -215,6 +220,7 @@ function setupEventListeners() {
     document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.querySelector('#selectTheme').addEventListener('change', handleThemeChange)
+    document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
     document.getElementById('appScalePref').addEventListener('change', (e)=> {updateAppScale(e.target.value)})
     document.getElementById('decrAppScale').addEventListener('click', decreaseAppScale)
     document.getElementById('incrAppScale').addEventListener('click', increaseAppScale)
@@ -287,6 +293,7 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
+            document.getElementById('startDictation').classList.add('active')
             if ('start' in recognition) recognition.start()
     
         } else {
@@ -296,11 +303,12 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
+            document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
             if ('stop' in recognition) recognition.stop()
         }
-        console.debug('Mic button released.')
+        console.debug('Mic button released, or toggled off')
     }
     
     function handleMicDisallowed() {
@@ -335,7 +343,9 @@ async function setupSpeechDicatation() {
     // Asynchronously check to see if the microphone permission has been granted during the session
     micAllowed = await testMicPermission()
 
-    var interimOutput = document.getElementById('interimWords')
+    var interimOutput = document.getElementById('interimOutput')
+    var interimTranscriptOutput = document.getElementById('interimTranscript')
+    var finalTranscriptOutput = document.getElementById('finalTranscript')
     let pauseTimer = null // Initialize the pause timer variable
     let speechProcessedEvent = new Event('speechprocessed')
 
@@ -353,38 +363,48 @@ async function setupSpeechDicatation() {
             if (event.results[i].isFinal) {
                 // heard the completion of some word or phrase, and made a final decision about what it heard.
                 // probably triggered by a tiny (but obvious) pause in speech
-                const spokenWords = event.results[i][0].transcript
-                // interim_transcript += spokenWords
+                if (isStopCommand(event.results[i][0].transcript)) document.getElementById('startDictation').click()
+                const probableResult = considerAlternatives(event.results[i])
+                const spokenWords = probableResult.transcript
                 final_transcript += spokenWords
+                let temporaryInterpretation = convertNumberWordsToNumerals( makeSpellingCorrections( spokenWords ))
+                finalTranscriptOutput.append(temporaryInterpretation)
                 console.debug(`Recognized: "${spokenWords}"`)
-                console.debug(`Confidence: ${event.results[i][0].confidence}`)
+                console.debug(`Confidence: ${probableResult.confidence}`)
                 console.debug(event)
-                // Try to parse initiatives and output them to the screen in real time?/////////////////////
-                // const interpreted = parseInput(interim_transcript, numberMap)
-                // console.info(`parsed results: ${input}`)
-                // if (interpreted.indexOf('@') > 0) {
-                //     console.info(`Initiatives found: ${interpreted.match(/@/g).length}`)
+                // Try to parse initiatives and output them to the screen in real time
+                // let interpretedTranscript = makeSpellingCorrections(final_transcript)
+                // if (interpretedTranscript.indexOf('@') > 0) {
+                //     console.info(`Initiatives found: ${interpretedTranscript.match(/@/g).length}`)
                 // }
+                // console.info(`Interim parsed results: ${interpretedTranscript.replace(' @', ': ')}`)
+                
+                // finalTranscriptOutput.textContent = interpretedTranscript
                 interim_transcript = ''
             } else {
                 // heard small part, maybe just a syllable, but has not yet made a final decision about what it heard.
-                interim_transcript += event.results[i][0].transcript
+                const probableResult = considerAlternatives(event.results[i])
+                interim_transcript += probableResult.transcript
                 console.debug(`maybe: ${interim_transcript}`)
             }
         }
 
-        interimOutput.innerHTML = interim_transcript
+        if (liveTextMode) {
+            if (interim_transcript) interimOutput.classList.add('active')
+            interimTranscriptOutput.innerHTML = interim_transcript
+        }
+
         document.querySelector('.post-mic').classList.remove('show')
     }
 
     function speechNoMatchHandler(event) {
         const huh = ['[incoherent]', '???', '[mumbling]', '[drunken slurring]', '[something something...]'][Math.floor(Math.random() * 5)]
-        interimOutput.textContent = huh
+        interimTranscriptOutput.textContent = huh
         console.debug(event)
     }
 
     function speechErrorHandler(event) {
-        interimOutput.textContent = '[Error]'
+        interimTranscriptOutput.textContent = '[Error]'
         console.error(`Error occurred in recognition: ${event.error}\nError message: ${event.message}`)
         console.debug(event)
     }
@@ -401,13 +421,15 @@ async function setupSpeechDicatation() {
             console.info(`CANCEL command detected: "${final_transcript}"`)
             final_transcript = ''
         } else {
-            let interpretedTranscript = parseInput(final_transcript, numberMap)
+            let interpretedTranscript = parseInput(final_transcript)
             interpretedTranscript = trimIncompletePattern(interpretedTranscript)
             console.info(`parsed results: ${interpretedTranscript}`)
             allTranscripts.push(interpretedTranscript)
             const joinedInput = allTranscripts.join(' ')
             parseAndAddEntries(joinedInput)
         }
+        finalTranscriptOutput.textContent = ''
+        interimOutput.classList.remove('active')
         document.getElementById('startDictation').classList.remove('thinking')
         document.getElementById('startDictation').disabled = false
         document.dispatchEvent(speechProcessedEvent)
@@ -435,6 +457,11 @@ async function setupSpeechDicatation() {
         // Test whether the voice transcription is empty.
         return str.trim() == ''
     }
+    
+    function isStopCommand(str) {
+        // Test whether the last thing the user said was just "stop".
+        return /.*stop$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+    }
 
     function isClearCommand(str) {
         // Test whether the user said (and only said) "clear", "cancel", "reset", "start over", "new list", "new encounter", "next encounter", "new initiaive", or "new initiaive order".
@@ -444,6 +471,28 @@ async function setupSpeechDicatation() {
     function isCancelCommand(str) {
         // Test whether the user said something clearly ending with "cancel"
         return /.*cancel$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
+    }
+
+    /** Test whether the speech recognition thinks it may have heard something different, and decide
+     * if that alternative is actually the better choice in this context. If not, just return the
+     * result that the SpeechRecognitionResult was most confident in.
+     */
+    function considerAlternatives(results) {
+        let probableResult = results[0]
+        // Iterate over alternatives
+        for (let i = results.length - 1; i > 0; i--) {
+            if (results[i].confidence < 0.5) return
+            let isProbableResult = /.*(\s(tutu|(to|two|too|2))){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(tree|three|3)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(for|four|fore|4)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(five|fi|5)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(six|sick|sic|6)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(seven|7)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(eight|ate|8)){2}$/i.test(results[i].transcript)
+            isProbableResult = isProbableResult || /.*(\s(nine|nigh|9)){2}$/i.test(results[i].transcript)
+            if (isProbableResult) probableResult = results[i]
+        }
+        return probableResult
     }
 }
 
@@ -495,6 +544,11 @@ function handleThemeChange(event) {
     loadCSS(themeOptionElem?.dataset.css)
     updateFont(themeOptionElem?.dataset.font)
     setCookie('themePreference', selectedTheme)
+}
+
+function toggleLiveTextMode(event) {
+    setCookie('liveTextMode', this.checked)
+    liveTextMode = this.checked
 }
 
 function updateAppScale(value) {
@@ -900,7 +954,7 @@ function trimIncompletePattern(str) {
     return str;
 }
 
-function parseInput(input, numberMap) {
+function parseInput(input) {
     console.debug('Before processing: ' + input)
 
     // Replace punctuation with spaces
@@ -911,33 +965,59 @@ function parseInput(input, numberMap) {
     input = input.toLowerCase()
     // Add a space to the end
     input = input + ' '
-    // Replace stored spelling/word corrections
-    for (const [heard, correctWord] of Object.entries(aliasMap)) {
-        let aliasWordpattern = new RegExp(`\\b${heard}\\b`, 'g')
-        input = input.replace(aliasWordpattern, `${correctWord}`)
-    }
-    // Replace number words
-    for (const [word, number] of Object.entries(numberMap)) {
-        let numberWordpattern = new RegExp(`\\b${word}\\b`, 'g')
-        input = input.replace(numberWordpattern, `${number}`)
-    }
+    
+    input = makeSpellingCorrections(input)
+
     // Replace the roll/role variations with the symbol "@"
     input = input.replace(new RegExp(` (${aliasesForRolled.join('|')})( a| an| and| of| on| [aeu]h+|)? `, 'g'), ' @ ')
-    // Split up WORD-## or WORD##. Ex: "demon-12" or "demon12" to "demon 12"
-    input = input.replace(/([a-z\*])-?(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
-    // Handle negative numbers. Ex: "negative 4" to "-4"
-    input = input.replace(/\b[Nn]egative (\d+)/g, (match, p1) => `-${p1}`)
-    // Remove the word "number". Ex: "goblin number 3" becomes "goblin 3"
-    input = input.replace(/\b[Nn]umber (\d)/g, (match, p1) => `${p1}`)
-    // Guess at where roll "@" symbols should be added in: split 4-digit numbers into 2 groups. Ex: "1110" to "11 @ 10"
-    input = input.replace(/\b(\d\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`)
-    // Guess at where roll "@" symbols should be added in: split 3-digit numbers into 2 groups. Ex: "311" to "3 @ 11"
-    input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} @ ${p2}`)
+
+    input = convertNumberWordsToNumerals(input)
+
     // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said). Ex: "3 11" to "3 @ 11"
     input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`)
     // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said). \* handles curse words =) Ex: "john 4" to "john @ 4"
     input = input.replace(/([a-z\*]) (\d\d? (?=[a-z\*]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
 
+    return input
+}
+
+function makeSpellingCorrections(input) {
+    let previousInputValue = input
+    // Replace stored spelling/word corrections
+    for (const [heard, correctWord] of Object.entries(aliasMap)) {
+        let aliasWordpattern = new RegExp(`\\b${heard}\\b`, 'g')
+        input = input.replace(aliasWordpattern, `${correctWord}`)
+    }
+    if (previousInputValue !== input) {
+        console.debug('Spelling corrections...\nBEFORE: ' + previousInputValue + '\nAFTER: ' + input)
+    }
+    return input
+}
+
+function convertNumberWordsToNumerals(input) {
+    let previousInputValue = input
+
+    // Replace number words
+    for (const [word, number] of Object.entries(numberMap)) {
+        let numberWordpattern = new RegExp(`\\b${word}\\b`, 'g')
+        input = input.replace(numberWordpattern, `${number}`)
+    }
+    // Split up WORD-## or WORD##. Ex: "demon-12" or "demon12" to "demon 12"
+    input = input.replace(/([a-z\*])-?(\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
+    // Split up #-# or #/# or #:#. Ex: "3-4" or "3/4" or "3:4" becomes "3 4"
+    input = input.replace(/(\d+)[-/:](\d+)/g, (match, p1, p2) => `${p1} ${p2}`)
+    // Handle negative numbers. Ex: "negative 4" to "-4"
+    input = input.replace(/\b[Nn]egative (\d+)/g, (match, p1) => `-${p1}`)
+    // Remove the word "number". Ex: "goblin number 3" becomes "goblin 3"
+    input = input.replace(/\b[Nn]umber (\d)/g, (match, p1) => `${p1}`)
+    // Split 4-digit numbers into two 2-digit groups,. Ex: "1110" to "11 10"
+    input = input.replace(/\b(\d\d)(\d\d)/g, (match, p1, p2) => `${p1} ${p2}`)
+    // Split 3-digit numbers into two groups, preferring single digit in group 1. Ex: "311" to "3 11"
+    input = input.replace(/\b(\d)(\d\d)/g, (match, p1, p2) => `${p1} ${p2}`)
+
+    if (previousInputValue !== input) {
+        console.debug('Number word corrections...\nBefore: ' + previousInputValue + '\nAfter: ' + input)
+    }
     return input
 }
 
@@ -948,7 +1028,7 @@ function handleManualInputSubmit(e) {
     const speechInput = e.target.querySelector('input')
     allTranscripts.push(speechInput.value)
     const joinedInput = allTranscripts.join(' ')
-    const convertedInput = parseInput(joinedInput, numberMap)
+    const convertedInput = parseInput(joinedInput)
     input = trimIncompletePattern(input)
     console.info(`parsed results: ${input}`)
     parseAndAddEntries(convertedInput)
@@ -1079,6 +1159,7 @@ function renderPlayers() {
         if (e.type === 'keydown' && e.key !== 'Enter') return
 
         const newValue = (input.className === 'player-order') ? parseInt(input.value, 10) : input.value
+        const doReorder = input.className === 'player-order' || (input.className === 'player-name' && newValue == '')
         
         switch (input.className) {
             case 'player-order':
@@ -1096,15 +1177,16 @@ function renderPlayers() {
                 break
         }
 
-        postEditCleanup()
+        // if (e.relatedTarget && e.relatedTarget.tagName === 'INPUT') e.relatedTarget.select()
+        postEditCleanup(doReorder)
     }
 
-    function postEditCleanup() {
+    function postEditCleanup(doReorder) {
         players = players.filter(p => !p.deleteme)
-        players.sort((a, b) => b.order - a.order)
+        if (doReorder) players.sort((a, b) => b.order - a.order)
 
         allTranscripts = [generatedPlayersTranscript(players)]
-        renderPlayers()
+        if (doReorder) renderPlayers()
         setCookie('players', JSON.stringify(players))
     }
 }

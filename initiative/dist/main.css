@@ -520,6 +520,36 @@ select {
     line-height: 0.5;
 }
 
+.interim-output {
+    color: white;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    padding: 0 1rem;
+    font-size: 2.25rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.8);
+    mask: none;
+    transform: translate(-50%, -50%);
+    transition: font-size 250ms;
+}
+
+.interim-output:not(.active) {
+    opacity: 0;
+    pointer-events: none;
+    font-size: 0;
+}
+
+.interim-output #interimTranscript {
+    color: #fff;
+}
+
+.interim-output #finalTranscript {
+    color: #555;
+}
+
 /* microphone permission messaging */
 .microphone-msg {
     position: absolute;
