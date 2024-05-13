@@ -478,32 +478,54 @@ async function setupSpeechDicatation() {
      * if that alternative is actually the better choice in this context. If not, just return the
      * result that the SpeechRecognitionResult was most confident in.
      */
+
     function considerAlternatives(results) {
         // Sort the results array by confidence values in descending order
         const sortedResults = [...results].sort((a, b) => b.confidence - a.confidence);
-        
+    
         // Preselect the highest confidence item
         let probableResult = sortedResults[0];
+        let maxHits = 0;
     
-        // Iterate over alternatives from least confident to most
-        for (let i = sortedResults.length - 1; i < 0; i++) {
+        // Generate patterns from numberMap
+        const patterns = {};
+        for (const word in numberMap) {
+            const value = numberMap[word];
+            if (!patterns[value]) {
+                patterns[value] = [];
+            }
+            patterns[value].push(word);
+        }
+        const uniqueGroupNumberWords = ['tutu'];
+    
+        // Iterate over alternatives
+        for (let i = 0; i < sortedResults.length; i++) {
             const result = sortedResults[i];
             if (result.confidence < 0.3) continue;
-
-            let isProbableResult = /.*(\s(tutu|(to|two|too|2))){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(tree|three|3)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(for|four|fore|fourth|fourth|fourths|4)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(five|fi|5)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(six|sick|sic|6)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(seven|7)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(eight|ate|8)){2}$/i.test(results[i].transcript)
-            isProbableResult = isProbableResult || /.*(\s(nine|nigh|9)){2}$/i.test(results[i].transcript)
-            
-            if (isProbableResult) {
+    
+            let hitCount = 0;
+            // Test each number group pattern
+            for (const num in patterns) {
+                const groupWords = patterns[num].join('|');
+                const regex = new RegExp(`(${groupWords})`, 'i');
+                hitCount += (result.transcript.match(regex) || []).length;
+            }
+    
+            // Test for unique group words
+            uniqueGroupNumberWords.forEach(word => {
+                const wordRegex = new RegExp(`\\b${word}\\b`, 'ig');
+                hitCount += (result.transcript.match(wordRegex) || []).length;
+            });
+    
+            // Update the most hits result
+            if (hitCount > maxHits) {
+                maxHits = hitCount;
                 probableResult = result;
+                console.debug('chose alternative: ' + result.transcript)
             }
         }
         
+        console.debug('dbl numeral HITS: ' + maxHits)
         return probableResult;
     }
 }
