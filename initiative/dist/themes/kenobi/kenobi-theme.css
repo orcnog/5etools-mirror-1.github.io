@@ -182,3 +182,26 @@
 .font-neuropol {
     font-family: "Neuropol", sans-serif;
 }
+
+@media screen and (min-width: 0px) {
+    body {
+        background-size: 166%; /*147%;*/
+        background-position: 51.5% top;
+        background-repeat: repeat-y;
+    }
+}
+@media screen and (min-width: 38rem) {
+    body {
+        background-size: calc(100% + 396px);
+    }
+}
+@media screen and (min-width: 940px) {
+    body {
+        background-size: 1380px;
+    }
+}
+@media screen and (min-width: 1380px) {
+    body {
+        background-size: cover;
+    }
+}

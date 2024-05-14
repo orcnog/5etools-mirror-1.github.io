@@ -4,7 +4,7 @@
     --adjustable-chalkiness: 0;
     --brightness-level: 1;
     --body-color: #ddd;
-    --body-bg-images: url('themes/empire/images/destroyer-view.webp');
+    --body-bg-images: url('themes/empire/images/death-star-view.webp');
     --body-bg-image-positions: center center;
     --body-bg-image-sizes: cover;
     --main-text-color: #ddd;
@@ -202,4 +202,11 @@
 /* Rank 14 - very wide, like a cond classicrobot */
 .font-neuropol {
     font-family: "Neuropol", sans-serif;
+}
+
+@media screen and (max-width: 1400px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
 }

@@ -757,24 +757,34 @@ function populateSelectWithThemes() {
     })
 }
 
-function loadCSS(url, unloadURL = null) {
+function loadCSS(url) {
     // Create a new link element
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = url;
 
+    // remove existing theme css
+    removeThemeStyles()
+
     // Append the link element to the head of the document
     document.head.appendChild(link);
+}
 
-    // Check if there's a CSS file to unload
-    if (unloadURL) {
-        // Find existing link elements with the same href
-        const existingLinks = document.querySelectorAll('link[rel="stylesheet"][href="' + unloadURL + '"]');
-        // Remove each existing link element
-        existingLinks.forEach(existingLink => {
-            existingLink.parentNode.removeChild(existingLink);
-        });
+// Function to remove all CSS files starting with /themes/
+function removeThemeStyles() {
+    // Get all link elements in the document
+    const links = document.getElementsByTagName('link');
+
+    // Iterate through the link elements
+    for (let i = links.length - 1; i >= 0; i--) {
+        const link = links[i];
+
+        // Check if the link element is a stylesheet and if its href starts with /themes/
+        if (link.rel === 'stylesheet' && link.href.startsWith(window.location.origin + '/themes/')) {
+            // Remove the link element from the document
+            link.parentNode.removeChild(link);
+        }
     }
 }
 

@@ -162,6 +162,12 @@
     src: local("Vtks Distress"), url("fonts/vtks distress.ttf") format("truetype");
 }
 
+@media screen and (max-width: 1290px) {
+    body {
+        background-position: center left;
+    }
+}
+
 /* Font handling */
 .font-baron-kuffner {
     font-family: "Baron Kuffner", sans-serif;
