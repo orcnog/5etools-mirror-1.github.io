@@ -155,7 +155,7 @@ function rehydrateSettings() {
     })
 
     /* Rehydrate the chosen theme */
-    chosenTheme = getCookie('themePreference') || 'dnd'
+    chosenTheme = getCookie('themePreference') || 'D&D'
     setCookie('themePreference', chosenTheme)
     populateSelectWithThemes()
     const themeOptionElem = document.querySelector(`#selectTheme option[value="${chosenTheme}"]`)
@@ -701,7 +701,7 @@ function decreaseChalkiness() {
 function populateSelectWithFonts() {
     const fonts = [
         'Architects Daughter', 'Babylonica', 'Baron Kuffner', 'Bilbo Swash Caps', 'Broken Crush', 'Caveat', 'Comforter', 'Condiment',
-        'Creatinin-pro', 'Dawning of a New Day', 'Dracufrankenwolfbb', 'East Sea Dokdo', 'Eordeoghlakat', 'Fibyngerowa', 'Fuggles',
+        'Creatinin-pro', 'Dawning of a New Day', 'Dracufrankenwolfbb', 'East Sea Dokdo', 'eordeoghlakat', 'Fibyngerowa', 'Fuggles',
         'Grape Nuts', 'Grenhil', 'Homemade Apple', 'Ickyticketmono', 'Inspiration', 'Inverted Interrobang', 'Julee', 'Just Me Again Down Here',
         'Kgbythegraceofgod', 'Kolker Brush', 'La Belle Aurore', 'Lincons', 'Liu Jian Mao Cao', 'Long Cang', 'Lugosi', 'Malinsha Rough', 'Mystic Forest',
         'Nanum Brush Script', 'Nothing You Could Do', 'Oooh Baby', 'Over the Rainbow', 'Permanent Marker', 'Qwitcher Grypen', 'Raventame',
