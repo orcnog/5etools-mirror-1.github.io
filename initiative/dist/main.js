@@ -25,17 +25,19 @@ let aliasMap = {
     'tensing': 'tenzing',
     'car': 'kaa'
 }
-const numberMap = {
+const numberMapSingleDigit = {
     'zero': 0,
-    'one': 1, 'won': 1,
+    'one': 1, 'won': 1, 'want': 1,
     'two': 2, 'to': 2, 'too': 2, 'ii': 2,
     'three': 3, 'tree': 3, 'iii': 3,
-    'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, 'fourths': 4, '4th': 4, 'iv': 4,
+    'four': 4, 'fore': 4, 'for': 4, 'forth': 4, 'fourth': 4, 'fourths': 4, '4th': 4, '4ths': 4, 'iv': 4,
     'five': 5, 'fi': 5, 'fife': 5, 'v': 5, "vie": 5,
     'six': 6, 'sex': 6, 'sixth': 6, 'sixths': 6, '6th': 6, '6ths': 6, 'vi': 6,
     'seven': 7, '7th': 7, '7ths': 7, 'seventh': 7, 'sevenths' : 7, 'vii': 7,
     'eight': 8, 'eights': 8, 'ate': 8, 'eighth': 8, 'eighths': 8, '8th': 8, '8ths': 8, 'viii': 8,
-    'nine': 9, 'nigh': 9, 'ni' : 9, 'ninth': 9, 'ninths': 9, '9th': 9, '9ths': 9, 'ix': 9,
+    'nine': 9, 'nigh': 9, 'ni' : 9, 'ninth': 9, 'ninths': 9, '9th': 9, '9ths': 9, 'ix': 9
+}
+const numberMapDoubleDigit = {
     'ten': 10, 'tin': 10, 'tenth': 10, 'tenths': 10, '10th': 10, '10ths': 10,
     'eleven': 11, 'eleventh': 11, 'elevenths': 11, '11th': 11, '11ths': 11,
     'twelve': 12, 'twelveth': 12, '12th': 12, 'twelveths': 12, '12ths': 12,
@@ -309,7 +311,7 @@ function setupEventListeners() {
             document.getElementById('startDictation').disabled = true
             if ('stop' in recognition) recognition.stop()
         }
-        console.debug('Mic button released, or toggled off')
+        console.info('Mic button released, or toggled off')
     }
     
     function handleMicDisallowed() {
@@ -372,15 +374,25 @@ async function setupSpeechDicatation() {
             if (event.results[i].isFinal) {
                 // heard the completion of some word or phrase, and made a final decision about what it heard.
                 // probably triggered by a tiny (but obvious) pause in speech
+                console.debug(event)
                 if (isStopCommand(event.results[i][0].transcript)) document.getElementById('startDictation').click()
                 const probableResult = considerAlternatives(event.results[i])
-                const spokenWords = probableResult.transcript
+                let spokenWords = probableResult.transcript
+                const uniqueGroupNumberWords = {
+                    'tutu':'2 2',
+                    'want to':'1 2',
+                    'want for':'1 4'
+                }
+                // Replace unique group-number words
+                for (const [word, number] of Object.entries(uniqueGroupNumberWords)) {
+                    let numberWordpattern = new RegExp(`\\b(${word})+\\b`, 'g')
+                    spokenWords = spokenWords.replace(numberWordpattern, `${number}`)
+                }
                 final_transcript += spokenWords
                 let temporaryInterpretation = convertNumberWordsToNumerals( makeSpellingCorrections( spokenWords ))
                 finalTranscriptOutput.append(temporaryInterpretation)
                 console.debug(`Recognized: "${spokenWords}"`)
                 console.debug(`Confidence: ${probableResult.confidence}`)
-                console.debug(event)
                 interim_transcript = ''
             } else {
                 // heard small part, maybe just a syllable, but has not yet made a final decision about what it heard.
@@ -412,7 +424,7 @@ async function setupSpeechDicatation() {
     
     function speechEndHandler() {
         console.info(`Heard altogether: "${final_transcript}"`)
-        console.debug('Speech ended. Parsing results.')
+        console.info('Speech ended. Parsing results.')
         if (isEmpty(final_transcript)) {
             if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
         } else if (isClearCommand(final_transcript)) {
@@ -481,52 +493,51 @@ async function setupSpeechDicatation() {
 
     function considerAlternatives(results) {
         // Sort the results array by confidence values in descending order
-        const sortedResults = [...results].sort((a, b) => b.confidence - a.confidence);
+        const sortedResults = [...results].sort((a, b) => b.confidence - a.confidence)
     
         // Preselect the highest confidence item
-        let probableResult = sortedResults[0];
-        let maxHits = 0;
+        let probableResult = sortedResults[0]
+        let maxHits = 0
     
-        // Generate patterns from numberMap
+        // Generate patterns from numberMapSingleDigit
         const patterns = {};
-        for (const word in numberMap) {
-            const value = numberMap[word];
+        for (const word in numberMapSingleDigit) {
+            const value = numberMapSingleDigit[word]
             if (!patterns[value]) {
-                patterns[value] = [];
+                patterns[value] = []
             }
-            patterns[value].push(word);
+            patterns[value].push(word)
+
+            // Add the numeral itself as a string, ensuring it's added only once
+            if (!patterns[value].includes(value.toString())) {
+                patterns[value].push(value.toString())
+            }
         }
-        const uniqueGroupNumberWords = ['tutu'];
     
         // Iterate over alternatives
         for (let i = 0; i < sortedResults.length; i++) {
-            const result = sortedResults[i];
-            if (result.confidence < 0.3) continue;
+            const result = sortedResults[i]
+            if (result.confidence < 0.3) continue
     
-            let hitCount = 0;
+            let hitCount = 0
             // Test each number group pattern
             for (const num in patterns) {
-                const groupWords = patterns[num].join('|');
-                const regex = new RegExp(`(${groupWords})`, 'i');
-                hitCount += (result.transcript.match(regex) || []).length;
+                const groupWords = patterns[num].join('|')
+                const regex = new RegExp(`\\b(${groupWords})(?!\\d)`, 'gi')
+                let matches = result.transcript.match(regex) || []
+                hitCount += matches.length
             }
-    
-            // Test for unique group words
-            uniqueGroupNumberWords.forEach(word => {
-                const wordRegex = new RegExp(`\\b${word}\\b`, 'ig');
-                hitCount += (result.transcript.match(wordRegex) || []).length;
-            });
     
             // Update the most hits result
             if (hitCount > maxHits) {
-                maxHits = hitCount;
-                probableResult = result;
+                maxHits = hitCount
+                probableResult = result
                 console.debug('chose alternative: ' + result.transcript)
             }
         }
         
         console.debug('dbl numeral HITS: ' + maxHits)
-        return probableResult;
+        return probableResult
     }
 }
 
@@ -953,7 +964,7 @@ function parseAndAddEntries(convertedInput) {
 
         let order
         if (orderString && isNaN(orderString)) {
-            order = numberMap[orderString.toLowerCase()] || NaN
+            order = numberMapSingleDigit[orderString.toLowerCase()] || numberMapDoubleDigit[orderString.toLowerCase()] || NaN
         } else if (orderString && !isNaN(orderString)) {
             order = parseInt(orderString, 10)
         } else {
@@ -1032,7 +1043,7 @@ function convertNumberWordsToNumerals(input) {
     let previousInputValue = input
 
     // Replace number words
-    for (const [word, number] of Object.entries(numberMap)) {
+    for (const [word, number] of Object.entries(numberMapSingleDigit).concat(Object.entries(numberMapDoubleDigit))) {
         let numberWordpattern = new RegExp(`\\b(${word})+\\b`, 'g')
         input = input.replace(numberWordpattern, `${number}`)
     }
