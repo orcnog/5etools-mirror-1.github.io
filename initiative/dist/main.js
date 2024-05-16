@@ -1278,7 +1278,7 @@ function updateLinkBasedOnHash() {
     const nextLink = document.getElementById('dynamicNextLink');
     
     // Update the href attribute of the <a> element
-    nextLink.href = `${hash}`;
+    if (hash) nextLink.href = `${hash}`;
 }
 
 // Update the link when the hash changes
