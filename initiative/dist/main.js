@@ -77,6 +77,7 @@ async function main() {
     rehydrateSettings()
     setupEventListeners()
     setupSpeechDicatation()
+    updateLinkBasedOnHash()
 }
 
 
@@ -1277,11 +1278,8 @@ function updateLinkBasedOnHash() {
     const nextLink = document.getElementById('dynamicNextLink');
     
     // Update the href attribute of the <a> element
-    nextLink.href = `./slideshow/${hash}`;
+    nextLink.href = `${hash}`;
 }
-
-// Update the link when the page loads
-window.onload = updateLinkBasedOnHash;
 
 // Update the link when the hash changes
 window.onhashchange = updateLinkBasedOnHash;
