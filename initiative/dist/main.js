@@ -1265,6 +1265,27 @@ function refreshPage() {
     location.reload()
 }
 
+/**
+ * Hash URL management
+ */
+
+function updateLinkBasedOnHash() {
+    // Get the current hash value without the leading #
+    const hash = window.location.hash.substring(1);
+    
+    // Find the <a> element by its ID
+    const nextLink = document.getElementById('dynamicNextLink');
+    
+    // Update the href attribute of the <a> element
+    nextLink.href = `./slideshow/${hash}`;
+}
+
+// Update the link when the page loads
+window.onload = updateLinkBasedOnHash;
+
+// Update the link when the hash changes
+window.onhashchange = updateLinkBasedOnHash;
+
 
 /**
  * Logging
