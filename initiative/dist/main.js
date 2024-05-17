@@ -332,16 +332,19 @@ async function setupSpeechDicatation() {
     }
 
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-    
+
     // Grammar list... works?  but it miiight be eff'ing up the number interpretation.
-    var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+    var SpeechGrammarList = ('webkitSpeechGrammarList' in window) ? webkitSpeechGrammarList : 'SpeechGrammarList' in window ? SpeechGrammarList : null
+
     var numbers = ['one','two','three','four','five','six','seven','eight','nine','ten'];
     var grammar = '#JSGF V1.0; grammar numbers; public <number> = ' + numbers.join(' | ') + ' ;'
     
     recognition = new SpeechRecognition()
-    grammarList = new SpeechGrammarList();
-    grammarList.addFromString(grammar, 1);
-    recognition.grammars = grammarList;  // comment to turn grammar list off
+    if (SpeechGrammarList) {
+        grammarList = SpeechGrammarList ? new SpeechGrammarList() : null
+        grammarList.addFromString(grammar, 1);
+        recognition.grammars = grammarList;  // comment to turn grammar list off
+    }
     recognition.continuous = true
     recognition.lang = 'en-US'
     recognition.interimResults = true
@@ -450,7 +453,7 @@ async function setupSpeechDicatation() {
     }
 
     async function testMicPermission () {
-        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        navigator?.mediaDevices?.getUserMedia({ audio: true }).then(stream => {
             // User has granted microphone access
             micAllowed = true
             document.body.classList.remove('no-mic')
