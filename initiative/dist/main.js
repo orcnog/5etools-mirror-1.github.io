@@ -145,15 +145,6 @@ function rehydrateSettings() {
     setCookie('fontPreference', chosenFont)
     document.body.classList.add(chosenFont)
     populateSelectWithFonts()
-    document.querySelector('#selectFont').addEventListener('change', function (event) {
-        const selectedClass = event.target.value
-        // First, remove any existing font- class from the body
-        Array.from(document.body.classList).forEach(className => className.startsWith('font-') && document.body.classList.remove(className))
-        // Then, add the new selected class
-        document.body.classList.add(selectedClass)
-        // Remember the setting
-        setCookie('fontPreference', selectedClass)
-    })
 
     /* Rehydrate the chosen theme */
     chosenTheme = getCookie('themePreference') || 'D&D'
@@ -162,16 +153,16 @@ function rehydrateSettings() {
     const themeOptionElem = document.querySelector(`#selectTheme option[value="${chosenTheme}"]`)
     loadCSS(themeOptionElem?.dataset.css)
     updateFont(themeOptionElem?.dataset.font)
-
+    
     /* Rehydrate the live text preference */
     liveTextMode = getCookie('liveTextMode') || 'true'
     document.getElementById('toggleLiveText').checked = liveTextMode
-
+    
     /* Rehydrate the app scale from cookie */
     const cookieAppScale = getCookie('appScalePreference') || 2
     document.getElementById('appScalePref').value = parseFloat(cookieAppScale)
     document.documentElement.style.setProperty('--adjustable-app-scale', (parseFloat(cookieAppScale) * 8) + 'px')
-
+    
     /* Rehydrate the brightness config from cookie */
     const cookieBrightness = getCookie('brightnessPreference') || 1
     document.getElementById('brightnessPref').value = parseFloat(cookieBrightness)
@@ -186,7 +177,12 @@ function rehydrateSettings() {
     const cookieChalkiness = getCookie('chalkinessPreference') || 0.75
     document.getElementById('chalkinessPref').value = parseFloat(cookieChalkiness)
     document.documentElement.style.setProperty('--adjustable-chalkiness', 1 - parseFloat(cookieChalkiness))
-
+    
+    /* Rehydrate the slideshow config from cookie */
+    const cookieSlideshowValue = getCookie('slideshowPreference') || ''
+    document.getElementById('selectSlideshow').value = cookieSlideshowValue
+    updateSlideshow(cookieSlideshowValue)
+    
     /* Rehydrate the current player entries from cookie */
     const savedPlayers = getCookie('players')
     if (savedPlayers) {
@@ -231,13 +227,14 @@ function setupEventListeners() {
     document.getElementById('brightnessPref').addEventListener('change', (e)=> {updateBrightnessLevel(e.target.value)})
     document.getElementById('decrBrightness').addEventListener('click', decreaseBrightness)
     document.getElementById('incrBrightness').addEventListener('click', increaseBrightness)
-    document.querySelector('#selectFont').addEventListener('change', handleFontChange)
+    document.getElementById('selectFont').addEventListener('change', handleFontChange)
     document.getElementById('fontSizePref').addEventListener('change', (e)=> {updateFontSize(e.target.value)})
     document.getElementById('decrFontSize').addEventListener('click', decreaseFontSize)
     document.getElementById('incrFontSize').addEventListener('click', increaseFontSize)
     document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
+    document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -258,7 +255,13 @@ function setupEventListeners() {
     // Font Preference
     function handleFontChange(event) {
         const selectedClass = event.target.value
-        updateFontSize(selectedClass)
+        updateFont(selectedClass)
+    }    
+
+    // Slideshow Handler
+    function handleSlideshowChange(event) {
+        const selectedSlideshow = event.target.value
+        updateSlideshow(selectedSlideshow)
     }
     
     // Dictation
@@ -551,10 +554,10 @@ async function setupSpeechDicatation() {
  */
 
 function toggleSettingsMenu() {
-    const settingsMenuButton = document.getElementById('settingsMenuBtn')
+    const bodyElement = document.querySelector('body')
     const settingsMenu = document.querySelector('.settings-menu')
     const mainAppBody = document.querySelector('.main')
-    settingsMenuButton.classList.toggle('menu-open')
+    bodyElement.classList.toggle('menu-open')
     settingsMenu.classList.toggle('hide')
     mainAppBody.classList.toggle('hide')
 }
@@ -673,8 +676,14 @@ function decreaseFontSize() {
 }
 
 function updateFont(value) {
+    // Remove extisting font class from body
     Array.from(document.body.classList).forEach(className => className.startsWith('font-') && document.body.classList.remove(className))
+    // Add new font class to body
     document.body.classList.add(value)
+    // Remove extisting font class from lorem ipsum display
+    Array.from(document.querySelector('.lorem-ipsum').classList).forEach(className => className.startsWith('font-') && document.querySelector('.lorem-ipsum').classList.remove(className))
+    // Add new font class to lorem ipsum display
+    document.querySelector('.lorem-ipsum').classList.add(value)
     setCookie('fontPreference', value)
 }
 
@@ -702,6 +711,23 @@ function decreaseChalkiness() {
     }
 }
 
+function updateSlideshow(selectedSlideshow) {
+    if (selectedSlideshow) {
+        document.querySelector('body').classList.add('slideshow')
+        switch (selectedSlideshow) {
+            case 'imperial-decryptor':
+                document.getElementById('sceneBtn').href = '/slideshow/opening/'
+                break
+            case 'lost-temple':
+                document.getElementById('sceneBtn').href = '/slideshow/planetapproach/'
+                break
+        }
+    } else {
+        document.querySelector('body').classList.remove('slideshow')
+    }
+    setCookie('slideshowPreference', selectedSlideshow)
+}
+
 function populateSelectWithFonts() {
     const fonts = [
         'Architects Daughter', 'Babylonica', 'Baron Kuffner', 'Bilbo Swash Caps', 'Broken Crush', 'Caveat', 'Comforter', 'Condiment',
@@ -716,9 +742,10 @@ function populateSelectWithFonts() {
     const selectElement = document.querySelector('#selectFont')
     fonts.forEach(font => {
         const option = document.createElement('option')
-        const val = 'font-' + font.toLowerCase().replace(/\s+/g, '-') // Convert font name to classname format
-        option.value = val
-        if (val == chosenFont) {
+        const convertedFontName = 'font-' + font.toLowerCase().replace(/\s+/g, '-') // Convert font name to classname format
+        option.className = convertedFontName
+        option.value = convertedFontName
+        if (convertedFontName == chosenFont) {
             option.selected = true
         }
         option.textContent = font
@@ -1101,6 +1128,8 @@ function generatedPlayersTranscript(playersObj) {
 function addPlayer() {
     players.push({ name: 'NAME', order: 0, badge: '' })
     addPlayersAndGo()
+    const lastMatchingInput = Array.from(document.querySelectorAll('input.player-name')).reverse().find(input => input.value === 'NAME');
+    lastMatchingInput.focus()
 }
 
 function addPlayersAndGo() {    
@@ -1147,6 +1176,7 @@ function renderPlayers() {
 
         if (className === 'player-order') {
             el.setAttribute("pattern", "[0-9]*")
+            el.setAttribute("inputmode", "numeric")
         } else if (className === 'player-name') {
             el.setAttribute("autocapitalize", "words")
             if (player.bloodied) el.classList.add('bloodied')
@@ -1215,8 +1245,18 @@ function renderPlayers() {
     }
 
     function handleEdit(player, input, e) {
-        if (e.type === 'keydown' && e.key !== 'Enter') return
-
+        if (e.type === 'keydown') {
+            if (input.className == 'player-order' && e.key.length === 1 && /\D/.test(e.key)) {
+                e.preventDefault() // Non-numeric key was prssed on player order field
+            }
+            if (e.key !== 'Enter') {
+                return // Normal characters were input. Let em ride.
+            }
+            if (input.className == 'player-name') {
+                input.previousElementSibling.focus() // ENTER was hit. Focus on player order now.
+            }
+        }
+        
         const newValue = (input.className === 'player-order') ? parseInt(input.value, 10) : input.value
         const doReorder = input.className === 'player-order' || (input.className === 'player-name' && newValue == '')
         
@@ -1276,12 +1316,9 @@ function refreshPage() {
 function updateLinkBasedOnHash() {
     // Get the current hash value without the leading #
     const hash = window.location.hash.substring(1);
-    
-    // Find the <a> element by its ID
-    const nextLink = document.getElementById('dynamicNextLink');
-    
+    const slieShowLink = document.getElementById('sceneBtn');
     // Update the href attribute of the <a> element
-    if (hash) nextLink.href = `${hash}`;
+    if (hash) slieShowLink.href = `${hash}`;
 }
 
 // Update the link when the hash changes

@@ -233,6 +233,10 @@ li {
     mask-size: cover;
 }
 
+sub {
+    font-size: 0.75em;
+}
+
 label {
     font-size: 1.5rem;
 }
@@ -382,7 +386,7 @@ select {
     border: none;
     border-radius: 0.5em;
     height: 2.5em;
-    font-family: sans-serif;
+    font-family: 'Grenhil';
     font-size: 1rem;
     color: var(--main-text-color);
     background: var(--input-bg-color);
@@ -403,7 +407,7 @@ select {
 .header-menu {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     height: var(--header-menu-height);
     z-index: 1;
 }
@@ -432,11 +436,22 @@ select {
     background-color: var(--button-bg-color-alt--hover);
 }
 
-.header-menu-btn:not(.menu-open) .settings-menu-open-ui {
+.header-menu-btn#sceneBtn {
+    visibility: hidden;
+}
+.slideshow .header-menu-btn#sceneBtn {
+    visibility: visible;
+}
+
+.header-menu-btn .fa-image {
+    font-size: 0.75em;
+}
+
+body:not(.menu-open) .settings-menu-open-ui {
     display: none;
 }
 
-.header-menu-btn.menu-open .settings-menu-closed-ui {
+body.menu-open .settings-menu-closed-ui {
     display: none;
 }
 
@@ -493,15 +508,27 @@ select {
     z-index: -1;
 }
 
-.setting-menu-inner {
+.settings-menu {
+    padding: 1.5em;
+    font-family: 'Grenhil';
+    font-size: 1rem;
+}
+
+.settings-menu-inner {
     width: 100%;
+}
+
+.settings-menu .title {
+    font-size: 1.5em;
+    line-height: 0.75em;
+    margin-bottom: 1.5em;
 }
 
 /* Settings menu */
 .settings-menu-group {
-    margin: 1em auto 1em 0;
+    margin: 1em auto 1.25em 0;
     padding-left: 0.5em;
-    font-size: 1.25rem;
+    /* font-size: 1.25rem; */
 }
 
 .settings-menu-group.event-log {
@@ -517,8 +544,26 @@ select {
     overflow-y: auto;
 }
 
+.settings-label {
+    font-size: 1em;
+}
+
 .settings-input {
-    margin: 0.5em 0 0;
+    margin: 0;
+}
+
+.lorem-ipsum {
+    width: 50%;
+    min-width: 20rem;
+    padding: calc(3rem - 0.5em) 0.5em;
+    text-align: center;
+    background: var(--input-bg-color);
+    -webkit-mask-image: var(--grungy-mask1), var(--grungy-mask4);
+    mask-image: var(--grungy-mask1), var(--grungy-mask4);
+    -webkit-mask-size: cover, contain;
+    mask-size: cover, contain;
+    -webkit-mask-position: left, right;
+    mask-position: left, right;
 }
 
 /* Close (X) button */

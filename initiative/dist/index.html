@@ -27,40 +27,43 @@
 
 <body class="no-mic"> <!-- Initially set to "no-mic", but may update via JS -->
     <div class="header-menu">
-        <button id="refreshPageBtn" class="btn header-menu-btn">
-            <i class="fas fa-refresh"></i>
-        </button>
         <button id="settingsMenuBtn" class="btn header-menu-btn">
             <i class="fas fa-ellipsis settings-menu-closed-ui"></i>
-            <i class="fas fa-xmark settings-menu-open-ui"></i>
+            <i class="fas fa-arrow-left settings-menu-open-ui"></i>
         </button>
+        <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
+            <i class="fas fa-refresh"></i>
+        </button>
+        <a id="sceneBtn" class="btn header-menu-btn settings-menu-closed-ui">
+            <i class="fas fa-image"></i>
+        </a>
     </div>
 
     <!-- Settings Page -->
     <div class="settings-menu hide">
         <div class="settings-menu-inner">
-            <h1>Voice Initiative</h1>
-            <em>by orcnog</em>
+            <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
+            
             <div class="settings-menu-group">
-                <label>Full Screen</label>
+                <label class="settings-label">Full Screen</label>
                 <div class="settings-input">
                     <input id="toggleFullScreenBtn" type="checkbox" />
                 </div>
             </div>
             <div class="settings-menu-group">
-                <label>Theme</label>
+                <label class="settings-label">Theme</label>
                 <div class="settings-input">
                     <select id="selectTheme"></select>
                 </div>
             </div>
             <div class="settings-menu-group">
-                <label>Live Text</label>
+                <label class="settings-label">Live Text</label>
                 <div class="settings-input">
                     <input id="toggleLiveText" type="checkbox" />
                 </div>
             </div>
             <div class="settings-menu-group">
-                <label>App Scale</label>
+                <label class="settings-label">App Scale</label>
                 <div class="settings-input">
                     <div class="button-group button-group-number-bump">
                         <button id="decrAppScale" class="btn">-</button>
@@ -70,7 +73,7 @@
                 </div>
             </div>
             <div class="settings-menu-group">
-                <label>Brightness</label>
+                <label class="settings-label">Brightness</label>
                 <div class="settings-input">
                     <div class="button-group button-group-number-bump">
                         <button id="decrBrightness" class="btn">-</button>
@@ -80,7 +83,7 @@
                 </div>
             </div>
             <div class="settings-menu-group">
-                <label>Font Size</label>
+                <label class="settings-label">Font Size</label>
                 <div class="settings-input">
                     <div class="button-group button-group-number-bump">
                         <button id="decrFontSize" class="btn">-</button>
@@ -91,7 +94,13 @@
             </div>
             <p class="lorem-ipsum">Lorem Ipsum</p>
             <div class="settings-menu-group">
-                <label>Chalkiness Adjust</label>
+                <label class="settings-label">Font</label>
+                <div class="settings-input">
+                    <select id="selectFont"></select>
+                </div>
+            </div>
+            <div class="settings-menu-group">
+                <label class="settings-label">Chalkiness Adjust</label>
                 <div class="settings-input">
                     <div class="button-group button-group-number-bump">
                         <button id="decrChalkiness" class="btn">-</button>
@@ -100,22 +109,22 @@
                     </div>
                 </div>
             </div>
-            <div class="settings-menu-group">
-                <label>Font</label>
-                <div class="settings-input">
-                    <select id="selectFont"></select>
-                </div>
-            </div>
             <div class="settings-menu-group" style="display: none;">
-                <label>Round Counter</label>
+                <label class="settings-label">Round Counter</label>
                 <div class="settings-input">
                     <input id="toggleRoundCounter" type="checkbox" />
                 </div>
             </div>
             <div class="settings-menu-group">
-                <label>Force next page</label>
+                <label class="settings-label">Slideshow</label>
                 <div class="settings-input">
-                    <h3>Imperial Decryptor one-shot</h3>
+                    <select id="selectSlideshow">
+                        <option value="">None</option>
+                        <option value="imperial-decryptor">Imperial Decryptor</option>
+                        <option value="lost-temple">Lost Temple</option>
+                    </select>
+                </div>
+                <!--
                     <a href="#/slideshow/opening/">Opening Screen</a>
                     <br/><a href="#/slideshow/missionbriefing/">Mission Briefing</a>
                     <br/><a href="#/slideshow/imperialfacility/">Imperial Facility</a>
@@ -129,10 +138,10 @@
                     <br/><a href="#/slideshow/templeconsole/">Temple Console</a>
                     <br/><a href="#/slideshow/greatlibrary/">The Great Library</a>
                     <br/><a href="#/slideshow/final/">Final Screen</a>
-                </div>
+                -->
             </div>
             <div class="settings-menu-group event-log">
-                <label>Console Log</label>
+                <label class="settings-label">Console Log</label>
                 <p id="eventlog"></p>
             </div>
         </div>
@@ -183,7 +192,6 @@
             data-focused-placeholder="⇣ Dictate with voice key, then press ↵" placeholder="Ex: Grog 13, Pike 7" />
         </form>
     </div>
-    <a href="./slideshow/" class="next-btn" id="dynamicNextLink"></a>
 
 </body>
 </html>
