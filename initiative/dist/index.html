@@ -21,177 +21,183 @@
     <!-- Link to the local CSS file -->
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="./slideshow/slideshow.css">
+
     <!-- Link to the local JavaScript file -->
     <script type="text/javascript" src="main.js"></script>
 </head>
 
 <body class="no-mic"> <!-- Initially set to "no-mic", but may update via JS -->
-    <div class="header-menu">
-        <button id="settingsMenuBtn" class="btn header-menu-btn">
-            <i class="fas fa-ellipsis settings-menu-closed-ui"></i>
-            <i class="fas fa-arrow-left settings-menu-open-ui"></i>
-        </button>
-        <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
-            <i class="fas fa-refresh"></i>
-        </button>
-        <a id="sceneBtn" class="btn header-menu-btn settings-menu-closed-ui">
-            <i class="fas fa-image"></i>
-        </a>
+    <div id="canvas-slideshow" class="canvas will-fade-in">
+        <!-- To be populated via AJAX -->
     </div>
+    <div id="canvas-initiative" class="canvas will-fade-in">
 
-    <!-- Settings Page -->
-    <div class="settings-menu hide">
-        <div class="settings-menu-inner">
-            <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
-            
-            <div class="settings-menu-group">
-                <label class="settings-label">Full Screen</label>
-                <div class="settings-input">
-                    <input id="toggleFullScreenBtn" type="checkbox" />
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">Theme</label>
-                <div class="settings-input">
-                    <select id="selectTheme"></select>
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">Live Text</label>
-                <div class="settings-input">
-                    <input id="toggleLiveText" type="checkbox" />
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">App Scale</label>
-                <div class="settings-input">
-                    <div class="button-group button-group-number-bump">
-                        <button id="decrAppScale" class="btn">-</button>
-                        <input id="appScalePref" class="input-number-bump" value="2" type="number" />
-                        <button id="incrAppScale" class="btn">+</button>
-                    </div>
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">Brightness</label>
-                <div class="settings-input">
-                    <div class="button-group button-group-number-bump">
-                        <button id="decrBrightness" class="btn">-</button>
-                        <input id="brightnessPref" class="input-number-bump" value="1" type="number" />
-                        <button id="incrBrightness" class="btn">+</button>
-                    </div>
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">Font Size</label>
-                <div class="settings-input">
-                    <div class="button-group button-group-number-bump">
-                        <button id="decrFontSize" class="btn">-</button>
-                        <input id="fontSizePref" class="input-number-bump" value="1" type="number" />
-                        <button id="incrFontSize" class="btn">+</button>
-                    </div>
-                </div>
-            </div>
-            <p class="lorem-ipsum">Lorem Ipsum</p>
-            <div class="settings-menu-group">
-                <label class="settings-label">Font</label>
-                <div class="settings-input">
-                    <select id="selectFont"></select>
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">Chalkiness Adjust</label>
-                <div class="settings-input">
-                    <div class="button-group button-group-number-bump">
-                        <button id="decrChalkiness" class="btn">-</button>
-                        <input id="chalkinessPref" class="input-number-bump" value="0.75" type="number" />
-                        <button id="incrChalkiness" class="btn">+</button>
-                    </div>
-                </div>
-            </div>
-            <div class="settings-menu-group" style="display: none;">
-                <label class="settings-label">Round Counter</label>
-                <div class="settings-input">
-                    <input id="toggleRoundCounter" type="checkbox" />
-                </div>
-            </div>
-            <div class="settings-menu-group">
-                <label class="settings-label">Slideshow</label>
-                <div class="settings-input">
-                    <select id="selectSlideshow">
-                        <option value="">None</option>
-                        <option value="imperial-decryptor">Imperial Decryptor</option>
-                        <option value="lost-temple">Lost Temple</option>
-                    </select>
-                </div>
-                <!--
-                    <a href="#/slideshow/opening/">Opening Screen</a>
-                    <br/><a href="#/slideshow/missionbriefing/">Mission Briefing</a>
-                    <br/><a href="#/slideshow/imperialfacility/">Imperial Facility</a>
-                    <br/><a href="#/slideshow/platoonblockade/">Platoon Blockade</a>
-                    <h3>Lost Temple one-shot</h3>
-                    <a href="#/slideshow/planetapproach/">Planet Approach</a>
-                    <br/><a href="#/slideshow/derelictship/">Derelict Ship</a>
-                    <br/><a href="#/slideshow/shipconsole/">Ship Console</a>
-                    <br/><a href="#/slideshow/hieroglyphics/">Hieroglyphics</a>
-                    <br/><a href="#/slideshow/ventalor/">Ven'Talor</a>
-                    <br/><a href="#/slideshow/templeconsole/">Temple Console</a>
-                    <br/><a href="#/slideshow/greatlibrary/">The Great Library</a>
-                    <br/><a href="#/slideshow/final/">Final Screen</a>
-                -->
-            </div>
-            <div class="settings-menu-group event-log">
-                <label class="settings-label">Console Log</label>
-                <p id="eventlog"></p>
-            </div>
+        <div class="header-menu">
+            <button id="settingsMenuBtn" class="btn header-menu-btn">
+                <i class="fas fa-ellipsis settings-menu-closed-ui"></i>
+                <i class="fas fa-arrow-left settings-menu-open-ui"></i>
+            </button>
+            <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
+                <i class="fas fa-refresh"></i>
+            </button>
+            <a id="sceneBtn" class="btn header-menu-btn next-slide settings-menu-closed-ui">
+                <i class="fas fa-image"></i>
+            </a>
         </div>
-    </div>
 
-    <!-- Experimental / debugging utility... hidden -->
-    <p class="interim-output" id="interimOutput"><span id="finalTranscript"></span> <span id="interimTranscript"></span></p>
-
-    <div class="main">
-        <button id="clearAll" class="clear-all btn btn-clear players-listed-ui">✕</button>
-        <form action="#" style="display:none;"><input id="testInput" type="text" placeholder="test input" /></form>
-        <!--<div id="startDictation" class="gn" tabindex="0"><div class="mc"></div></div>-->
-        <div class="pre-mic microphone-msg">
-            <p>Tap the mic to enable microphone on your device</p>
-        </div>
-        <div class="post-mic microphone-msg">
-            <p>Tap the mic button to turn the mic on. Speak initiative rolls. Ex: "Grog 17, Scanlan 12"</p>
-        </div>
-        <div class="denied-mic microphone-msg">
-            <p>Microphone access denied. Please REFRESH the page or use manual entry.</p>
-        </div>
-            
-        <div class="players">
-            <div id="roundCounter" class="round-counter">
-                <span class="round-label">Round&nbsp;</span>
-                <!-- will be populated dynamically with: <div class="round-tally" data-marks="0"></div> -->
-            </div>
-            <div class="prev-next-btns">
-                <button id="prevTurn" class="previous-turn btn btn-clear active-turn-ui"><i
-                    class="fas fa-chevron-left" aria-hidden="true"></i></button>
-                <button id="nextTurn" class="advance-turn btn btn-clear  active-turn-ui"><i
-                    class="fas fa-chevron-right" aria-hidden="true"></i></button>
+        <!-- Settings Menu -->
+        <div class="settings-menu hide">
+            <div class="settings-menu-inner">
+                <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
                 
+                <div class="settings-menu-group">
+                    <label class="settings-label">Full Screen</label>
+                    <div class="settings-input">
+                        <input id="toggleFullScreenBtn" type="checkbox" />
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Theme</label>
+                    <div class="settings-input">
+                        <select id="selectTheme"></select>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Live Text</label>
+                    <div class="settings-input">
+                        <input id="toggleLiveText" type="checkbox" />
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">App Scale</label>
+                    <div class="settings-input">
+                        <div class="button-group button-group-number-bump">
+                            <button id="decrAppScale" class="btn">-</button>
+                            <input id="appScalePref" class="input-number-bump" value="2" type="number" />
+                            <button id="incrAppScale" class="btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Brightness</label>
+                    <div class="settings-input">
+                        <div class="button-group button-group-number-bump">
+                            <button id="decrBrightness" class="btn">-</button>
+                            <input id="brightnessPref" class="input-number-bump" value="1" type="number" />
+                            <button id="incrBrightness" class="btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Font Size</label>
+                    <div class="settings-input">
+                        <div class="button-group button-group-number-bump">
+                            <button id="decrFontSize" class="btn">-</button>
+                            <input id="fontSizePref" class="input-number-bump" value="1" type="number" />
+                            <button id="incrFontSize" class="btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="lorem-ipsum">Lorem Ipsum</p>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Font</label>
+                    <div class="settings-input">
+                        <select id="selectFont"></select>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Chalkiness Adjust</label>
+                    <div class="settings-input">
+                        <div class="button-group button-group-number-bump">
+                            <button id="decrChalkiness" class="btn">-</button>
+                            <input id="chalkinessPref" class="input-number-bump" value="0.75" type="number" />
+                            <button id="incrChalkiness" class="btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-menu-group" style="display: none;">
+                    <label class="settings-label">Round Counter</label>
+                    <div class="settings-input">
+                        <input id="toggleRoundCounter" type="checkbox" />
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Slideshow</label>
+                    <div class="settings-input">
+                        <select id="selectSlideshow">
+                            <option value="">None</option>
+                            <option value="imperial-decryptor">Imperial Decryptor</option>
+                            <option value="lost-temple">Lost Temple</option>
+                        </select>
+                    </div>
+                    <!--
+                        <a href="#/slideshow/opening/">Opening Screen</a>
+                        <br/><a href="#/slideshow/missionbriefing/">Mission Briefing</a>
+                        <br/><a href="#/slideshow/imperialfacility/">Imperial Facility</a>
+                        <br/><a href="#/slideshow/platoonblockade/">Platoon Blockade</a>
+                        <h3>Lost Temple one-shot</h3>
+                        <a href="#/slideshow/planetapproach/">Planet Approach</a>
+                        <br/><a href="#/slideshow/derelictship/">Derelict Ship</a>
+                        <br/><a href="#/slideshow/shipconsole/">Ship Console</a>
+                        <br/><a href="#/slideshow/hieroglyphics/">Hieroglyphics</a>
+                        <br/><a href="#/slideshow/ventalor/">Ven'Talor</a>
+                        <br/><a href="#/slideshow/templeconsole/">Temple Console</a>
+                        <br/><a href="#/slideshow/greatlibrary/">The Great Library</a>
+                        <br/><a href="#/slideshow/final/">Final Screen</a>
+                    -->
+                </div>
+                <div class="settings-menu-group event-log">
+                    <label class="settings-label">Console Log</label>
+                    <p id="eventlog"></p>
+                </div>
             </div>
-            <ul id="entries">
-                <!-- will be populated dynamically -->
-            </ul>
-            <button id="addPlayer" class="add-a-player btn btn-clear">+</button>
         </div>
-        <div class="button-group">
-            <div id="startDictation">
-                <i class="fa-solid fa-microphone"></i>
-            </div>
-        </div>
-        <button id="startButton" class="btn no-active-turn-ui players-listed-ui">Start</button>
-        <form id="speechForm" class="" action="">
-            <input id="speechInput" class="speech-input" type="text"
-            data-focused-placeholder="⇣ Dictate with voice key, then press ↵" placeholder="Ex: Grog 13, Pike 7" />
-        </form>
-    </div>
 
+        <!-- Experimental / debugging utility... hidden -->
+        <p class="interim-output" id="interimOutput"><span id="finalTranscript"></span> <span id="interimTranscript"></span></p>
+
+        <div class="main">
+            <button id="clearAll" class="clear-all btn btn-clear players-listed-ui">✕</button>
+            <form action="#" style="display:none;"><input id="testInput" type="text" placeholder="test input" /></form>
+            <!--<div id="startDictation" class="gn" tabindex="0"><div class="mc"></div></div>-->
+            <div class="pre-mic microphone-msg">
+                <p>Tap the mic to enable microphone on your device</p>
+            </div>
+            <div class="post-mic microphone-msg">
+                <p>Tap the mic button to turn the mic on. Speak initiative rolls. Ex: "Grog 17, Scanlan 12"</p>
+            </div>
+            <div class="denied-mic microphone-msg">
+                <p>Microphone access denied. Please REFRESH the page or use manual entry.</p>
+            </div>
+                
+            <div class="players">
+                <div id="roundCounter" class="round-counter">
+                    <span class="round-label">Round&nbsp;</span>
+                    <!-- will be populated dynamically with: <div class="round-tally" data-marks="0"></div> -->
+                </div>
+                <div class="prev-next-btns">
+                    <button id="prevTurn" class="previous-turn btn btn-clear active-turn-ui"><i
+                        class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                    <button id="nextTurn" class="advance-turn btn btn-clear  active-turn-ui"><i
+                        class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                    
+                </div>
+                <ul id="entries">
+                    <!-- will be populated dynamically -->
+                </ul>
+                <button id="addPlayer" class="add-a-player btn btn-clear">+</button>
+            </div>
+            <div class="button-group">
+                <div id="startDictation">
+                    <i class="fa-solid fa-microphone"></i>
+                </div>
+            </div>
+            <button id="startButton" class="btn no-active-turn-ui players-listed-ui">Start</button>
+            <form id="speechForm" class="" action="">
+                <input id="speechInput" class="speech-input" type="text"
+                data-focused-placeholder="⇣ Dictate with voice key, then press ↵" placeholder="Ex: Grog 13, Pike 7" />
+            </form>
+        </div>
+    </div>
 </body>
 </html>

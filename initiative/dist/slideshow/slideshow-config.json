@@ -1,0 +1,16 @@
+{
+    "lost-temple": {
+        "name": "The Lost Jedi Temple",
+        "scenes": [
+            {
+                "image": "planetapproach/planet-approach.webp"
+            },
+            {
+                "initiative": ""
+            },
+            {
+                "image": "derelictship/derelict-ship.webp"
+            }
+        ]
+    }
+}

@@ -27,33 +27,38 @@
     }
 }
 
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+.slideshow-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    /* width: 100%; */
+    height: 100vh;
+    background-color: rgb(14, 14, 14);
 }
 
 .slideshow-wrapper {
     position: relative;
-    margin: 0px;
-    height: 100%;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    margin: 0px;
+    /* width: 100%; */
+    height: 100%;
 }
 
 figure.slideshow-image {
     position: relative;
+    flex: 0;
     margin: 0;
+    /* width: 100%; */
+    height: 100%;
 }
 
 figure.slideshow-image img {
-    width: 100vw;
+    max-width: 100%;
+    max-height: 100%;
     display: block;
     -webkit-user-select: none;
     margin: auto;
@@ -61,9 +66,9 @@ figure.slideshow-image img {
 
 .illegible-text,
 .legible-text {
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    left: 2vw;
+    padding: 1vw 2vw;
 }
 
 .illegible-text {
@@ -96,18 +101,8 @@ figure.slideshow-image img {
     -webkit-animation: blink-animation 1s steps(5, start) infinite;
 }
 
-.fadeIn {
-    opacity: 0;
-    animation: fadeInAnimation ease 3s;
-    -webkit-animation: fadeInAnimation ease 3s;
-    animation-iteration-count: 1;
-    -webkit-animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
-}
-
-.prev-btn,
-.next-btn {
+.slideshow-content .prev-slide,
+.slideshow-content .next-slide {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -120,13 +115,13 @@ figure.slideshow-image img {
     background: transparent;
 }
 
-.next-btn {
+.slideshow-content .next-slide {
     left: auto;
     right: 0;
 }
 
-.prev-btn::before,
-.next-btn::before {
+.slideshow-content .prev-slide::before,
+.slideshow-content .next-slide::before {
     content: "\2039";
     font-size: 7vw;
     color: rgba(200, 200, 200, 0.5);
@@ -135,13 +130,13 @@ figure.slideshow-image img {
     transform: translateX(2vw);
 }
 
-.next-btn::before {
+.slideshow-content .next-slide::before {
     content: "\203A";
     transform: translateX(-2vw);
 }
 
-.prev-btn:hover::before,
-.next-btn:hover::before {
+.slideshow-content .prev-slide:hover::before,
+.slideshow-content .next-slide:hover::before {
     opacity: 1;
     transform: translateX(0);
 }

@@ -78,6 +78,11 @@ async function main() {
     setupEventListeners()
     setupSpeechDicatation()
     updateLinkBasedOnHash()
+
+    const initiativePage = document.getElementById('canvas-initiative')
+    fadeIn(initiativePage, 1000, () => {
+        initiativePage.classList.add('active')
+    })
 }
 
 
@@ -219,7 +224,7 @@ function setupEventListeners() {
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
-    document.querySelector('#selectTheme').addEventListener('change', handleThemeChange)
+    document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
     document.getElementById('appScalePref').addEventListener('change', (e)=> {updateAppScale(e.target.value)})
     document.getElementById('decrAppScale').addEventListener('click', decreaseAppScale)
@@ -241,6 +246,7 @@ function setupEventListeners() {
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
+    document.body.addEventListener('click', handleAdvanceSlideClick)
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
@@ -1290,6 +1296,128 @@ function renderPlayers() {
     }
 }
 
+/**
+ * AJAX Management
+ */
+function handleAdvanceSlideClick(e) {
+    const link = e.target.closest('.next-slide, .prev-slide');
+    if (link) {
+        e.preventDefault()
+        const url = link.attributes.href.value
+        loadPage(url)
+    }
+}
+
+function loadPage(url) {    
+    const activeCanvas = document.querySelector('.canvas.active')
+    console.debug('activeCanvas:')
+    console.debug(activeCanvas)
+    if (!activeCanvas) {
+        console.warn('no active canvas!')
+        return
+    }
+    
+    // If we just need to return to the initiative tracker, fade active canvas out and fade initiative canvas in and be done.
+    if (/^\/$|^\/[#\?]/.test(url)) {
+        console.debug('will unhide initiative tracker...')
+        fadeOut(document.querySelector('.canvas.active'), 1000, () => {
+            console.debug('active canvas faded out')
+            console.debug('fading in initiative...')
+            fadeIn(document.getElementById('canvas-initiative'), 1000)
+        })
+        return
+    }
+
+    const slideShowPage = document.getElementById('canvas-slideshow')
+
+    // AJAX get next slide's HTML, load it up, and fade it in.
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            console.debug('fetched.')
+            // TODO: handle stopping a fade min-animation better...
+            if (activeCanvas.matches('.--animating-in')) {
+                activeCanvas.classList.remove('faded-in', '--animating-in', '--animating-out', 'active')
+                activeCanvas.classList.add('faded-out')
+                slideShowPage.innerHTML = html
+                slideShowPage.classList.remove('faded-out', 'will-fade-in')
+                slideShowPage.classList.add('faded-in', 'active')
+                console.debug('immediately switched to next slide (no animation)')
+            } else {
+                console.debug('will fade out active slide...')
+                fadeOut(activeCanvas, 1000,  () => {
+                    console.debug('faded out')
+                    // Populate div, but it's still hidden (opacity: 0) at this point.
+                    slideShowPage.innerHTML = html
+                    console.debug('populated with new html')
+                    console.debug('fading in next slide...')
+                    fadeIn(slideShowPage, 1000, () => {
+                        console.debug('faded in!')
+                    })
+                })
+            }
+        })
+    .catch(err => console.warn('Error loading page:', err));
+}
+
+// ** FADE IN FUNCTION FROM https://dev.to/bmsvieira/vanilla-js-fadein-out-2a6o **
+function fadeIn(el, duration = 1000, callback = () => {}) {
+    el.classList.add('active')
+    el.style.opacity = 0
+    // Ensure it's not display:none
+    el.classList.remove('faded-out', 'will-fade-in')
+    // Tag it as "animating" so we can detect in-progress animations, in case we need to stop mid-stream
+    el.classList.add('--animating-in', 'active')
+
+    const start = performance.now();
+
+    function fade(time) {
+        // Calculate the elapsed time
+        const elapsed = time - start;
+        // Calculate the opacity value based on elapsed time
+        el.style.opacity = Math.min(elapsed / duration, 1)
+
+        if (elapsed < duration) {
+            requestAnimationFrame(fade)
+        } else {
+            // Animation complete
+            el.classList.remove('--animating-in')
+            el.classList.add('faded-in')
+            if (typeof callback === 'function') callback()
+        }
+    }
+
+    requestAnimationFrame(fade);
+}
+
+// ** FADE OUT FUNCTION FROM https://dev.to/bmsvieira/vanilla-js-fadein-out-2a6o **
+function fadeOut(el, duration = 1000, callback = () => {}) {
+    el.style.opacity = 1
+    el.classList.remove('faded-in', 'will-fade-in')
+    // Tag it as "animating" so we can detect in-progress animations, in case we need to stop mid-stream
+    el.classList.add('--animating-out')
+
+    const start = performance.now();
+
+    function fade(time) {
+        // Calculate the elapsed time
+        const elapsed = time - start;
+        // Calculate the opacity value based on elapsed time
+        el.style.opacity = Math.max(1 - (elapsed / duration), 0);
+
+        if (elapsed < duration) {
+            requestAnimationFrame(fade)
+        } else {
+            // Animation complete
+            el.classList.remove('--animating-out', 'active')
+            el.classList.add('faded-out')
+            // el.style.display = "none";
+            if (typeof callback === 'function') callback()
+        }
+    }
+
+    requestAnimationFrame(fade);
+}
 
 /**
  * Cookie Management

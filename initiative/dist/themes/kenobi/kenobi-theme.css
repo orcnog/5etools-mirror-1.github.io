@@ -1,7 +1,7 @@
 :root {
-    --body-bg-images: url('themes/kenobi/images/vader-versus3.webp');
-    --body-bg-image-positions: top center;
-    --body-bg-image-sizes: cover;
+    --theme-bg-images: url('themes/kenobi/images/vader-versus3.webp');
+    --theme-bg-image-positions: top center;
+    --theme-bg-image-sizes: cover;
     --button-bg-color: rgb(125, 16, 17);
     --button-bg-color--hover: rgb(105, 16, 17);
     --button-outline-focus: rgba(255, 16, 17, 0.5);
@@ -13,14 +13,6 @@
 .main-inner::-webkit-scrollbar,
 .settings-menu-inner::-webkit-scrollbar {
     display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
-}
-
-.main-inner,
-.settings-menu-inner {
-    max-height: calc(100vh - var(--header-menu-height) - 6rem);
-    overflow: auto;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    -ms-overflow-style: none;
 }
 
 @font-face {
@@ -122,6 +114,10 @@
 .font-aurebesh .settings-menu .lorem-ipsum {
     font-size: calc(var(--adjustable-font-size) / 2);
 }
+.font-aurebesh #entries .player-order {
+    flex-basis: 3rem;
+}
+
 
 /* Rank 2 */
 .font-classicrobot {
@@ -184,24 +180,24 @@
 }
 
 @media screen and (min-width: 0px) {
-    body {
+    #canvas-initiative {
         background-size: 166%; /*147%;*/
         background-position: 51.5% top;
         background-repeat: repeat-y;
     }
 }
 @media screen and (min-width: 38rem) {
-    body {
+    #canvas-initiative {
         background-size: calc(100% + 396px);
     }
 }
 @media screen and (min-width: 940px) {
-    body {
+    #canvas-initiative {
         background-size: 1380px;
     }
 }
 @media screen and (min-width: 1380px) {
-    body {
+    #canvas-initiative {
         background-size: cover;
     }
 }
