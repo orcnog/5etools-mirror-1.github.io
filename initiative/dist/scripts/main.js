@@ -8,6 +8,8 @@ let liveTextMode = true
 let players = []
 let currentTurn = 0
 let currentRound = 1
+let currentSlideShow
+let slideShowConfig = {}
 let recognition // SpeechRecognition object
 let grammarList // SpeechGrammarList object
 let final_transcript = ''
@@ -77,7 +79,8 @@ async function main() {
     rehydrateSettings()
     setupEventListeners()
     setupSpeechDicatation()
-    updateLinkBasedOnHash()
+    // updateSlideBasedOnHash()
+    setupSlideShow()
 
     const initiativePage = document.getElementById('canvas-initiative')
     fadeIn(initiativePage, 1000, () => {
@@ -240,13 +243,14 @@ function setupEventListeners() {
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
     document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
+    document.getElementById('selectSlideshowCurrentSlide').addEventListener('change', handleSlideshowSlideChange)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
-    document.body.addEventListener('click', handleAdvanceSlideClick)
+    document.body.addEventListener('click', handleSlideControlClick)
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
@@ -268,6 +272,12 @@ function setupEventListeners() {
     function handleSlideshowChange(event) {
         const selectedSlideshow = event.target.value
         updateSlideshow(selectedSlideshow)
+    }
+
+    // Slideshow Slide Handler
+    function handleSlideshowSlideChange(event) {
+        const selectedSlide = event.target.value
+        updateSlideshowCurrentSlide(selectedSlide)
     }
     
     // Dictation
@@ -719,19 +729,26 @@ function decreaseChalkiness() {
 
 function updateSlideshow(selectedSlideshow) {
     if (selectedSlideshow) {
-        document.querySelector('body').classList.add('slideshow')
-        switch (selectedSlideshow) {
-            case 'imperial-decryptor':
-                document.getElementById('sceneBtn').href = '/slideshow/opening/'
-                break
-            case 'lost-temple':
-                document.getElementById('sceneBtn').href = '/slideshow/planetapproach/'
-                break
+        //update global var
+        currentSlideShow = selectedSlideshow
+        document.querySelector('body').classList.add('slideshow')        
+        if (selectedSlideshow) document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.add('active')
+
+        const currentHash = window.location.hash.substring(1)
+        if (!currentHash) {
+            document.getElementById('sceneBtn').href = '#1'
         }
     } else {
         document.querySelector('body').classList.remove('slideshow')
+        document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
     }
     setCookie('slideshowPreference', selectedSlideshow)
+}
+
+function updateSlideshowCurrentSlide(slide) {
+    if (slide) {
+        document.getElementById('sceneBtn').href = `#${slide}`
+    }
 }
 
 function populateSelectWithFonts() {
@@ -1297,14 +1314,44 @@ function renderPlayers() {
 }
 
 /**
- * AJAX Management
+ * Slideshow Management
  */
-function handleAdvanceSlideClick(e) {
-    const link = e.target.closest('.next-slide, .prev-slide');
-    if (link) {
-        e.preventDefault()
-        const url = link.attributes.href.value
-        loadPage(url)
+
+async function setupSlideShow() {
+    const slideShowJSON = await fetchSlideshowConfig('./slideshow/slideshow-config.json')
+    if (slideShowJSON) {
+        // Update global var
+        slideShowConfig = slideShowJSON[currentSlideShow] || null
+    }
+}
+
+async function fetchSlideshowConfig(url) {
+    const response = await fetch(url);
+    return response.json();
+}
+
+function handleSlideControlClick(e) {
+    e.preventDefault()
+    const isNextLink = e.target.closest('.next-slide')
+    const isPrevLink = e.target.closest('.prev-slide')
+    const isInitiativeLink = e.target.closest('.return-to-initiative')
+    const currentHash = window.location.hash.substring(1)
+    if (isNextLink) {
+        const nextHash = (parseInt(currentHash) || 0) + 1
+        if (slideShowConfig?.scenes?.[nextHash - 1]) {
+            window.location.hash = '#' + nextHash
+        } else {
+            window.location.hash = '' // load initiative tracker
+        }
+    } else if (isPrevLink) {
+        const prevHash = (parseInt(currentHash) || 0) - 1
+        if (slideShowConfig?.scenes?.[prevHash - 1]) {
+            window.location.hash = '#' + prevHash
+        } else {
+            window.location.hash = '' // load initiative tracker
+        }
+    } else if (isInitiativeLink) {
+        window.location.hash = '' // load initiative tracker
     }
 }
 
@@ -1324,7 +1371,7 @@ function loadPage(url) {
 
     // If we just need to return to the initiative tracker, fade active canvas out and fade initiative canvas in and be done.
     if (isInitiativeFetch(url)) {
-        const duration = isQuickClick ? 0 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
+        const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
         fadeOut(activeCanvas, duration, () => {
             fadeIn(initiativePage, duration)
         })
@@ -1337,13 +1384,23 @@ function loadPage(url) {
         .then(response => response.text())
         .then(html => {
             console.debug('fetched.')
-            const duration = isQuickClick ? 0 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
+            const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
             fadeOut(activeCanvas, duration,  () => {
-                slideShowPage.innerHTML = html // Populate div, but it's still hidden (opacity: 0) at this point.
+                // Populate div, but it's still hidden (opacity: 0) at this point.
+                slideShowPage.innerHTML = html
+                // Populate with slideshow control buttons
+                // Click right side of screen to advance to next slide, middle go start initiative, left to go back.
+                const slideControlButtons = ['prev-slide', 'return-to-initiative', 'next-slide']
+                slideControlButtons.forEach(className => {
+                    const link = document.createElement('a')
+                    link.setAttribute('role', 'button')
+                    link.className = className
+                    slideShowPage.querySelector('.slideshow-content').appendChild(link)
+                })
                 fadeIn(slideShowPage, duration)
             })
         })
-    .catch(err => console.warn('Error loading page:', err));
+    .catch(err => console.warn('Error loading page:', err))
 }
 
 function isInitiativeFetch(url) {
@@ -1457,16 +1514,25 @@ function refreshPage() {
  * Hash URL management
  */
 
-function updateLinkBasedOnHash() {
+function updateSlideBasedOnHash() {
     // Get the current hash value without the leading #
-    const hash = window.location.hash.substring(1);
-    const slieShowLink = document.getElementById('sceneBtn');
-    // Update the href attribute of the <a> element
-    if (hash) slieShowLink.href = `${hash}`;
+    const hash = window.location.hash.substring(1)
+    // If no slide number hash or 0, go back to initiative tracker scene.
+    if (/^$|^#0?$/.test(hash)) {
+        loadPage('INITIATIVE_TRACKER')
+    } else {
+        const sceneIndex = parseInt(hash) - 1
+        const sceneToLaunch = slideShowConfig?.scenes?.[sceneIndex]?.url ?? null
+        if (sceneToLaunch) {
+            loadPage(sceneToLaunch)
+        } else {
+            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideShow}'`)
+        }
+    }
 }
 
 // Update the link when the hash changes
-window.onhashchange = updateLinkBasedOnHash;
+window.onhashchange = updateSlideBasedOnHash
 
 
 /**

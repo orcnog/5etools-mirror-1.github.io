@@ -102,17 +102,20 @@ figure.slideshow-image img {
 }
 
 .slideshow-content .prev-slide,
-.slideshow-content .next-slide {
+.slideshow-content .next-slide,
+.slideshow-content .return-to-initiative {
     position: absolute;
     left: 0;
     bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40vw;
+    width: 35vw;
     height: 100%;
     text-decoration: none;
+    text-shadow: 0 0 2vw black;
     background: transparent;
+    cursor: pointer;
 }
 
 .slideshow-content .next-slide {
@@ -120,23 +123,39 @@ figure.slideshow-image img {
     right: 0;
 }
 
+.slideshow-content .return-to-initiative {
+    left: 40vw;
+    width: 20vw;
+}
+
 .slideshow-content .prev-slide::before,
-.slideshow-content .next-slide::before {
-    content: "\2039";
+.slideshow-content .next-slide::before,
+.slideshow-content .return-to-initiative::before {
+    content: "";
     font-size: 7vw;
-    color: rgba(200, 200, 200, 0.5);
+    color: rgba(200, 200, 200, 0.6);
     opacity: 0;
     transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0, 0, 0.31, 0.99);
-    transform: translateX(2vw);
+}
+
+.slideshow-content .prev-slide::before {
+    content: "\2039";
+    transform: translate(3vw, 0);
 }
 
 .slideshow-content .next-slide::before {
     content: "\203A";
-    transform: translateX(-2vw);
+    transform: translate(-3vw, 0);
+}
+
+.slideshow-content .return-to-initiative::before {
+    content: "\2694";
+    transform: translate(0, -3vw);
 }
 
 .slideshow-content .prev-slide:hover::before,
-.slideshow-content .next-slide:hover::before {
+.slideshow-content .next-slide:hover::before,
+.slideshow-content .return-to-initiative:hover::before {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0, 0);
 }

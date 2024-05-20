@@ -1,0 +1,42 @@
+{
+    "lost-temple": {
+        "name": "The Lost Jedi Temple",
+        "scenes": [
+            {
+                "url": "./slideshow/planetapproach",
+                "image": "planetapproach/planet-approach.webp",
+                "caption": "Unknown Planet",
+                "subcap": "Location of the Lost Jedi Temple"
+            },
+            {
+                "url": "./slideshow/derelictship",
+                "image": "derelictship/derelict-ship.webp",
+                "caption": "Destroyed Ship",
+                "subcap": "Corellian CR90 Stealth Corvette"
+            },
+            {
+                "url": "./slideshow/shipconsole",
+                "image": "shipconsole/console-password.webp"
+            }
+        ]
+    },
+    "imperial-decryptor": {
+        "name": "The Imperial Decryptor",
+        "scenes": [
+            {
+                "url": "./slideshow/opening",
+                "image": "opening/opening.webp"
+            },
+            {
+                "url": "./slideshow/imperialfacility",
+                "image": "imperialfacility/imperial-facility.webp",
+                "caption": "Imperial Archives Facility",
+                "subcap": "On the remote moon of Raxus"
+            },
+            {
+                "url": "./slideshow/platoonblockade",
+                "image": "platoonblockade/platoon-blockade.webp"
+            }
+        ]
+    }
+}

@@ -569,6 +569,19 @@ body.menu-open .settings-menu-closed-ui {
     /* font-size: 1.25rem; */
 }
 
+.settings-menu-group.hidden-if-previous-group-not-active {
+    opacity: 0;
+    max-height: 0rem;
+    pointer-events: none;
+    transition: opacity 500ms, max-height 500ms;
+}
+
+.settings-menu-group.active + .hidden-if-previous-group-not-active {
+    opacity: 1;
+    max-height: 8rem;
+    pointer-events: initial;
+}
+
 .settings-menu-group.event-log {
     flex: 1 1 auto;
     padding-bottom: 1rem;
