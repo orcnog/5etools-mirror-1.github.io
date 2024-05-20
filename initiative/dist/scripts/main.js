@@ -1308,60 +1308,69 @@ function handleAdvanceSlideClick(e) {
     }
 }
 
-function loadPage(url) {    
+let timeOfLastSlideAdvance = 0;
+function loadPage(url) {
     const activeCanvas = document.querySelector('.canvas.active')
-    console.debug('activeCanvas:')
-    console.debug(activeCanvas)
+    const slideShowPage = document.getElementById('canvas-slideshow')
+    const initiativePage = document.getElementById('canvas-initiative')
+    
     if (!activeCanvas) {
         console.warn('no active canvas!')
         return
     }
     
+    const isQuickClick = (performance.now() - timeOfLastSlideAdvance < 1000) || (activeCanvas.matches('.--animating-in', '--animating-out'))
+    timeOfLastSlideAdvance = performance.now()
+
     // If we just need to return to the initiative tracker, fade active canvas out and fade initiative canvas in and be done.
-    if (/^\/$|^\/[#\?]/.test(url)) {
-        console.debug('will unhide initiative tracker...')
-        fadeOut(document.querySelector('.canvas.active'), 1000, () => {
-            console.debug('active canvas faded out')
-            console.debug('fading in initiative...')
-            fadeIn(document.getElementById('canvas-initiative'), 1000)
+    if (isInitiativeFetch(url)) {
+        const duration = isQuickClick ? 0 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
+        fadeOut(activeCanvas, duration, () => {
+            fadeIn(initiativePage, duration)
         })
         return
     }
 
-    const slideShowPage = document.getElementById('canvas-slideshow')
 
     // AJAX get next slide's HTML, load it up, and fade it in.
     fetch(url)
         .then(response => response.text())
         .then(html => {
             console.debug('fetched.')
-            // TODO: handle stopping a fade min-animation better...
-            if (activeCanvas.matches('.--animating-in')) {
-                activeCanvas.classList.remove('faded-in', '--animating-in', '--animating-out', 'active')
-                activeCanvas.classList.add('faded-out')
-                slideShowPage.innerHTML = html
-                slideShowPage.classList.remove('faded-out', 'will-fade-in')
-                slideShowPage.classList.add('faded-in', 'active')
-                console.debug('immediately switched to next slide (no animation)')
-            } else {
-                console.debug('will fade out active slide...')
-                fadeOut(activeCanvas, 1000,  () => {
-                    console.debug('faded out')
-                    // Populate div, but it's still hidden (opacity: 0) at this point.
-                    slideShowPage.innerHTML = html
-                    console.debug('populated with new html')
-                    console.debug('fading in next slide...')
-                    fadeIn(slideShowPage, 1000, () => {
-                        console.debug('faded in!')
-                    })
-                })
-            }
+            const duration = isQuickClick ? 0 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
+            fadeOut(activeCanvas, duration,  () => {
+                slideShowPage.innerHTML = html // Populate div, but it's still hidden (opacity: 0) at this point.
+                fadeIn(slideShowPage, duration)
+            })
         })
     .catch(err => console.warn('Error loading page:', err));
 }
 
+function isInitiativeFetch(url) {
+    let goBackToInitiative = false
+    // test whether the URL points to root (i.e. points back to the initiative tracker)
+    goBackToInitiative = (/^\/$|^\/[#\?]/.test(url))
+    goBackToInitiative = goBackToInitiative || (/^INITIATIVE/.test(url))
+    return goBackToInitiative
+}
+
+function stopAnimation(el) {
+    // Cancel requestAnimationFrame
+    if (el.animationFrameId) {
+        cancelAnimationFrame(el.animationFrameId);
+        delete el.animationFrameId;
+    }
+
+    // Remove animation classes and reset styles
+    el.classList.remove('--animating-in', '--animating-out');
+    el.style.removeProperty('opacity');
+}
+
 // ** FADE IN FUNCTION FROM https://dev.to/bmsvieira/vanilla-js-fadein-out-2a6o **
 function fadeIn(el, duration = 1000, callback = () => {}) {
+    // Stop any ongoing animation
+    stopAnimation(el)
+
     el.classList.add('active')
     el.style.opacity = 0
     // Ensure it's not display:none
@@ -1369,54 +1378,61 @@ function fadeIn(el, duration = 1000, callback = () => {}) {
     // Tag it as "animating" so we can detect in-progress animations, in case we need to stop mid-stream
     el.classList.add('--animating-in', 'active')
 
-    const start = performance.now();
+    const start = performance.now()
 
     function fade(time) {
         // Calculate the elapsed time
-        const elapsed = time - start;
+        const elapsed = time - start
         // Calculate the opacity value based on elapsed time
         el.style.opacity = Math.min(elapsed / duration, 1)
 
         if (elapsed < duration) {
-            requestAnimationFrame(fade)
+            el.animationFrameId = requestAnimationFrame(fade)
         } else {
             // Animation complete
-            el.classList.remove('--animating-in')
+            console.debug('faded in!')
+            stopAnimation(el)
             el.classList.add('faded-in')
             if (typeof callback === 'function') callback()
         }
     }
 
-    requestAnimationFrame(fade);
+    console.debug('beginning fade in...')
+    el.animationFrameId = requestAnimationFrame(fade)
 }
 
 // ** FADE OUT FUNCTION FROM https://dev.to/bmsvieira/vanilla-js-fadein-out-2a6o **
 function fadeOut(el, duration = 1000, callback = () => {}) {
+    // Stop any ongoing animation
+    stopAnimation(el)
+
     el.style.opacity = 1
     el.classList.remove('faded-in', 'will-fade-in')
     // Tag it as "animating" so we can detect in-progress animations, in case we need to stop mid-stream
     el.classList.add('--animating-out')
 
-    const start = performance.now();
+    const start = performance.now()
 
     function fade(time) {
         // Calculate the elapsed time
-        const elapsed = time - start;
+        const elapsed = time - start
         // Calculate the opacity value based on elapsed time
-        el.style.opacity = Math.max(1 - (elapsed / duration), 0);
+        el.style.opacity = Math.max(1 - (elapsed / duration), 0)
 
         if (elapsed < duration) {
-            requestAnimationFrame(fade)
+            el.animationFrameId = requestAnimationFrame(fade)
         } else {
             // Animation complete
-            el.classList.remove('--animating-out', 'active')
+            console.debug('faded out')
+            stopAnimation(el)
+            el.classList.remove('active')
             el.classList.add('faded-out')
-            // el.style.display = "none";
             if (typeof callback === 'function') callback()
         }
     }
 
-    requestAnimationFrame(fade);
+    console.debug('beginning fade out...')
+    el.animationFrameId = requestAnimationFrame(fade)
 }
 
 /**
