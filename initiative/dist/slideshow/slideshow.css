@@ -82,13 +82,15 @@ figure.slideshow-image img {
     font-size: 2.5vw;
     color: #dee;
     font-weight: 900;
+    mask: none;
+    text-shadow: 0 0 10px black;
 }
 
 .legible-text {
     font-family: 'Courier New', Courier, monospace;
     opacity: 0;
-    animation: blurOutFadeOut 2s ease-out 2s forwards reverse;
-    -webkit-animation: blurOutFadeOut 2s ease-out 2s forwards reverse;
+    animation: blurOutFadeOut 2s ease-out 1.5s forwards reverse;
+    -webkit-animation: blurOutFadeOut 2s ease-out 1.5s forwards reverse;
 }
 
 .legible-text p {

@@ -15,8 +15,30 @@
                 "subcap": "Corellian CR90 Stealth Corvette"
             },
             {
-                "url": "./slideshow/shipconsole",
-                "image": "shipconsole/console-password.webp"
+                "url": "./slideshow/shipconsole"
+            },
+            {
+                "url": "./slideshow/hieroglyphics",
+                "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
+                "caption": "Ancient Hieroglyphs",
+                "subcap": "Meaning: unknown"
+            },
+            {
+                "url": "./slideshow/ventalor",
+                "image": "./slideshow/ventalor/ventalor.webp",
+                "caption": "Ven'Talor",
+                "subcap": "The Lost Jedi Temple"
+            },
+            {
+                "url": "./slideshow/templeconsole"
+            },
+            {
+                "url": "./slideshow/greatlibrary",
+                "image": "./slideshow/greatlibrary/greatlibrary.webp"
+            },
+            {
+                "url": "./slideshow/final",
+                "image": "./slideshow/final/final.webp"
             }
         ]
     },
@@ -25,17 +47,21 @@
         "scenes": [
             {
                 "url": "./slideshow/opening",
-                "image": "opening/opening.webp"
+                "image": "./slideshow/opening/opening.webp"
             },
             {
                 "url": "./slideshow/imperialfacility",
-                "image": "imperialfacility/imperial-facility.webp",
+                "image": "./slideshow/imperialfacility/imperial-facility.webp",
                 "caption": "Imperial Archives Facility",
                 "subcap": "On the remote moon of Raxus"
             },
             {
                 "url": "./slideshow/platoonblockade",
-                "image": "platoonblockade/platoon-blockade.webp"
+                "image": "./slideshow/platoonblockade/platoon-blockade.webp"
+            },
+            {
+                "url": "./slideshow/final",
+                "image": "./slideshow/final/final.webp"
             }
         ]
     }

@@ -8,7 +8,8 @@ let liveTextMode = true
 let players = []
 let currentTurn = 0
 let currentRound = 1
-let currentSlideshow
+let currentSlideshowID
+let slideshow = {}
 let slideshowConfig = {}
 let recognition // SpeechRecognition object
 let grammarList // SpeechGrammarList object
@@ -77,10 +78,10 @@ window.onload = async function () {
  */
 async function main() {
     calculateGlobalVars()
+    await fetchConfigs()
     rehydrateSettings()
     setupEventListeners()
-    setupSpeechDicatation()
-    await setupSlideshow()
+    await setupSpeechDicatation()
     updateSlideBasedOnHash()
     outputLogsToSettingsPage()
 }
@@ -99,6 +100,14 @@ function calculateGlobalVars() {
         }
         return patterns; // ex: {'one': '1|won|want|one', 'two': '2|to|too|two'}
     })(numberMapSingleDigit)
+}
+
+async function fetchConfigs() {
+    const slideshowJSON = await fetchJSON('./slideshow/slideshow-config.json')
+    if (slideshowJSON) {
+        // Update global var
+        slideshowConfig = slideshowJSON
+    }
 }
 
 function rehydrateSettings() {
@@ -144,10 +153,12 @@ function rehydrateSettings() {
     const cookieSlideshowValue = getCookie('slideshowPreference') || ''
     document.getElementById('selectSlideshow').value = cookieSlideshowValue
     updateSlideshowContext(cookieSlideshowValue)
+    populateSelectWithSlideshows()
     
     /* Rehydrate the next slide to show from cookie */
     const cookieNextSlideToShowValue = getCookie('slideshowNextSlidePreference') || ''
     document.getElementById('slideshowNextSlide').value = parseInt(cookieNextSlideToShowValue)
+    populateSelectWithSlideNumbers()
     updateNextSlideToShow(cookieNextSlideToShowValue)
     
     /* Rehydrate the current player entries from cookie */
@@ -390,7 +401,7 @@ async function setupSpeechDicatation() {
                 //     hitCount += matches.length
                 // }
 
-                console.info(`maybe: ${interim_transcript}`)
+                console.debug(`maybe: ${interim_transcript}`)
                 console.debug(event)
             }
         }
@@ -690,10 +701,14 @@ function decreaseChalkiness() {
 
 function updateSlideshowContext(selectedSlideshow) {
     if (selectedSlideshow) {
-        //update global var
-        currentSlideshow = selectedSlideshow
+        // Update global vars
+        currentSlideshowID = selectedSlideshow
+        slideshow = slideshowConfig[currentSlideshowID] || null
         document.querySelector('body').classList.add('slideshow')        
-        if (selectedSlideshow) document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.add('active')
+        if (selectedSlideshow) {
+            document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.add('active')
+            populateSelectWithSlideNumbers()
+        }
     } else {
         document.querySelector('body').classList.remove('slideshow')
         document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
@@ -773,6 +788,37 @@ function loadCSS(url) {
 
     // Append the link element to the head of the document
     document.head.appendChild(link);
+}
+
+function populateSelectWithSlideshows() {
+    if (slideshowConfig) {
+        const selectElement = document.querySelector('#selectSlideshow')
+        for (const [id, config] of Object.entries(slideshowConfig)) {
+            const option = document.createElement('option')
+            // Convert theme data to option value and data attributes
+            option.value = id
+            if (option.value == currentSlideshowID) {
+                option.selected = true
+            }
+            option.textContent = config.name
+            selectElement.appendChild(option)
+        }
+    }
+}
+
+function populateSelectWithSlideNumbers() {
+    if (slideshow) { // check whether there is indeed a slideshow selected
+        const selectElement = document.querySelector('#slideshowNextSlide')
+        selectElement.innerHTML = '';
+
+        slideshow.scenes?.forEach((scn, idx) => {
+            const option = document.createElement('option')
+            // Convert theme data to option value and data attributes
+            option.value = idx + 1
+            option.textContent = idx + 1
+            selectElement.appendChild(option)
+        })
+    }
 }
 
 // Function to remove all CSS files starting with /themes/
@@ -1267,15 +1313,7 @@ function renderPlayers() {
  * Slideshow Management
  */
 
-async function setupSlideshow() {
-    const slideshowJSON = await fetchSlideshowConfig('./slideshow/slideshow-config.json')
-    if (slideshowJSON) {
-        // Update global var
-        slideshowConfig = slideshowJSON[currentSlideshow] || null
-    }
-}
-
-async function fetchSlideshowConfig(url) {
+async function fetchJSON(url) {
     const response = await fetch(url)
     return response.json()
 }
@@ -1298,7 +1336,7 @@ function getNextHash(hashVal) {
     const currentNumber = parseInt(currentWindowHash) || 0
     const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) + 1
     
-    if (slideshowConfig?.scenes?.[nextNumber - 1]) {
+    if (slideshow?.scenes?.[nextNumber - 1]) {
         return `${nextNumber}`
     } else {
         return '' // return to initiative tracker view
@@ -1310,7 +1348,7 @@ function getPrevHash(hashNum) {
     const currentNumber = parseInt(currentWindowHash) || 0
     const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
     
-    if (slideshowConfig?.scenes?.[nextNumber - 1]) {
+    if (slideshow?.scenes?.[nextNumber - 1]) {
         return `${nextNumber}`
     } else {
         return '' // return to initiative tracker view
@@ -1322,7 +1360,7 @@ async function loadScreen(url) {
     const slideshowPage = document.getElementById('canvas-slideshow')
     const initiativePage = document.getElementById('canvas-initiative')
     const activeCanvas = document.querySelector('.canvas.active') || initiativePage
-    const sceneIndex = slideshowConfig?.scenes?.findIndex(scene => scene.url === url);
+    const sceneIndex = slideshow?.scenes?.findIndex(scene => scene.url === url);
     const sceneHash = sceneIndex !== -1 ? sceneIndex + 1 : null;
         
     if (!activeCanvas) {
@@ -1497,11 +1535,11 @@ function updateSlideBasedOnHash() {
         loadScreen('INITIATIVE')
     } else {
         const sceneIndex = parseInt(hash) - 1
-        const sceneToLaunch = slideshowConfig?.scenes?.[sceneIndex]?.url ?? null
+        const sceneToLaunch = slideshow?.scenes?.[sceneIndex]?.url ?? null
         if (sceneToLaunch) {
             loadScreen(sceneToLaunch)
         } else {
-            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshow}'`)
+            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`)
         }
     }
 }
