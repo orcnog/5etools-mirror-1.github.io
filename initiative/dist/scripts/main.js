@@ -79,13 +79,8 @@ async function main() {
     rehydrateSettings()
     setupEventListeners()
     setupSpeechDicatation()
-    // updateSlideBasedOnHash()
-    setupSlideShow()
-
-    const initiativePage = document.getElementById('canvas-initiative')
-    fadeIn(initiativePage, 1000, () => {
-        initiativePage.classList.add('active')
-    })
+    await setupSlideShow()
+    updateSlideBasedOnHash()
 }
 
 
@@ -189,7 +184,7 @@ function rehydrateSettings() {
     /* Rehydrate the slideshow config from cookie */
     const cookieSlideshowValue = getCookie('slideshowPreference') || ''
     document.getElementById('selectSlideshow').value = cookieSlideshowValue
-    updateSlideshow(cookieSlideshowValue)
+    updateSlideShowContext(cookieSlideshowValue)
     
     /* Rehydrate the current player entries from cookie */
     const savedPlayers = getCookie('players')
@@ -242,15 +237,15 @@ function setupEventListeners() {
     document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
-    document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
-    document.getElementById('selectSlideshowCurrentSlide').addEventListener('change', handleSlideshowSlideChange)
+    document.getElementById('selectSlideshow').addEventListener('change', handleSlideShowChange)
+    document.getElementById('selectSlideshowCurrentSlide').addEventListener('change', handleSlideShowSlideChange)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
-    document.body.addEventListener('click', handleSlideControlClick)
+    document.body.addEventListener('click', e => e.target.closest('.return-to-initiative') && handleSlideControlClick(e));
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
@@ -269,15 +264,15 @@ function setupEventListeners() {
     }    
 
     // Slideshow Handler
-    function handleSlideshowChange(event) {
+    function handleSlideShowChange(event) {
         const selectedSlideshow = event.target.value
-        updateSlideshow(selectedSlideshow)
+        updateSlideShowContext(selectedSlideshow)
     }
 
     // Slideshow Slide Handler
-    function handleSlideshowSlideChange(event) {
+    function handleSlideShowSlideChange(event) {
         const selectedSlide = event.target.value
-        updateSlideshowCurrentSlide(selectedSlide)
+        updateSlideShowCurrentSlide(selectedSlide)
     }
     
     // Dictation
@@ -727,7 +722,7 @@ function decreaseChalkiness() {
     }
 }
 
-function updateSlideshow(selectedSlideshow) {
+function updateSlideShowContext(selectedSlideshow) {
     if (selectedSlideshow) {
         //update global var
         currentSlideShow = selectedSlideshow
@@ -745,7 +740,7 @@ function updateSlideshow(selectedSlideshow) {
     setCookie('slideshowPreference', selectedSlideshow)
 }
 
-function updateSlideshowCurrentSlide(slide) {
+function updateSlideShowCurrentSlide(slide) {
     if (slide) {
         document.getElementById('sceneBtn').href = `#${slide}`
     }
@@ -1326,81 +1321,99 @@ async function setupSlideShow() {
 }
 
 async function fetchSlideshowConfig(url) {
-    const response = await fetch(url);
-    return response.json();
+    const response = await fetch(url)
+    return response.json()
 }
 
-function handleSlideControlClick(e) {
-    e.preventDefault()
-    const isNextLink = e.target.closest('.next-slide')
-    const isPrevLink = e.target.closest('.prev-slide')
-    const isInitiativeLink = e.target.closest('.return-to-initiative')
-    const currentHash = window.location.hash.substring(1)
-    if (isNextLink) {
-        const nextHash = (parseInt(currentHash) || 0) + 1
-        if (slideShowConfig?.scenes?.[nextHash - 1]) {
-            window.location.hash = '#' + nextHash
-        } else {
-            window.location.hash = '' // load initiative tracker
-        }
-    } else if (isPrevLink) {
-        const prevHash = (parseInt(currentHash) || 0) - 1
-        if (slideShowConfig?.scenes?.[prevHash - 1]) {
-            window.location.hash = '#' + prevHash
-        } else {
-            window.location.hash = '' // load initiative tracker
-        }
-    } else if (isInitiativeLink) {
-        window.location.hash = '' // load initiative tracker
+function handleSlideControlClick() {
+    const nextHash = getNextHash()
+    const newSceneBtnHash = nextHash !== '#' ? nextHash : '#1'
+    document.getElementById('sceneBtn').href = newSceneBtnHash
+}
+
+function getNextHash(hashNum) {
+    const currentWindowHash = window.location.hash.substring(1)
+    const currentNumber = parseInt(currentWindowHash) || 0
+    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) + 1
+    
+    if (slideShowConfig?.scenes?.[nextNumber - 1]) {
+        return `#${nextNumber}`
+    } else {
+        return '#' // hash for the initiative tracker view
+    }
+}
+
+function getPrevHash(hashNum) {
+    const currentWindowHash = window.location.hash.substring(1)
+    const currentNumber = parseInt(currentWindowHash) || 0
+    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
+    
+    if (slideShowConfig?.scenes?.[nextNumber - 1]) {
+        return `#${nextNumber}`
+    } else {
+        return '#' // hash for the initiative tracker view
     }
 }
 
 let timeOfLastSlideAdvance = 0;
-function loadPage(url) {
-    const activeCanvas = document.querySelector('.canvas.active')
+async function loadScreen(url) {
     const slideShowPage = document.getElementById('canvas-slideshow')
     const initiativePage = document.getElementById('canvas-initiative')
-    
+    const activeCanvas = document.querySelector('.canvas.active') || initiativePage
+    const sceneIndex = slideShowConfig?.scenes?.findIndex(scene => scene.url === url);
+    const sceneHash = sceneIndex !== -1 ? sceneIndex + 1 : null;
+        
     if (!activeCanvas) {
         console.warn('no active canvas!')
         return
     }
     
-    const isQuickClick = (performance.now() - timeOfLastSlideAdvance < 1000) || (activeCanvas.matches('.--animating-in', '--animating-out'))
+    const isQuickClick = (timeOfLastSlideAdvance > 0 && performance.now() - timeOfLastSlideAdvance < 1000) || (activeCanvas.matches('.--animating-in', '--animating-out'))
     timeOfLastSlideAdvance = performance.now()
 
     // If we just need to return to the initiative tracker, fade active canvas out and fade initiative canvas in and be done.
     if (isInitiativeFetch(url)) {
         const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
-        fadeOut(activeCanvas, duration, () => {
-            fadeIn(initiativePage, duration)
+        return new Promise(resolve => {
+            fadeOut(activeCanvas, duration, () => {
+                fadeIn(initiativePage, duration, resolve)
+            })
         })
-        return
     }
 
 
     // AJAX get next slide's HTML, load it up, and fade it in.
-    fetch(url)
-        .then(response => response.text())
-        .then(html => {
-            console.debug('fetched.')
-            const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
+    try {
+        const response = await fetch(url)
+        const html = await response.text()
+        console.debug('fetched.')
+
+        const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking through the slides
+
+        return new Promise(resolve => {
             fadeOut(activeCanvas, duration,  () => {
                 // Populate div, but it's still hidden (opacity: 0) at this point.
                 slideShowPage.innerHTML = html
-                // Populate with slideshow control buttons
-                // Click right side of screen to advance to next slide, middle go start initiative, left to go back.
+
+                // Populate with slideshow control buttons (Click right side of screen to advance to next slide, middle go start initiative, left to go back.)
                 const slideControlButtons = ['prev-slide', 'return-to-initiative', 'next-slide']
                 slideControlButtons.forEach(className => {
                     const link = document.createElement('a')
                     link.setAttribute('role', 'button')
                     link.className = className
+                    // Set hrefs using getNextHash and getPrevHash
+                    if (className === 'next-slide') link.href = getNextHash(sceneHash)
+                    if (className === 'prev-slide') link.href = getPrevHash(sceneHash)
+                    if (className === 'return-to-initiative') link.href = '#'
                     slideShowPage.querySelector('.slideshow-content').appendChild(link)
                 })
                 fadeIn(slideShowPage, duration)
             })
+            resolve() // Resolve immediately after fetch (having also set up the fades to fire)
         })
-    .catch(err => console.warn('Error loading page:', err))
+    } catch (err) {
+        console.warn('Error loading page:', err)
+    }
 }
 
 function isInitiativeFetch(url) {
@@ -1414,13 +1427,13 @@ function isInitiativeFetch(url) {
 function stopAnimation(el) {
     // Cancel requestAnimationFrame
     if (el.animationFrameId) {
-        cancelAnimationFrame(el.animationFrameId);
-        delete el.animationFrameId;
+        cancelAnimationFrame(el.animationFrameId)
+        delete el.animationFrameId
     }
 
     // Remove animation classes and reset styles
-    el.classList.remove('--animating-in', '--animating-out');
-    el.style.removeProperty('opacity');
+    el.classList.remove('--animating-in', '--animating-out')
+    el.style.removeProperty('opacity')
 }
 
 // ** FADE IN FUNCTION FROM https://dev.to/bmsvieira/vanilla-js-fadein-out-2a6o **
@@ -1519,12 +1532,12 @@ function updateSlideBasedOnHash() {
     const hash = window.location.hash.substring(1)
     // If no slide number hash or 0, go back to initiative tracker scene.
     if (/^$|^#0?$/.test(hash)) {
-        loadPage('INITIATIVE_TRACKER')
+        loadScreen('INITIATIVE')
     } else {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideShowConfig?.scenes?.[sceneIndex]?.url ?? null
         if (sceneToLaunch) {
-            loadPage(sceneToLaunch)
+            loadScreen(sceneToLaunch)
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideShow}'`)
         }
