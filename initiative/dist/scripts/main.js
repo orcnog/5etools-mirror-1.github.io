@@ -8,8 +8,8 @@ let liveTextMode = true
 let players = []
 let currentTurn = 0
 let currentRound = 1
-let currentSlideShow
-let slideShowConfig = {}
+let currentSlideshow
+let slideshowConfig = {}
 let recognition // SpeechRecognition object
 let grammarList // SpeechGrammarList object
 let final_transcript = ''
@@ -79,7 +79,7 @@ async function main() {
     rehydrateSettings()
     setupEventListeners()
     setupSpeechDicatation()
-    await setupSlideShow()
+    await setupSlideshow()
     updateSlideBasedOnHash()
 }
 
@@ -184,7 +184,12 @@ function rehydrateSettings() {
     /* Rehydrate the slideshow config from cookie */
     const cookieSlideshowValue = getCookie('slideshowPreference') || ''
     document.getElementById('selectSlideshow').value = cookieSlideshowValue
-    updateSlideShowContext(cookieSlideshowValue)
+    updateSlideshowContext(cookieSlideshowValue)
+    
+    /* Rehydrate the next slide to show from cookie */
+    const cookieNextSlideToShowValue = getCookie('slideshowNextSlidePreference') || ''
+    document.getElementById('slideshowNextSlide').value = parseInt(cookieNextSlideToShowValue)
+    updateNextSlideToShow(cookieNextSlideToShowValue)
     
     /* Rehydrate the current player entries from cookie */
     const savedPlayers = getCookie('players')
@@ -237,15 +242,16 @@ function setupEventListeners() {
     document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
-    document.getElementById('selectSlideshow').addEventListener('change', handleSlideShowChange)
-    document.getElementById('selectSlideshowCurrentSlide').addEventListener('change', handleSlideShowSlideChange)
+    document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
+    document.getElementById('slideshowNextSlide').addEventListener('change', handleSlideshowSlideChange)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
-    document.body.addEventListener('click', e => e.target.closest('.return-to-initiative') && handleSlideControlClick(e));
+    document.body.addEventListener('click', e => e.target.closest('.slide-control') && handleSlideControlClick(e));
+    document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href))
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
@@ -264,15 +270,15 @@ function setupEventListeners() {
     }    
 
     // Slideshow Handler
-    function handleSlideShowChange(event) {
+    function handleSlideshowChange(event) {
         const selectedSlideshow = event.target.value
-        updateSlideShowContext(selectedSlideshow)
+        updateSlideshowContext(selectedSlideshow)
     }
 
     // Slideshow Slide Handler
-    function handleSlideShowSlideChange(event) {
+    function handleSlideshowSlideChange(event) {
         const selectedSlide = event.target.value
-        updateSlideShowCurrentSlide(selectedSlide)
+        updateNextSlideToShow(selectedSlide)
     }
     
     // Dictation
@@ -722,28 +728,17 @@ function decreaseChalkiness() {
     }
 }
 
-function updateSlideShowContext(selectedSlideshow) {
+function updateSlideshowContext(selectedSlideshow) {
     if (selectedSlideshow) {
         //update global var
-        currentSlideShow = selectedSlideshow
+        currentSlideshow = selectedSlideshow
         document.querySelector('body').classList.add('slideshow')        
         if (selectedSlideshow) document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.add('active')
-
-        const currentHash = window.location.hash.substring(1)
-        if (!currentHash) {
-            document.getElementById('sceneBtn').href = '#1'
-        }
     } else {
         document.querySelector('body').classList.remove('slideshow')
         document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
     }
     setCookie('slideshowPreference', selectedSlideshow)
-}
-
-function updateSlideShowCurrentSlide(slide) {
-    if (slide) {
-        document.getElementById('sceneBtn').href = `#${slide}`
-    }
 }
 
 function populateSelectWithFonts() {
@@ -1312,11 +1307,11 @@ function renderPlayers() {
  * Slideshow Management
  */
 
-async function setupSlideShow() {
-    const slideShowJSON = await fetchSlideshowConfig('./slideshow/slideshow-config.json')
-    if (slideShowJSON) {
+async function setupSlideshow() {
+    const slideshowJSON = await fetchSlideshowConfig('./slideshow/slideshow-config.json')
+    if (slideshowJSON) {
         // Update global var
-        slideShowConfig = slideShowJSON[currentSlideShow] || null
+        slideshowConfig = slideshowJSON[currentSlideshow] || null
     }
 }
 
@@ -1325,21 +1320,28 @@ async function fetchSlideshowConfig(url) {
     return response.json()
 }
 
-function handleSlideControlClick() {
-    const nextHash = getNextHash()
-    const newSceneBtnHash = nextHash !== '#' ? nextHash : '#1'
-    document.getElementById('sceneBtn').href = newSceneBtnHash
+function updateNextSlideToShow (newVal) {
+    document.getElementById('sceneBtn').href = `#${newVal}`
+    document.getElementById('sceneBtn').dataset.slide = newVal
+    setCookie('slideshowNextSlidePreference', newVal)
 }
 
-function getNextHash(hashNum) {
+function handleSlideControlClick() {
+    const nextHash = getNextHash()
+    const newSceneBtnHash = nextHash !== '' ? nextHash : '1'
+    updateNextSlideToShow(newSceneBtnHash)
+}
+
+function getNextHash(hashVal) {
+    const hashNum = hashVal ? parseInt(hashVal) : null
     const currentWindowHash = window.location.hash.substring(1)
     const currentNumber = parseInt(currentWindowHash) || 0
     const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) + 1
     
-    if (slideShowConfig?.scenes?.[nextNumber - 1]) {
-        return `#${nextNumber}`
+    if (slideshowConfig?.scenes?.[nextNumber - 1]) {
+        return `${nextNumber}`
     } else {
-        return '#' // hash for the initiative tracker view
+        return '' // return to initiative tracker view
     }
 }
 
@@ -1348,19 +1350,19 @@ function getPrevHash(hashNum) {
     const currentNumber = parseInt(currentWindowHash) || 0
     const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
     
-    if (slideShowConfig?.scenes?.[nextNumber - 1]) {
-        return `#${nextNumber}`
+    if (slideshowConfig?.scenes?.[nextNumber - 1]) {
+        return `${nextNumber}`
     } else {
-        return '#' // hash for the initiative tracker view
+        return '' // return to initiative tracker view
     }
 }
 
 let timeOfLastSlideAdvance = 0;
 async function loadScreen(url) {
-    const slideShowPage = document.getElementById('canvas-slideshow')
+    const slideshowPage = document.getElementById('canvas-slideshow')
     const initiativePage = document.getElementById('canvas-initiative')
     const activeCanvas = document.querySelector('.canvas.active') || initiativePage
-    const sceneIndex = slideShowConfig?.scenes?.findIndex(scene => scene.url === url);
+    const sceneIndex = slideshowConfig?.scenes?.findIndex(scene => scene.url === url);
     const sceneHash = sceneIndex !== -1 ? sceneIndex + 1 : null;
         
     if (!activeCanvas) {
@@ -1393,21 +1395,21 @@ async function loadScreen(url) {
         return new Promise(resolve => {
             fadeOut(activeCanvas, duration,  () => {
                 // Populate div, but it's still hidden (opacity: 0) at this point.
-                slideShowPage.innerHTML = html
+                slideshowPage.innerHTML = html
 
                 // Populate with slideshow control buttons (Click right side of screen to advance to next slide, middle go start initiative, left to go back.)
                 const slideControlButtons = ['prev-slide', 'return-to-initiative', 'next-slide']
                 slideControlButtons.forEach(className => {
                     const link = document.createElement('a')
                     link.setAttribute('role', 'button')
-                    link.className = className
+                    link.className = `slide-control ${className}`
                     // Set hrefs using getNextHash and getPrevHash
-                    if (className === 'next-slide') link.href = getNextHash(sceneHash)
-                    if (className === 'prev-slide') link.href = getPrevHash(sceneHash)
+                    if (className === 'next-slide') link.href = `#${getNextHash(sceneHash)}`
+                    if (className === 'prev-slide') link.href = `#${getPrevHash(sceneHash)}`
                     if (className === 'return-to-initiative') link.href = '#'
-                    slideShowPage.querySelector('.slideshow-content').appendChild(link)
+                    slideshowPage.querySelector('.slideshow-content').appendChild(link)
                 })
-                fadeIn(slideShowPage, duration)
+                fadeIn(slideshowPage, duration)
             })
             resolve() // Resolve immediately after fetch (having also set up the fades to fire)
         })
@@ -1535,11 +1537,11 @@ function updateSlideBasedOnHash() {
         loadScreen('INITIATIVE')
     } else {
         const sceneIndex = parseInt(hash) - 1
-        const sceneToLaunch = slideShowConfig?.scenes?.[sceneIndex]?.url ?? null
+        const sceneToLaunch = slideshowConfig?.scenes?.[sceneIndex]?.url ?? null
         if (sceneToLaunch) {
             loadScreen(sceneToLaunch)
         } else {
-            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideShow}'`)
+            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshow}'`)
         }
     }
 }
