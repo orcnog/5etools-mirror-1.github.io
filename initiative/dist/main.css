@@ -660,12 +660,14 @@ body.menu-open .settings-menu-closed-ui {
     mask: none;
     transform: translate(-50%, -50%);
     transition: font-size 250ms;
+    z-index: 2;
 }
 
 .interim-output:not(.active) {
     opacity: 0;
     pointer-events: none;
     font-size: 0;
+    z-index: 0;
 }
 
 .interim-output #interimTranscript {

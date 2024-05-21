@@ -14,6 +14,7 @@ let recognition // SpeechRecognition object
 let grammarList // SpeechGrammarList object
 let final_transcript = ''
 let allTranscripts = []
+let singleDigitRegexPatterns
 let aliasMap = {
     'brinley': 'brynlee',
     'zoe': 'zoey',
@@ -75,71 +76,29 @@ window.onload = async function () {
  * Main Function
  */
 async function main() {
-    outLogsToSettingsPage()
+    calculateGlobalVars()
     rehydrateSettings()
     setupEventListeners()
     setupSpeechDicatation()
     await setupSlideshow()
     updateSlideBasedOnHash()
+    outputLogsToSettingsPage()
 }
 
-
-/**
- * Helper Functions
- */
-
-
-function outLogsToSettingsPage() {
-    let outputLogsToText = true // Toggle this to control logging behavior
-    const eventLog = document.getElementById('eventlog')
-
-    const originalConsole = {
-        log: console.log,
-        warn: console.warn,
-        info: console.info,
-        debug: console.debug,
-        error: console.error
-    }
-
-    function appendToEventLog(type, args) {
-        if (outputLogsToText && eventLog) {
-            // eventLog.innerHTML += `[${type.toUpperCase()}]: ${args.join(' ')}<br>`
-            eventLog.innerHTML += `${args.join(' ')}<br>`
+function calculateGlobalVars() {
+    singleDigitRegexPatterns = (function (numberMap) {
+        const patterns = {}
+        for (const word in numberMap) {
+            const value = numberMap[word]
+            // Add the numeral itself as a string, ensuring it's added only once
+            patterns[value] = value.toString()
         }
-    }
-
-    // console.log = function (...args) {
-    //     originalConsole.log.apply(console, args)
-    //     appendToEventLog('log', args)
-    // }
-
-    console.warn = function (...args) {
-        originalConsole.warn.apply(console, args)
-        appendToEventLog('warn', args)
-    }
-
-    console.info = function (...args) {
-        originalConsole.info.apply(console, args)
-        appendToEventLog('info', args)
-    }
-
-    // console.debug = function (...args) {
-    //     originalConsole.debug.apply(console, args)
-    //     appendToEventLog('debug', args)
-    // }
-
-    console.error = function (...args) {
-        originalConsole.error.apply(console, args)
-        appendToEventLog('error', args)
-    }
-
-    // Expose the variable to the global scope if you need to toggle it outside of this function
-    window.toggleLogOutput = function(val) {
-        outputLogsToText = !!val
-    }
-
-    // If you want to stop logging to the <p> element, use:
-    // toggleLogOutput(false)
+        for (const word in numberMap) {
+            const value = numberMap[word]
+            patterns[value] += `|${word}`
+        }
+        return patterns; // ex: {'one': '1|won|want|one', 'two': '2|to|too|two'}
+    })(numberMapSingleDigit)
 }
 
 function rehydrateSettings() {
@@ -407,6 +366,7 @@ async function setupSpeechDicatation() {
                     'want to':'1 2',
                     'want for':'1 4'
                 }
+
                 // Replace unique group-number words
                 for (const [word, number] of Object.entries(uniqueGroupNumberWords)) {
                     let numberWordpattern = new RegExp(`\\b(${word})+\\b`, 'g')
@@ -420,9 +380,18 @@ async function setupSpeechDicatation() {
                 interim_transcript = ''
             } else {
                 // heard small part, maybe just a syllable, but has not yet made a final decision about what it heard.
-                interim_transcript += event.results[i][0].transcript
-                // console.debug(`maybe: ${interim_transcript}`)
-                // console.debug(event)
+                interim_transcript += ' ' + event.results[i][0].transcript
+                
+                // let hitCount = 0
+                // for (const num in singleDigitRegexPatterns) {
+                //     const groupWords = singleDigitRegexPatterns[num]
+                //     const regex = new RegExp(`\\b(${groupWords})(?!\\d)`, 'gi')
+                //     let matches = event.results[i][0].transcript.match(regex) || []
+                //     hitCount += matches.length
+                // }
+
+                console.info(`maybe: ${interim_transcript}`)
+                console.debug(event)
             }
         }
 
@@ -448,7 +417,6 @@ async function setupSpeechDicatation() {
     
     function speechEndHandler() {
         console.info(`Heard altogether: "${final_transcript}"`)
-        console.info('Speech ended. Parsing results.')
         if (isEmpty(final_transcript)) {
             if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
         } else if (isClearCommand(final_transcript)) {
@@ -460,7 +428,7 @@ async function setupSpeechDicatation() {
         } else {
             let interpretedTranscript = parseInput(final_transcript)
             interpretedTranscript = trimIncompletePattern(interpretedTranscript)
-            console.info(`parsed results: ${interpretedTranscript}`)
+            console.info(`Parsed results: ${interpretedTranscript}`)
             allTranscripts.push(interpretedTranscript)
             const joinedInput = allTranscripts.join(' ')
             parseAndAddEntries(joinedInput)
@@ -523,32 +491,22 @@ async function setupSpeechDicatation() {
         let probableResult = sortedResults[0]
         let maxHits = 0
     
-        // Generate patterns from numberMapSingleDigit
-        const patterns = {};
-        for (const word in numberMapSingleDigit) {
-            const value = numberMapSingleDigit[word]
-            if (!patterns[value]) {
-                patterns[value] = []
-            }
-            patterns[value].push(word)
+        const allAltTranscripts = []
 
-            // Add the numeral itself as a string, ensuring it's added only once
-            if (!patterns[value].includes(value.toString())) {
-                patterns[value].push(value.toString())
-            }
-        }
-    
         // Iterate over alternatives
         for (let i = 0; i < sortedResults.length; i++) {
             const result = sortedResults[i]
+            const transcript = result.transcript
+            allAltTranscripts.push(transcript)
+
             if (result.confidence < 0.3) continue
     
             let hitCount = 0
             // Test each number group pattern
-            for (const num in patterns) {
-                const groupWords = patterns[num].join('|')
+            for (const num in singleDigitRegexPatterns) {
+                const groupWords = singleDigitRegexPatterns[num]
                 const regex = new RegExp(`\\b(${groupWords})(?!\\d)`, 'gi')
-                let matches = result.transcript.match(regex) || []
+                let matches = transcript.match(regex) || []
                 hitCount += matches.length
             }
     
@@ -556,10 +514,12 @@ async function setupSpeechDicatation() {
             if (hitCount > maxHits) {
                 maxHits = hitCount
                 probableResult = result
-                console.debug('chose alternative: ' + result.transcript)
+                console.debug('chose alternative: ' + transcript)
             }
         }
         
+        console.info(`Alternatives: ${allAltTranscripts}`)
+
         console.debug('dbl numeral HITS: ' + maxHits)
         return probableResult
     }
@@ -1553,7 +1513,7 @@ window.onhashchange = updateSlideBasedOnHash
 /**
  * Logging
  */
-function outLogsToSettingsPage() {
+function outputLogsToSettingsPage() {
     let outputLogsToText = true // Toggle this to control logging behavior
     const eventLog = document.getElementById('eventlog')
 
