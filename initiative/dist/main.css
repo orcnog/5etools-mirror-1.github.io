@@ -940,7 +940,6 @@ input.speech-input {
     justify-content: space-between;
     align-items: center;
     padding: 0.1em 0;
-    cursor: pointer;
 }
 
 #entries li input {
@@ -955,9 +954,14 @@ input.speech-input {
     text-transform: uppercase;
     background: transparent;
     appearance: none;
+    cursor: pointer;
     -webkit-mask-image: none;
     mask-image: none;
     text-shadow: var(--main-text-shadow);
+}
+
+#entries .player-badge {
+    cursor: pointer;
 }
 
 #entries .highlighted .player-name:not(.strike-thru):not(.bloodied) {

@@ -40,7 +40,7 @@
             <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
                 <i class="fas fa-refresh"></i>
             </button>
-            <a id="sceneBtn" class="btn header-menu-btn next-slide settings-menu-closed-ui">
+            <a id="sceneBtn" class="btn header-menu-btn next-slide">
                 <i class="fas fa-image"></i>
             </a>
         </div>
@@ -51,6 +51,15 @@
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
                 
                 <div class="settings-menu-group">
+                    <label class="settings-label">Copy Initiative Link to Clipboard</label>
+                    <div class="settings-input">
+                        <button id="copyQueryStringToClipboard" class="btn header-menu-btn">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-menu-group toggle-full-screen-menu-group">
                     <label class="settings-label">Full Screen</label>
                     <div class="settings-input">
                         <input id="toggleFullScreenBtn" type="checkbox" />

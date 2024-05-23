@@ -111,8 +111,9 @@
     font-family: "Aurebesh-English", sans-serif;
 }
 .font-aurebesh #entries li input,
+.font-aurebesh #entries li div.player-name, /* for strike-thru names */
 .font-aurebesh .settings-menu .lorem-ipsum {
-    font-size: calc(var(--adjustable-font-size) / 2);
+    font-size: calc(var(--adjustable-font-size) / 1.5);
 }
 .font-aurebesh #entries .player-order {
     flex-basis: 3rem;

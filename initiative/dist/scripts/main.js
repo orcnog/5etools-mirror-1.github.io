@@ -195,39 +195,39 @@ function rehydrateSettings() {
 }
 
 function hydrateInitiativeFromQueryStr() {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search)
 
     // Hydrate the players from the query string
-    const playersParam = urlParams.get('players');
+    const playersParam = urlParams.get('players')
     if (playersParam) {
         try {
-            players = JSON.parse(playersParam);
-            const prevPlayersTranscript = generatedPlayersTranscript(players);
-            allTranscripts.push(prevPlayersTranscript);
-            renderPlayers();
+            players = JSON.parse(playersParam)
+            allTranscripts = [generatedPlayersTranscript(players)]
+            addPlayersAndGo()
         } catch (error) {
-            console.error('Error parsing players from query string:', error);
+            console.error('Error parsing players from query string:', error)
         }
     }
 
     // Hydrate the current round from the query string
-    const roundParam = urlParams.get('round');
+    const roundParam = urlParams.get('round')
     if (roundParam) {
-        currentRound = parseInt(roundParam, 10);
+        currentRound = parseInt(roundParam, 10)
         if (currentRound > 0) {
-            updateTally(currentRound);
+            updateTally(currentRound)
         }
     }
 
     // Hydrate the current turn from the query string
-    const turnParam = urlParams.get('turn');
+    const turnParam = urlParams.get('turn')
     if (turnParam) {
-        currentTurn = parseInt(turnParam, 10);
-        highlightCurrentTurn(true);
+        currentTurn = parseInt(turnParam, 10) - 1
+        highlightCurrentTurn(true)
     }
 }
 
 function setupEventListeners() {
+    document.getElementById('copyQueryStringToClipboard').addEventListener('click', copyInitiativeOrderToClipboard)
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
@@ -260,12 +260,40 @@ function setupEventListeners() {
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
     // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
-    if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.getElementById('toggleFullScreenBtn').remove() };
+    if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.querySelector('.toggle-full-screen-menu-group').remove() };
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(event => {
         document.getElementById("testInput").addEventListener(event, ()=>{console.debug(event)})
     })
+
+    function copyInitiativeOrderToClipboard() {
+        const round = currentRound || 0
+        const turn = currentTurn || 0
+        const playersData = players || []
+
+        // Convert players array to JSON and encode it
+        const playersJson = JSON.stringify(playersData).replace(/([#\?&]|,"badge":""|,"dead":false|,"bloodied":false)/g, '')
+
+        // Construct the full URL
+        const baseUrl = `${window.location.origin}${window.location.pathname}`
+        const fullUrl = `${baseUrl}?round=${round}&turn=${turn}&players=${playersJson}`
+
+        // Create a temporary textarea element to hold the query string
+        const tempTextarea = document.createElement('textarea')
+        tempTextarea.value = fullUrl
+        document.body.appendChild(tempTextarea)
+
+        // Select and copy the content of the textarea to the clipboard
+        tempTextarea.select()
+        document.execCommand('copy')
+
+        // Remove the temporary textarea element from the DOM
+        document.body.removeChild(tempTextarea)
+
+        // Optional: Notify the user that the data has been copied
+        alert('Initiative URL copied to clipboard!')
+    }
 
     // Font Preference
     function handleFontChange(event) {
@@ -1299,7 +1327,7 @@ function renderPlayers() {
         el.innerHTML = `<i class="${icon}">`
         el.addEventListener('click', () => {
             action(player)
-            postEditCleanup()
+            postEditCleanup(true)
         })
 
         return el
@@ -1351,7 +1379,7 @@ function renderPlayers() {
         }
         
         const newValue = (input.className === 'player-order') ? parseInt(input.value, 10) : input.value
-        const doReorder = input.className === 'player-order' || (input.className === 'player-name' && newValue == '')
+        const doRerender = input.className === 'player-order' || (input.className === 'player-name' && newValue == '')
         
         switch (input.className) {
             case 'player-order':
@@ -1370,16 +1398,17 @@ function renderPlayers() {
         }
 
         // if (e.relatedTarget && e.relatedTarget.tagName === 'INPUT') e.relatedTarget.select()
-        postEditCleanup(doReorder)
+        postEditCleanup(doRerender)
     }
 
-    function postEditCleanup(doReorder) {
+    function postEditCleanup(doRerender) {
         players = players.filter(p => !p.deleteme)
-        if (doReorder) players.sort((a, b) => b.order - a.order)
+        if (doRerender) players.sort((a, b) => b.order - a.order)
 
         allTranscripts = [generatedPlayersTranscript(players)]
-        if (doReorder) renderPlayers()
+        if (doRerender) renderPlayers()
         setCookie('players', JSON.stringify(players))
+        clearQueryString()
     }
 }
 
@@ -1644,7 +1673,7 @@ function refreshPage() {
 }
 
 /**
- * Hash URL management
+ * URL management
  */
 
 function updateSlideBasedOnHash() {
@@ -1676,6 +1705,11 @@ function updateSlideBasedOnHash() {
 // Update the link when the hash changes
 window.onhashchange = updateSlideBasedOnHash
 
+function clearQueryString() {
+    // Replace the current query string with a blank one, so if the player refreshes, it doesn't wipe out any changes.
+    const url = window.location.origin + window.location.pathname
+    window.history.replaceState({}, document.title, url)
+}
 
 /**
  * Logging
