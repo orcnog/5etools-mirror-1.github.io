@@ -80,6 +80,7 @@ async function main() {
     calculateGlobalVars()
     await fetchConfigs()
     rehydrateSettings()
+    hydrateInitiativeFromQueryStr()
     setupEventListeners()
     await setupSpeechDicatation()
     updateSlideBasedOnHash()
@@ -190,6 +191,39 @@ function rehydrateSettings() {
     if (savedTurn) {
         currentTurn = parseInt(savedTurn, 10)
         highlightCurrentTurn(true)
+    }
+}
+
+function hydrateInitiativeFromQueryStr() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Hydrate the players from the query string
+    const playersParam = urlParams.get('players');
+    if (playersParam) {
+        try {
+            players = JSON.parse(playersParam);
+            const prevPlayersTranscript = generatedPlayersTranscript(players);
+            allTranscripts.push(prevPlayersTranscript);
+            renderPlayers();
+        } catch (error) {
+            console.error('Error parsing players from query string:', error);
+        }
+    }
+
+    // Hydrate the current round from the query string
+    const roundParam = urlParams.get('round');
+    if (roundParam) {
+        currentRound = parseInt(roundParam, 10);
+        if (currentRound > 0) {
+            updateTally(currentRound);
+        }
+    }
+
+    // Hydrate the current turn from the query string
+    const turnParam = urlParams.get('turn');
+    if (turnParam) {
+        currentTurn = parseInt(turnParam, 10);
+        highlightCurrentTurn(true);
     }
 }
 
@@ -708,6 +742,46 @@ function updateSlideshowContext(selectedSlideshow) {
         if (selectedSlideshow) {
             document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.add('active')
             populateSelectWithSlideNumbers()
+        }
+        // Load font if necessary
+        if (slideshow.exoticfont) {
+            let fontUrl;
+            let fontName;
+            switch (slideshow.exoticfont.toLowerCase()) {
+                case 'aurebesh':
+                    fontUrl = 'https://fonts.cdnfonts.com/css/aurebesh';
+                    fontName = 'Aurebesh';
+                    break;
+                case 'elvish':
+                    fontUrl = 'https://fonts.cdnfonts.com/css/tengwar-quenya';
+                    fontName = 'Tengwar Quenya';
+                    break;
+                case 'dwarvish':
+                    fontUrl = 'https://fonts.cdnfonts.com/css/khuzdulerebor';
+                    fontName = 'KhuzdulErebor';
+                    break;
+            }
+
+            if (fontUrl) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = fontUrl;
+                document.head.appendChild(link);
+
+                // Check if an existing <style> tag for the exotic font is present
+                let styleTag = document.getElementById('exotic-font-style');
+                if (!styleTag) {
+                    // Create a new <style> tag if it does not exist
+                    styleTag = document.createElement('style');
+                    styleTag.id = 'exotic-font-style';
+                    document.head.appendChild(styleTag);
+                }
+
+                // Update the <style> tag with the @font-face and CSS variable definition
+                styleTag.innerHTML = `
+                    :root { --exotic-font: '${fontName}'; }
+                `;
+            }
         }
     } else {
         document.querySelector('body').classList.remove('slideshow')
@@ -1324,16 +1398,23 @@ function updateNextSlideToShow (newVal) {
     setCookie('slideshowNextSlidePreference', newVal)
 }
 
-function handleSlideControlClick() {
-    const nextHash = getNextHash()
-    const newSceneBtnHash = nextHash !== '' ? nextHash : '1'
-    updateNextSlideToShow(newSceneBtnHash)
+function handleSlideControlClick(e) {
+    if (!e.target.closest('.prev-slide')) {
+        const nextHash = getNextHash()
+        const newSceneBtnHash = nextHash !== '' ? nextHash : '1'
+        updateNextSlideToShow(newSceneBtnHash)
+    }
+}
+
+function getCurrentHashNumber() {
+    const currentWindowHash = window.location.hash.substring(1)
+    const currentNumber = parseInt(currentWindowHash) || 0
+    return currentNumber
 }
 
 function getNextHash(hashVal) {
     const hashNum = hashVal ? parseInt(hashVal) : null
-    const currentWindowHash = window.location.hash.substring(1)
-    const currentNumber = parseInt(currentWindowHash) || 0
+    const currentNumber = getCurrentHashNumber()
     const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) + 1
     
     if (slideshow?.scenes?.[nextNumber - 1]) {
@@ -1343,9 +1424,9 @@ function getNextHash(hashVal) {
     }
 }
 
-function getPrevHash(hashNum) {
-    const currentWindowHash = window.location.hash.substring(1)
-    const currentNumber = parseInt(currentWindowHash) || 0
+function getPrevHash(hashVal) {
+    const hashNum = hashVal ? parseInt(hashVal) : null
+    const currentNumber = getCurrentHashNumber()
     const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
     
     if (slideshow?.scenes?.[nextNumber - 1]) {
@@ -1356,7 +1437,15 @@ function getPrevHash(hashNum) {
 }
 
 let timeOfLastSlideAdvance = 0;
-async function loadScreen(url) {
+/**
+ * Loads the specified screen content into the slideshow canvas. If the URL points to an image, 
+ * it loads the image directly. Otherwise, it fetches HTML content from the URL and populates 
+ * the slideshow canvas with it. Manages fade transitions between screens.
+ *
+ * @param {string} url - The URL of the content to load. Can be an image URL or an HTML URL.
+ * @returns {Promise<void>} A promise that resolves when the content has been loaded and the fade transitions have been set up.
+ */
+async function loadScreen(url, pageObj) {
     const slideshowPage = document.getElementById('canvas-slideshow')
     const initiativePage = document.getElementById('canvas-initiative')
     const activeCanvas = document.querySelector('.canvas.active') || initiativePage
@@ -1370,10 +1459,10 @@ async function loadScreen(url) {
     
     const isQuickClick = (timeOfLastSlideAdvance > 0 && performance.now() - timeOfLastSlideAdvance < 1000) || (activeCanvas.matches('.--animating-in', '--animating-out'))
     timeOfLastSlideAdvance = performance.now()
+    const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
 
     // If we just need to return to the initiative tracker, fade active canvas out and fade initiative canvas in and be done.
     if (isInitiativeFetch(url)) {
-        const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking thru the slides
         return new Promise(resolve => {
             fadeOut(activeCanvas, duration, () => {
                 fadeIn(initiativePage, duration, resolve)
@@ -1381,39 +1470,70 @@ async function loadScreen(url) {
         })
     }
 
+    let html = '';
 
-    // AJAX get next slide's HTML, load it up, and fade it in.
-    try {
-        const response = await fetch(url)
-        const html = await response.text()
-        console.debug('fetched.')
+    // Determine if the URL is for an image
+    const isImage = !url && !!pageObj && pageObj.image && ['.webp', '.jpg', '.jpeg', '.png'].some(ext => pageObj.image.toLowerCase().endsWith(ext))
 
-        const duration = isQuickClick ? 100 : 1000 // Make the transition instant if the user is quickly clicking through the slides
-
-        return new Promise(resolve => {
-            fadeOut(activeCanvas, duration,  () => {
-                // Populate div, but it's still hidden (opacity: 0) at this point.
-                slideshowPage.innerHTML = html
-
-                // Populate with slideshow control buttons (Click right side of screen to advance to next slide, middle go start initiative, left to go back.)
-                const slideControlButtons = ['prev-slide', 'return-to-initiative', 'next-slide']
-                slideControlButtons.forEach(className => {
-                    const link = document.createElement('a')
-                    link.setAttribute('role', 'button')
-                    link.className = `slide-control ${className}`
-                    // Set hrefs using getNextHash and getPrevHash
-                    if (className === 'next-slide') link.href = `#${getNextHash(sceneHash)}`
-                    if (className === 'prev-slide') link.href = `#${getPrevHash(sceneHash)}`
-                    if (className === 'return-to-initiative') link.href = '#'
-                    slideshowPage.querySelector('.slideshow-content').appendChild(link)
-                })
-                fadeIn(slideshowPage, duration)
-            })
-            resolve() // Resolve immediately after fetch (having also set up the fades to fire)
-        })
-    } catch (err) {
-        console.warn('Error loading page:', err)
+    if (isImage) {
+        // Construct HTML for the next slide, if it was just an image with optional caption texts
+        html = `
+            <div class="slideshow-content">
+                <div class="slideshow-wrapper">
+                    <figure class="slideshow-image">
+                        <img src="${pageObj.image}" alt="Slide Image"/>
+                        ${pageObj.caption ? `
+                        ${pageObj.show_exotic_font ? `
+                        <figcaption class="illegible-text">
+                            <p>${pageObj.caption}
+                                ${pageObj.subcap ? `<br/><sub>${pageObj.subcap}</sub>` : ''}
+                            </p>
+                        </figcaption>
+                        ` : ''}
+                        <figcaption class="legible-text">
+                            <p>${pageObj.caption}
+                                ${pageObj.subcap ? `<br/><sub>${pageObj.subcap}</sub>` : ''}
+                            </p>
+                        </figcaption>
+                        ` : ''}
+                    </figure>
+                </div>
+            </div>
+        `;
+    } else {
+        // Or, fetch the HTML content for the next slide
+        try {
+            const response = await fetch(url);
+            html = await response.text();
+            console.debug('fetched.');
+        } catch (err) {
+            console.warn('Error loading page:', err);
+            return;
+        }
     }
+
+    // Load up the next slide, and fade it in.
+    return new Promise(resolve => {
+        fadeOut(activeCanvas, duration,  () => {
+            // Populate div, but it's still hidden (opacity: 0) at this point.
+            slideshowPage.innerHTML = html
+
+            // Populate with slideshow control buttons (Click right side of screen to advance to next slide, middle go start initiative, left to go back.)
+            const slideControlButtons = ['prev-slide', 'return-to-initiative', 'next-slide']
+            slideControlButtons.forEach(className => {
+                const link = document.createElement('a')
+                link.setAttribute('role', 'button')
+                link.className = `slide-control ${className}`
+                // Set hrefs using getNextHash and getPrevHash
+                if (className === 'next-slide') link.href = `#${getNextHash(sceneHash)}`
+                if (className === 'prev-slide') link.href = `#${getPrevHash(sceneHash)}`
+                if (className === 'return-to-initiative') link.href = '#'
+                slideshowPage.querySelector('.slideshow-content').appendChild(link)
+            })
+            fadeIn(slideshowPage, duration)
+        })
+        resolve() // Resolve immediately after fetch (having also set up the fades to fire)
+    })
 }
 
 function isInitiativeFetch(url) {
@@ -1535,11 +1655,20 @@ function updateSlideBasedOnHash() {
         loadScreen('INITIATIVE')
     } else {
         const sceneIndex = parseInt(hash) - 1
-        const sceneToLaunch = slideshow?.scenes?.[sceneIndex]?.url ?? null
+        const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
         if (sceneToLaunch) {
-            loadScreen(sceneToLaunch)
+            if (sceneToLaunch.url) {
+                loadScreen(sceneToLaunch.url);
+            } else {
+                loadScreen(null, {
+                    image: sceneToLaunch.image,
+                    caption: sceneToLaunch.caption,
+                    subcap: sceneToLaunch.subcap,
+                    show_exotic_font: !!slideshow?.exoticfont
+                })
+            }
         } else {
-            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`)
+            console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
         }
     }
 }

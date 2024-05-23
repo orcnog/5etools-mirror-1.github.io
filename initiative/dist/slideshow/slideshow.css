@@ -72,7 +72,7 @@ figure.slideshow-image img {
 }
 
 .illegible-text {
-    font-family: 'Aurebesh', 'Courier New', Courier, monospace;
+    font-family: var(--exotic-font), sans-serif, monospace;
     animation: blurOutFadeOut 2s ease-out 2s forwards;
     -webkit-animation: blurOutFadeOut 2s ease-out 2s forwards;
 }
@@ -137,7 +137,7 @@ figure.slideshow-image img {
     font-size: 7vw;
     color: rgba(200, 200, 200, 0.6);
     opacity: 0;
-    transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0, 0, 0.31, 0.99);
+    transition: opacity 0.25s linear, transform 0.4s cubic-bezier(0, 0, 0.31, 0.99)
 }
 
 .slideshow-content .prev-slide::before {
@@ -152,12 +152,13 @@ figure.slideshow-image img {
 
 .slideshow-content .return-to-initiative::before {
     content: "\2694";
-    transform: translate(0, -3vw);
+    transform: scale(0.25);
+    font-size: 10vw;
 }
 
 .slideshow-content .prev-slide:hover::before,
 .slideshow-content .next-slide:hover::before,
 .slideshow-content .return-to-initiative:hover::before {
     opacity: 1;
-    transform: translate(0, 0);
+    transform: translate(0, 0) scale(1);
 }

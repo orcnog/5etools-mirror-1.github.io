@@ -1,16 +1,15 @@
 {
     "lost-temple": {
         "name": "The Lost Jedi Temple",
+        "exoticfont": "Aurebesh",
         "scenes": [
             {
-                "url": "./slideshow/planetapproach",
-                "image": "planetapproach/planet-approach.webp",
+                "image": "./slideshow/planetapproach/ringed-planet-approach.webp",
                 "caption": "Unknown Planet",
                 "subcap": "Location of the Lost Jedi Temple"
             },
             {
-                "url": "./slideshow/derelictship",
-                "image": "derelictship/derelict-ship.webp",
+                "image": "./slideshow/derelictship/half-destroyed-derelict-ship.webp",
                 "caption": "Destroyed Ship",
                 "subcap": "Corellian CR90 Stealth Corvette"
             },
@@ -18,13 +17,11 @@
                 "url": "./slideshow/shipconsole"
             },
             {
-                "url": "./slideshow/hieroglyphics",
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
                 "caption": "Ancient Hieroglyphs",
                 "subcap": "Meaning: unknown"
             },
             {
-                "url": "./slideshow/ventalor",
                 "image": "./slideshow/ventalor/ventalor.webp",
                 "caption": "Ven'Talor",
                 "subcap": "The Lost Jedi Temple"
@@ -33,35 +30,37 @@
                 "url": "./slideshow/templeconsole"
             },
             {
-                "url": "./slideshow/greatlibrary",
-                "image": "./slideshow/greatlibrary/greatlibrary.webp"
+                "image": "./slideshow/greatlibrary/greatlibrary.webp",
+                "caption": "The Great Library of Ven'Talor"
             },
             {
-                "url": "./slideshow/final",
-                "image": "./slideshow/final/final.webp"
+                "image": "./slideshow/final/final.webp",
+                "caption": "THE END",
+                "subcap": "May the Force Be With You!"
             }
         ]
     },
     "imperial-decryptor": {
         "name": "The Imperial Decryptor",
+        "exoticfont": "Dwarvish",
         "scenes": [
             {
-                "url": "./slideshow/opening",
-                "image": "./slideshow/opening/opening.webp"
+                "image": "./slideshow/opening/01 game_background_image.webp"
             },
             {
-                "url": "./slideshow/imperialfacility",
                 "image": "./slideshow/imperialfacility/imperial-facility.webp",
                 "caption": "Imperial Archives Facility",
                 "subcap": "On the remote moon of Raxus"
             },
             {
-                "url": "./slideshow/platoonblockade",
-                "image": "./slideshow/platoonblockade/platoon-blockade.webp"
+                "image": "./slideshow/platoonblockade/platoon-blockade.webp",
+                "caption": "Room Full of Stormtroopers",
+                "subcap": "Piece of Cake"
             },
             {
-                "url": "./slideshow/final",
-                "image": "./slideshow/final/final.webp"
+                "image": "./slideshow/final/final.webp",
+                "caption": "THE END",
+                "subcap": "May the Force Be With You!"
             }
         ]
     }
