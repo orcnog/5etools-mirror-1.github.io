@@ -362,7 +362,7 @@ input[type="checkbox"]:checked::before {
 .button-group {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -372,10 +372,7 @@ input[type="checkbox"]:checked::before {
     font-size: 1.5rem;
 }
 
-.button-group-number-bump {
-    justify-content: flex-start;
-}
-
+.input-text,
 .input-number-bump {
     margin: 0 0.5em;
     padding: 0;
@@ -383,6 +380,17 @@ input[type="checkbox"]:checked::before {
     height: 2.25em;
     text-align: center;
     font-size: 1rem;
+}
+
+.input-text {
+    padding: 1rem;
+    width: 50%;
+    text-align: left;
+    -webkit-mask-position: 50%;
+    mask-position: 50%;
+    -webkit-mask-size: 115%;
+    mask-size: 115%;
+    font-family: Courier;
 }
 
 select {

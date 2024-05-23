@@ -197,18 +197,6 @@ function rehydrateSettings() {
 function hydrateInitiativeFromQueryStr() {
     const urlParams = new URLSearchParams(window.location.search)
 
-    // Hydrate the players from the query string
-    const playersParam = urlParams.get('players')
-    if (playersParam) {
-        try {
-            players = JSON.parse(playersParam)
-            allTranscripts = [generatedPlayersTranscript(players)]
-            addPlayersAndGo()
-        } catch (error) {
-            console.error('Error parsing players from query string:', error)
-        }
-    }
-
     // Hydrate the current round from the query string
     const roundParam = urlParams.get('round')
     if (roundParam) {
@@ -220,14 +208,30 @@ function hydrateInitiativeFromQueryStr() {
 
     // Hydrate the current turn from the query string
     const turnParam = urlParams.get('turn')
-    if (turnParam) {
-        currentTurn = parseInt(turnParam, 10) - 1
-        highlightCurrentTurn(true)
+    const turnNumber = parseInt(turnParam, 10)
+    if (typeof turnNumber === 'number' && turnNumber > 1) {
+        currentTurn = turnNumber - 1
+    } else {
+        currentTurn = 1
+    }
+    highlightCurrentTurn(true)
+
+    // Hydrate the players from the query string
+    const playersParam = urlParams.get('players')
+    if (playersParam) {
+        try {
+            players = JSON.parse(playersParam)
+            allTranscripts = [generatedPlayersTranscript(players)]
+            addPlayersAndGo()
+        } catch (error) {
+            console.error('Error parsing players from query string:', error)
+        }
     }
 }
 
 function setupEventListeners() {
     document.getElementById('copyQueryStringToClipboard').addEventListener('click', copyInitiativeOrderToClipboard)
+    document.getElementById('initiativeUrlPasteAndGo').addEventListener('click', reloadWithPastedInitiativeUrl)
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
@@ -268,8 +272,8 @@ function setupEventListeners() {
     })
 
     function copyInitiativeOrderToClipboard() {
-        const round = currentRound || 0
-        const turn = currentTurn || 0
+        const round = currentRound || 1
+        const turn = currentTurn || 1
         const playersData = players || []
 
         // Convert players array to JSON and encode it
@@ -293,6 +297,20 @@ function setupEventListeners() {
 
         // Optional: Notify the user that the data has been copied
         alert('Initiative URL copied to clipboard!')
+    }
+
+    function reloadWithPastedInitiativeUrl () {
+        const inputElement = document.getElementById('pastedInitiativeUrl');
+        if (inputElement) {
+            const url = inputElement.value.trim();
+            if (url) {
+                window.location.href = url;
+            } else {
+                alert('Please enter a valid URL.');
+            }
+        } else {
+            console.error('Input element with id "pastedInitiativeUrl" not found.');
+        }
     }
 
     // Font Preference
