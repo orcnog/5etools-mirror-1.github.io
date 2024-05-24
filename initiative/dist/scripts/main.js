@@ -78,7 +78,8 @@ window.onload = async function () {
  */
 async function main() {
     calculateGlobalVars()
-    await fetchConfigs()
+    await fetchSlideshowConfigs()
+    mergeSlideshowDataWithHomebrew()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupEventListeners()
@@ -103,11 +104,39 @@ function calculateGlobalVars() {
     })(numberMapSingleDigit)
 }
 
-async function fetchConfigs() {
+async function fetchSlideshowConfigs() {
     const slideshowJSON = await fetchJSON('./slideshow/slideshow-config.json')
     if (slideshowJSON) {
         // Update global var
         slideshowConfig = slideshowJSON
+    }
+}
+
+function parseHomebrewSlideshowCookie() {
+    let homeBrewSlideshowObj
+    const savedHomebrewJsonCookieString = getCookie('savedHomebrewJson');
+    if (savedHomebrewJsonCookieString) {
+        try {
+            homeBrewSlideshowObj = JSON.parse(decodeURIComponent(savedHomebrewJsonCookieString))
+        } catch (err) {
+            console.error('Unable to parse Homebrew Slideshow JSON from saved cookie.', err)
+        }
+    }
+    return homeBrewSlideshowObj
+}
+
+function mergeSlideshowDataWithHomebrew() {
+    try {
+        const homeBrewSlideshowObj = parseHomebrewSlideshowCookie()
+
+        // Merge the parsed object to the fetched slideshowConfig
+        for (const key in homeBrewSlideshowObj) {
+            if (homeBrewSlideshowObj.hasOwnProperty(key)) {
+                slideshowConfig[key] = homeBrewSlideshowObj[key];
+            }
+        }
+    } catch (err) {
+        alert(`Unable to parse Homebrew Slideshow JSON from saved cookie. Error: ${err.message}`)
     }
 }
 
@@ -150,18 +179,24 @@ function rehydrateSettings() {
     document.getElementById('chalkinessPref').value = parseFloat(cookieChalkiness)
     document.documentElement.style.setProperty('--adjustable-chalkiness', 1 - parseFloat(cookieChalkiness))
     
-    /* Rehydrate the slideshow config from cookie */
+    /* Rehydrate the selected slideshow from cookie */
     const cookieSlideshowValue = getCookie('slideshowPreference') || ''
     document.getElementById('selectSlideshow').value = cookieSlideshowValue
     updateSlideshowContext(cookieSlideshowValue)
     populateSelectWithSlideshows()
-    
+
     /* Rehydrate the next slide to show from cookie */
-    const cookieNextSlideToShowValue = getCookie('slideshowNextSlidePreference') || ''
+    const cookieNextSlideToShowValue = getCookie('slideshowNextSlidePreference') || '1'
     document.getElementById('slideshowNextSlide').value = parseInt(cookieNextSlideToShowValue)
     populateSelectWithSlideNumbers()
     updateNextSlideToShow(cookieNextSlideToShowValue)
-    
+
+    /* Rehydrate slideshow JSON textarea from cookie */
+    const savedHomebrewObj = parseHomebrewSlideshowCookie()
+    if (savedHomebrewObj && Object.keys(savedHomebrewObj).length > 0) {
+        document.getElementById('homebrewSlideshowJSON').value = JSON.stringify(savedHomebrewObj, null, 2)
+    }
+
     /* Rehydrate the current player entries from cookie */
     const savedPlayers = getCookie('players')
     if (savedPlayers) {
@@ -233,7 +268,8 @@ function setupEventListeners() {
     document.getElementById('copyQueryStringToClipboard').addEventListener('click', copyInitiativeOrderToClipboard)
     document.getElementById('initiativeUrlPasteAndGo').addEventListener('click', reloadWithPastedInitiativeUrl)
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
-    document.getElementById('settingsMenuBtn').addEventListener('click', toggleSettingsMenu)
+    document.getElementById('settingsMenuOpenBtn').addEventListener('click', openSettingsMenu)
+    document.getElementById('settingsMenuReturnBtn').addEventListener('click', settingsMenuReturn)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
@@ -250,8 +286,12 @@ function setupEventListeners() {
     document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
+    document.getElementById('openSlideshowMenu').addEventListener('click', ()=> openSettingsSubMenu('slideshowMenu'))
     document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
     document.getElementById('slideshowNextSlide').addEventListener('change', handleSlideshowSlideChange)
+    document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
+    document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
+    document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -314,21 +354,109 @@ function setupEventListeners() {
     }
 
     // Font Preference
-    function handleFontChange(event) {
-        const selectedClass = event.target.value
+    function handleFontChange(e) {
+        const selectedClass = e.target.value
         updateFont(selectedClass)
     }    
 
     // Slideshow Handler
-    function handleSlideshowChange(event) {
-        const selectedSlideshow = event.target.value
+    function handleSlideshowChange(e) {
+        const selectedSlideshow = e.target.value
         updateSlideshowContext(selectedSlideshow)
     }
 
     // Slideshow Slide Handler
-    function handleSlideshowSlideChange(event) {
-        const selectedSlide = event.target.value
+    function handleSlideshowSlideChange(e) {
+        const selectedSlide = e.target.value
         updateNextSlideToShow(selectedSlide)
+    }
+
+    // Validate the homebrew slideshow object (user input)
+    function validateSlideshowObj(obj) {
+        // If the object is empty, it's valid.
+        if (Object.keys(obj).length === 0) return
+
+        // Check if the slideshow Object is an array
+        if (Array.isArray(obj)) {
+            throw new Error('Object is an array, expected an object.');
+        }
+    
+        // Check if the slideshow Object contains at least one slideshow ID
+        if (Object.keys(obj).length === 0) {
+            throw new Error('Object must contain at least one slideshow ID.');
+        }
+    
+        // Check if each first-level child object in the slideshow Object contains a `name` property
+        for (const key in obj) {
+            if (!obj[key].hasOwnProperty('name')) {
+                throw new Error(`Each slideshow must contain a "name" property. Missing in slideshow ID: "${key}".`);
+            }
+        }
+    
+        // Check if each first-level child object in the slideshow Object contains a `scenes` property with at least one `image` property
+        for (const key in obj) {
+            if (!obj[key].hasOwnProperty('scenes') || !Array.isArray(obj[key].scenes) || obj[key].scenes.length === 0) {
+                throw new Error(`Each slideshow must contain a "scenes" property with at least one scene object. Issue found in slideshow ID: "${key}".`);
+            }
+    
+            const hasImageProperty = obj[key].scenes.some(scene => scene.hasOwnProperty('image'));
+            if (!hasImageProperty) {
+                throw new Error(`Each "scenes" array must contain at least one object with an "image" property. Issue found in slideshow ID: "${key}".`);
+            }
+        }
+    }
+
+    // Homebrew JSON textarea edited...
+    function handleHomebrewSlideshowJsonChange() {
+        // Light up the Save button to the primary color.
+        document.getElementById('homebrewSlideshowSave')?.classList.remove('btn-alt')
+    }
+
+    // Homebrew JSON textarea tab pressed.
+    function handleHomebrewSlideshowJsonTab(e) {
+        if (e.code === 'Tab') {
+            e.preventDefault();
+            const TAB_WIDTH = 2;
+            const isShift = e.shiftKey;
+            
+            if (!isShift) {
+                // Apply 1 space for every tab width
+                document.execCommand('insertText', false, ' '.repeat(TAB_WIDTH));
+            }
+        }
+    }
+    
+    // Save Homebrew Slideshow JSON
+    async function handleHomebrewSlideshowSave() {
+        const homebrewJson = document.getElementById('homebrewSlideshowJSON')?.value;
+        let parsedJson = null;
+        try {
+            // If homebrewJson is empty, set parsedJson to an empty object
+            parsedJson = homebrewJson.trim() === '' ? {} : JSON.parse(homebrewJson);
+            validateSlideshowObj(parsedJson);
+        } catch (err) {
+            alert(`JSON parse error. Your code is invalid! Error: ${err.message}`);
+            console.error('JSON parsing or validation error:', err);
+            return;
+        }
+    
+        if (parsedJson !== null) {
+            setCookie('savedHomebrewJson', encodeURIComponent(JSON.stringify(parsedJson)));
+
+            // Re-fetch the slideshow config file(s)
+            await fetchSlideshowConfigs()
+
+            mergeSlideshowDataWithHomebrew()
+
+            populateSelectWithSlideshows()
+            populateSelectWithSlideNumbers()
+            updateNextSlideToShow('1')
+
+            // Dim the save button to gray
+            document.getElementById('homebrewSlideshowSave')?.classList.add('btn-alt')
+            // Re-enable the json input handler to light the save button back up if the json changes again.
+            document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
+        }
     }
     
     // Dictation
@@ -450,7 +578,9 @@ async function setupSpeechDicatation() {
                 // probably triggered by a tiny (but obvious) pause in speech
                 console.debug(event)
                 if (isStopCommand(event.results[i][0].transcript)) document.getElementById('startDictation').click()
-                const probableResult = considerAlternatives(event.results[i])
+                // const sortedResults = sortSpeechRecognitionResults(event.results[i])
+                // const probableResult = considerAlternatives(sortedResults)
+                const probableResult = event.results[i][0]
                 let spokenWords = probableResult.transcript
                 const uniqueGroupNumberWords = {
                     'tutu':'2 2',
@@ -568,6 +698,14 @@ async function setupSpeechDicatation() {
         // Test whether the user said something clearly ending with "cancel"
         return /.*cancel$/i.test(str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim())
     }
+    
+    function sortSpeechRecognitionResults(results) {
+        // Sort the results array by confidence values in descending order
+        const sortedResults = [...results].sort((a, b) => b.confidence - a.confidence)
+    
+        // Preselect the highest confidence item
+        return sortedResults
+    }
 
     /** Test whether the speech recognition thinks it may have heard something different, and decide
      * if that alternative is actually the better choice in this context. If not, just return the
@@ -575,8 +713,8 @@ async function setupSpeechDicatation() {
      */
 
     function considerAlternatives(results) {
-        // Sort the results array by confidence values in descending order
-        const sortedResults = [...results].sort((a, b) => b.confidence - a.confidence)
+        // Sort the results
+        const sortedResults = sortSpeechRecognitionResults(results)
     
         // Preselect the highest confidence item
         let probableResult = sortedResults[0]
@@ -621,13 +759,45 @@ async function setupSpeechDicatation() {
  * App Settings Management
  */
 
-function toggleSettingsMenu() {
+function openSettingsMenu() {
     const bodyElement = document.querySelector('body')
     const settingsMenu = document.querySelector('.settings-menu')
+    const settingsSubMenus = document.querySelectorAll('.settings-sub-menu')
     const mainAppBody = document.querySelector('.main')
-    bodyElement.classList.toggle('menu-open')
-    settingsMenu.classList.toggle('hide')
-    mainAppBody.classList.toggle('hide')
+    bodyElement.classList.add('menu-open')
+    mainAppBody.classList.add('hide-left')
+    settingsMenu.classList.remove('hide-right', 'hide-left', 'hide')
+    settingsSubMenus.forEach(sub => sub.classList.add('hide-right'))
+}
+
+function openSettingsSubMenu(id) {
+    const bodyElement = document.querySelector('body')
+    const settingsMenu = document.querySelector('.settings-menu')
+    const settingsSubMenu = document.getElementById(id)
+    const mainAppBody = document.querySelector('.main')
+    bodyElement.classList.add('menu-open', 'sub-menu-open')
+    mainAppBody.classList.add('hide-left')
+    settingsMenu.classList.add('hide-left')
+    settingsSubMenu.classList.remove('hide-right', 'hide-left', 'hide')
+}
+
+function settingsMenuReturn() {
+    const bodyElement = document.querySelector('body')
+    const settingsMenu = document.querySelector('.settings-menu')
+    const settingsSubMenus = document.querySelectorAll('.settings-sub-menu')
+    const mainAppBody = document.querySelector('.main')
+    if (bodyElement.matches('.sub-menu-open')) {
+        // Return from a sub menu to settings menu
+        bodyElement.classList.remove('sub-menu-open')
+        mainAppBody.classList.add('hide-left') // probly unnec
+        settingsMenu.classList.remove('hide-right', 'hide-left', 'hide')
+    } else {
+        // Return to main app
+        bodyElement.classList.remove('menu-open', 'sub-menu-open')
+        mainAppBody.classList.remove('hide-right', 'hide-left', 'hide')
+        settingsMenu.classList.add('hide-right')
+    }
+    settingsSubMenus.forEach(sub => sub.classList.add('hide-right'))
 }
 
 function toggleFullScreenMode() {
@@ -913,6 +1083,14 @@ function loadCSS(url) {
 function populateSelectWithSlideshows() {
     if (slideshowConfig) {
         const selectElement = document.querySelector('#selectSlideshow')
+        selectElement.innerHTML = '' // empty it out first
+
+        // Add initial <option value="">None</option>
+        const initialOption = document.createElement('option');
+        initialOption.value = '';
+        initialOption.textContent = 'None';
+        selectElement.appendChild(initialOption);
+        
         for (const [id, config] of Object.entries(slideshowConfig)) {
             const option = document.createElement('option')
             // Convert theme data to option value and data attributes

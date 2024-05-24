@@ -57,7 +57,8 @@ figure.slideshow-image {
 }
 
 figure.slideshow-image img {
-    max-width: 100%;
+    width: 1000vw; /* ensure it's more than big enough */
+    max-width: 100%; /* then, cap its max width and height to no bigger than the screen */
     max-height: 100%;
     display: block;
     -webkit-user-select: none;

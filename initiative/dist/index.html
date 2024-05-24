@@ -33,9 +33,11 @@
     <div id="canvas-initiative" class="canvas will-fade-in">
 
         <div class="header-menu">
-            <button id="settingsMenuBtn" class="btn header-menu-btn">
-                <i class="fas fa-ellipsis settings-menu-closed-ui"></i>
-                <i class="fas fa-arrow-left settings-menu-open-ui"></i>
+            <button id="settingsMenuOpenBtn" class="btn header-menu-btn  settings-menu-closed-ui">
+                <i class="fas fa-ellipsis"></i>
+            </button>
+            <button id="settingsMenuReturnBtn" class="btn header-menu-btn  settings-menu-open-ui">
+                <i class="fas fa-arrow-left"></i>
             </button>
             <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
                 <i class="fas fa-refresh"></i>
@@ -46,14 +48,14 @@
         </div>
 
         <!-- Settings Menu -->
-        <div class="settings-menu hide">
+        <div class="settings-menu hide-right">
             <div class="settings-menu-inner">
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
                 
                 <div class="settings-menu-group">
                     <label class="settings-label">Copy Initiative Link to Clipboard</label>
                     <div class="settings-input">
-                        <button id="copyQueryStringToClipboard" class="btn header-menu-btn">
+                        <button id="copyQueryStringToClipboard" class="btn btn-alt">
                             <i class="fas fa-link"></i>
                         </button>
                     </div>
@@ -62,7 +64,7 @@
                     <label class="settings-label">Paste and Load Initiative URL</label>
                     <div class="settings-input">
                         <div class="button-group button-group">
-                            <input id="pastedInitiativeUrl" class="input-text" type="text"/><button id="initiativeUrlPasteAndGo" class="btn header-menu-btn">↺</button>
+                            <input id="pastedInitiativeUrl" class="input-text" type="text"/><button id="initiativeUrlPasteAndGo" class="btn btn-alt">↺</button>
                         </div>
                     </div>
                 </div>
@@ -132,12 +134,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="settings-menu-group" style="display: none;">
-                    <label class="settings-label">Round Counter</label>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Slideshow Configuration</label>
                     <div class="settings-input">
-                        <input id="toggleRoundCounter" type="checkbox" />
+                        <button id="openSlideshowMenu" class="btn"><i class="fas fas fa-ellipsis"></i></button>
                     </div>
                 </div>
+                <div class="settings-menu-group event-log">
+                    <label class="settings-label">Console Log</label>
+                    <p id="eventlog"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slideshow Configurator Menu -->
+        <div id="slideshowMenu" class="settings-sub-menu hide-right">
+            <div class="settings-menu-inner">
+                <h2 class="title">Slideshow Configurator</h2>
+                
                 <div class="settings-menu-group">
                     <label class="settings-label">Slideshow</label>
                     <div class="settings-input">
@@ -152,25 +166,30 @@
                         <select id="slideshowNextSlide">
                         </select>
                     </div>
-                    <!--
-                        <a href="#/slideshow/opening/">Opening Screen</a>
-                        <br/><a href="#/slideshow/missionbriefing/">Mission Briefing</a>
-                        <br/><a href="#/slideshow/imperialfacility/">Imperial Facility</a>
-                        <br/><a href="#/slideshow/platoonblockade/">Platoon Blockade</a>
-                        <h3>Lost Temple one-shot</h3>
-                        <a href="#/slideshow/planetapproach/">Planet Approach</a>
-                        <br/><a href="#/slideshow/derelictship/">Derelict Ship</a>
-                        <br/><a href="#/slideshow/shipconsole/">Ship Console</a>
-                        <br/><a href="#/slideshow/hieroglyphics/">Hieroglyphics</a>
-                        <br/><a href="#/slideshow/ventalor/">Ven'Talor</a>
-                        <br/><a href="#/slideshow/templeconsole/">Temple Console</a>
-                        <br/><a href="#/slideshow/greatlibrary/">The Great Library</a>
-                        <br/><a href="#/slideshow/final/">Final Screen</a>
-                    -->
                 </div>
-                <div class="settings-menu-group event-log">
-                    <label class="settings-label">Console Log</label>
-                    <p id="eventlog"></p>
+                <div class="settings-menu-group settings-menu-grow">
+                    <label class="settings-label">Homebrew Slideshow Configuration</label>
+                    <div class="settings-input">
+                        <textarea id="homebrewSlideshowJSON" class="white-space-pre">{
+  "awesome-homebrew-slideshow": {
+    "name": "My Rad Slideshow",
+    "exoticfont": "Elvish",
+    "scenes": [
+      {
+        "image": "https://i.pinimg.com/736x/ea/9d/2f/ea9d2fcc94de453d03a3a488c9d7fde3.jpg",
+        "caption": "The Celestial Citadel",
+        "subcap": "Somewhere near the Spine of the World"
+      },
+      {
+        "image": "https://static1.thegamerimages.com/wordpress/wp-content/uploads/2024/03/the-gamer-cover-images-22.jpg",
+        "caption": "The Lionshield Coster",
+        "subcap": "Phandalin, Sword Coast"
+      }
+    ]
+  }
+}</textarea>
+                        <button id="homebrewSlideshowSave" class="btn btn-alt">Save to cookie</button>
+                    </div>
                 </div>
             </div>
         </div>

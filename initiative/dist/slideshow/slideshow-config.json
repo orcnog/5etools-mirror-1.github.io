@@ -42,7 +42,7 @@
     },
     "imperial-decryptor": {
         "name": "The Imperial Decryptor",
-        "exoticfont": "Dwarvish",
+        "exoticfont": "Aurebesh",
         "scenes": [
             {
                 "image": "./slideshow/opening/01 game_background_image.webp"
