@@ -13,7 +13,6 @@ let slideshow = {}
 let slideshowConfig = {}
 let recognition // SpeechRecognition object
 let grammarList // SpeechGrammarList object
-let final_transcript = ''
 let allTranscripts = []
 let singleDigitRegexPatterns
 let aliasMap = {
@@ -510,7 +509,7 @@ function setupEventListeners() {
             document.getElementById('startDictation').disabled = true
             if ('stop' in recognition) recognition.stop()
         }
-        console.info('Mic button released, or toggled off')
+        console.debug('Mic button released, or toggled off')
     }
     
     function handleMicDisallowed() {
@@ -559,61 +558,55 @@ async function setupSpeechDicatation() {
     var interimOutput = document.getElementById('interimOutput')
     var interimTranscriptOutput = document.getElementById('interimTranscript')
     var finalTranscriptOutput = document.getElementById('finalTranscript')
-    let pauseTimer = null // Initialize the pause timer variable
+    let lastInterimTimestamp = 0
+    const pauseThreshold = 250 // Pause threshold in milliseconds
     let speechProcessedEvent = new Event('speechprocessed')
 
     
-    function speechStartHandler(event) {
-        console.debug('Speech started.')
-        final_transcript = ''
+    function speechStartHandler() {
+        console.error('Speech started.')
+        final_recognized_transcript = ''
     }
-    
-    function speechResultHandler(event) {
-        let interim_transcript = ''
-        micAllowed = true // if we got this far, mic is obviously allowed
 
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
+    function speechResultHandler(event) {
+        micAllowed = true // if we got this far, mic is obviously allowed
+        let interim_transcript = ''
+        const currentTime = new Date().getTime();
+        const pauseDetected = lastInterimTimestamp > 0 && currentTime - lastInterimTimestamp > pauseThreshold
+        if (pauseDetected) {
+            console.log('Pause detected: ' + (currentTime - lastInterimTimestamp) + 'ms')
+        }
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            const sortedResults = sortSpeechRecognitionResults(event.results[i])
+            // const probableResult = considerAlternatives(sortedResults)
+            const probableResult = sortedResults[0]
+            let spokenWords = probableResult.transcript.trim()
+
             if (event.results[i].isFinal) {
                 // heard the completion of some word or phrase, and made a final decision about what it heard.
                 // probably triggered by a tiny (but obvious) pause in speech
-                console.debug(event)
-                if (isStopCommand(event.results[i][0].transcript)) document.getElementById('startDictation').click()
-                // const sortedResults = sortSpeechRecognitionResults(event.results[i])
-                // const probableResult = considerAlternatives(sortedResults)
-                const probableResult = event.results[i][0]
-                let spokenWords = probableResult.transcript
-                const uniqueGroupNumberWords = {
-                    'tutu':'2 2',
-                    'want to':'1 2',
-                    'want for':'1 4'
-                }
 
-                // Replace unique group-number words
-                for (const [word, number] of Object.entries(uniqueGroupNumberWords)) {
-                    let numberWordpattern = new RegExp(`\\b(${word})+\\b`, 'g')
-                    spokenWords = spokenWords.replace(numberWordpattern, `${number}`)
-                }
-                final_transcript += spokenWords
-                let temporaryInterpretation = convertNumberWordsToNumerals( makeSpellingCorrections( spokenWords ))
-                finalTranscriptOutput.append(temporaryInterpretation)
-                console.debug(`Recognized: "${spokenWords}"`)
+                if (isStopCommand(spokenWords)) document.getElementById('startDictation').click()
+
+                final_recognized_transcript += ' ' + spokenWords
+
+                let temporaryInterpretation = replaceUniqueGroupNumberWords( spokenWords )
+                temporaryInterpretation = makeSpellingCorrections( temporaryInterpretation )
+                temporaryInterpretation = convertNumberWordsToNumerals( temporaryInterpretation )
+                finalTranscriptOutput.append(' ' + temporaryInterpretation)
+                console.info(`Recognized word(s): "${spokenWords}"`)
                 console.debug(`Confidence: ${probableResult.confidence}`)
+                console.info(`FINAL (all recognized):\n${final_recognized_transcript}`)
+                console.debug(event)
                 interim_transcript = ''
             } else {
                 // heard small part, maybe just a syllable, but has not yet made a final decision about what it heard.
-                interim_transcript += ' ' + event.results[i][0].transcript
-                
-                // let hitCount = 0
-                // for (const num in singleDigitRegexPatterns) {
-                //     const groupWords = singleDigitRegexPatterns[num]
-                //     const regex = new RegExp(`\\b(${groupWords})(?!\\d)`, 'gi')
-                //     let matches = event.results[i][0].transcript.match(regex) || []
-                //     hitCount += matches.length
-                // }
-
-                console.debug(`maybe: ${interim_transcript}`)
-                console.debug(event)
+                interim_transcript += ' ' + spokenWords
+                console.debug(`sound heard: ${spokenWords}`)
             }
+
+            lastInterimTimestamp = currentTime;
         }
 
         if (liveTextMode) {
@@ -637,17 +630,17 @@ async function setupSpeechDicatation() {
     }
     
     function speechEndHandler() {
-        console.info(`Heard altogether: "${final_transcript}"`)
-        if (isEmpty(final_transcript)) {
+        console.info(`Heard altogether:\n"${final_recognized_transcript}"`)
+        if (isEmpty(final_recognized_transcript)) {
             if (micAllowed && players.length === 0) document.querySelector('.post-mic').classList.add('show')
-        } else if (isClearCommand(final_transcript)) {
-            console.info(`CLEAR command detected: "${final_transcript}"`)
+        } else if (isClearCommand(final_recognized_transcript)) {
+            console.info(`CLEAR command detected: "${final_recognized_transcript}"`)
             clearAll()
-        }else if( isCancelCommand(final_transcript)) {
-            console.info(`CANCEL command detected: "${final_transcript}"`)
-            final_transcript = ''
+        }else if( isCancelCommand(final_recognized_transcript)) {
+            console.info(`CANCEL command detected: "${final_recognized_transcript}"`)
+            final_recognized_transcript = ''
         } else {
-            let interpretedTranscript = parseInput(final_transcript)
+            let interpretedTranscript = parseInput(final_recognized_transcript)
             interpretedTranscript = trimIncompletePattern(interpretedTranscript)
             console.info(`Parsed results: ${interpretedTranscript}`)
             allTranscripts.push(interpretedTranscript)
@@ -707,11 +700,11 @@ async function setupSpeechDicatation() {
         return sortedResults
     }
 
-    /** Test whether the speech recognition thinks it may have heard something different, and decide
+    /** NOTE: AS OF 5/20/24, iOS DOES NOT RECORD ALTERNATIVES IN ITS RESULTS, WHICH MAKES THIS FUNCTION USELESS.
+     * Function: Test whether the speech recognition thinks it may have heard something different, and decide
      * if that alternative is actually the better choice in this context. If not, just return the
      * result that the SpeechRecognitionResult was most confident in.
      */
-
     function considerAlternatives(results) {
         // Sort the results
         const sortedResults = sortSpeechRecognitionResults(results)
@@ -1291,7 +1284,7 @@ function clearAll() {
     currentTurn = 0
     currentRound = 1
     renderPlayers()
-    final_transcript = ''
+    final_recognized_transcript = ''
     allTranscripts = []
     endCombat()
     document.body.classList.remove('players-listed')
@@ -1382,6 +1375,22 @@ function parseInput(input) {
     input = input.replace(/([a-z\*]) (\d\d? (?=[a-z\*]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
 
     return input
+}
+
+function replaceUniqueGroupNumberWords(input) {
+    const uniqueGroupNumberWords = {
+        'tutu':'2 2',
+        'want to':'1 2',
+        'want for':'1 4'
+    }
+
+    // Replace unique group-number words
+    let result = input;
+    for (const [word, number] of Object.entries(uniqueGroupNumberWords)) {
+        let numberWordpattern = new RegExp(`\\b(${word})+\\b`, 'g')
+        result = result.replace(numberWordpattern, `${number}`)
+    }
+    return result
 }
 
 function makeSpellingCorrections(input) {
