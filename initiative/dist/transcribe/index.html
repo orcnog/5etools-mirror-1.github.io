@@ -46,70 +46,97 @@
             color: #999;
             text-align: center;
         }
+        audio {
+            display: block;
+        }
         .test-btn {
+            display: block;
             margin: 1em;
+        }
+        .console {
+            background-color: #f0f0f0;
         }
     </style>
     <script>
         let mediaRecorder;
         let audioChunks = [];
-
+        
+        function log (txt) {
+            console.log(txt);
+            const logEl = document.querySelector('.console');
+            const str = typeof txt === 'object' ? JSON.stringify(txt, null, 2) : txt;
+            logEl.innerHTML += `\n${str}`;
+        }
+        
         function micBtnHandler(e) {
             const button = e.target.closest('button');
             if (!button) return;
-            button.classList.toggle('listening')
+            log('Mic button clicked');
+            button.classList.toggle('listening');
             if (button.classList.contains('listening')) {
-                startRecording()
+                startRecording();
             } else {
-                stopRecording()
+                stopRecording();
             }
         }
 
         function testBtnHandler(e) {
             const button = e.target.closest('button');
             if (!button) return;
-            test()
+            test();
         }
-
+        
         async function startRecording() {
-            audioChunks = []; // Clear previous recordings
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
-            mediaRecorder.start();
+            try {
+                audioChunks = []; // Clear previous recordings
+                const supportedMimeTypes = getSupportedMimeTypes('audio');
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream, { mimeType: supportedMimeTypes[0] });
+                mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+                mediaRecorder.start();
+                log('recording...');
+            } catch (err) {
+                log(`Error: ${err.message}`);
+                console.error('Error:', err);
+            }
         }
 
         function stopRecording() {
             mediaRecorder.stop();
+            log('recording stopped');
             mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const audioBlob = new Blob(audioChunks, { type: supportedMimeTypes[1] });
                 const audioUrl = URL.createObjectURL(audioBlob);
                 const audio = document.getElementById('audioPlayback');
                 audio.src = audioUrl;
-
+                
                 const endpointUrl = 'https://ghseg8im58.execute-api.us-east-2.amazonaws.com/default/opanAiTranscribeTestPython';
                 const prompt = "Leonarus: 20, Ogden: 18, Brogoth: 16, Thorn: 14, Anya: 12, Himmic: 10, Creature 1: 8, Creature 2: -1";
                 const urlWithParams = `${endpointUrl}?prompt=${encodeURIComponent(prompt)}`;
-
+                
+                log('sending recording to OpenAI transcribe API...');
                 fetch(urlWithParams, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'audio/webm', // Set the correct content type
+                        'Content-Type': supportedMimeTypes[1],
                     },
                     body: audioBlob // Send the audioBlob directly
                 })
                 .then(response => {
+                    log(`server response.ok? ${response.ok}`)
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        log(`HTTP error! status: ${response.status}`)
+                        throw new Error(`HTTP error! status: ${response.status}`, response);
                     }
                     return response.json();
                 })
                 .then(data => {
-                    console.log(`Results from openai: ${data}`);
+                    log('Results from openai...');
+                    log(`"${data.text}"`);
                     let results = data.text;
                     results = reformatInitiativeOrderSyntax(results);
-                    console.log(`Results after reformatting...`);
-                    console.log(results);
+                    log(`Results after reformatting...`);
+                    log(results);
                     const rows = results.map(entry => `<tr><td class="order">${entry.order}</td><td class="name">${entry.name}</td></tr>`).join('');
                     const tableHTML = `
                     <table class="initiative-order">
@@ -124,15 +151,47 @@
                     document.getElementById('results').innerHTML = tableHTML;
                 })
                 .catch(error => {
+                    log(`Error: ${error.msg}`)
                     console.error('Error:', error);
                 });
             };
         }
 
+        function getSupportedMimeTypes() {
+            const prioritizedMimeTypes = [
+                'video/webm;codecs=vp9',
+                'video/webm;codecs=vp8',
+                'video/webm',
+                'video/mp4',
+                'audio/webm;codecs=opus',
+                'audio/webm',
+                'audio/ogg;codecs=opus',
+                'audio/ogg',
+                'audio/mp4;codecs=aac',
+                'audio/mp4',
+                'audio/mpeg',
+                'audio/aac',
+                'audio/wav'
+            ];
+
+            const supportedMimeTypes = []
+            for (const mimeType of prioritizedMimeTypes) {
+                if (MediaRecorder.isTypeSupported(mimeType)) {
+                    supportedMimeTypes.push(mimeType)
+                    // return mimeType;
+                }
+            }
+            if (supportedMimeTypes.length === 0) {
+                console.error("No suitable MIME type found for this device");
+                return null;
+            }
+            return supportedMimeTypes
+        }
+
         function test() {
             results = reformatInitiativeOrderSyntax("Dragon. 13, goblin negative 1. test 1, test, 20, goblin 1-9. Goblin 2-13, dragonborn 4 monster, 1, 15. monster 2, 11.")
-            console.log(`Results after reformatting: "Dragon. 13, goblin negative 1. test 1, test, 20, goblin 1-9. Goblin 2-13, dragonborn 4 monster, 1, 15. monster 2, 11."`)
-            console.log(results);
+            log(`Results after reformatting: "Dragon. 13, goblin negative 1. test 1, test, 20, goblin 1-9. Goblin 2-13, dragonborn 4 monster, 1, 15. monster 2, 11."`)
+            log(results);
             const rows = results.map(entry => `<tr><td class="order">${entry.order}</td><td class="name">${entry.name}</td></tr>`).join('');
             const tableHTML = `
             <table class="initiative-order">
@@ -150,7 +209,7 @@
         function reformatInitiativeOrderSyntax(input) {
             
             // Step 1: Remove any commas, periods, other punctuation
-            input = input.replace(/[,\.:;/~]\s*/g, ' ');
+            input = input.replace(/[,\.:;!\?/~]\s*/g, ' ');
 
             // Step 2: Replace "negative X" with "-X"
             input = input.replace(/negative (\d)/g, '-$1');
@@ -191,6 +250,11 @@
         <audio id="audioPlayback" controls></audio>
         <button id="parseTest" class="test-btn" onclick="testBtnHandler(event)">TEST</button>
         <p class="results" id="results"></p>
+        <pre class="console"></pre>
     </div>
+    <script>
+        const supportedMimeTypes = getSupportedMimeTypes('audio');
+        log(`Supported mime types: ${JSON.stringify(supportedMimeTypes, null, 4)}`);
+    </script>
 </body>
 </html>
