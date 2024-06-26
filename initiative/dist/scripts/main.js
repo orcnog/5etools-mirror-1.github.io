@@ -1,9 +1,13 @@
 /**
  * Declarations
 */
+let recognition // SpeechRecognition object
+let grammarList // SpeechGrammarList object
+
 let micAllowed = false
 let chosenFont
 let chosenTheme
+let useOpenAI = true
 let liveTextMode = true
 let players = []
 let currentTurn = 0
@@ -11,8 +15,6 @@ let currentRound = 1
 let currentSlideshowID
 let slideshow = {}
 let slideshowConfig = {}
-let recognition // SpeechRecognition object
-let grammarList // SpeechGrammarList object
 let allTranscripts = []
 let singleDigitRegexPatterns
 let aliasMap = {
@@ -82,7 +84,8 @@ async function main() {
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupEventListeners()
-    await setupSpeechDicatation()
+    await testMicPermission()
+    if (!useOpenAI) await setupSpeechDicatation()
     updateSlideBasedOnHash()
     outputLogsToSettingsPage()
 }
@@ -156,7 +159,12 @@ function rehydrateSettings() {
     
     /* Rehydrate the live text preference */
     liveTextMode = getCookie('liveTextMode') || 'true'
-    document.getElementById('toggleLiveText').checked = liveTextMode
+    document.getElementById('toggleLiveText').checked = liveTextMode === 'true'
+    
+    /* Rehydrate the useOpenAI preference */
+    useOpenAI = getCookie('useOpenAI') || 'true'
+    document.getElementById('toggleUseOpenAI').checked = useOpenAI === 'true'
+    if (useOpenAI) document.getElementById('toggleUseOpenAI')?.closest('.settings-menu-group')?.classList.add('active')
     
     /* Rehydrate the app scale from cookie */
     const cookieAppScale = getCookie('appScalePreference') || 2
@@ -272,6 +280,7 @@ function setupEventListeners() {
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
+    document.getElementById('toggleUseOpenAI').addEventListener('change', toggleUseOpenAI)
     document.getElementById('appScalePref').addEventListener('change', (e)=> {updateAppScale(e.target.value)})
     document.getElementById('decrAppScale').addEventListener('click', decreaseAppScale)
     document.getElementById('incrAppScale').addEventListener('click', increaseAppScale)
@@ -297,13 +306,14 @@ function setupEventListeners() {
     document.getElementById('nextTurn').addEventListener('click', advanceTurn)
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
-    document.body.addEventListener('click', e => e.target.closest('.slide-control') && handleSlideControlClick(e));
+    document.body.addEventListener('click', e => e.target.closest('.slide-control') && handleSlideControlClick(e))
+    document.body.addEventListener('click', e => e.target.matches('label i.tooltip-icon') && handleTooltipIconClick(e)) 
     document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href))
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
     // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
-    if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.querySelector('.toggle-full-screen-menu-group').remove() };
+    if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.querySelector('.toggle-full-screen-menu-group').remove() }
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(event => {
@@ -457,8 +467,7 @@ function setupEventListeners() {
             document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
         }
     }
-    
-    // Dictation
+
     function handleDictationToggle(e) {
         this.classList.toggle('active')
         if (this.classList.contains('active')) {
@@ -495,7 +504,11 @@ function setupEventListeners() {
     function handleMicOn() {
         if (micAllowed) {
             document.getElementById('startDictation').classList.add('active')
-            if ('start' in recognition) recognition.start()
+            if (!useOpenAI && 'start' in recognition) {
+                recognition.start()
+            } else {
+                startRecording()
+            }
     
         } else {
             handleMicDisallowed()
@@ -507,7 +520,11 @@ function setupEventListeners() {
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
-            if ('stop' in recognition) recognition.stop()
+            if (!useOpenAI && 'stop' in recognition) {
+                recognition.stop()
+            } else {
+                stopRecording();
+            }
         }
         console.debug('Mic button released, or toggled off')
     }
@@ -520,6 +537,202 @@ function setupEventListeners() {
         document.getElementById('startDictation').classList.add('disabled')
         document.getElementById('speechForm').classList.add('show')
     }
+}
+
+/**
+ * Audio handling
+ */
+
+const mimeType = getSupportedMimeTypes('audio')[0];
+const audioContext = new AudioContext();
+
+// Determine the best mime type to use for this browser/device
+function getSupportedMimeTypes() {
+    const prioritizedMimeTypes = [
+        'video/webm;codecs=vp9',
+        'video/webm;codecs=vp8',
+        'video/webm',
+        'video/mp4',
+        'audio/webm;codecs=opus',
+        'audio/webm',
+        'audio/ogg;codecs=opus',
+        'audio/ogg',
+        'audio/mp4;codecs=aac',
+        'audio/mp4',
+        'audio/mpeg',
+        'audio/aac',
+        'audio/wav'
+    ];
+
+    const supportedMimeTypes = []
+    for (const mimeType of prioritizedMimeTypes) {
+        if (MediaRecorder.isTypeSupported(mimeType)) {
+            supportedMimeTypes.push(mimeType)
+            // return mimeType;
+        }
+    }
+    if (supportedMimeTypes.length === 0) {
+        console.error("No suitable MIME type found for this device");
+        return null;
+    }
+    return supportedMimeTypes
+}
+
+// Capture audio
+async function startRecording() {
+    try {
+        audioChunks = []; // Clear previous recordings
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType });
+        mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+        mediaRecorder.start();
+        console.log('recording...');
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}
+
+// Convert captured audio to wav, then send to AWS API endpoint (for OpenAI to transcribe)
+function stopRecording() {
+    mediaRecorder.stop();
+    console.log('recording stopped');
+    
+    mediaRecorder.onstop = async () => {
+        // Create audio buffer from recorded audio
+        const audioBlob = new Blob(audioChunks, { type: mimeType });
+        const arrayBuffer = await audioBlob.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+        // Check the duration of the audio buffer
+        const duration = audioBuffer.duration;
+        console.log(`Audio duration: ${duration} seconds`);
+
+        if (duration < 1) {
+            console.warn('Audio duration is less than 1 second. Not sending to API.');
+            return;
+        }
+
+        // Create WAV file from audio buffer
+        const wavBuffer = audioBufferToWav(audioBuffer);
+        const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' });
+        
+        const endpointUrl = 'https://ghseg8im58.execute-api.us-east-2.amazonaws.com/default/opanAiTranscribeTestPython';
+        const prompt = "Beholder: 20, Bishop: 18, Cultist: 16, Orc: 14, Tiefling: 12, Himmic: 10, Creature 1: 8, Creature 2: -1";
+        const urlWithParams = `${endpointUrl}?prompt=${encodeURIComponent(prompt)}`;
+        
+        console.log('sending recording to OpenAI transcribe API...');
+        fetch(urlWithParams, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'audio/wav',
+            },
+            body: wavBlob // Send the audioBlob directly
+        })
+        .then(response => {
+            console.log(`server response.ok? ${response.ok}`)
+            if (!response.ok) {
+                console.log(`HTTP error! status: ${response.status}`)
+                throw new Error(`HTTP error! status: ${response.status}`, response);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Results from openai...');
+            let results = data.text;
+            console.log(`"${results}"`);
+            // results = reformatInitiativeOrderSyntax(results);
+            // console.log(`Results after reformatting...`);
+            // console.log(results);
+            
+            let interpretedTranscript = parseInput(results)
+            interpretedTranscript = trimIncompletePattern(interpretedTranscript)
+            console.info(`Parsed results: ${interpretedTranscript}`)
+            allTranscripts.push(interpretedTranscript)
+            const joinedInput = allTranscripts.join(' ')
+            parseAndAddEntries(joinedInput)
+            
+            document.getElementById('finalTranscript').textContent = ''
+            document.getElementById('interimOutput').classList.remove('active')
+            document.getElementById('startDictation').classList.remove('thinking')
+            document.getElementById('startDictation').disabled = false
+        })
+        .catch(error => {
+            console.log(`Error: ${error.msg}`)
+            console.error('Error:', error);
+        });
+    };
+}
+
+function audioBufferToWav(buffer) {
+    let numOfChan = buffer.numberOfChannels,
+        length = buffer.length * numOfChan * 2 + 44,
+        thisBuffer = new ArrayBuffer(length),
+        view = new DataView(thisBuffer),
+        channels = [],
+        i, sample,
+        offset = 0,
+        pos = 0;
+
+    // write WAVE header
+    setUint32(0x46464952);                         // "RIFF"
+    setUint32(length - 8);                         // file length - 8
+    setUint32(0x45564157);                         // "WAVE"
+
+    setUint32(0x20746d66);                         // "fmt " chunk
+    setUint32(16);                                 // length = 16
+    setUint16(1);                                  // PCM (uncompressed)
+    setUint16(numOfChan);
+    setUint32(buffer.sampleRate);
+    setUint32(buffer.sampleRate * 2 * numOfChan);  // avg. bytes/sec
+    setUint16(numOfChan * 2);                      // block-align
+    setUint16(16);                                 // 16-bit (hardcoded in this demo)
+
+    setUint32(0x61746164);                         // "data" - chunk
+    setUint32(length - pos - 4);                   // chunk length
+
+    // write interleaved data
+    for (i = 0; i < buffer.numberOfChannels; i++)
+        channels.push(buffer.getChannelData(i));
+
+    while (pos < length) {
+        for (i = 0; i < numOfChan; i++) {             // interleave channels
+            sample = Math.max(-1, Math.min(1, channels[i][offset])); // clamp
+            sample = (sample < 0 ? sample * 0x8000 : sample * 0x7FFF) | 0; // scale to 16-bit signed int
+            view.setInt16(pos, sample, true);          // write 16-bit sample
+            pos += 2;
+        }
+        offset++;                                      // next source sample
+    }
+
+    return thisBuffer;
+
+    function setUint16(data) {
+        view.setUint16(pos, data, true);
+        pos += 2;
+    }
+
+    function setUint32(data) {
+        view.setUint32(pos, data, true);
+        pos += 4;
+    }
+}
+
+async function testMicPermission () {
+    navigator?.mediaDevices?.getUserMedia({ audio: true }).then(stream => {
+        // User has granted microphone access
+        micAllowed = true
+        document.body.classList.remove('no-mic')
+        
+        // Now stop the audio stream
+        stream.getTracks().forEach(track => track.stop())
+        return true
+    })
+    .catch(() => {
+        // Access denied or another error
+        micAllowed = false
+        document.body.classList.add('no-mic')
+        return false
+    })
 }
 
 async function setupSpeechDicatation() {
@@ -636,7 +849,7 @@ async function setupSpeechDicatation() {
         } else if (isClearCommand(final_recognized_transcript)) {
             console.info(`CLEAR command detected: "${final_recognized_transcript}"`)
             clearAll()
-        }else if( isCancelCommand(final_recognized_transcript)) {
+        } else if( isCancelCommand(final_recognized_transcript)) {
             console.info(`CANCEL command detected: "${final_recognized_transcript}"`)
             final_recognized_transcript = ''
         } else {
@@ -652,24 +865,6 @@ async function setupSpeechDicatation() {
         document.getElementById('startDictation').classList.remove('thinking')
         document.getElementById('startDictation').disabled = false
         document.dispatchEvent(speechProcessedEvent)
-    }
-
-    async function testMicPermission () {
-        navigator?.mediaDevices?.getUserMedia({ audio: true }).then(stream => {
-            // User has granted microphone access
-            micAllowed = true
-            document.body.classList.remove('no-mic')
-            
-            // Now stop the audio stream
-            stream.getTracks().forEach(track => track.stop())
-            return true
-        })
-        .catch(error => {
-            // Access denied or another error
-            micAllowed = false
-            document.body.classList.add('no-mic')
-            return false
-        })
     }
 
     function isEmpty(str) {
@@ -793,6 +988,12 @@ function settingsMenuReturn() {
     settingsSubMenus.forEach(sub => sub.classList.add('hide-right'))
 }
 
+function handleTooltipIconClick(e) {
+    e.preventDefault()
+    e.stopPropagation()
+    e.target.classList.toggle('active')
+}
+
 function toggleFullScreenMode() {
     if (this.checked) openFullscreen()
     else closeFullscreen()
@@ -829,9 +1030,18 @@ function handleThemeChange(event) {
     setCookie('themePreference', selectedTheme)
 }
 
-function toggleLiveTextMode(event) {
+function toggleLiveTextMode() {
     setCookie('liveTextMode', this.checked)
     liveTextMode = this.checked
+}
+
+function toggleUseOpenAI() {
+    setCookie('useOpenAI', this.checked)
+    useOpenAI = this.checked
+    this.closest('.settings-menu-group')?.classList.toggle('active')
+    if (!useOpenAI) {
+        setupSpeechDicatation()
+    }
 }
 
 function updateAppScale(value) {
@@ -953,7 +1163,7 @@ function updateSlideshowContext(selectedSlideshow) {
             populateSelectWithSlideNumbers()
         }
         // Load font if necessary
-        if (slideshow.exoticfont) {
+        if (slideshow?.exoticfont) {
             let fontUrl;
             let fontName;
             switch (slideshow.exoticfont.toLowerCase()) {
@@ -1356,7 +1566,7 @@ function parseInput(input) {
     // Replace punctuation with spaces
     input = input.replace(/[.,!?;:()]/g, ' ')
     // Trim all spaces to single space
-    input = input.replace(/\s+/g, ' ')
+    input = input.replace(/\s+/g, ' ').trim()
     // Make lowercase
     input = input.toLowerCase()
     // Add a space to the end
@@ -1371,7 +1581,7 @@ function parseInput(input) {
 
     // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said). Ex: "3 11" to "3 @ 11"
     input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`)
-    // Guess at where roll "@" symbols should be added in: find numbers not adjacent to other numbers and insert @ before them (if the word ≈"rolled" WAS NOT said). \* handles curse words =) Ex: "john 4" to "john @ 4"
+    // Guess at where roll "@" symbols should be added in: find standalone numbers and insert @ before them (if the word ≈"rolled" WAS NOT said). also handles curse words =) Ex: "john 4" to "john @ 4"
     input = input.replace(/([a-z\*]) (\d\d? (?=[a-z\*]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
 
     return input

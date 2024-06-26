@@ -31,6 +31,7 @@
     --button-outline-focus: rgba(255, 100, 0, 0.5);
     --mic-color: #ddd;
     --mic-bg-color: rgb(150 76 27);
+    --mic-bg-color--hover: rgb(140 70 23);
     --input-bg-color: rgba(0, 0, 0, 0.8);
     --input-placeholder-color: #555;
     --highlighted-color: rgba(100, 150, 225, 0.4);
@@ -646,19 +647,54 @@ body.menu-open .settings-menu-closed-ui {
     width: 100%;
 }
 
-.settings-menu-group.hidden-if-previous-group-not-active {
+/* Settings label, tooltip */
+.settings-label {
+    font-size: 1em;
+}
+
+.settings-label i.tooltip-icon {
+    margin-left: 0.2em;
+    padding: 0.2em;
+    font-size: 0.7em;
+    cursor: pointer;
+}
+
+.settings-label-tooltip-text {
+    font-size: 0.8em;
+    font-family: math;
+}
+
+/* expand/collapse animation */
+.settings-menu-group.hidden-if-previous-group-is-active,
+.settings-menu-group.hidden-if-previous-group-not-active,
+.settings-label-tooltip-text {
     opacity: 0;
     max-height: 0rem;
     pointer-events: none;
     transition: opacity 500ms, max-height 500ms;
 }
 
-.settings-menu-group.active + .hidden-if-previous-group-not-active {
+.settings-menu-group:not(.active) + .hidden-if-previous-group-is-active,
+.settings-menu-group.active + .hidden-if-previous-group-not-active,
+i.tooltip-icon.active + .settings-label-tooltip-text {
     opacity: 1;
     max-height: 8rem;
     pointer-events: initial;
 }
 
+.settings-menu-group:not(.active) + .hidden-if-previous-group-is-active.expand-small,
+.settings-menu-group.active + .hidden-if-previous-group-not-active.expand-small,
+i.tooltip-icon.active + .settings-label-tooltip-text.expand-small {
+    max-height: 4rem;
+}
+
+.settings-menu-group:not(.active) + .hidden-if-previous-group-is-active.expand-large,
+.settings-menu-group.active + .hidden-if-previous-group-not-active.expand-large,
+i.tooltip-icon.active + .settings-label-tooltip-text.expand-large {
+    max-height: 20rem;
+}
+
+/* settings form elements */
 .settings-menu-group.event-log {
     flex: 1 1 auto;
     padding-bottom: 1rem;
@@ -670,10 +706,6 @@ body.menu-open .settings-menu-closed-ui {
     color: white;
     height: 8rem;
     overflow-y: auto;
-}
-
-.settings-label {
-    font-size: 1em;
 }
 
 .settings-input {

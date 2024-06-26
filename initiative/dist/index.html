@@ -53,7 +53,7 @@
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
                 
                 <div class="settings-menu-group">
-                    <label class="settings-label">Copy Initiative Link to Clipboard</label>
+                    <label class="settings-label" for="copyQueryStringToClipboard">Copy Initiative Link to Clipboard</label>
                     <div class="settings-input">
                         <button id="copyQueryStringToClipboard" class="btn btn-alt">
                             <i class="fas fa-link"></i>
@@ -61,7 +61,10 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Paste and Load Initiative URL</label>
+                    <label class="settings-label" for="pastedInitiativeUrl">Paste and Load Initiative URLFull Screen
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text">Paste a copied initiative URL<br/>Ex: <code>d20.orcnog.com?round=1&turn=1&players=[{"name":"etc...</code>,<br/>Then, click the ↺ button to reload the app.</p>
+                    </label>
                     <div class="settings-input">
                         <div class="button-group button-group">
                             <input id="pastedInitiativeUrl" class="input-text" type="text"/><button id="initiativeUrlPasteAndGo" class="btn btn-alt">↺</button>
@@ -70,7 +73,10 @@
                 </div>
                 
                 <div class="settings-menu-group toggle-full-screen-menu-group">
-                    <label class="settings-label">Full Screen</label>
+                    <label class="settings-label" for="toggleFullScreenBtn">Full Screen
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text expand-small">Enter full screen mode. Desktop only. Untested in Android.  Does not seem to work in iOS.</p>
+                    </label>
                     <div class="settings-input">
                         <input id="toggleFullScreenBtn" type="checkbox" />
                     </div>
@@ -82,13 +88,28 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Live Text</label>
+                    <label class="settings-label" for="toggleUseOpenAI">Use OpenAI
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text">Use OpenAI's Whisper AI model to transcribe your speech, instead of native browser Web Speech API. It's usually more accurate, but a a bit slower. Note: This requires an active internet connection and costs $0.006 per minute of audio processed.</p>
+                    </label>
+                    <div class="settings-input">
+                        <input id="toggleUseOpenAI" type="checkbox" />
+                    </div>
+                </div>
+                <div class="settings-menu-group hidden-if-previous-group-is-active">
+                    <label class="settings-label" for="toggleLiveText">Live Text
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text expand-small">Available only when not using OpenAI transcription. Displays your speech as it is heard by the browser, in real time.</p>
+                    </label>
                     <div class="settings-input">
                         <input id="toggleLiveText" type="checkbox" />
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">App Scale</label>
+                    <label class="settings-label" for="appScalePref">App Scale
+                    <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                    <p class="settings-label-tooltip-text expand-small">Zoom level for the entire app (button sizes, font sizes, everything). Useful if you are projecting to a screen that is too large or too small for the default app dimensions.</p>
+                </label>
                     <div class="settings-input">
                         <div class="button-group button-group-number-bump">
                             <button id="decrAppScale" class="btn">-</button>
@@ -98,7 +119,7 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Brightness</label>
+                    <label class="settings-label" for="brightnessPref">Brightness</label>
                     <div class="settings-input">
                         <div class="button-group button-group-number-bump">
                             <button id="decrBrightness" class="btn">-</button>
@@ -108,7 +129,7 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Font Size</label>
+                    <label class="settings-label" for="fontSizePref">Font Size</label>
                     <div class="settings-input">
                         <div class="button-group button-group-number-bump">
                             <button id="decrFontSize" class="btn">-</button>
@@ -119,13 +140,16 @@
                 </div>
                 <p class="lorem-ipsum">Lorem Ipsum</p>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Font</label>
+                    <label class="settings-label" for="selectFont">Font</label>
                     <div class="settings-input">
                         <select id="selectFont"></select>
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Chalkiness Adjust</label>
+                    <label class="settings-label" for="chalkinessPref">Chalkiness Adjust
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text expand-small">Adjust the level of distress effect (or "chalkiness", since it is meant to look like chalk on slate) of the app's text.</p>
+                    </label>
                     <div class="settings-input">
                         <div class="button-group button-group-number-bump">
                             <button id="decrChalkiness" class="btn">-</button>
@@ -135,7 +159,7 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label">Slideshow Configuration</label>
+                    <label class="settings-label" for="openSlideshowMenu">Slideshow Configuration</label>
                     <div class="settings-input">
                         <button id="openSlideshowMenu" class="btn"><i class="fas fas fa-ellipsis"></i></button>
                     </div>
@@ -168,7 +192,10 @@
                     </div>
                 </div>
                 <div class="settings-menu-group settings-menu-grow">
-                    <label class="settings-label">Homebrew Slideshow Configuration</label>
+                    <label class="settings-label">Homebrew Slideshow Configuration
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text expand-large">You can define a slideshow of custom images, which can be shown while in the app. You'll have to be at least 1% confortable with JSON format (see the example). The slideshow configuration can handle image urls, captions for each image, and subcaptions below those. Anything more than that is beyond the scope of this feature. The easiest way to create a slideshow of custom images would be to upload them to a gallery site like imgur, copy each image's URL, making sure to grab the URL to the direct image file, e.g. a URL ending in ".jpg", ".webp" or ".png" (tip: in imgur, click the "Copy Link" button, then when you paste the link, just manually add ".jpg" to the end), and then replace the values in the sample JSON, along with updating the caption/subcap values.<br/><br/>Allowable values for exoticfont are: 'Aurebesh', 'Elvish', or 'Dwarvish'.<br/><br/>If you erased or saved over the sample JSON and want to see it again, completely erase all JSON from the textarea below and refresh the page.</p>
+                    </label>
                     <div class="settings-input">
                         <textarea id="homebrewSlideshowJSON" class="white-space-pre">{
   "awesome-homebrew-slideshow": {

@@ -37,20 +37,6 @@ ALLOWED_CONTENT_TYPES = {
     'audio/wav': 'wav',
 }
 
-def convert_to_webm(input_data):
-    ffmpeg_path = "/opt/ffmpeg/ffmpeg"
-    try:
-        process = subprocess.Popen(
-            [ffmpeg_path, '-i', 'pipe:0', '-c:v', 'libvpx', '-c:a', 'libvorbis', 'pipe:1'],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
-        output_data, error = process.communicate(input=input_data)
-        if process.returncode != 0:
-            return None, error.decode()
-        return output_data, None
-    except Exception as e:
-        return None, str(e)
-
 def lambda_handler(event, context):
     logger.info("Received event: " + json.dumps(event, indent=2))
     output = []
