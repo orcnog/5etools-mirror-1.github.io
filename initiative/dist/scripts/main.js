@@ -18,16 +18,12 @@ let slideshow = {}
 let slideshowConfig = {}
 let allTranscripts = []
 let singleDigitRegexPatterns
+let promptNames = []
 let aliasMap = {
     'brinley': 'brynlee',
     'zoe': 'zoey',
     'cal': 'kal',
     'casey': 'kacie',
-    'claris': 'killaris',
-    'colors': 'killaris',
-    'broke off': 'brogoth',
-    'odd': 'og',
-    'share zoo': 'sharezu',
     'tensing': 'tenzing',
     'car': 'kaa'
 }
@@ -171,7 +167,18 @@ function rehydrateSettings() {
     /* Rehydrate the useOpenAI preference */
     useOpenAI = getCookie('useOpenAI') || 'true'
     document.getElementById('toggleUseOpenAI').checked = useOpenAI === 'true'
-    if (useOpenAI) document.getElementById('toggleUseOpenAI')?.closest('.settings-menu-group')?.classList.add('active')
+    if (useOpenAI) {
+        document.getElementById('promptNames')?.closest('.settings-menu-group')?.classList.add('active')
+        document.getElementById('toggleLiveText')?.closest('.settings-menu-group')?.classList.remove('active')
+    } else {
+        document.getElementById('promptNames')?.closest('.settings-menu-group')?.classList.remove('active')
+        document.getElementById('toggleLiveText')?.closest('.settings-menu-group')?.classList.add('active')
+    }
+
+    /* Rehydrate the custom prompt names */
+    const stringifiedPromptNames = getCookie('promptNamesArray') || '["orc"]'
+    promptNames = JSON.parse(stringifiedPromptNames)
+    document.getElementById('promptNames').value = promptNames.join(', ')
     
     /* Rehydrate the app scale from cookie */
     const cookieAppScale = getCookie('appScalePreference') || 2
@@ -288,6 +295,8 @@ function setupEventListeners() {
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
     document.getElementById('toggleUseOpenAI').addEventListener('change', toggleUseOpenAI)
+    document.getElementById('promptNames').addEventListener('keydown', (e)=> {handlePromptNamesKeyDown(e)})
+    document.getElementById('promptNames').addEventListener('input', (e)=> {updatePromptNames(e.target.value)})
     document.getElementById('appScalePref').addEventListener('change', (e)=> {updateAppScale(e.target.value)})
     document.getElementById('decrAppScale').addEventListener('click', decreaseAppScale)
     document.getElementById('incrAppScale').addEventListener('click', increaseAppScale)
@@ -641,7 +650,7 @@ function stopRecording() {
         const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' })
         
         const endpointUrl = 'https://ghseg8im58.execute-api.us-east-2.amazonaws.com/default/opanAiTranscribeTestPython'
-        const prompt = "Beholder: 20, Bishop: 18, Cultist: 16, Orc: 14, Tiefling: 12, Himmic: 10, Creature 1: 8, Creature 2: -1"
+        const prompt = generatePrompt(promptNames)
         const urlWithParams = `${endpointUrl}?prompt=${encodeURIComponent(prompt)}`
         
         console.log('sending recording to OpenAI transcribe API...')
@@ -739,6 +748,47 @@ function audioBufferToWav(buffer) {
         view.setUint32(pos, data, true);
         pos += 4;
     }
+}
+
+function generatePrompt(names) {
+    const ALWAYS_START_WITH = 'D&D Initiative Order: '
+    const ALWAYS_END_WITH = ' Creature 1: 8, Creature 2: -1'
+    let prompt = ''
+    let number = names.length > 20 ? 25 : 20
+    let decrement = names.length > 10 ? 1 : 2
+    let numbers = []
+    let usedNumbers = new Set()
+
+    // Generate initial numbers
+    for (let i = 0; i < names.length; i++) {
+        if (number >= 0) {
+            numbers.push(number)
+            usedNumbers.add(number)
+            number -= decrement
+        }
+    }
+
+    // If more numbers are needed, fill in with repeats
+    while (numbers.length < names.length) {
+        for (let num = (names.length > 20 ? 25 : 20); num >= 0 && numbers.length < names.length; num -= decrement) {
+            if (!usedNumbers.has(num) || numbers.filter(n => n === num).length < 2) {
+                numbers.push(num)
+            }
+        }
+    }
+
+    // Generate the prompt string
+    for (let i = 0; i < names.length; i++) {
+        prompt += `${names[i]}: ${numbers[i]}`;
+        if (i < names.length - 1) {
+            prompt += ', '
+        }
+    }
+
+    // Ensure the ending "Creature 1: 8, Creature 2: -1"
+    prompt = ALWAYS_START_WITH + prompt.trim() + ALWAYS_END_WITH
+
+    return prompt;
 }
 
 async function testMicPermission () {
@@ -1062,9 +1112,43 @@ function toggleLiveTextMode() {
 function toggleUseOpenAI() {
     setCookie('useOpenAI', this.checked)
     useOpenAI = this.checked
-    this.closest('.settings-menu-group')?.classList.toggle('active')
-    if (!useOpenAI) {
+    if (useOpenAI) {
+        document.getElementById('promptNames')?.closest('.settings-menu-group')?.classList.add('active')
+        document.getElementById('toggleLiveText')?.closest('.settings-menu-group')?.classList.remove('active')
+    } else {
+        document.getElementById('promptNames')?.closest('.settings-menu-group')?.classList.remove('active')
+        document.getElementById('toggleLiveText')?.closest('.settings-menu-group')?.classList.add('active')
         setupSpeechDicatation()
+    }
+}
+
+function handlePromptNamesKeyDown(e) {
+    const validChars = /^[a-zA-Z!?,\s]*$/ // Add more invalid characters as needed
+    if (e.key === 'Enter') {
+        e.target.blur()
+        return true
+    }
+
+     // Automatically allow control keys (backspace, delete, arrow keys, etc.)
+    if (e.key.length > 1) {
+        return true
+    }
+
+    const value = e.target.value + e.key
+    if (!validChars.test(value)) {
+        e.preventDefault() // Invalid characters detected. Prevent keystroke.
+        return false
+    }
+    return true
+}
+
+function updatePromptNames(value) {
+    try {
+        const names = value.split(', ')
+        promptNames = names
+        setCookie('promptNamesArray', JSON.stringify(names))
+    } catch (err) {
+        console.error('Prompt names are incorrectly formatted.')
     }
 }
 
@@ -1576,7 +1660,7 @@ function parseAndAddEntries(convertedInput) {
 // Trim incomplete 'player @ order" pairs
 function trimIncompletePattern(str) {
     // Regex that matches everything up to the last occurrence of "@ [number]"
-    const regex = /(.+@ \d+)(?:\s|$).*/;
+    const regex = /(.+@ -?\d+)(?:\s|$).*/;
   
     // Execute the regex on the string
     const match = str.match(regex);

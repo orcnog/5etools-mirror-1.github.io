@@ -313,14 +313,14 @@ input[type="checkbox"]:checked::before {
 textarea {
     width: 100%;
     margin: -0.5rem -1rem 0;
-    padding: 3rem;
+    padding: 2rem;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.75em;
     text-align: left;
     -webkit-mask-image: var(--grungy-mask6);
     mask-image: var(--grungy-mask6);
-    -webkit-mask-size: cover;
-    mask-size: cover;
+    -webkit-mask-size: 100% 100%; /*cover;*/
+    mask-size: 100% 100%; /*cover;*/
     scrollbar-width: none;
     /* transition: mask-size 0.5s, -webkit-mask-size 0.5s; */
 }
@@ -665,6 +665,7 @@ body.menu-open .settings-menu-closed-ui {
 }
 
 /* expand/collapse animation */
+.collapsible,
 .settings-menu-group.hidden-if-previous-group-is-active,
 .settings-menu-group.hidden-if-previous-group-not-active,
 .settings-label-tooltip-text {
@@ -674,6 +675,7 @@ body.menu-open .settings-menu-closed-ui {
     transition: opacity 500ms, max-height 500ms;
 }
 
+.collapsible.active,
 .settings-menu-group:not(.active) + .hidden-if-previous-group-is-active,
 .settings-menu-group.active + .hidden-if-previous-group-not-active,
 i.tooltip-icon.active + .settings-label-tooltip-text {
@@ -682,12 +684,14 @@ i.tooltip-icon.active + .settings-label-tooltip-text {
     pointer-events: initial;
 }
 
+.collapsible.expand-small,
 .settings-menu-group:not(.active) + .hidden-if-previous-group-is-active.expand-small,
 .settings-menu-group.active + .hidden-if-previous-group-not-active.expand-small,
 i.tooltip-icon.active + .settings-label-tooltip-text.expand-small {
     max-height: 4rem;
 }
 
+.collapsible.expand-large,
 .settings-menu-group:not(.active) + .hidden-if-previous-group-is-active.expand-large,
 .settings-menu-group.active + .hidden-if-previous-group-not-active.expand-large,
 i.tooltip-icon.active + .settings-label-tooltip-text.expand-large {

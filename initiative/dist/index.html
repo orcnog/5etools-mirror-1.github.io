@@ -96,13 +96,24 @@
                         <input id="toggleUseOpenAI" type="checkbox" />
                     </div>
                 </div>
-                <div class="settings-menu-group hidden-if-previous-group-is-active">
+                <div class="settings-menu-group collapsible">
                     <label class="settings-label" for="toggleLiveText">Live Text
                         <i class="tooltip-icon fa-regular fa-circle-question"></i>
                         <p class="settings-label-tooltip-text expand-small">Available only when not using OpenAI transcription. Displays your speech as it is heard by the browser, in real time.</p>
                     </label>
                     <div class="settings-input">
                         <input id="toggleLiveText" type="checkbox" />
+                    </div>
+                </div>
+                <div class="settings-menu-group collapsible">
+                    <label class="settings-label" for="promptNames">Preferred name spellings
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text">Enter correctly spelled player or creature names to train OpenAI to hear and transcribe them correctly. Names should be separated by commas.</p>
+                    </label>
+                    <div class="settings-input">
+                        <div class="button-group button-group">
+                            <textarea id="promptNames" class="white-space-pre"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="settings-menu-group">
