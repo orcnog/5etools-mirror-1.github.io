@@ -6,6 +6,7 @@ let grammarList // SpeechGrammarList object
 
 let micAllowed = false
 let chosenFont
+let fontAllCaps = true
 let chosenTheme
 let useOpenAI = true
 let liveTextMode = true
@@ -157,6 +158,12 @@ function rehydrateSettings() {
     loadCSS(themeOptionElem?.dataset.css)
     updateFont(themeOptionElem?.dataset.font)
     
+    /* Rehydrate the font capitalization preference */
+    fontAllCaps = getCookie('fontAllCaps') || 'true'
+    const fontToggleElem = document.getElementById('toggleFontAllCaps')
+    if (fontToggleElem) fontToggleElem.checked = fontAllCaps === 'true'
+    document.documentElement.style.setProperty('--adjustable-text-transform', fontAllCaps === 'true' ? 'uppercase' : 'capitalize')
+    
     /* Rehydrate the live text preference */
     liveTextMode = getCookie('liveTextMode') || 'true'
     document.getElementById('toggleLiveText').checked = liveTextMode === 'true'
@@ -287,10 +294,11 @@ function setupEventListeners() {
     document.getElementById('brightnessPref').addEventListener('change', (e)=> {updateBrightnessLevel(e.target.value)})
     document.getElementById('decrBrightness').addEventListener('click', decreaseBrightness)
     document.getElementById('incrBrightness').addEventListener('click', increaseBrightness)
-    document.getElementById('selectFont').addEventListener('change', handleFontChange)
+    document.getElementById('selectFont')?.addEventListener('change', handleFontChange)
     document.getElementById('fontSizePref').addEventListener('change', (e)=> {updateFontSize(e.target.value)})
     document.getElementById('decrFontSize').addEventListener('click', decreaseFontSize)
     document.getElementById('incrFontSize').addEventListener('click', increaseFontSize)
+    document.getElementById('toggleFontAllCaps')?.addEventListener('change', togglefontAllCaps)
     document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
@@ -658,9 +666,6 @@ function stopRecording() {
             console.log('Results from openai...')
             let results = data.text
             console.log(`"${results}"`)
-            // results = reformatInitiativeOrderSyntax(results)
-            // console.log(`Results after reformatting...`)
-            // console.log(results)
             
             let interpretedTranscript = parseInput(results)
             interpretedTranscript = trimIncompletePattern(interpretedTranscript)
@@ -1147,6 +1152,12 @@ function updateFont(value) {
     setCookie('fontPreference', value)
 }
 
+function togglefontAllCaps() {
+    setCookie('fontAllCaps', this.checked)
+    fontAllCaps = this.checked
+    document.documentElement.style.setProperty('--adjustable-text-transform', fontAllCaps ? 'uppercase' : 'capitalize')
+}
+
 function updateChalkiness(value) {
     const newCssVal = 1 - parseFloat(value)
     document.documentElement.style.setProperty('--adjustable-chalkiness', newCssVal)
@@ -1249,7 +1260,7 @@ function populateSelectWithFonts() {
             option.selected = true
         }
         option.textContent = font
-        selectElement.appendChild(option)
+        selectElement?.appendChild(option)
     })
 }
 

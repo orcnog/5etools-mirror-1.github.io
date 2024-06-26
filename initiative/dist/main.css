@@ -337,7 +337,7 @@ textarea {
     font-size: 2rem;
     font-family: var(--button-font);
     color: var(--button-text-color);
-    text-transform: uppercase;
+    text-transform: var(--adjustable-text-transform);
     background: var(--button-bg-color);
     -webkit-mask-image: var(--grungy-mask1);
     mask-image: var(--grungy-mask1);
@@ -742,6 +742,7 @@ i.tooltip-icon.active + .settings-label-tooltip-text.expand-large {
     min-width: 20rem;
     padding: calc(3rem - 0.5em) 0.5em;
     text-align: center;
+    text-transform: var(--adjustable-text-transform);
     background: var(--input-bg-color);
     -webkit-mask-image: var(--grungy-mask1), var(--grungy-mask4);
     mask-image: var(--grungy-mask1), var(--grungy-mask4);
@@ -1067,7 +1068,7 @@ input.speech-input {
     min-width: 0;
     box-sizing: border-box;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: var(--adjustable-text-transform);
     background: transparent;
     appearance: none;
     cursor: pointer;
