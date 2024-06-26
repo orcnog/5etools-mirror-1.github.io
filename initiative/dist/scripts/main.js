@@ -523,7 +523,7 @@ function setupEventListeners() {
             if (!useOpenAI && 'stop' in recognition) {
                 recognition.stop()
             } else {
-                stopRecording();
+                stopRecording()
             }
         }
         console.debug('Mic button released, or toggled off')
@@ -543,8 +543,8 @@ function setupEventListeners() {
  * Audio handling
  */
 
-const mimeType = getSupportedMimeTypes('audio')[0];
-const audioContext = new AudioContext();
+const mimeType = getSupportedMimeTypes('audio')[0]
+const audioContext = new AudioContext()
 
 // Determine the best mime type to use for this browser/device
 function getSupportedMimeTypes() {
@@ -568,59 +568,75 @@ function getSupportedMimeTypes() {
     for (const mimeType of prioritizedMimeTypes) {
         if (MediaRecorder.isTypeSupported(mimeType)) {
             supportedMimeTypes.push(mimeType)
-            // return mimeType;
+            // return mimeType
         }
     }
     if (supportedMimeTypes.length === 0) {
-        console.error("No suitable MIME type found for this device");
-        return null;
+        console.error("No suitable MIME type found for this device")
+        return null
     }
     return supportedMimeTypes
 }
 
+let mediaRecorder
+let audioChunks = []
+const minRecordingTime = 0.5 // 0.5 seconds
+const maxRecordingTime = 30 // 30 seconds
+let recordingTimeout
+
 // Capture audio
 async function startRecording() {
     try {
-        audioChunks = []; // Clear previous recordings
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType });
-        mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
-        mediaRecorder.start();
-        console.log('recording...');
+        audioChunks = [] // Clear previous recordings
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType })
+        mediaRecorder.ondataavailable = event => audioChunks.push(event.data)
+        mediaRecorder.start()
+        console.log('recording...')
+        // Set a timeout to automatically stop recording after maxRecordingTime
+        recordingTimeout = setTimeout(() => {
+            stopRecording()
+        }, maxRecordingTime * 1000)
     } catch (err) {
-        console.error('Error:', err);
+        console.error('Error:', err)
     }
 }
 
 // Convert captured audio to wav, then send to AWS API endpoint (for OpenAI to transcribe)
 function stopRecording() {
-    mediaRecorder.stop();
-    console.log('recording stopped');
+    mediaRecorder.stop()
+    console.log('recording stopped')
+    clearTimeout(recordingTimeout) // Clear the timeout
     
     mediaRecorder.onstop = async () => {
         // Create audio buffer from recorded audio
-        const audioBlob = new Blob(audioChunks, { type: mimeType });
-        const arrayBuffer = await audioBlob.arrayBuffer();
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        const audioBlob = new Blob(audioChunks, { type: mimeType })
+        const arrayBuffer = await audioBlob.arrayBuffer()
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
 
         // Check the duration of the audio buffer
-        const duration = audioBuffer.duration;
-        console.log(`Audio duration: ${duration} seconds`);
+        const duration = audioBuffer.duration
+        console.log(`Audio duration: ${duration} seconds`)
 
-        if (duration < 1) {
-            console.warn('Audio duration is less than 1 second. Not sending to API.');
+        if (duration < minRecordingTime) {
+            console.warn(`Audio duration is less than ${minRecordingTime} seconds. Will not submit.`)
+            return;
+        }
+
+        if (duration > maxRecordingTime) {
+            console.warn(`Audio duration is greater than ${maxRecordingTime} seconds. Will not submit.`)
             return;
         }
 
         // Create WAV file from audio buffer
         const wavBuffer = audioBufferToWav(audioBuffer);
-        const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' });
+        const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' })
         
-        const endpointUrl = 'https://ghseg8im58.execute-api.us-east-2.amazonaws.com/default/opanAiTranscribeTestPython';
-        const prompt = "Beholder: 20, Bishop: 18, Cultist: 16, Orc: 14, Tiefling: 12, Himmic: 10, Creature 1: 8, Creature 2: -1";
-        const urlWithParams = `${endpointUrl}?prompt=${encodeURIComponent(prompt)}`;
+        const endpointUrl = 'https://ghseg8im58.execute-api.us-east-2.amazonaws.com/default/opanAiTranscribeTestPython'
+        const prompt = "Beholder: 20, Bishop: 18, Cultist: 16, Orc: 14, Tiefling: 12, Himmic: 10, Creature 1: 8, Creature 2: -1"
+        const urlWithParams = `${endpointUrl}?prompt=${encodeURIComponent(prompt)}`
         
-        console.log('sending recording to OpenAI transcribe API...');
+        console.log('sending recording to OpenAI transcribe API...')
         fetch(urlWithParams, {
             method: 'POST',
             headers: {
@@ -631,18 +647,20 @@ function stopRecording() {
         .then(response => {
             console.log(`server response.ok? ${response.ok}`)
             if (!response.ok) {
-                console.log(`HTTP error! status: ${response.status}`)
-                throw new Error(`HTTP error! status: ${response.status}`, response);
+                return response.json().then(errorData => {
+                    console.log(`HTTP error! status: ${response.status}`)
+                    throw new Error(errorData.error)
+                });
             }
-            return response.json();
+            return response.json()
         })
         .then(data => {
-            console.log('Results from openai...');
-            let results = data.text;
-            console.log(`"${results}"`);
-            // results = reformatInitiativeOrderSyntax(results);
-            // console.log(`Results after reformatting...`);
-            // console.log(results);
+            console.log('Results from openai...')
+            let results = data.text
+            console.log(`"${results}"`)
+            // results = reformatInitiativeOrderSyntax(results)
+            // console.log(`Results after reformatting...`)
+            // console.log(results)
             
             let interpretedTranscript = parseInput(results)
             interpretedTranscript = trimIncompletePattern(interpretedTranscript)
@@ -650,17 +668,18 @@ function stopRecording() {
             allTranscripts.push(interpretedTranscript)
             const joinedInput = allTranscripts.join(' ')
             parseAndAddEntries(joinedInput)
-            
-            document.getElementById('finalTranscript').textContent = ''
-            document.getElementById('interimOutput').classList.remove('active')
-            document.getElementById('startDictation').classList.remove('thinking')
-            document.getElementById('startDictation').disabled = false
         })
         .catch(error => {
-            console.log(`Error: ${error.msg}`)
+            console.log(`Error: ${error.message}`)
             console.error('Error:', error);
-        });
-    };
+        })
+        .finally(() => {
+            document.getElementById('finalTranscript').textContent = ''
+            document.getElementById('interimOutput').classList.remove('active')
+            document.getElementById('startDictation').classList.remove('thinking', 'active', 'disabled')
+            document.getElementById('startDictation').disabled = false
+        })
+    }
 }
 
 function audioBufferToWav(buffer) {

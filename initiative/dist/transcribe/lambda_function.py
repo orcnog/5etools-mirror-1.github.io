@@ -9,6 +9,8 @@ import logging
 import os
 import openai
 import tempfile
+import wave
+import io
 from base64 import b64decode
 from botocore.exceptions import ClientError
 
@@ -19,6 +21,8 @@ s3 = boto3.client('s3')
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 BUCKET_NAME = os.getenv('BUCKET_ID')
+MIN_RECORDING_LENGTH_IN_SEC = 0.5
+MAX_RECORDING_LENGTH_IN_SEC = 30
 MAX_BYTES_FOR_UPLOADED_AUDIO = 32000
 VOCABULARY_NAME = 'initiative-order'
 ALLOWED_CONTENT_TYPES = {
@@ -36,6 +40,14 @@ ALLOWED_CONTENT_TYPES = {
     'audio/aac': 'aac',
     'audio/wav': 'wav',
 }
+
+
+def get_wav_duration(wav_data):
+    with wave.open(io.BytesIO(wav_data), 'rb') as wav_file:
+        frames = wav_file.getnframes()
+        rate = wav_file.getframerate()
+        duration = frames / float(rate)
+        return duration
 
 def lambda_handler(event, context):
     logger.info("Received event: " + json.dumps(event, indent=2))
@@ -106,20 +118,48 @@ def lambda_handler(event, context):
             output.append("No body content to process")
 
         # Check the file size before uploading
-        file_size = len(file_content)
-        logger.info(f"File size: {file_size} bytes")
-        if file_size < MAX_BYTES_FOR_UPLOADED_AUDIO:
-            logger.info("Audio file size is too small to contain meaningful data.")
-            output.append(f"Audio file size is too small to contain meaningful data: {file_size} bytes")
-            return {
-                'statusCode': 400,
-                'headers': {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST',
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                },
-                'body': json.dumps(output, indent=2)
-            }
+        if content_type == 'audio/wav':
+            # Check if the content type is WAV first
+            duration = get_wav_duration(file_content)
+            logger.info(f"Audio duration: {duration} seconds")
+            
+            if duration < MIN_RECORDING_LENGTH_IN_SEC:
+                return {
+                    'statusCode': 400,
+                    'body': json.dumps({"error": f"Audio file too short: {duration} sec"}),
+                    'headers': {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'OPTIONS,POST',
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                    }
+                }
+            
+            if duration > MAX_RECORDING_LENGTH_IN_SEC:
+                return {
+                    'statusCode': 400,
+                    'body': json.dumps({"error": f"Audio file too long: {duration} sec"}),
+                    'headers': {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'OPTIONS,POST',
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                    }
+                }
+        else:
+            # Otherwise check the file's raw size in bytes
+            file_size = len(file_content)
+            logger.info(f"File size: {file_size} bytes")
+            if duration < 1 or file_size < MAX_BYTES_FOR_UPLOADED_AUDIO:
+                logger.info("Audio file size is too small to contain meaningful data.")
+                output.append(f"Audio file size is too small to contain meaningful data: {file_size} bytes")
+                return {
+                    'statusCode': 400,
+                    'body': json.dumps({"error": f"Audio file size is too small to contain meaningful data: {file_size} bytes"}),
+                    'headers': {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'OPTIONS,POST',
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                    }
+                }
 
         # Set up a prompt, if the 'prompt' query string was passed
         prompt = event['queryStringParameters'].get('prompt', '')
