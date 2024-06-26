@@ -44,124 +44,12 @@
     --grungy-mask6: url('images/grungy-frame-mask4.webp');
 }
 
-/* Downloaded fonts */
-@font-face {
-    font-family: "Baron Kuffner";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Baron Kuffner"), url("themes/dnd/fonts/Baron Kuffner.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Broken Crush";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Broken Crush"), url("themes/dnd/fonts/Broken Crush.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Creatinin-pro";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Creatinin-pro"), url("themes/dnd/fonts/creatinin-pro.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Do You Want To Be My Inverted Interrobang";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Do You Want To Be My Inverted Interrobang"), url("themes/dnd/fonts/Do you want to be my Inverted Interrobang.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Dracufrankenwolfbb";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Dracufrankenwolfbb"), url("themes/dnd/fonts/DracuFrankenWolfBB.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Eordeoghlakat";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Eordeoghlakat"), url("themes/dnd/fonts/Eordeoghlakat.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Fibyngerowa";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Fibyngerowa"), url("themes/dnd/fonts/Fibyngerowa.otf") format("opentype");
-}
 
 @font-face {
     font-family: "Grenhil";
     font-style: normal;
     font-weight: 400;
     src: local("Grenhil"), url("themes/dnd/fonts/Grenhil.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Ickyticketmono";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Ickyticketmono"), url("themes/dnd/fonts/IckyTicketMono.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Kgbythegraceofgod";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Kgbythegraceofgod"), url("themes/dnd/fonts/KGBytheGraceofGod.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Lincons";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Lincons"), url("themes/dnd/fonts/LINCONS.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Lugosi";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Lugosi"), url("themes/dnd/fonts/Lugosi.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Malinsha Rough";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Malinsha Rough"), url("themes/dnd/fonts/Malinsha Rough.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Mystic Forest";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Mystic Forest"), url("themes/dnd/fonts/Mystic Forest.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Raventame";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Raventame"), url("themes/dnd/fonts/Raventame.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "Unionagrochem";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Unionagrochem"), url("themes/dnd/fonts/unionagrochem.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Vtks Distress";
-    font-style: normal;
-    font-weight: 400;
-    src: local("Vtks Distress"), url("themes/dnd/fonts/vtks distress.ttf") format("truetype");
 }
 
 /* CSS Reset */
@@ -238,6 +126,10 @@ li {
     mask-image: var(--grungy-mask3), linear-gradient(rgba(0 0 0 / var(--adjustable-chalkiness)), rgba(0 0 0 / var(--adjustable-chalkiness)));
     -webkit-mask-size: cover;
     mask-size: cover;
+}
+
+em {
+    font-style: italic;
 }
 
 sub {
@@ -632,7 +524,7 @@ body.menu-open .settings-menu-closed-ui {
 .settings-menu .btn,
 .settings-sub-menu .btn {
     padding: 0.35rem 1rem;
-    font-family: 'GRENHIL';
+    font-family: 'Grenhil';
     mask-image: var(--grungy-mask1);
     mask-size: 120%;
     mask-position: 50%;
@@ -661,7 +553,7 @@ body.menu-open .settings-menu-closed-ui {
 
 .settings-label-tooltip-text {
     font-size: 0.8em;
-    font-family: math;
+    font-family: math, 'Courier New', Courier, monospace;
 }
 
 /* expand/collapse animation */
@@ -1261,230 +1153,4 @@ body:not(.active-turn) .active-turn-ui {
 
 body:not(.players-listed) .players-listed-ui {
     display: none;
-}
-
-/* Font handling */
-.font-baron-kuffner {
-    font-family: "Baron Kuffner", sans-serif;
-}
-
-.font-broken-crush {
-    font-family: "Broken Crush", sans-serif;
-}
-
-.font-creatinin-pro {
-    font-family: "Creatinin-pro", sans-serif;
-}
-
-.font-inverted-interrobang {
-    font-family: "Do You Want To Be My Inverted Interrobang", sans-serif;
-}
-
-.font-dracufrankenwolfbb {
-    font-family: "Dracufrankenwolfbb", sans-serif;
-}
-
-.font-eordeoghlakat {
-    font-family: "Eordeoghlakat", sans-serif;
-}
-
-.font-fibyngerowa {
-    font-family: "Fibyngerowa", sans-serif;
-}
-
-.font-grenhil {
-    font-family: "Grenhil", sans-serif;
-}
-
-.font-ickyticketmono {
-    font-family: "Ickyticketmono", sans-serif;
-}
-
-.font-kgbythegraceofgod {
-    font-family: "Kgbythegraceofgod", sans-serif;
-}
-
-.font-lincons {
-    font-family: "Lincons", sans-serif;
-}
-
-.font-lugosi {
-    font-family: "Lugosi", sans-serif;
-}
-
-.font-malinsha-rough {
-    font-family: "Malinsha Rough", sans-serif;
-}
-
-.font-mystic-forest {
-    font-family: "Mystic Forest", sans-serif;
-}
-
-.font-raventame {
-    font-family: "Raventame", sans-serif;
-}
-
-.font-unionagrochem {
-    font-family: "Unionagrochem", sans-serif;
-}
-
-.font-vtks-distress {
-    font-family: "Vtks Distress", sans-serif;
-}
-
-.font-architects-daughter {
-    font-family: 'Architects Daughter', cursive;
-}
-
-.font-babylonica {
-    font-family: 'Babylonica', cursive;
-}
-
-.font-bilbo-swash-caps {
-    font-family: 'Bilbo Swash Caps', cursive;
-}
-
-.font-caveat {
-    font-family: 'Caveat', cursive;
-}
-
-.font-comforter {
-    font-family: 'Comforter', cursive;
-}
-
-.font-condiment {
-    font-family: 'Condiment', cursive;
-}
-
-.font-courier {
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.font-dawning-of-a-new-day {
-    font-family: 'Dawning of a New Day', cursive;
-}
-
-.font-east-sea-dokdo {
-    font-family: 'East Sea Dokdo', cursive;
-    line-height: 0.85;
-}
-
-.font-fuggles {
-    font-family: 'Fuggles', cursive;
-}
-
-.font-grape-nuts {
-    font-family: 'Grape Nuts', cursive;
-}
-
-.font-homemade-apple {
-    font-family: 'Homemade Apple', cursive;
-}
-
-.font-inspiration {
-    font-family: 'Inspiration', cursive;
-}
-
-.font-julee {
-    font-family: 'Julee', cursive;
-}
-
-.font-just-me-again-down-here {
-    font-family: 'Just Me Again Down Here', cursive;
-}
-
-.font-kolker-brush {
-    font-family: 'Kolker Brush', cursive;
-}
-
-.font-la-belle-aurore {
-    font-family: 'La Belle Aurore', cursive;
-}
-
-.font-liu-jian-mao-cao {
-    font-family: 'Liu Jian Mao Cao', cursive;
-}
-
-.font-long-cang {
-    font-family: 'Long Cang', cursive;
-}
-
-.font-nanum-brush-script {
-    font-family: 'Nanum Brush Script', cursive;
-}
-
-.font-nothing-you-could-do {
-    font-family: 'Nothing You Could Do', cursive;
-}
-
-.font-oooh-baby {
-    font-family: 'Oooh Baby', cursive;
-}
-
-.font-over-the-rainbow {
-    font-family: 'Over the Rainbow', cursive;
-}
-
-.font-permanent-marker {
-    font-family: 'Permanent Marker', cursive;
-}
-
-.font-qwitcher-grypen {
-    font-family: 'Qwitcher Grypen', cursive;
-}
-
-.font-reenie-beanie {
-    font-family: 'Reenie Beanie', cursive;
-}
-
-.font-rock-salt {
-    font-family: 'Rock Salt', cursive;
-}
-
-.font-ruthie {
-    font-family: 'Ruthie', cursive;
-}
-
-.font-sassy-frass {
-    font-family: 'Sassy Frass', cursive;
-}
-
-.font-sedgwick-ave {
-    font-family: 'Sedgwick Ave', cursive;
-}
-
-.font-shalimar {
-    font-family: 'Shalimar', cursive;
-}
-
-.font-smooch {
-    font-family: 'Smooch', cursive;
-}
-
-.font-splash {
-    font-family: 'Splash', cursive;
-}
-
-.font-square-peg {
-    font-family: 'Square Peg', cursive;
-}
-
-.font-swanky-and-moo-moo {
-    font-family: 'Swanky and Moo Moo', cursive;
-}
-
-.font-vujahday-script {
-    font-family: 'Vujahday Script', cursive;
-}
-
-.font-waiting-for-the-sunrise {
-    font-family: 'Waiting for the Sunrise', cursive;
-}
-
-.font-walter-turncoat {
-    font-family: 'Walter Turncoat', cursive;
-}
-
-.font-whisper {
-    font-family: 'Whisper', cursive;
 }

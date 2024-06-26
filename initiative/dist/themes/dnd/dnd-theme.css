@@ -44,6 +44,13 @@
 
 /* Downloaded fonts */
 @font-face {
+    font-family: "Eordeoghlakat";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Eordeoghlakat"), url("fonts/Eordeoghlakat.ttf") format("truetype");
+}
+/*
+@font-face {
     font-family: "Baron Kuffner";
     font-style: normal;
     font-weight: 400;
@@ -160,15 +167,14 @@
     font-style: normal;
     font-weight: 400;
     src: local("Vtks Distress"), url("fonts/vtks distress.ttf") format("truetype");
-}
-
-@media screen and (max-width: 1290px) {
-    body {
-        background-position: center left;
-    }
-}
+} */
 
 /* Font handling */
+
+.font-eordeoghlakat {
+    font-family: "Eordeoghlakat", sans-serif;
+}
+/*
 .font-baron-kuffner {
     font-family: "Baron Kuffner", sans-serif;
 }
@@ -187,10 +193,6 @@
 
 .font-dracufrankenwolfbb {
     font-family: "Dracufrankenwolfbb", sans-serif;
-}
-
-.font-eordeoghlakat {
-    font-family: "Eordeoghlakat", sans-serif;
 }
 
 .font-fibyngerowa {
@@ -393,3 +395,4 @@
 .font-whisper {
     font-family: 'Whisper', cursive;
 }
+*/
