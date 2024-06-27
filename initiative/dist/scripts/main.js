@@ -330,6 +330,7 @@ function setupEventListeners() {
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
     // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
+
     if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.querySelector('.toggle-full-screen-menu-group').remove() }
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
@@ -1696,7 +1697,7 @@ function parseInput(input) {
     // Guess at where roll "@" symbols should be added in: find adjacent numbers and insert @ between them (if the word ≈"rolled" WAS NOT said). Ex: "3 11" to "3 @ 11"
     input = input.replace(/\b(\d\d?) (-?\d\d?)/g, (match, p1, p2) => `${p1} @ ${p2}`)
     // Guess at where roll "@" symbols should be added in: find standalone numbers and insert @ before them (if the word ≈"rolled" WAS NOT said). also handles curse words =) Ex: "john 4" to "john @ 4"
-    input = input.replace(/([a-z\*]) (\d\d? (?=[a-z\*]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
+    input = input.replace(/([a-z\*]) (-?\d\d? (?=[a-z\*]|$))/g, (match, p1, p2) => `${p1} @ ${p2}`)
 
     return input
 }
@@ -1825,8 +1826,8 @@ function renderPlayers() {
         el.value = value
 
         if (className === 'player-order') {
-            el.setAttribute("pattern", "[0-9]*")
-            el.setAttribute("inputmode", "numeric")
+            el.setAttribute("pattern", "[\\-\\d]*")
+            el.setAttribute("inputmode", "decimal")
         } else if (className === 'player-name') {
             el.setAttribute("autocapitalize", "words")
             if (player.bloodied) el.classList.add('bloodied')
@@ -1896,6 +1897,16 @@ function renderPlayers() {
 
     function handleEdit(player, input, e) {
         if (e.type === 'keydown') {
+            if (input.className == 'player-order' && /[\.-]/.test(e.key)) {
+                e.preventDefault()
+                if (/-/.test(e.target.value)) {
+                    // negative sign already exists in the input field. prevent another.
+                    e.target.value = e.target.value.replace(/-/g,'')
+                } else {
+                    e.target.value = `-${e.target.value}`
+                }
+                return // Decimal key or minus key was pressed -- treat it as a minus sign toggle
+            }
             if (input.className == 'player-order' && e.key.length === 1 && /\D/.test(e.key)) {
                 e.preventDefault() // Non-numeric key was prssed on player order field
             }
