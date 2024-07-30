@@ -4,6 +4,11 @@
         "exoticfont": "Aurebesh",
         "scenes": [
             {
+                "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
+                "caption": "Mission Briefing",
+                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence"
+            },
+            {
                 "image": "./slideshow/planetapproach/ringed-planet-approach.webp",
                 "caption": "Unknown Planet",
                 "subcap": "Location of the Lost Jedi Temple"
