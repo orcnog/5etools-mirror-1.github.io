@@ -4,6 +4,9 @@
         "exoticfont": "Aurebesh",
         "scenes": [
             {
+                "image": "./slideshow/opening/01 game_background_image.webp"
+            },
+            {
                 "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
                 "caption": "Mission Briefing",
                 "subcap": "Aboard the Nebulon-B Frigate: The Resurgence"
