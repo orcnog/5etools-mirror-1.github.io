@@ -23,29 +23,37 @@
     <link rel="stylesheet" type="text/css" href="./slideshow/slideshow.css">
 
     <!-- Link to JavaScript files -->
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.js"></script>
 </head>
 
-<body class="no-mic"> <!-- Initially set to "no-mic", but may update via JS -->
+<body class="no-mic music"> <!-- Initially set to "no-mic", but may update via JS -->
     <div id="canvas-slideshow" class="canvas will-fade-in">
         <!-- To be populated via AJAX -->
     </div>
     <div id="canvas-initiative" class="canvas will-fade-in">
 
         <div class="header-menu">
-            <button id="settingsMenuOpenBtn" class="btn header-menu-btn  settings-menu-closed-ui">
-                <i class="fas fa-ellipsis"></i>
-            </button>
-            <button id="settingsMenuReturnBtn" class="btn header-menu-btn  settings-menu-open-ui">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
-                <i class="fas fa-refresh"></i>
-            </button>
-            <a id="sceneBtn" class="btn header-menu-btn next-slide">
-                <i class="fas fa-image"></i>
-            </a>
+            <div class="header-menu-left-side">
+                <button id="settingsMenuOpenBtn" class="btn header-menu-btn  settings-menu-closed-ui">
+                    <i class="fas fa-ellipsis"></i>
+                </button>
+                <button id="settingsMenuReturnBtn" class="btn header-menu-btn  settings-menu-open-ui">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button id="refreshPageBtn" class="btn header-menu-btn  settings-menu-open-ui">
+                    <i class="fas fa-refresh"></i>
+                </button>
+            </div>
+            <div class="header-menu-right-side">
+                <button id="musicBtn" class="btn header-menu-btn  play-music">
+                    <i id="musicOn" class="fas fa-music"></i>
+                    <i id="musicOff" class="fas fa-volume-xmark"></i>
+                </button>
+                <a id="sceneBtn" class="btn header-menu-btn  next-slide">
+                    <i class="fas fa-image"></i>
+                </a>
+            </div>
         </div>
 
         <!-- Settings Menu -->
@@ -53,25 +61,55 @@
             <div class="settings-menu-inner">
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
 
-<a href="#" id="playbasichowl">Play</a>
-<a href="#" id="pausebasichowl">Pause</a>
-<a href="#" id="stopbasichowl">Stop</a>
-<a href="#" id="fadedownbasichowl">Fade Down</a>
-<a href="#" id="fadeupbasichowl">Fade Up</a>
-<br/>
-<button id="nextbasichowl">Next</button>
-<button id="prevbasichowl">Previous</button>
-<p>
-Volume:<br/>
-<input type="range" id="volume" value="0.6" min="0" max="1" step="0.05" style="padding: 0; mask-image:none;"/>
-</p>
+<div id="HowlerBasicControls">
+    <button id="playbasichowl">Play</button>
+    <button id="pausebasichowl">Pause</button>
+    <button id="stopbasichowl">Stop</button>
+    <button id="fadedownbasichowl">Fade Down</button>
+    <button id="fadeupbasichowl">Fade Up</button>
+    <button id="playrandombasichowl">Play Random</button>
+    <br/>
+    <button id="nextbasichowl">Next</button>
+    <button id="prevbasichowl">Previous</button>
+    <p>
+    Volume:<br/>
+    <input type="range" id="volume" value="0.6" min="0" max="1" step="0.05" style="padding: 0; mask-image:none;"/>
+    </p>
 
-<h2>Play Audio Sprite</h2>
-<a href="#" id="playeffect01">Zap</a>
-<a href="#" id="playeffect02">Boom</a>
-<a href="#" id="playeffect03">Crunch</a>
-<a href="#" id="playeffect04">Clang</a>
-<a href="#" id="playeffect05">Boing</a>
+    <h2>Play Audio Sprite</h2>
+    <button id="playeffect01">Zap</button>
+    <button id="playeffect02">Boom</button>
+    <button id="playeffect03">Crunch</button>
+    <button id="playeffect04">Clang</button>
+    <button id="playeffect05">Boing</button>
+</div>
+
+<div id="player" style="display: none;">
+    <div id="track"></div>
+    <div id="timer"></div>
+    <div id="duration"></div>
+    <button id="playBtn">Play</button>
+    <button id="pauseBtn">Pause</button>
+    <button id="prevBtn">Previous</button>
+    <button id="nextBtn">Next</button>
+    <button id="playlistBtn">Playlist</button>
+    <button id="volumeBtn">Volume</button>
+    <div id="progress"></div>
+    <div id="bar"></div>
+    <div id="wave"></div>
+    <div id="loading">Loading...</div>
+    <div id="playlist"></div>
+    <div id="list"></div>
+    <div id="volume">
+        <div id="barEmpty"></div>
+        <div id="barFull"></div>
+        <div id="sliderBtn"></div>
+    </div>
+</div>
+<script type="module" src="main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+<script src="https://cdn.rawgit.com/CaffeinaLab/SiriWave9/master/dist/siriwave9.min.js"></script> <!-- Include SiriWave if needed -->
+
 
                 <div class="settings-menu-group">
                     <label class="settings-label" for="copyQueryStringToClipboard">Copy Initiative Link to Clipboard</label>
@@ -106,6 +144,17 @@ Volume:<br/>
                     <label class="settings-label">Theme</label>
                     <div class="settings-input">
                         <select id="selectTheme"></select>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Combat Music</label>
+                    <div class="settings-input">
+                        <select id="selectCombatPlaylist">
+                            <option value="">None</option>
+                            <option value="dnd_combat" selected="selected">D&D Combat Playlist</option>
+                            <option value="sw_combat">Starwars Combat Playlist</option>
+                            <option value="sw_boss_fight">Starwars Boss Playlist</option>
+                        </select>
                     </div>
                 </div>
                 <div class="settings-menu-group">

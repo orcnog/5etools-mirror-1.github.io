@@ -1,4 +1,4 @@
-import { setupHowlerAudio } from './audioPlayer.js'
+import * as Audio from './audioPlayer.js';
 // import { setupHowlerPlayer } from './howlerPlayer.js'
 
 /**
@@ -11,6 +11,8 @@ let micAllowed = false
 let chosenFont
 let fontAllCaps = true
 let chosenTheme
+let combatPlaylist = 'dnd_combat'
+let combatMusicOn = false
 let useOpenAI = true
 let liveTextMode = true
 let players = []
@@ -84,15 +86,14 @@ async function main() {
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupEventListeners()
+    await Audio.loadPlaylists();
+    await Audio.setupHowlerAudio([])
+    await Audio.updatePlaylist(combatPlaylist)
     await testMicPermission()
     if (!useOpenAI) await setupSpeechDicatation()
-    updateSlideBasedOnHash()
+    updateSlideBasedOnHash(false)
     outputLogsToSettingsPage()
-    setupHowlerAudio([
-        'audio/music/starwars/opening/Funeral Pyre for a Jedi - edited.ogg',
-        'audio/music/starwars/mission_briefing/Rebel Briefing - edited.ogg',
-        'audio/music/starwars/boss_fight/Duel_of_the_Fates.ogg'
-    ])
+
     // setupHowlerPlayer([
     //     {
     //         title: 'Funeral Pyre For A Jedi',
@@ -316,6 +317,7 @@ function setupEventListeners() {
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuOpenBtn').addEventListener('click', openSettingsMenu)
     document.getElementById('settingsMenuReturnBtn').addEventListener('click', settingsMenuReturn)
+    document.getElementById('musicBtn').addEventListener('click', handleMusicBtnClick)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
@@ -342,6 +344,7 @@ function setupEventListeners() {
     document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
     document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
     document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
+    document.getElementById('selectCombatPlaylist').addEventListener('change', handleCombatPlaylistChange)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -349,8 +352,8 @@ function setupEventListeners() {
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
     document.body.addEventListener('click', e => e.target.closest('.slide-control') && handleSlideControlClick(e))
-    document.body.addEventListener('click', e => e.target.matches('label i.tooltip-icon') && handleTooltipIconClick(e)) 
-    document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href))
+    document.body.addEventListener('click', e => e.target.matches('label i.tooltip-icon') && handleTooltipIconClick(e))
+    document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href)) // updates the page url hash naturally. handled by updateSlideBasedOnHash().
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
@@ -511,6 +514,11 @@ function setupEventListeners() {
         }
     }
 
+    async function handleCombatPlaylistChange(e) {
+        const selectedCombatPlaylist = e.target.value
+        updateCombatPlaylist(selectedCombatPlaylist)
+    }
+
     function handleDictationToggle(e) {
         this.classList.toggle('active')
         if (this.classList.contains('active')) {
@@ -546,6 +554,7 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
+            Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -560,6 +569,7 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
+            if (Audio.isPlaying()) Audio.fadeUp()
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
@@ -1088,6 +1098,16 @@ function settingsMenuReturn() {
     settingsSubMenus.forEach(sub => sub.classList.add('hide-right'))
 }
 
+function handleMusicBtnClick() {
+    if (Audio.isPlaying()) {
+        Audio.stop()
+        combatMusicOn = false
+    } else {
+        Audio.playRandom()
+        combatMusicOn = true
+    }
+}
+
 function handleTooltipIconClick(e) {
     e.preventDefault()
     e.stopPropagation()
@@ -1342,13 +1362,22 @@ function updateSlideshowContext(selectedSlideshow) {
                 `;
             }
         }
-        // Load audio if necessary
-        // TODO
     } else {
         document.querySelector('body').classList.remove('slideshow')
         document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
     }
     setCookie('slideshowPreference', selectedSlideshow)
+}
+
+async function updateCombatPlaylist(playlistID) {
+    if (playlistID) {
+        await Audio.updatePlaylist(playlistID)
+        combatPlaylist = playlistID
+        document.querySelector('body').classList.add('music') 
+    } else {
+        await Audio.stop()
+        document.querySelector('body').classList.remove('music')
+    }
 }
 
 function populateSelectWithFonts() {
@@ -2243,15 +2272,24 @@ function refreshPage() {
  * URL management
  */
 
-function updateSlideBasedOnHash() {
+async function updateSlideBasedOnHash() {
+    console.log('UpdateSlideBasedOnHash executed')
     // Get the current hash value without the leading #
     const hash = window.location.hash.substring(1)
     // If no slide number hash or 0, go back to initiative tracker scene.
     if (/^$|^#0?$/.test(hash)) {
         loadScreen('INITIATIVE')
+        console.log('Loading Initiative board.')
+        await Audio.updatePlaylist(combatPlaylist)
+        if (combatMusicOn) {
+            await Audio.playRandom()
+        } else {
+            await Audio.stop()
+        }
     } else {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
+        const playlistToLoad = sceneToLaunch?.playlist ?? null
         if (sceneToLaunch) {
             if (sceneToLaunch.url) {
                 loadScreen(sceneToLaunch.url);
@@ -2262,6 +2300,10 @@ function updateSlideBasedOnHash() {
                     subcap: sceneToLaunch.subcap,
                     show_exotic_font: !!slideshow?.exoticfont
                 })
+            }
+            if (playlistToLoad) {
+                await Audio.updatePlaylist(playlistToLoad)
+                await Audio.play()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
