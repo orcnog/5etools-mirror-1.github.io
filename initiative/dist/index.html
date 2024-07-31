@@ -22,8 +22,9 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="./slideshow/slideshow.css">
 
-    <!-- Link to the local JavaScript file -->
+    <!-- Link to JavaScript files -->
     <script type="text/javascript" src="scripts/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.js"></script>
 </head>
 
 <body class="no-mic"> <!-- Initially set to "no-mic", but may update via JS -->
@@ -51,7 +52,27 @@
         <div class="settings-menu hide-right">
             <div class="settings-menu-inner">
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
-                
+
+<a href="#" id="playbasichowl">Play</a>
+<a href="#" id="pausebasichowl">Pause</a>
+<a href="#" id="stopbasichowl">Stop</a>
+<a href="#" id="fadedownbasichowl">Fade Down</a>
+<a href="#" id="fadeupbasichowl">Fade Up</a>
+<br/>
+<button id="nextbasichowl">Next</button>
+<button id="prevbasichowl">Previous</button>
+<p>
+Volume:<br/>
+<input type="range" id="volume" value="0.6" min="0" max="1" step="0.05" style="padding: 0; mask-image:none;"/>
+</p>
+
+<h2>Play Audio Sprite</h2>
+<a href="#" id="playeffect01">Zap</a>
+<a href="#" id="playeffect02">Boom</a>
+<a href="#" id="playeffect03">Crunch</a>
+<a href="#" id="playeffect04">Clang</a>
+<a href="#" id="playeffect05">Boing</a>
+
                 <div class="settings-menu-group">
                     <label class="settings-label" for="copyQueryStringToClipboard">Copy Initiative Link to Clipboard</label>
                     <div class="settings-input">
