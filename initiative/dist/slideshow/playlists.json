@@ -1,135 +1,129 @@
 {
     "dnd_boss_fight": [
-        "./audio/music/dnd/boss_fight/combat overdramatic - Witcher 3 - Conjunction Of The Spheres.ogg",
-        "./audio/music/dnd/boss_fight/combat overdramatic - Witcher 3 - On Thin Ice.ogg",
-        "./audio/music/dnd/boss_fight/Guild Wars 2 OST - 41. Blighted Battleground.ogg",
-        "./audio/music/dnd/boss_fight/Guild Wars 2 OST - 60. The Charr Triumphant.ogg",
-        "./audio/music/dnd/boss_fight/Guild Wars 2 OST - 62. Raven Speaks.ogg",
-        "./audio/music/dnd/boss_fight/Guild Wars 2 OST - Scales of Issormir.ogg",
-        "./audio/music/dnd/boss_fight/GWENT THE WITCHER CARD GAME - Main Theme 'How About A Round Of Gwent'.ogg",
-        "./audio/music/dnd/boss_fight/Never's tomb - Neverwinter Nights.ogg",
-        "./audio/music/dnd/boss_fight/Prison fight - Neverwinter Nights.ogg",
-        "./audio/music/dnd/boss_fight/Source stone battle (Final Boss) - Neverwinter Nights.ogg",
-        "./audio/music/dnd/boss_fight/TES V Skyrim Soundtrack - Death or Sovngarde.ogg",
-        "./audio/music/dnd/boss_fight/Vox Machina - Blinded By The Light.ogg",
-        "./audio/music/dnd/boss_fight/Warcraft III Reign of Chaos Music - Doom.ogg"
+        "./audio/music/dnd/boss_fight/combat_overdramatic_-_Witcher_3_-_Conjunction_Of_The_Spheres.webm",
+        "./audio/music/dnd/boss_fight/combat_overdramatic_-_Witcher_3_-_On_Thin_Ice.webm",
+        "./audio/music/dnd/boss_fight/Guild_Wars_2_OST_-_41._Blighted_Battleground.webm",
+        "./audio/music/dnd/boss_fight/Guild_Wars_2_OST_-_60._The_Charr_Triumphant.webm",
+        "./audio/music/dnd/boss_fight/Guild_Wars_2_OST_-_62._Raven_Speaks.webm",
+        "./audio/music/dnd/boss_fight/Guild_Wars_2_OST_-_Scales_of_Issormir.webm",
+        "./audio/music/dnd/boss_fight/GWENT_THE_WITCHER_CARD_GAME_-_Main_Theme_How_About_A_Round_Of_Gwent.webm",
+        "./audio/music/dnd/boss_fight/Nevers_tomb_-_Neverwinter_Nights.webm",
+        "./audio/music/dnd/boss_fight/Prison_fight_-_Neverwinter_Nights.webm",
+        "./audio/music/dnd/boss_fight/Source_stone_battle_(Final_Boss)_-_Neverwinter_Nights.webm",
+        "./audio/music/dnd/boss_fight/TES_V_Skyrim_Soundtrack_-_Death_or_Sovngarde.webm",
+        "./audio/music/dnd/boss_fight/Vox_Machina_-_Blinded_By_The_Light.webm",
+        "./audio/music/dnd/boss_fight/Warcraft_III_Reign_of_Chaos_Music_-_Doom.webm"
     ],
     "dnd_combat": [
-        "./audio/music/dnd/combat/combat heavy - Witcher 3 - At War!.ogg",
-        "./audio/music/dnd/combat/combat heavy - Witcher 3 - On the Champs Desoles.ogg",
-        "./audio/music/dnd/combat/combat heavy quick - Witcher 3 - The Hunt is Coming.ogg",
-        "./audio/music/dnd/combat/combat heavy slow - Witcher 3 - Hunt or Be Hunted.ogg",
-        "./audio/music/dnd/combat/combat heavy slow - Witcher 3 - Like A Wounded Animal.ogg",
-        "./audio/music/dnd/combat/Guild Wars 2 - Here be Dragons.ogg",
-        "./audio/music/dnd/combat/Guild Wars 2 - March of the Legions.ogg",
-        "./audio/music/dnd/combat/Guild Wars 2 - The Hammer Falls.ogg",
-        "./audio/music/dnd/combat/Neverwinter Nights OST - Battle - City 3.ogg",
-        "./audio/music/dnd/combat/Slashing through hell - Neverwinter Nights - HotU.ogg",
-        "./audio/music/dnd/combat/Vox Machina - Fighting Back.ogg",
-        "./audio/music/dnd/combat/Vox Machina - Scanbo.ogg",
-        "./audio/music/dnd/combat/Vox Machina - Shadows at the Gates.ogg",
-        "./audio/music/dnd/combat/Warhammer Mark of Chaos - Fist Fight.ogg",
-        "./audio/music/dnd/combat/Warhammer Mark of Chaos - Hairy Chase.ogg"
+        "./audio/music/dnd/combat/Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09.mp3",
+        "./audio/music/dnd/combat/Baldurs_Gate_OST_-_Attacked_by_Bounty_Hunters.mp3",
+        "./audio/music/dnd/combat/combat_heavy_-_Witcher_3_-_At_War!.mp3",
+        "./audio/music/dnd/combat/combat_heavy_-_Witcher_3_-_On_the_Champs_Desoles.mp3",
+        "./audio/music/dnd/combat/combat_heavy_quick_-_Witcher_3_-_The_Hunt_is_Coming.mp3",
+        "./audio/music/dnd/combat/combat_heavy_slow_-_Witcher_3_-_Hunt_or_Be_Hunted.mp3",
+        "./audio/music/dnd/combat/combat_heavy_slow_-_Witcher_3_-_Like_A_Wounded_Animal.mp3",
+        "./audio/music/dnd/combat/Guild_Wars_2_OST_-_32._Michoti_Battle_March.mp3",
+        "./audio/music/dnd/combat/Guild_Wars_2_OST_-_The_Origins_Of_Madness_-_Twisted_Marionette_Battle_Part_1.mp3"
     ],
     "dnd_exploration": [
-        "./audio/music/dnd/exploration/dungeon evil awaits - The_Witcher_3_Blood_Wine_-_Soundtrack_-_Witcher_Waltz.ogg",
-        "./audio/music/dnd/exploration/dungeon forboding - Witcher 3 - Emhyr var Emreis.ogg",
-        "./audio/music/dnd/exploration/dungeon ominous ambience - The_Witcher_3_-_Hearts_of_Stone_-_Iris.ogg",
-        "./audio/music/dnd/exploration/dungeon ruins - The_Witcher_3_-_Wild_Hunt_OST_Unreleased_Tracks_-_Child_of_the_Elder_Blood.ogg",
-        "./audio/music/dnd/exploration/dungeon still - The_Witcher_3_-_A_Towerful_of_Mice_OST-wzYtum3l4nA.ogg",
-        "./audio/music/dnd/exploration/dungeon still - The_Witcher_3_-_Blood_and_Wine_-_Dark_Ambient_Cinematic.ogg",
-        "./audio/music/dnd/exploration/dungeon still ambience - The_Witcher_3_-_Blood_Wine_-_Syanna_s_Decision_-_Ambiance.ogg",
-        "./audio/music/dnd/exploration/dungeon suspenseful - Witcher 3 - In The Giant's Shadow.ogg"
+        "./audio/music/dnd/exploration/dungeon_evil_awaits_-_The_Witcher_3_Blood_Wine_-_Soundtrack_-_Witcher_Waltz.webm",
+        "./audio/music/dnd/exploration/dungeon_forboding_-_Witcher_3_-_Emhyr_var_Emreis.webm",
+        "./audio/music/dnd/exploration/dungeon_ominous_ambience_-_The_Witcher_3_-_Hearts_of_Stone_-_Iris.webm",
+        "./audio/music/dnd/exploration/dungeon_ruins_-_The_Witcher_3_-_Wild_Hunt_OST_Unreleased_Tracks_-_Child_of_the_Elder_Blood.webm",
+        "./audio/music/dnd/exploration/dungeon_still_-_The_Witcher_3_-_A_Towerful_of_Mice_OST-wzYtum3l4nA.webm",
+        "./audio/music/dnd/exploration/dungeon_still_-_The_Witcher_3_-_Blood_and_Wine_-_Dark_Ambient_Cinematic.webm",
+        "./audio/music/dnd/exploration/dungeon_still_ambience_-_The_Witcher_3_-_Blood_Wine_-_Syanna_s_Decision_-_Ambiance.webm",
+        "./audio/music/dnd/exploration/dungeon_suspenseful_-_Witcher_3_-_In_The_Giants_Shadow.webm"
     ],
     "dnd_special": [
-        "./audio/music/dnd/special/Girls Just Want to Have Fun.ogg",
-        "./audio/music/dnd/special/Lets Get It On.ogg",
-        "./audio/music/dnd/special/Survivor - Eye of the Tiger.ogg"
+        "./audio/music/dnd/special/Girls_Just_Want_to_Have_Fun.webm",
+        "./audio/music/dnd/special/Lets_Get_It_On.webm",
+        "./audio/music/dnd/special/Survivor_-_Eye_of_the_Tiger.webm"
     ],   
     "sw_boss_fight": [
-        "./audio/music/starwars/boss_fight/Battle Of The Heroes - edited.ogg",
-        "./audio/music/starwars/boss_fight/BOSS-starwars-battlefront-end-credits-fight-music.ogg",
-        "./audio/music/starwars/boss_fight/Duel_of_the_Fates.ogg",
-        "./audio/music/starwars/boss_fight/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.ogg"
+        "./audio/music/starwars/boss_fight/Battle_Of_The_Heroes_-_edited.webm",
+        "./audio/music/starwars/boss_fight/BOSS-starwars-battlefront-end-credits-fight-music.webm",
+        "./audio/music/starwars/boss_fight/Duel_of_the_Fates.webm",
+        "./audio/music/starwars/boss_fight/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.webm"
     ],
     "sw_chase": [
-        "./audio/music/starwars/chase/05 The Sith Spacecraft and The Droid.ogg",
-        "./audio/music/starwars/chase/09 Anakin Defeats Sebulba.ogg",
-        "./audio/music/starwars/chase/18. Williams- Hyperspace - edited.ogg",
-        "./audio/music/starwars/chase/62. Jakku Loading Loop.ogg",
-        "./audio/music/starwars/chase/Star Wars VI - Sail Barge Assault - edited.ogg"
+        "./audio/music/starwars/chase/05_The_Sith_Spacecraft_and_The_Droid.webm",
+        "./audio/music/starwars/chase/09_Anakin_Defeats_Sebulba.webm",
+        "./audio/music/starwars/chase/18._Williams-_Hyperspace_-_edited.webm",
+        "./audio/music/starwars/chase/62._Jakku_Loading_Loop.webm",
+        "./audio/music/starwars/chase/Star_Wars_VI_-_Sail_Barge_Assault_-_edited.webm"
     ],
     "sw_combat": [
-        "./audio/music/starwars/combat/09 Anakin Defeats Sebulba - edited.ogg",
-        "./audio/music/starwars/combat/10 Passage Through the Planet Core - edited - High Intensity.ogg",
-        "./audio/music/starwars/combat/61_General_Grievous.ogg",
-        "./audio/music/starwars/combat/98._Panaka_and_the_Queen's_Protectors.ogg",
-        "./audio/music/starwars/combat/Anakin_vs._Obi-Wan-TI-dmo9_VCg-.ogg",
-        "./audio/music/starwars/combat/Battle_over_Coruscant_soundtrack_Star_Wars_III-QgXXWtwLP6U-.ogg",
-        "./audio/music/starwars/combat/Destroying The Shield - edited.ogg",
-        "./audio/music/starwars/combat/Father vs. Son - edited.ogg",
-        "./audio/music/starwars/combat/I Am the Senate.ogg",
-        "./audio/music/starwars/combat/Infiltrating the Junk Temple.ogg",
-        "./audio/music/starwars/combat/Into the Death Star - edited.ogg",
-        "./audio/music/starwars/combat/Into the Trap - edited - high intensity part.ogg",
-        "./audio/music/starwars/combat/Kylo_ren_arrives_at_the_battle - edited.ogg",
-        "./audio/music/starwars/combat/Rancor_Dungeon_Fight - edited.ogg",
-        "./audio/music/starwars/combat/Star Wars VI - Sail Barge Assault - edited.ogg",
-        "./audio/music/starwars/combat/Star_Wars_-_Republic_Clone_Army_March_Complete_Music_Theme_Remastered-oZ3iZNA-NwY-.ogg",
-        "./audio/music/starwars/combat/The Clash of Lightsabers.ogg",
-        "./audio/music/starwars/combat/The Sith Spacecraft and The Droid - edited.ogg",
-        "./audio/music/starwars/combat/Through the Flames - edited.ogg",
-        "./audio/music/starwars/combat/TIE Fighter Attack - edited - High Intensity.ogg",
-        "./audio/music/starwars/combat/Yoda Strikes Back.ogg"
+        "./audio/music/starwars/combat/09_Anakin_Defeats_Sebulba_-_edited.webm",
+        "./audio/music/starwars/combat/10_Passage_Through_the_Planet_Core_-_edited_-_High_Intensity.webm",
+        "./audio/music/starwars/combat/61_General_Grievous.webm",
+        "./audio/music/starwars/combat/98._Panaka_and_the_Queens_Protectors.webm",
+        "./audio/music/starwars/combat/Anakin_vs._Obi-Wan-TI-dmo9_VCg-.webm",
+        "./audio/music/starwars/combat/Battle_over_Coruscant_soundtrack_Star_Wars_III-QgXXWtwLP6U-.webm",
+        "./audio/music/starwars/combat/Destroying_The_Shield_-_edited.webm",
+        "./audio/music/starwars/combat/Father_vs._Son_-_edited.webm",
+        "./audio/music/starwars/combat/I_Am_the_Senate.webm",
+        "./audio/music/starwars/combat/Infiltrating_the_Junk_Temple.webm",
+        "./audio/music/starwars/combat/Into_the_Death_Star_-_edited.webm",
+        "./audio/music/starwars/combat/Into_the_Trap_-_edited_-_high_intensity_part.webm",
+        "./audio/music/starwars/combat/Kylo_ren_arrives_at_the_battle_-_edited.webm",
+        "./audio/music/starwars/combat/Rancor_Dungeon_Fight_-_edited.webm",
+        "./audio/music/starwars/combat/Star_Wars_VI_-_Sail_Barge_Assault_-_edited.webm",
+        "./audio/music/starwars/combat/Star_Wars_-_Republic_Clone_Army_March_Complete_Music_Theme_Remastered-oZ3iZNA-NwY-.webm",
+        "./audio/music/starwars/combat/The_Clash_of_Lightsabers.webm",
+        "./audio/music/starwars/combat/The_Sith_Spacecraft_and_The_Droid_-_edited.webm",
+        "./audio/music/starwars/combat/Through_the_Flames_-_edited.webm",
+        "./audio/music/starwars/combat/TIE_Fighter_Attack_-_edited_-_High_Intensity.webm",
+        "./audio/music/starwars/combat/Yoda_Strikes_Back.webm"
     ],
     "sw_dogfight": [
-        "./audio/music/starwars/dogfight/18. Williams- Hyperspace - edited.ogg",
-        "./audio/music/starwars/dogfight/i_can_fly_anything - edited.ogg",
-        "./audio/music/starwars/dogfight/Scherzo for X-Wings - edited.ogg",
-        "./audio/music/starwars/dogfight/The Falcon - edited.ogg",
-        "./audio/music/starwars/dogfight/The Fleet Enters Hyperspace - edited.ogg"
+        "./audio/music/starwars/dogfight/18._Williams-_Hyperspace_-_edited.webm",
+        "./audio/music/starwars/dogfight/i_can_fly_anything_-_edited.webm",
+        "./audio/music/starwars/dogfight/Scherzo_for_X-Wings_-_edited.webm",
+        "./audio/music/starwars/dogfight/The_Falcon_-_edited.webm",
+        "./audio/music/starwars/dogfight/The_Fleet_Enters_Hyperspace_-_edited.webm"
     ],
     "sw_evil": [
-        "./audio/music/starwars/evil/Anthem of Evil - edited.ogg",
-        "./audio/music/starwars/evil/Brought Before The Emperor - edited.ogg",
-        "./audio/music/starwars/evil/Inspecting The Death Star - edited.ogg",
-        "./audio/music/starwars/evil/Snoke - edited.ogg",
-        "./audio/music/starwars/evil/Vader's Redemption - edited.ogg"
+        "./audio/music/starwars/evil/Anthem_of_Evil_-_edited.webm",
+        "./audio/music/starwars/evil/Brought_Before_The_Emperor_-_edited.webm",
+        "./audio/music/starwars/evil/Inspecting_The_Death_Star_-_edited.webm",
+        "./audio/music/starwars/evil/Snoke_-_edited.webm",
+        "./audio/music/starwars/evil/Vaders_Redemption_-_edited.webm"
     ],
     "sw_exploration": [
-        "./audio/music/starwars/exploration/10 Passage Through the Planet Core.ogg",
-        "./audio/music/starwars/exploration/Anakin Skywalker's Death - edited.ogg",
-        "./audio/music/starwars/exploration/Brought Before The Emperor - edited - low intensity.ogg",
-        "./audio/music/starwars/exploration/MX THEATTACKONJAKKU QUIET.ogg",
-        "./audio/music/starwars/exploration/on_the_inside - edited - low intensity.ogg",
-        "./audio/music/starwars/exploration/Secret Bunker - edited.ogg",
-        "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHTdQ-.ogg"
+        "./audio/music/starwars/exploration/10_Passage_Through_the_Planet_Core.webm",
+        "./audio/music/starwars/exploration/Anakin_Skywalkers_Death_-_edited.webm",
+        "./audio/music/starwars/exploration/Brought_Before_The_Emperor_-_edited_-_low_intensity.webm",
+        "./audio/music/starwars/exploration/MX_THEATTACKONJAKKU_QUIET.webm",
+        "./audio/music/starwars/exploration/on_the_inside_-_edited_-_low_intensity.webm",
+        "./audio/music/starwars/exploration/Secret_Bunker_-_edited.webm",
+        "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHTdQ-.webm"
     ],
     "sw_mission_briefing": [
-        "./audio/music/starwars/mission_briefing/Rebel Briefing - edited.ogg"
+        "./audio/music/starwars/mission_briefing/Rebel_Briefing_-_edited.webm"
     ],
     "sw_opening": [
-        "./audio/music/starwars/opening/Funeral Pyre for a Jedi - edited.ogg"
+        "./audio/music/starwars/opening/Funeral_Pyre_for_a_Jedi_-_edited.webm"
     ],
     "sw_special": [
-        "./audio/music/starwars/special/Disco!.ogg",
-        "./audio/music/starwars/special/ELEVATOR-MUSIC.ogg",
-        "./audio/music/starwars/special/Party - Star Wars Cantina Band-x70b3qqQYtU-.ogg",
-        "./audio/music/starwars/special/Successes_-_Trials_Hoth_Bright_Hope_Transport_Out_02.ogg",
-        "./audio/music/starwars/special/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.ogg"
+        "./audio/music/starwars/special/Disco!.webm",
+        "./audio/music/starwars/special/ELEVATOR-MUSIC.webm",
+        "./audio/music/starwars/special/Party_-_Star_Wars_Cantina_Band-x70b3qqQYtU-.webm",
+        "./audio/music/starwars/special/Successes_-_Trials_Hoth_Bright_Hope_Transport_Out_02.webm",
+        "./audio/music/starwars/special/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.webm"
     ],
     "sw_tense": [
-        "./audio/music/starwars/exploration/06 The Trip to the Naboo Temple.ogg",
-        "./audio/music/starwars/tense/Into The Trap - Medium Intensity Part.ogg",
-        "./audio/music/starwars/tense/Standing By - edited.ogg",
-        "./audio/music/starwars/tense/Star_Wars_-_Droid_Invasion_Trade_Federation_March_Suite_Theme-7LeN-3zQdQ0-.ogg",
-        "./audio/music/starwars/tense/Star_Wars_-_Separatist_Droid_Army_Suite_Theme-qz2WOlybL8-.ogg"
+        "./audio/music/starwars/exploration/06_The_Trip_to_the_Naboo_Temple.webm",
+        "./audio/music/starwars/tense/Into_The_Trap_-_Medium_Intensity_Part.webm",
+        "./audio/music/starwars/tense/Standing_By_-_edited.webm",
+        "./audio/music/starwars/tense/Star_Wars_-_Droid_Invasion_Trade_Federation_March_Suite_Theme-7LeN-3zQdQ0-.webm",
+        "./audio/music/starwars/tense/Star_Wars_-_Separatist_Droid_Army_Suite_Theme-qz2WOlybL8-.webm"
     ],
     "sw_victory": [
-        "./audio/music/starwars/victory/12_Battles_Shared_Rebel_Win_B_Loop.ogg",
-        "./audio/music/starwars/victory/130_Hoth_Battles_Rebel_Win_05_Loop.ogg",
-        "./audio/music/starwars/victory/End_Game_-_Star_Wars_The_Throne_Room_End_Title-248ggPok158-.ogg",
-        "./audio/music/starwars/victory/End_Title_Music.ogg",
-        "./audio/music/starwars/victory/Victory - stinger.ogg"
+        "./audio/music/starwars/victory/12_Battles_Shared_Rebel_Win_B_Loop.webm",
+        "./audio/music/starwars/victory/130_Hoth_Battles_Rebel_Win_05_Loop.webm",
+        "./audio/music/starwars/victory/End_Game_-_Star_Wars_The_Throne_Room_End_Title-248ggPok158-.webm",
+        "./audio/music/starwars/victory/End_Title_Music.webm",
+        "./audio/music/starwars/victory/Victory_-_stinger.webm"
     ]
 }

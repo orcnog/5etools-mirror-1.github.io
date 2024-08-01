@@ -410,16 +410,16 @@ select {
     display: block;
 }
 
-.music .header-menu-btn #musicOn {
+.header-menu-btn #musicOn {
     display: inline;
 }
-.music .header-menu-btn #musicOff {
+.header-menu-btn #musicOff {
     display: none;
 }
-.music-playing .header-menu-btn #musicOn {
+.music-on .header-menu-btn #musicOn {
     display: none;
 }
-.music-playing .header-menu-btn #musicOff {
+.music-on .header-menu-btn #musicOff {
     display: inline;
 }
 

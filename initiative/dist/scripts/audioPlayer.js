@@ -8,11 +8,18 @@ let currentTrackIndex = 0
 let currentPlaylistPath = ''
 let loadedPlaylists = {}
 
+async function fetchJSON(url) {
+    const response = await fetch(url)
+    return response.json()
+}
+
 // Function to load the playlists from a JSON file
 async function loadPlaylists() {
     try {
-        const response = await fetch('./slideshow/playlists.json')
-        loadedPlaylists = await response.json()
+        const responseJSON = await fetchJSON('./slideshow/playlists.json')
+        if (responseJSON) {
+            loadedPlaylists = responseJSON
+        }
     } catch (error) {
         console.error('Error loading playlists:', error)
     }
@@ -27,6 +34,7 @@ function setupHowlerAudio(src) {
     basichowl = new Howl({
         src: [playlist[currentTrackIndex]],
         volume: initialVolume,
+        html5: true,
         onend: function () {
             nextTrack(); // Automatically play next track when current one ends
         }
@@ -87,7 +95,8 @@ function eventHandlers() {
 async function play() {
     if (basichowl.playing(soundId)) return
     document.body.classList.add('music-playing')
-    console.log(`Audio playing: ${basichowl.src}`)
+    console.log(`Audio playing: ${basichowl._src}`)
+    alert(`Audio playing: ${basichowl._src}`)
     soundId = basichowl.play()
     basichowl.fade(0, initialVolume, 1000); // Fade in
 }
@@ -138,7 +147,8 @@ function changeTrack() {
             nextTrack(); // Automatically play next track when current one ends
         }
     })
-    console.log(`Audio playing: ${basichowl.src}`)
+    console.log(`Audio playing: ${basichowl._src}`)
+    alert(`Audio playing: ${basichowl._src}`)
     soundId = basichowl.play()
     document.body.classList.add('music-playing')
 }
