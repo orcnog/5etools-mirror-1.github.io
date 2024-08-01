@@ -144,35 +144,44 @@ function changeTrack() {
 }
 
 // Function to update the playlist based on the trigger
-async function updatePlaylist(newPlaylistId) {
-    const newPlaylist = loadedPlaylists[newPlaylistId]
+async function updatePlaylist(newPlaylistIdOrArray) {
+    let newPlaylist;
+    
+    if (Array.isArray(newPlaylistIdOrArray)) {
+        newPlaylist = newPlaylistIdOrArray;
+    } else {
+        newPlaylist = loadedPlaylists[newPlaylistIdOrArray];
+    }
+
     if (!newPlaylist) {
-        console.error('Playlist not found:', newPlaylistId)
+        console.error('Playlist not found:', newPlaylistIdOrArray);
         return;
     }
 
-    if (currentPlaylistPath === newPlaylistId) {
+    const newPlaylistPath = Array.isArray(newPlaylistIdOrArray) ? newPlaylistIdOrArray.join(',') : newPlaylistIdOrArray;
+
+    if (currentPlaylistPath === newPlaylistPath) {
         // Same playlist, continue playing
         return;
     }
 
-    if (!newPlaylistId) {
+    if (!newPlaylistPath) {
         // No playlist assigned to the next slide, fade out the current playlist
-        document.body.classList.remove('music-playing')
-        basichowl.fade(basichowl.volume(), 0, 1000)
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        basichowl.stop()
-        currentPlaylistPath = ''
-        return
+        document.body.classList.remove('music-playing');
+        basichowl.fade(basichowl.volume(), 0, 1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        basichowl.stop();
+        currentPlaylistPath = '';
+        return;
     }
 
     // Stop the current playlist
-    document.body.classList.remove('music-playing')
-    basichowl.fade(basichowl.volume(), 0, 1000)
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    basichowl.stop()
-    await setupHowlerAudio(newPlaylist)
-    currentPlaylistPath = newPlaylistId
+    document.body.classList.remove('music-playing');
+    basichowl.fade(basichowl.volume(), 0, 1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    basichowl.stop();
+    await setupHowlerAudio(newPlaylist);
+    currentPlaylistPath = newPlaylistPath;
 }
 
 // Function to play a random track from the current playlist
