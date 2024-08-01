@@ -25,7 +25,6 @@
 
     <!-- Link to JavaScript files -->
     <script type="module" src="scripts/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.js"></script>
 </head>
 
 <body class="no-mic music"> <!-- Initially set to "no-mic", but may update via JS -->
@@ -62,46 +61,6 @@
             <div class="settings-menu-inner">
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
 
-<div id="howlerPlayer">
-    <!-- Top Info -->
-    <div id="title">
-      <span id="track"></span>
-      <div id="timer">0:00</div>
-      <div id="duration">0:00</div>
-    </div>
-    <!-- Controls -->
-    <div class="controlsOuter">
-      <div class="controlsInner">
-        <div id="loading"></div>
-        <div class="btn" id="playBtn"></div>
-        <div class="btn" id="pauseBtn"></div>
-        <div class="btn" id="prevBtn"></div>
-        <div class="btn" id="nextBtn"></div>
-      </div>
-      <div class="btn" id="playlistBtn"></div>
-      <div class="btn" id="volumeBtn"></div>
-    </div>
-    <!-- Progress -->
-    <div id="waveform"></div>
-    <div id="bar"></div>
-    <div id="progress"></div>
-    <!-- Playlist -->
-    <div id="playlist">
-      <div id="list"></div>
-    </div>
-    <!-- Volume -->
-    <div id="volume" class="fadeout">
-      <div id="barFull" class="bar"></div>
-      <div id="barEmpty" class="bar"></div>
-      <div id="sliderBtn"></div>
-    </div>
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <script src="./scripts/siriwave.js"></script>
-    <script src="./scripts/howlerPlayer.js"></script>
-</div>
-
-
                 <div class="settings-menu-group">
                     <label class="settings-label" for="copyQueryStringToClipboard">Copy Initiative Link to Clipboard</label>
                     <div class="settings-input">
@@ -135,17 +94,6 @@
                     <label class="settings-label">Theme</label>
                     <div class="settings-input">
                         <select id="selectTheme"></select>
-                    </div>
-                </div>
-                <div class="settings-menu-group">
-                    <label class="settings-label">Combat Music</label>
-                    <div class="settings-input">
-                        <select id="selectCombatPlaylist">
-                            <option value="">None</option>
-                            <option value="dnd_combat" selected="selected">D&D Combat Playlist</option>
-                            <option value="sw_combat">Starwars Combat Playlist</option>
-                            <option value="sw_boss_fight">Starwars Boss Playlist</option>
-                        </select>
                     </div>
                 </div>
                 <div class="settings-menu-group">
@@ -239,6 +187,12 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
+                    <label class="settings-label" for="openMusicMenu">Music Configuration</label>
+                    <div class="settings-input">
+                        <button id="openMusicMenu" class="btn"><i class="fas fas fa-ellipsis"></i></button>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
                     <label class="settings-label" for="openSlideshowMenu">Slideshow Configuration</label>
                     <div class="settings-input">
                         <button id="openSlideshowMenu" class="btn"><i class="fas fas fa-ellipsis"></i></button>
@@ -247,6 +201,64 @@
                 <div class="settings-menu-group event-log">
                     <label class="settings-label">Console Log</label>
                     <p id="eventlog"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music -Slide Out Menu -->
+        <div id="musicMenu" class="settings-sub-menu hide-right">
+            <div class="settings-menu-inner">
+                <h2 class="title">Music Configuration</h2>
+                
+                <div class="settings-menu-group">
+                    <label class="settings-label">Combat Music</label>
+                    <div class="settings-input">
+                        <select id="selectCombatPlaylist">
+                            <option value="">None</option>
+                            <option value="dnd_combat" selected="selected">D&D Combat Playlist</option>
+                            <option value="sw_combat">Starwars Combat Playlist</option>
+                            <option value="sw_boss_fight">Starwars Boss Playlist</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="howlerPlayer" class="collapsible expand-large active">
+                    <!-- Top Info -->
+                    <div id="title">
+                    <div id="timer">0:00</div>
+                    <span id="track"></span>
+                    <div id="duration">0:00</div>
+                    </div>
+                    <!-- Controls -->
+                    <div class="controlsOuter">
+                        <div class="btn" id="playlistBtn"></div>
+                        <div class="controlsInner">
+                        <div id="loading"></div>
+                        <div class="btn" id="prevBtn"></div>
+                        <div class="btn" id="playBtn"></div>
+                        <div class="btn" id="pauseBtn"></div>
+                        <div class="btn" id="nextBtn"></div>
+                        </div>
+                    <div class="btn" id="volumeBtn"></div>
+                    </div>
+                    <!-- Progress -->
+                    <div id="waveform"></div>
+                    <div id="bar"></div>
+                    <div id="progress"></div>
+                    <!-- Playlist -->
+                    <div id="playlist">
+                    <div id="list"></div>
+                    </div>
+                    <!-- Volume -->
+                    <div id="volume" class="fadeout">
+                    <div id="barFull" class="bar"></div>
+                    <div id="barEmpty" class="bar"></div>
+                    <div id="sliderBtn"></div>
+                    </div>
+                    <!-- Scripts -->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+                    <script src="./scripts/siriwave.js"></script>
+                    <script src="./scripts/howlerPlayer.js"></script>
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@
  */
 
 // Cache references to DOM elements.
-var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'playlistBtn', 'volumeBtn', 'progress', 'bar', 'wave', 'loading', 'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'];
+var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading', 'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'];
 elms.forEach(function(elm) {
   window[elm] = document.getElementById(elm);
 });
@@ -272,18 +272,18 @@ Player.prototype = {
 // Setup our new audio player class and pass it the playlist.
 var player = new Player([
   {
-    title: 'Assassin\'s Creed Rogue OST - The Guardian (Track 09)',
+    title: 'Assassin\'s Creed Rogue OST - The Guardian',
     file: 'Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09',
     howl: null
   },
   {
-    title: '80s Vibe',
-    file: '80s_vibe',
+    title: 'Baldur\'s Gate OST - Attacked by Bounty Hunters',
+    file: 'Baldurs_Gate_OST_-_Attacked_by_Bounty_Hunters',
     howl: null
   },
   {
-    title: 'Running Out',
-    file: 'running_out',
+    title: 'Witcher 3 - At War!',
+    file: 'combat_heavy_-_Witcher_3_-_At_War!',
     howl: null
   }
 ]);
@@ -302,7 +302,23 @@ nextBtn.addEventListener('click', function() {
   player.skip('next');
 });
 waveform.addEventListener('click', function(event) {
-  player.seek(event.clientX / window.innerWidth);
+    // Get the bounding rectangle of the element
+    var rect = waveform.getBoundingClientRect();
+
+    // Calculate the click position relative to the element
+    var clickPositionX = event.clientX - rect.left;
+
+    // Calculate the width of the element
+    var elementWidth = rect.width;
+
+    // Calculate the percentage position
+    var percentage = clickPositionX / elementWidth;
+
+    // Log the percentage (0.0 to 1.0)
+    console.log(percentage);
+
+    // Update track seek position
+    player.seek(percentage);
 });
 playlistBtn.addEventListener('click', function() {
   player.togglePlaylist();
@@ -351,8 +367,8 @@ volume.addEventListener('touchmove', move);
 // Setup the "waveform" animation.
 var wave = new SiriWave({
   container: waveform,
-  width: window.innerWidth,
-  height: window.innerHeight * 0.3,
+  width: Math.min(window.innerWidth, 540),
+  height: 100,
   cover: true,
   speed: 0.03,
   amplitude: 0.7,
@@ -362,26 +378,26 @@ wave.start();
 
 // Update the height of the wave animation.
 // These are basically some hacks to get SiriWave.js to do what we want.
-var resize = function() {
-  var height = window.innerHeight * 0.3;
-  var width = window.innerWidth;
-  wave.height = height;
-  wave.height_2 = height / 2;
-  wave.MAX = wave.height_2 - 4;
-  wave.width = width;
-  wave.width_2 = width / 2;
-  wave.width_4 = width / 4;
-  wave.canvas.height = height;
-  wave.canvas.width = width;
-  wave.container.style.margin = -(height / 2) + 'px auto';
+// var resize = function() {
+//   var height = window.innerHeight * 0.3;
+//   var width = window.innerWidth;
+//   wave.height = height;
+//   wave.height_2 = height / 2;
+//   wave.MAX = wave.height_2 - 4;
+//   wave.width = width;
+//   wave.width_2 = width / 2;
+//   wave.width_4 = width / 4;
+//   wave.canvas.height = height;
+//   wave.canvas.width = width;
+//   wave.container.style.margin = -(height / 2) + 'px auto';
 
-  // Update the position of the slider.
-  var sound = player.playlist[player.index].howl;
-  if (sound) {
-    var vol = sound.volume();
-    var barWidth = (vol * 0.9);
-    sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px';
-  }
-};
-window.addEventListener('resize', resize);
-resize();
+//   // Update the position of the slider.
+//   var sound = player.playlist[player.index].howl;
+//   if (sound) {
+//     var vol = sound.volume();
+//     var barWidth = (vol * 0.9);
+//     sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px';
+//   }
+// };
+// window.addEventListener('resize', resize);
+// resize();

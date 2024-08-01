@@ -1,5 +1,6 @@
 // import * as Audio from './audioPlayer.js';
-import { loadPlaylists } from './audioPlayer.js'
+// import { loadPlaylists } from './audioPlayer.js'
+// import HowlerPlayer from './howlerPlayer.js'
 
 /**
  * Declarations
@@ -11,6 +12,7 @@ let micAllowed = false
 let chosenFont
 let fontAllCaps = true
 let chosenTheme
+// let Audio = new HowlerPlayer()
 let combatPlaylist = 'dnd_combat'
 let combatMusicOn = false
 let useOpenAI = true
@@ -85,6 +87,7 @@ async function main() {
     mergeSlideshowDataWithHomebrew()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
+    // setupAudioPlayer()
     setupEventListeners()
     // await Audio.loadPlaylists();
     // await Audio.setupHowlerAudio([])
@@ -112,6 +115,22 @@ async function main() {
     //     }
     // ])
 }
+
+// function setupAudioPlayer () {
+//     // fetchJSON('./slideshow/playlists.json')
+//     Audio = new HowlerPlayer([
+//         {
+//             title: "Assassin's Creed Rogue OST - The Guardian (Track 09)",
+//             file: "Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09",
+//             howl: null
+//         },
+//         {
+//             title: "Baldurs Gate OST - Attacked by Bounty Hunters",
+//             file: "Baldurs_Gate_OST_-_Attacked_by_Bounty_Hunters",
+//             howl: null
+//         }
+//     ])
+// }
 
 function calculateGlobalVars() {
     singleDigitRegexPatterns = (function (numberMap) {
@@ -338,6 +357,7 @@ function setupEventListeners() {
     document.getElementById('chalkinessPref').addEventListener('change', (e)=> {updateChalkiness(e.target.value)})
     document.getElementById('decrChalkiness').addEventListener('click', decreaseChalkiness)
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
+    document.getElementById('openMusicMenu').addEventListener('click', ()=> openSettingsSubMenu('musicMenu'))
     document.getElementById('openSlideshowMenu').addEventListener('click', ()=> openSettingsSubMenu('slideshowMenu'))
     document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
     document.getElementById('slideshowNextSlide').addEventListener('change', handleSlideshowSlideChange)
@@ -516,6 +536,11 @@ function setupEventListeners() {
 
     async function handleCombatPlaylistChange(e) {
         const selectedCombatPlaylist = e.target.value
+        if (!selectedCombatPlaylist) {
+            document.getElementById('howlerPlayer').classList.remove('active')
+        } else {
+            document.getElementById('howlerPlayer').classList.add('active')
+        }
         updateCombatPlaylist(selectedCombatPlaylist)
     }
 
