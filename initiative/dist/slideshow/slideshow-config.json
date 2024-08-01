@@ -4,47 +4,57 @@
         "exoticfont": "Aurebesh",
         "scenes": [
             {
-                "image": "./slideshow/opening/01 game_background_image.webp"
+                "image": "./slideshow/opening/01 game_background_image.webp",
+                "playlist": "sw_opening"
             },
             {
                 "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
                 "caption": "Mission Briefing",
-                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence"
+                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
+                "playlist": "sw_mission_briefing"
             },
             {
                 "image": "./slideshow/planetapproach/ringed-planet-approach.webp",
                 "caption": "Unknown Planet",
-                "subcap": "Location of the Lost Jedi Temple"
+                "subcap": "Location of the Lost Jedi Temple",
+                "playlist": "sw_dogfight"
             },
             {
                 "image": "./slideshow/derelictship/half-destroyed-derelict-ship.webp",
                 "caption": "Destroyed Ship",
-                "subcap": "Corellian CR90 Stealth Corvette"
+                "subcap": "Corellian CR90 Stealth Corvette",
+                "playlist": "sw_exploration"
             },
             {
-                "url": "./slideshow/shipconsole"
+                "url": "./slideshow/shipconsole",
+                "playlist": "sw_exploration"
             },
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
                 "caption": "Ancient Hieroglyphs",
-                "subcap": "Meaning: unknown"
+                "subcap": "Meaning: unknown",
+                "playlist": "sw_exploration"
             },
             {
                 "image": "./slideshow/ventalor/ventalor.webp",
                 "caption": "Ven'Talor",
-                "subcap": "The Lost Jedi Temple"
+                "subcap": "The Lost Jedi Temple",
+                "playlist": "sw_exploration"
             },
             {
-                "url": "./slideshow/templeconsole"
+                "url": "./slideshow/templeconsole",
+                "playlist": "sw_exploration"
             },
             {
                 "image": "./slideshow/greatlibrary/greatlibrary.webp",
-                "caption": "The Great Library of Ven'Talor"
+                "caption": "The Great Library of Ven'Talor",
+                "playlist": ["./audio/music/starwars/victory/End_Game_-_Star_Wars_The_Throne_Room_End_Title-248ggPoK158-.ogg"]
             },
             {
                 "image": "./slideshow/final/final.webp",
                 "caption": "THE END",
-                "subcap": "May the Force Be With You!"
+                "subcap": "May the Force Be With You!",
+                "playlist": ["./audio/music/starwars/victory/End_Title_Music.ogg"]
             }
         ]
     },
