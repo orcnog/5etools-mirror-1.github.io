@@ -1,5 +1,5 @@
-import * as Audio from './audioPlayer.js';
-// import { setupHowlerPlayer } from './howlerPlayer.js'
+// import * as Audio from './audioPlayer.js';
+import { loadPlaylists } from './audioPlayer.js'
 
 /**
  * Declarations
@@ -86,9 +86,9 @@ async function main() {
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupEventListeners()
-    await Audio.loadPlaylists();
-    await Audio.setupHowlerAudio([])
-    await Audio.updatePlaylist(combatPlaylist)
+    // await Audio.loadPlaylists();
+    // await Audio.setupHowlerAudio([])
+    // await Audio.updatePlaylist(combatPlaylist)
     await testMicPermission()
     if (!useOpenAI) await setupSpeechDicatation()
     updateSlideBasedOnHash(false)
@@ -554,7 +554,7 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
-            Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
+            // Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -569,7 +569,7 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            if (Audio.isPlaying()) Audio.fadeUp()
+            // if (Audio.isPlaying()) Audio.fadeUp()
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
@@ -1099,12 +1099,14 @@ function settingsMenuReturn() {
 }
 
 function handleMusicBtnClick() {
-    if (Audio.isPlaying()) {
-        Audio.stop()
+    if (combatMusicOn) {
         combatMusicOn = false
+        document.body.classList.remove('music-on')
+        // Audio.stop()
     } else {
-        Audio.playRandom()
         combatMusicOn = true
+        document.body.classList.add('music-on')
+        // Audio.playRandom()
     }
 }
 
@@ -1371,11 +1373,11 @@ function updateSlideshowContext(selectedSlideshow) {
 
 async function updateCombatPlaylist(playlistID) {
     if (playlistID) {
-        await Audio.updatePlaylist(playlistID)
+        // await Audio.updatePlaylist(playlistID)
         combatPlaylist = playlistID
         document.querySelector('body').classList.add('music') 
     } else {
-        await Audio.stop()
+        // await Audio.stop()
         document.querySelector('body').classList.remove('music')
     }
 }
@@ -2280,11 +2282,11 @@ async function updateSlideBasedOnHash() {
     if (/^$|^#0?$/.test(hash)) {
         loadScreen('INITIATIVE')
         console.log('Loading Initiative board.')
-        await Audio.updatePlaylist(combatPlaylist)
+        // await Audio.updatePlaylist(combatPlaylist)
         if (combatMusicOn) {
-            await Audio.playRandom()
+            // await Audio.playRandom()
         } else {
-            await Audio.stop()
+            // await Audio.stop()
         }
     } else {
         const sceneIndex = parseInt(hash) - 1
@@ -2302,8 +2304,8 @@ async function updateSlideBasedOnHash() {
                 })
             }
             if (playlistToLoad) {
-                await Audio.updatePlaylist(playlistToLoad)
-                await Audio.play()
+                // await Audio.updatePlaylist(playlistToLoad)
+                // await Audio.play()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);

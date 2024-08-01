@@ -21,6 +21,7 @@
     <!-- Link to local CSS files -->
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="./slideshow/slideshow.css">
+    <link rel="stylesheet" type="text/css" href="./scripts/howlerDemo.css"/>
 
     <!-- Link to JavaScript files -->
     <script type="module" src="scripts/main.js"></script>
@@ -61,54 +62,44 @@
             <div class="settings-menu-inner">
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
 
-<div id="HowlerBasicControls">
-    <button id="playbasichowl">Play</button>
-    <button id="pausebasichowl">Pause</button>
-    <button id="stopbasichowl">Stop</button>
-    <button id="fadedownbasichowl">Fade Down</button>
-    <button id="fadeupbasichowl">Fade Up</button>
-    <button id="playrandombasichowl">Play Random</button>
-    <br/>
-    <button id="nextbasichowl">Next</button>
-    <button id="prevbasichowl">Previous</button>
-    <p>
-    Volume:<br/>
-    <input type="range" id="volume" value="0.6" min="0" max="1" step="0.05" style="padding: 0; mask-image:none;"/>
-    </p>
-
-    <h2>Play Audio Sprite</h2>
-    <button id="playeffect01">Zap</button>
-    <button id="playeffect02">Boom</button>
-    <button id="playeffect03">Crunch</button>
-    <button id="playeffect04">Clang</button>
-    <button id="playeffect05">Boing</button>
-</div>
-
-<div id="player" style="display: none;">
-    <div id="track"></div>
-    <div id="timer"></div>
-    <div id="duration"></div>
-    <button id="playBtn">Play</button>
-    <button id="pauseBtn">Pause</button>
-    <button id="prevBtn">Previous</button>
-    <button id="nextBtn">Next</button>
-    <button id="playlistBtn">Playlist</button>
-    <button id="volumeBtn">Volume</button>
-    <div id="progress"></div>
-    <div id="bar"></div>
-    <div id="wave"></div>
-    <div id="loading">Loading...</div>
-    <div id="playlist"></div>
-    <div id="list"></div>
-    <div id="volume">
-        <div id="barEmpty"></div>
-        <div id="barFull"></div>
-        <div id="sliderBtn"></div>
+<div id="howlerPlayer">
+    <!-- Top Info -->
+    <div id="title">
+      <span id="track"></span>
+      <div id="timer">0:00</div>
+      <div id="duration">0:00</div>
     </div>
+    <!-- Controls -->
+    <div class="controlsOuter">
+      <div class="controlsInner">
+        <div id="loading"></div>
+        <div class="btn" id="playBtn"></div>
+        <div class="btn" id="pauseBtn"></div>
+        <div class="btn" id="prevBtn"></div>
+        <div class="btn" id="nextBtn"></div>
+      </div>
+      <div class="btn" id="playlistBtn"></div>
+      <div class="btn" id="volumeBtn"></div>
+    </div>
+    <!-- Progress -->
+    <div id="waveform"></div>
+    <div id="bar"></div>
+    <div id="progress"></div>
+    <!-- Playlist -->
+    <div id="playlist">
+      <div id="list"></div>
+    </div>
+    <!-- Volume -->
+    <div id="volume" class="fadeout">
+      <div id="barFull" class="bar"></div>
+      <div id="barEmpty" class="bar"></div>
+      <div id="sliderBtn"></div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="./scripts/siriwave.js"></script>
+    <script src="./scripts/howlerPlayer.js"></script>
 </div>
-<script type="module" src="main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-<script src="https://cdn.rawgit.com/CaffeinaLab/SiriWave9/master/dist/siriwave9.min.js"></script> <!-- Include SiriWave if needed -->
 
 
                 <div class="settings-menu-group">
