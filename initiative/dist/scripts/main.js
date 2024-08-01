@@ -1,3 +1,6 @@
+import * as Audio from './audioPlayer.js';
+// import { setupHowlerPlayer } from './howlerPlayer.js'
+
 /**
  * Declarations
 */
@@ -8,6 +11,8 @@ let micAllowed = false
 let chosenFont
 let fontAllCaps = true
 let chosenTheme
+let combatPlaylist = 'dnd_combat'
+let combatMusicOn = false
 let useOpenAI = true
 let liveTextMode = true
 let players = []
@@ -81,10 +86,31 @@ async function main() {
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupEventListeners()
+    await Audio.loadPlaylists();
+    await Audio.setupHowlerAudio([])
+    await Audio.updatePlaylist(combatPlaylist)
     await testMicPermission()
     if (!useOpenAI) await setupSpeechDicatation()
-    updateSlideBasedOnHash()
+    updateSlideBasedOnHash(false)
     outputLogsToSettingsPage()
+
+    // setupHowlerPlayer([
+    //     {
+    //         title: 'Funeral Pyre For A Jedi',
+    //         file: 'audio/music/Funeral Pyre For A Jedi.mp3',
+    //         howl: null
+    //     },
+    //     {
+    //         title: 'Rebel Briefing',
+    //         file: 'audio/music/Rebel Briefing.mp3',
+    //         howl: null
+    //     },
+    //     {
+    //         title: 'Duel Of The Fates',
+    //         file: 'audio/music/Duel Of The Fates.mp3',
+    //         howl: null
+    //     }
+    // ])
 }
 
 function calculateGlobalVars() {
@@ -291,6 +317,7 @@ function setupEventListeners() {
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuOpenBtn').addEventListener('click', openSettingsMenu)
     document.getElementById('settingsMenuReturnBtn').addEventListener('click', settingsMenuReturn)
+    document.getElementById('musicBtn').addEventListener('click', handleMusicBtnClick)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
@@ -317,6 +344,7 @@ function setupEventListeners() {
     document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
     document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
     document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
+    document.getElementById('selectCombatPlaylist').addEventListener('change', handleCombatPlaylistChange)
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -324,8 +352,8 @@ function setupEventListeners() {
     document.getElementById('clearAll').addEventListener('click', clearAll)
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
     document.body.addEventListener('click', e => e.target.closest('.slide-control') && handleSlideControlClick(e))
-    document.body.addEventListener('click', e => e.target.matches('label i.tooltip-icon') && handleTooltipIconClick(e)) 
-    document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href))
+    document.body.addEventListener('click', e => e.target.matches('label i.tooltip-icon') && handleTooltipIconClick(e))
+    document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href)) // updates the page url hash naturally. handled by updateSlideBasedOnHash().
     // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
     // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
@@ -486,6 +514,11 @@ function setupEventListeners() {
         }
     }
 
+    async function handleCombatPlaylistChange(e) {
+        const selectedCombatPlaylist = e.target.value
+        updateCombatPlaylist(selectedCombatPlaylist)
+    }
+
     function handleDictationToggle(e) {
         this.classList.toggle('active')
         if (this.classList.contains('active')) {
@@ -521,6 +554,7 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
+            Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -535,6 +569,7 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
+            if (Audio.isPlaying()) Audio.fadeUp()
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
@@ -558,7 +593,7 @@ function setupEventListeners() {
 }
 
 /**
- * Audio handling
+ * Speech handling
  */
 
 const mimeType = getSupportedMimeTypes('audio')[0]
@@ -597,18 +632,18 @@ function getSupportedMimeTypes() {
 }
 
 let mediaRecorder
-let audioChunks = []
+let speechChunks = []
 const minRecordingTime = 0.5 // 0.5 seconds
 const maxRecordingTime = 30 // 30 seconds
 let recordingTimeout
 
-// Capture audio
+// Capture speech
 async function startRecording() {
     try {
-        audioChunks = [] // Clear previous recordings
+        speechChunks = [] // Clear previous recordings
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
         mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType })
-        mediaRecorder.ondataavailable = event => audioChunks.push(event.data)
+        mediaRecorder.ondataavailable = event => speechChunks.push(event.data)
         mediaRecorder.start()
         console.log('recording...')
         // Set a timeout to automatically stop recording after maxRecordingTime
@@ -620,34 +655,34 @@ async function startRecording() {
     }
 }
 
-// Convert captured audio to wav, then send to AWS API endpoint (for OpenAI to transcribe)
+// Convert captured speech to wav, then send to AWS API endpoint (for OpenAI to transcribe)
 function stopRecording() {
     mediaRecorder.stop()
     console.log('recording stopped')
     clearTimeout(recordingTimeout) // Clear the timeout
     
     mediaRecorder.onstop = async () => {
-        // Create audio buffer from recorded audio
-        const audioBlob = new Blob(audioChunks, { type: mimeType })
-        const arrayBuffer = await audioBlob.arrayBuffer()
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
+        // Create audio buffer from recorded speech
+        const speechBlob = new Blob(speechChunks, { type: mimeType })
+        const arrayBuffer = await speechBlob.arrayBuffer()
+        const speechBuffer = await audioContext.decodeAudioData(arrayBuffer)
 
-        // Check the duration of the audio buffer
-        const duration = audioBuffer.duration
-        console.log(`Audio duration: ${duration} seconds`)
+        // Check the duration of the speech buffer
+        const duration = speechBuffer.duration
+        console.log(`Speech duration: ${duration} seconds`)
 
         if (duration < minRecordingTime) {
-            console.warn(`Audio duration is less than ${minRecordingTime} seconds. Will not submit.`)
+            console.warn(`Speech duration is less than ${minRecordingTime} seconds. Will not submit.`)
             return;
         }
 
         if (duration > maxRecordingTime) {
-            console.warn(`Audio duration is greater than ${maxRecordingTime} seconds. Will not submit.`)
+            console.warn(`Speech duration is greater than ${maxRecordingTime} seconds. Will not submit.`)
             return;
         }
 
-        // Create WAV file from audio buffer
-        const wavBuffer = audioBufferToWav(audioBuffer);
+        // Create WAV file from speech buffer
+        const wavBuffer = speechBufferToWav(speechBuffer);
         const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' })
         
         const endpointUrl = 'https://ghseg8im58.execute-api.us-east-2.amazonaws.com/default/opanAiTranscribeTestPython'
@@ -660,7 +695,7 @@ function stopRecording() {
             headers: {
                 'Content-Type': 'audio/wav',
             },
-            body: wavBlob // Send the audioBlob directly
+            body: wavBlob // Send the speechBlob directly
         })
         .then(response => {
             console.log(`server response.ok? ${response.ok}`)
@@ -697,7 +732,7 @@ function stopRecording() {
     }
 }
 
-function audioBufferToWav(buffer) {
+function speechBufferToWav(buffer) {
     let numOfChan = buffer.numberOfChannels,
         length = buffer.length * numOfChan * 2 + 44,
         thisBuffer = new ArrayBuffer(length),
@@ -798,7 +833,7 @@ async function testMicPermission () {
         micAllowed = true
         document.body.classList.remove('no-mic')
         
-        // Now stop the audio stream
+        // Now stop the speech stream
         stream.getTracks().forEach(track => track.stop())
         return true
     })
@@ -1063,6 +1098,16 @@ function settingsMenuReturn() {
     settingsSubMenus.forEach(sub => sub.classList.add('hide-right'))
 }
 
+function handleMusicBtnClick() {
+    if (Audio.isPlaying()) {
+        Audio.stop()
+        combatMusicOn = false
+    } else {
+        Audio.playRandom()
+        combatMusicOn = true
+    }
+}
+
 function handleTooltipIconClick(e) {
     e.preventDefault()
     e.stopPropagation()
@@ -1322,6 +1367,17 @@ function updateSlideshowContext(selectedSlideshow) {
         document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
     }
     setCookie('slideshowPreference', selectedSlideshow)
+}
+
+async function updateCombatPlaylist(playlistID) {
+    if (playlistID) {
+        await Audio.updatePlaylist(playlistID)
+        combatPlaylist = playlistID
+        document.querySelector('body').classList.add('music') 
+    } else {
+        await Audio.stop()
+        document.querySelector('body').classList.remove('music')
+    }
 }
 
 function populateSelectWithFonts() {
@@ -2216,15 +2272,24 @@ function refreshPage() {
  * URL management
  */
 
-function updateSlideBasedOnHash() {
+async function updateSlideBasedOnHash() {
+    console.log('UpdateSlideBasedOnHash executed')
     // Get the current hash value without the leading #
     const hash = window.location.hash.substring(1)
     // If no slide number hash or 0, go back to initiative tracker scene.
     if (/^$|^#0?$/.test(hash)) {
         loadScreen('INITIATIVE')
+        console.log('Loading Initiative board.')
+        await Audio.updatePlaylist(combatPlaylist)
+        if (combatMusicOn) {
+            await Audio.playRandom()
+        } else {
+            await Audio.stop()
+        }
     } else {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
+        const playlistToLoad = sceneToLaunch?.playlist ?? null
         if (sceneToLaunch) {
             if (sceneToLaunch.url) {
                 loadScreen(sceneToLaunch.url);
@@ -2235,6 +2300,10 @@ function updateSlideBasedOnHash() {
                     subcap: sceneToLaunch.subcap,
                     show_exotic_font: !!slideshow?.exoticfont
                 })
+            }
+            if (playlistToLoad) {
+                await Audio.updatePlaylist(playlistToLoad)
+                await Audio.play()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);

@@ -389,12 +389,46 @@ select {
     background-color: var(--button-bg-color-alt--hover);
 }
 
+.header-menu-left-side {
+    margin-right: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.header-menu-right-side {
+    margin-left: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.header-menu-btn#musicBtn {
+    display: none;
+}
+.music .header-menu-btn#musicBtn {
+    display: block;
+}
+
+.music .header-menu-btn #musicOn {
+    display: inline;
+}
+.music .header-menu-btn #musicOff {
+    display: none;
+}
+.music-playing .header-menu-btn #musicOn {
+    display: none;
+}
+.music-playing .header-menu-btn #musicOff {
+    display: inline;
+}
+
 .header-menu-btn#sceneBtn {
-    visibility: hidden;
+    display: none;
 }
 .slideshow .header-menu-btn#sceneBtn {
-    visibility: visible;
-    margin: 0 1rem 0 auto;
+    display: block;
+    margin: 0 1rem 0 0;
 }
 .header-menu-btn#sceneBtn::after {
     content: attr(data-slide);
@@ -414,7 +448,9 @@ select {
     color: black;
 }
 
-.header-menu-btn .fa-image {
+.header-menu-btn .fa-image,
+.header-menu-btn .fa-music,
+.header-menu-btn .fa-volume-xmark {
     font-size: 0.75em;
 }
 
