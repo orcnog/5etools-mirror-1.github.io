@@ -1,6 +1,6 @@
 // import * as Audio from './audioPlayer.js';
 // import { loadPlaylists } from './audioPlayer.js'
-// import HowlerPlayer from './howlerPlayer.js'
+import HowlerPlayer from './howlerPlayer.js'
 
 /**
  * Declarations
@@ -12,7 +12,8 @@ let micAllowed = false
 let chosenFont
 let fontAllCaps = true
 let chosenTheme
-// let Audio = new HowlerPlayer()
+let Audio
+let playlistJSON
 let combatPlaylist = 'dnd_combat'
 let combatMusicOn = false
 let useOpenAI = true
@@ -87,7 +88,7 @@ async function main() {
     mergeSlideshowDataWithHomebrew()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
-    // setupAudioPlayer()
+    setupAudioPlayer()
     setupEventListeners()
     // await Audio.loadPlaylists();
     // await Audio.setupHowlerAudio([])
@@ -116,21 +117,44 @@ async function main() {
     // ])
 }
 
-// function setupAudioPlayer () {
-//     // fetchJSON('./slideshow/playlists.json')
-//     Audio = new HowlerPlayer([
-//         {
-//             title: "Assassin's Creed Rogue OST - The Guardian (Track 09)",
-//             file: "Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09",
-//             howl: null
-//         },
-//         {
-//             title: "Baldurs Gate OST - Attacked by Bounty Hunters",
-//             file: "Baldurs_Gate_OST_-_Attacked_by_Bounty_Hunters",
-//             howl: null
-//         }
-//     ])
-// }
+async function setupAudioPlayer () {
+    playlistJSON = await fetchJSON('./slideshow/playlists.json')
+    Audio = new HowlerPlayer([
+        {
+          title: "Assassin's Creed Rogue OST - The Guardian",
+          file: 'Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09',
+          howl: null
+        },
+        {
+          title: "Baldur's Gate OST - Attacked by Bounty Hunters",
+          file: 'Baldurs_Gate_OST_-_Attacked_by_Bounty_Hunters',
+          howl: null
+        },
+        {
+          title: 'Witcher 3 - At War!',
+          file: 'combat_heavy_-_Witcher_3_-_At_War!',
+          howl: null
+        }
+    ])
+}
+
+async function updateHowlPlaylist (playlistID) {
+    if (Audio) {
+        Audio.unload()
+    }
+    let thisPlaylistArray = playlistJSON[playlistID]
+    if (thisPlaylistArray) {
+        // Transform the playlist array into the desired JSON object format
+        thisPlaylistArray = thisPlaylistArray.map(filePath => ({
+            title: filePath.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
+            file: filePath.replace(/\.[^/.]+$/, ''),
+            howl: null
+        }));
+        Audio = await new HowlerPlayer(thisPlaylistArray)
+    } else {
+        console.warn('No playlist by that name in playlists.json.')
+    }
+}
 
 function calculateGlobalVars() {
     singleDigitRegexPatterns = (function (numberMap) {
@@ -579,7 +603,7 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
-            // Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
+            Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -594,7 +618,7 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            // if (Audio.isPlaying()) Audio.fadeUp()
+            if (Audio.isPlaying()) Audio.fadeUp()
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
@@ -1127,11 +1151,11 @@ function handleMusicBtnClick() {
     if (combatMusicOn) {
         combatMusicOn = false
         document.body.classList.remove('music-on')
-        // Audio.stop()
+        Audio.stop()
     } else {
         combatMusicOn = true
         document.body.classList.add('music-on')
-        // Audio.playRandom()
+        Audio.playRandom()
     }
 }
 
@@ -1398,11 +1422,11 @@ function updateSlideshowContext(selectedSlideshow) {
 
 async function updateCombatPlaylist(playlistID) {
     if (playlistID) {
-        // await Audio.updatePlaylist(playlistID)
+        await updateHowlPlaylist(playlistID)
         combatPlaylist = playlistID
-        document.querySelector('body').classList.add('music') 
+        document.querySelector('body').classList.add('music')
     } else {
-        // await Audio.stop()
+        await Audio.stop()
         document.querySelector('body').classList.remove('music')
     }
 }
@@ -2299,7 +2323,7 @@ function refreshPage() {
  * URL management
  */
 
-async function updateSlideBasedOnHash() {
+async function updateSlideBasedOnHash(e) {
     console.log('UpdateSlideBasedOnHash executed')
     // Get the current hash value without the leading #
     const hash = window.location.hash.substring(1)
@@ -2307,11 +2331,13 @@ async function updateSlideBasedOnHash() {
     if (/^$|^#0?$/.test(hash)) {
         loadScreen('INITIATIVE')
         console.log('Loading Initiative board.')
-        // await Audio.updatePlaylist(combatPlaylist)
-        if (combatMusicOn) {
-            // await Audio.playRandom()
-        } else {
-            // await Audio.stop()
+        if (Audio && e) {
+            await updateHowlPlaylist(combatPlaylist)
+            if (combatMusicOn) {
+                await Audio.playRandom()
+            } else {
+                await Audio.stop()
+            }
         }
     } else {
         const sceneIndex = parseInt(hash) - 1
@@ -2329,8 +2355,8 @@ async function updateSlideBasedOnHash() {
                 })
             }
             if (playlistToLoad) {
-                // await Audio.updatePlaylist(playlistToLoad)
-                // await Audio.play()
+                await updateHowlPlaylist(playlistToLoad)
+                Audio.playRandom()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
