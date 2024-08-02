@@ -567,7 +567,7 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
-            Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
+            if (Audio) Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -582,7 +582,7 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            if (Audio.isPlaying()) Audio.fadeUp()
+            if (Audio) Audio.fadeUp()
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
