@@ -41,9 +41,9 @@
         "./audio/music/dnd/special/Survivor_-_Eye_of_the_Tiger.mp3"
     ],   
     "sw_boss_fight": [
+        "./audio/music/starwars/boss_fight/Duel_of_the_Fates.mp3",
         "./audio/music/starwars/boss_fight/Battle_Of_The_Heroes_-_edited.mp3",
         "./audio/music/starwars/boss_fight/BOSS-starwars-battlefront-end-credits-fight-music.mp3",
-        "./audio/music/starwars/boss_fight/Duel_of_the_Fates.mp3",
         "./audio/music/starwars/boss_fight/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.mp3"
     ],
     "sw_chase": [

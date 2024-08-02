@@ -25,21 +25,12 @@ class HowlerPlayer {
         this.index = 0
         this.lastVolume = 1 // Initialize to track the last volume before fade
 
-        // Display the title of the first track.
-        this.track.innerHTML = '1. ' + playlist[0].title
-
-        // Setup the playlist display.
+        this.initDOM()
+        this.setupPlaylistDisplay()
+    }
+    
+    initDOM() {
         var self = this
-        playlist.forEach(function (song) {
-            var div = document.createElement('div')
-            div.className = 'list-song'
-            div.innerHTML = song.title
-            div.onclick = function () {
-                self.skipTo(playlist.indexOf(song))
-            }
-            self.list.appendChild(div)
-        })
-
         // Bind player controls.
         this.playBtn.addEventListener('click', function () {
             self.play()
@@ -126,6 +117,27 @@ class HowlerPlayer {
         this.wave.start()
     }
 
+    setupPlaylistDisplay() {
+        var self = this
+        if (self.playlist && self.playlist.length > 0) {
+            // Display the title of the first track.
+            self.track.innerHTML = '1. ' + self.playlist[0].title
+
+            // Setup the playlist display.
+            self.playlist.forEach(function (song) {
+                var div = document.createElement('div')
+                div.className = 'list-song'
+                div.innerHTML = song.title
+                div.onclick = function () {
+                    self.skipTo(playlist.indexOf(song))
+                }
+                self.list.appendChild(div)
+            })
+        } else {
+            console.warn ('Playlist is empty!')
+        }
+    }
+
     play(index) {
         var self = this
         var sound
@@ -184,6 +196,7 @@ class HowlerPlayer {
 
         // Begin playing the sound.
         sound.play()
+        console.info(`Playing: ${data.title}`)
 
         // Update the track display.
         self.track.innerHTML = (index + 1) + '. ' + data.title
@@ -225,22 +238,6 @@ class HowlerPlayer {
         if (sound) {
             // Pause the sound.
             sound.stop()
-        }
-
-        // Show the play button.
-        self.playBtn.style.display = 'block'
-        self.pauseBtn.style.display = 'none'
-    }
-
-    unload() {
-        var self = this
-
-        // Get the Howl we want to manipulate.
-        var sound = self.playlist[self.index].howl
-
-        if (sound) {
-            // Pause the sound.
-            sound.unload()
         }
 
         // Show the play button.
@@ -387,6 +384,32 @@ class HowlerPlayer {
         var seconds = (secs - minutes * 60) || 0
 
         return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+    }
+
+    unload() {
+        // Unload all Howl instances in the current playlist.
+        this.playlist.forEach(song => {
+        if (song.howl) {
+            song.howl.unload();
+        }
+        });
+
+        // Reset the playlist display if needed
+        while (this.list.firstChild) {
+        this.list.removeChild(this.list.firstChild);
+        }
+    }
+
+    updatePlaylist(newPlaylist) {
+        // Unload the current playlist first
+        this.unload();
+
+        // Update to the new playlist
+        this.playlist = newPlaylist;
+        this.index = 0; // Reset the index
+
+        // Update the playlist display
+        this.setupPlaylistDisplay();
     }
 }
 

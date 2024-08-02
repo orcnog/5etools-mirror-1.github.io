@@ -102,9 +102,6 @@ async function setupAudioPlayer () {
 }
 
 async function updateHowlPlaylist (playlistID) {
-    if (Audio) {
-        Audio.unload()
-    }
     let thisPlaylistArray = playlistJSON[playlistID]
     if (thisPlaylistArray) {
         // Transform the playlist array into the desired JSON object format
@@ -113,7 +110,11 @@ async function updateHowlPlaylist (playlistID) {
             file: filePath,
             howl: null
         }));
-        Audio = await new HowlerPlayer(thisPlaylistArray)
+        if (Audio) {
+            Audio.updatePlaylist(thisPlaylistArray)
+        } else {
+            Audio = new HowlerPlayer(thisPlaylistArray)
+        }
     } else {
         console.warn('No playlist by that name in playlists.json.')
     }
