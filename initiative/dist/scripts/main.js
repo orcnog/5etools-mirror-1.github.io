@@ -5,7 +5,6 @@ import HowlerPlayer from './howlerPlayer.js'
 */
 let recognition // SpeechRecognition object
 let grammarList // SpeechGrammarList object
-
 let micAllowed = false
 let chosenFont
 let fontAllCaps = true
@@ -25,6 +24,7 @@ let slideshowConfig = {}
 let allTranscripts = []
 let singleDigitRegexPatterns
 let promptNames = []
+let isiOS = navigator.userAgent.match(/(iPhone|iPod)/i)
 let aliasMap = {
     'brinley': 'brynlee',
     'zoe': 'zoey',
@@ -367,7 +367,7 @@ function setupEventListeners() {
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
     // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
 
-    if (navigator.userAgent.match(/(iPhone|iPod)/i)) { document.querySelector('.toggle-full-screen-menu-group').remove() }
+    if (isiOS) document.querySelector('.toggle-full-screen-menu-group').remove()
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(event => {
@@ -567,7 +567,12 @@ function setupEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
-            if (Audio) Audio.fadeDown() // if music is playing, lower it way down before turning on the mic
+            if (Audio && combatMusicOn) {
+                // if music is playing, lower it or pause it before turning on the mic
+                if (isiOS) Audio.pause() // if we're in iOS, pause. there's an issue with Audio.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
+                else Audio.fadeDown()
+            }
+                
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -582,7 +587,11 @@ function setupEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            if (Audio) Audio.fadeUp()
+            if (Audio && combatMusicOn) {
+                // if music was playing, fade it back in or unpause after turning off the mic
+                if (isiOS) Audio.play()
+                else Audio.fadeUp()
+            }
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
             document.getElementById('startDictation').disabled = true
