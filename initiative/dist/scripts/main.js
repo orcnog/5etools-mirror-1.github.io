@@ -1,5 +1,3 @@
-// import * as Audio from './audioPlayer.js';
-// import { loadPlaylists } from './audioPlayer.js'
 import HowlerPlayer from './howlerPlayer.js'
 
 /**
@@ -90,52 +88,17 @@ async function main() {
     hydrateInitiativeFromQueryStr()
     setupAudioPlayer()
     setupEventListeners()
-    // await Audio.loadPlaylists();
-    // await Audio.setupHowlerAudio([])
-    // await Audio.updatePlaylist(combatPlaylist)
     await testMicPermission()
     if (!useOpenAI) await setupSpeechDicatation()
     updateSlideBasedOnHash(false)
     outputLogsToSettingsPage()
-
-    // setupHowlerPlayer([
-    //     {
-    //         title: 'Funeral Pyre For A Jedi',
-    //         file: 'audio/music/Funeral Pyre For A Jedi.mp3',
-    //         howl: null
-    //     },
-    //     {
-    //         title: 'Rebel Briefing',
-    //         file: 'audio/music/Rebel Briefing.mp3',
-    //         howl: null
-    //     },
-    //     {
-    //         title: 'Duel Of The Fates',
-    //         file: 'audio/music/Duel Of The Fates.mp3',
-    //         howl: null
-    //     }
-    // ])
 }
 
 async function setupAudioPlayer () {
     playlistJSON = await fetchJSON('./slideshow/playlists.json')
-    Audio = new HowlerPlayer([
-        {
-          title: "Assassin's Creed Rogue OST - The Guardian",
-          file: 'Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09',
-          howl: null
-        },
-        {
-          title: "Baldur's Gate OST - Attacked by Bounty Hunters",
-          file: 'Baldurs_Gate_OST_-_Attacked_by_Bounty_Hunters',
-          howl: null
-        },
-        {
-          title: 'Witcher 3 - At War!',
-          file: 'combat_heavy_-_Witcher_3_-_At_War!',
-          howl: null
-        }
-    ])
+    if (combatPlaylist) {
+        updateHowlPlaylist(combatPlaylist)
+    }
 }
 
 async function updateHowlPlaylist (playlistID) {
@@ -147,7 +110,7 @@ async function updateHowlPlaylist (playlistID) {
         // Transform the playlist array into the desired JSON object format
         thisPlaylistArray = thisPlaylistArray.map(filePath => ({
             title: filePath.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
-            file: filePath.replace(/\.[^/.]+$/, ''),
+            file: filePath,
             howl: null
         }));
         Audio = await new HowlerPlayer(thisPlaylistArray)
