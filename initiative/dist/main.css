@@ -328,10 +328,14 @@ select {
     background: var(--input-bg-color);
     -webkit-mask-image: var(--grungy-mask1), var(--grungy-mask4);
     mask-image: var(--grungy-mask1), var(--grungy-mask4);
-    -webkit-mask-size: cover, contain;
-    mask-size: cover, contain;
-    -webkit-mask-position: left, right;
-    mask-position: left, right;
+    /* -webkit-mask-size: cover, contain; */
+    -webkit-mask-size: 150%, cover;
+    /* mask-size: cover, contain; */
+    mask-size: 150%, cover;
+    /* -webkit-mask-position: left, right; */
+    -webkit-mask-position: 50%, right;
+    /* mask-position: left, right; */
+    mask-position: 50%, right;
 }
 
 .select::-ms-expand {
@@ -554,7 +558,7 @@ body.menu-open .settings-menu-closed-ui {
 .settings-sub-menu .title {
     font-size: 1.7em;
     line-height: 0.75em;
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
 }
 
 .settings-menu .btn,
@@ -1162,6 +1166,9 @@ button.advance-turn {
 }
 
 .hide {
+    display: none;
+}
+.ios .hide-in-ios {
     display: none;
 }
 .hide-left,

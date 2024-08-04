@@ -24,7 +24,7 @@ let slideshowConfig = {}
 let allTranscripts = []
 let singleDigitRegexPatterns
 let promptNames = []
-let isiOS = navigator.userAgent.match(/(iPhone|iPod)/i)
+let isiOS;
 let aliasMap = {
     'brinley': 'brynlee',
     'zoe': 'zoey',
@@ -84,21 +84,18 @@ async function main() {
     calculateGlobalVars()
     await fetchSlideshowConfigs()
     mergeSlideshowDataWithHomebrew()
+    await fetchAudioPlaylists()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
-    setupAudioPlayer()
-    setupEventListeners()
+    setupDomAndEventListeners()
     await testMicPermission()
     if (!useOpenAI) await setupSpeechDicatation()
     updateSlideBasedOnHash(false)
     outputLogsToSettingsPage()
 }
 
-async function setupAudioPlayer () {
-    playlistJSON = await fetchJSON('./slideshow/playlists.json')
-    if (combatPlaylist) {
-        updateHowlPlaylist(combatPlaylist)
-    }
+async function fetchAudioPlaylists () {
+    playlistJSON = await fetchJSON('./audio/playlists.json')
 }
 
 async function updateHowlPlaylist (playlistID) {
@@ -116,11 +113,12 @@ async function updateHowlPlaylist (playlistID) {
             Audio = new HowlerPlayer(thisPlaylistArray)
         }
     } else {
-        console.warn('No playlist by that name in playlists.json.')
+        console.warn('No playlist by that name in playlist JSON file(s).')
     }
 }
 
 function calculateGlobalVars() {
+    isiOS = navigator.userAgent.match(/(iPhone|iPod)/i)
     singleDigitRegexPatterns = (function (numberMap) {
         const patterns = {}
         for (const word in numberMap) {
@@ -186,7 +184,16 @@ function rehydrateSettings() {
     const themeOptionElem = document.querySelector(`#selectTheme option[value="${chosenTheme}"]`)
     loadCSS(themeOptionElem?.dataset.css)
     updateFont(themeOptionElem?.dataset.font)
-    
+
+    /* Rehydrate combat music playlist selection */
+    const combatPlaylistCookieValue = getCookie('combatPlaylist');
+    if (combatPlaylistCookieValue) {
+        combatPlaylist = combatPlaylistCookieValue
+        updateHowlPlaylist(combatPlaylistCookieValue)
+    }
+    populateSelectWithPlaylists()
+    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = combatPlaylistCookieValue)
+
     /* Rehydrate the font capitalization preference */
     fontAllCaps = getCookie('fontAllCaps') || 'true'
     const fontToggleElem = document.getElementById('toggleFontAllCaps')
@@ -318,7 +325,7 @@ function hydrateInitiativeFromQueryStr() {
     }
 }
 
-function setupEventListeners() {
+function setupDomAndEventListeners() {
     document.getElementById('copyQueryStringToClipboard').addEventListener('click', copyInitiativeOrderToClipboard)
     document.getElementById('initiativeUrlPasteAndGo').addEventListener('click', reloadWithPastedInitiativeUrl)
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
@@ -352,7 +359,7 @@ function setupEventListeners() {
     document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
     document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
     document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
-    document.getElementById('selectCombatPlaylist').addEventListener('change', handleCombatPlaylistChange)
+    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.addEventListener('change', handleCombatPlaylistChange))
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -367,7 +374,9 @@ function setupEventListeners() {
     // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
     // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
 
-    if (isiOS) document.querySelector('.toggle-full-screen-menu-group').remove()
+    if (isiOS) {
+        document.body.classList.add('ios')
+    }
     
     const events = ['input', 'change', 'keydown', 'focus', 'focusin', 'focusout', 'blur', 'beforeinput', 'compositionstart', 'compositionupdate', 'compositionend', 'select', 'paste', 'copy', 'submit']
     events.forEach(event => {
@@ -524,6 +533,8 @@ function setupEventListeners() {
 
     async function handleCombatPlaylistChange(e) {
         const selectedCombatPlaylist = e.target.value
+        setCookie('combatPlaylist', selectedCombatPlaylist);
+        document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = selectedCombatPlaylist)
         if (!selectedCombatPlaylist) {
             document.getElementById('howlerPlayer').classList.remove('active')
         } else {
@@ -1513,6 +1524,33 @@ function populateSelectWithSlideNumbers() {
             option.value = idx + 1
             option.textContent = idx + 1
             selectElement.appendChild(option)
+        })
+    }
+}
+
+function populateSelectWithPlaylists() {
+    if (playlistJSON) {
+        const selectElements = document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist')
+        selectElements.forEach(selectElement => {
+            selectElement.innerHTML = '' // empty it out first
+
+            // Add initial <option value="">None</option>
+            const initialOption = document.createElement('option')
+            initialOption.value = ''
+            initialOption.textContent = 'None'
+            selectElement.appendChild(initialOption)
+            
+            for (const [id] of Object.entries(playlistJSON)) {
+                const option = document.createElement('option')
+                // Convert theme data to option value and data attributes
+                option.value = id
+                if (option.value == currentSlideshowID) {
+                    option.selected = true
+                }
+                const name = id.replace(/^dnd_/, 'D&D ').replace(/^sw_/, 'Starwars ').replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())
+                option.textContent = name
+                selectElement.appendChild(option)
+            }
         })
     }
 }

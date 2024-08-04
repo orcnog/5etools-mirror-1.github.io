@@ -60,6 +60,16 @@
         <div class="settings-menu hide-right">
             <div class="settings-menu-inner">
                 <h1 class="title">Voice Initiative<br/><sub><em>by orcnog</em></sub></h1>
+                
+                <div class="settings-menu-group toggle-full-screen-menu-group hide-in-ios">
+                    <label class="settings-label" for="toggleFullScreenBtn">Full Screen
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text expand-small">Enter full screen mode. Desktop only. Untested in Android.  Does not seem to work in iOS.</p>
+                    </label>
+                    <div class="settings-input">
+                        <input id="toggleFullScreenBtn" type="checkbox" />
+                    </div>
+                </div>
 
                 <div class="settings-menu-group">
                     <label class="settings-label" for="copyQueryStringToClipboard">Copy Initiative Link to Clipboard</label>
@@ -80,16 +90,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="settings-menu-group toggle-full-screen-menu-group">
-                    <label class="settings-label" for="toggleFullScreenBtn">Full Screen
-                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
-                        <p class="settings-label-tooltip-text expand-small">Enter full screen mode. Desktop only. Untested in Android.  Does not seem to work in iOS.</p>
-                    </label>
-                    <div class="settings-input">
-                        <input id="toggleFullScreenBtn" type="checkbox" />
-                    </div>
-                </div>
                 <div class="settings-menu-group">
                     <label class="settings-label">Theme</label>
                     <div class="settings-input">
@@ -97,9 +97,15 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
+                    <label class="settings-label">Combat Music</label>
+                    <div class="settings-input">
+                        <select id="selectCombatPlaylist"></select>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
                     <label class="settings-label" for="toggleUseOpenAI">Use OpenAI
                         <i class="tooltip-icon fa-regular fa-circle-question"></i>
-                        <p class="settings-label-tooltip-text">Use OpenAI's Whisper AI model to transcribe your speech, instead of native browser Web Speech API. It's a bit slower, but it is usually more accurate (especially on iOS). But hey, it <em>does</em> allow cuss words ;)</p>
+                        <p class="settings-label-tooltip-text">Use OpenAI's Whisper AI model to transcribe your speech, instead of native browser Web Speech API. It's a bit slower, but it is usually far more accurate (especially on iOS). But hey, it <em>does</em> allow cuss words ;)</p>
                     </label>
                     <div class="settings-input">
                         <input id="toggleUseOpenAI" type="checkbox" />
@@ -209,20 +215,13 @@
         <div id="musicMenu" class="settings-sub-menu hide-right">
             <div class="settings-menu-inner">
                 <h2 class="title">Music Configuration</h2>
-                
+
                 <div class="settings-menu-group">
-                    <label class="settings-label">Combat Music</label>
+                    <label class="settings-label">Music Playlists</label>
                     <div class="settings-input">
-                        <select id="selectCombatPlaylist">
-                            <option value="">None</option>
-                            <option value="dnd_combat" selected="selected">D&D Combat Playlist</option>
-                            <option value="dnd_boss_fight">D&D Boss Playlist</option>
-                            <option value="sw_combat">Starwars Combat Playlist</option>
-                            <option value="sw_boss_fight">Starwars Boss Playlist</option>
-                        </select>
+                        <select id="selectAudioPlayerPlaylist"></select>
                     </div>
                 </div>
-
                 <div id="howlerPlayer" class="settings-menu-group collapsible expand-large active">
                     <!-- Top Info -->
                     <div id="title">

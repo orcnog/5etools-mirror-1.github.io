@@ -26,13 +26,13 @@
         "./audio/music/dnd/combat/Guild_Wars_2_OST_-_The_Origins_Of_Madness_-_Twisted_Marionette_Battle_Part_1.mp3"
     ],
     "dnd_exploration": [
-        "./audio/music/dnd/exploration/dungeon_evil_awaits_-_The_Witcher_3_Blood_Wine_-_Soundtrack_-_Witcher_Waltz.mp3",
+        "./audio/music/dnd/exploration/dungeon_evil_awaits_-_The_Witcher_3_Blood_Wine_-_Soundtrack_-_What_Lies_Unseen-RFfl6bDCgr4-.mp3",
         "./audio/music/dnd/exploration/dungeon_forboding_-_Witcher_3_-_Emhyr_var_Emreis.mp3",
-        "./audio/music/dnd/exploration/dungeon_ominous_ambience_-_The_Witcher_3_-_Hearts_of_Stone_-_Iris.mp3",
-        "./audio/music/dnd/exploration/dungeon_ruins_-_The_Witcher_3_-_Wild_Hunt_OST_Unreleased_Tracks_-_Child_of_the_Elder_Blood.mp3",
-        "./audio/music/dnd/exploration/dungeon_still_-_The_Witcher_3_-_A_Towerful_of_Mice_OST-wzYtum3l4nA.mp3",
-        "./audio/music/dnd/exploration/dungeon_still_-_The_Witcher_3_-_Blood_and_Wine_-_Dark_Ambient_Cinematic.mp3",
-        "./audio/music/dnd/exploration/dungeon_still_ambience_-_The_Witcher_3_-_Blood_Wine_-_Syanna_s_Decision_-_Ambiance.mp3",
+        "./audio/music/dnd/exploration/dungeon_ominous_ambience_-_The_Witcher_3_-_Hearts_of_Stone_-_Iris_Painted_World_-_Ambient_Soundtrack-SuI3SmhlJn8-.mp3",
+        "./audio/music/dnd/exploration/dungeon_ruins_-_The_Witcher_3_-_Wild_Hunt_OST_Unreleased_Tracks_-_Midnight_at_Mubrydale-L6LJVTRkZzk-.mp3",
+        "./audio/music/dnd/exploration/dungeon_still_-_The_Witcher_3_-_A_Towerful_of_Mice_OST-wzYtum3ImMY-.mp3",
+        "./audio/music/dnd/exploration/dungeon_still_-_The_Witcher_3_-_Blood_and_Wine_-_Dark_Ambient_Cave_-_unreleased_soundtrack-Kw-Fx8haSB8-.mp3",
+        "./audio/music/dnd/exploration/dungeon_still_ambience_-_The_Witcher_3_-_Blood_Wine_-_Syanna_s_Dream_Ambience_-_Unofficial_Soundtrack-QEgadD4XKw0-.mp3",
         "./audio/music/dnd/exploration/dungeon_suspenseful_-_Witcher_3_-_In_The_Giants_Shadow.mp3"
     ],
     "dnd_special": [
@@ -58,8 +58,8 @@
         "./audio/music/starwars/combat/10_Passage_Through_the_Planet_Core_-_edited_-_High_Intensity.mp3",
         "./audio/music/starwars/combat/61_General_Grievous.mp3",
         "./audio/music/starwars/combat/98._Panaka_and_the_Queens_Protectors.mp3",
-        "./audio/music/starwars/combat/Anakin_vs._Obi-Wan-TI-dmo9_VCg-.mp3",
-        "./audio/music/starwars/combat/Battle_over_Coruscant_soundtrack_Star_Wars_III-QgXXWtwLP6U-.mp3",
+        "./audio/music/starwars/combat/Anakin_vs_Obi-Wan-Tl-dmo9_VCg.mp3",
+        "./audio/music/starwars/combat/Battle_over_Coruscant_soundtrack_Star_Wars_lll-QgXXWtwLP6U-.mp3",
         "./audio/music/starwars/combat/Destroying_The_Shield_-_edited.mp3",
         "./audio/music/starwars/combat/Father_vs._Son_-_edited.mp3",
         "./audio/music/starwars/combat/I_Am_the_Senate.mp3",
@@ -108,16 +108,16 @@
     "sw_special": [
         "./audio/music/starwars/special/Disco!.mp3",
         "./audio/music/starwars/special/ELEVATOR-MUSIC.mp3",
-        "./audio/music/starwars/special/Party_-_Star_Wars_Cantina_Band-x70b3qqQYtU-.mp3",
-        "./audio/music/starwars/special/Successes_-_Trials_Hoth_Bright_Hope_Transport_Out_02.mp3",
+        "./audio/music/starwars/special/Party_-_Star_Wars_Cantina_Band-x70b3qgQYtU-.mp3",
+        "./audio/music/starwars/special/Succeess_-_Trials_Hoth_Bright_Hope_Transport_Out_02.mp3",
         "./audio/music/starwars/special/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.mp3"
     ],
     "sw_tense": [
         "./audio/music/starwars/exploration/06_The_Trip_to_the_Naboo_Temple.mp3",
-        "./audio/music/starwars/tense/Into_The_Trap_-_Medium_Intensity_Part.mp3",
+        "./audio/music/starwars/tense/Into_The_Trap_-_Medium_Intesnity_Part.mp3",
         "./audio/music/starwars/tense/Standing_By_-_edited.mp3",
         "./audio/music/starwars/tense/Star_Wars_-_Droid_Invasion_Trade_Federation_March_Suite_Theme-7LeN-3zQdQ0-.mp3",
-        "./audio/music/starwars/tense/Star_Wars_-_Separatist_Droid_Army_Suite_Theme-qz2WOlybL8-.mp3"
+        "./audio/music/starwars/tense/Star_Wars_-_Separatist_Droid_Army_Suite_Theme-qz2WOlbybL8-.mp3"
     ],
     "sw_victory": [
         "./audio/music/starwars/victory/12_Battles_Shared_Rebel_Win_B_Loop.mp3",
