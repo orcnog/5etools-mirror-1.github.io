@@ -21,7 +21,7 @@ class HowlerPlayer {
             this[elm] = document.getElementById(elm)
         }, this)
 
-        this.playlist = playlist
+        this.playlist = playlist || []
         this.index = 0
         this.lastVolume = 1 // Initialize to track the last volume before fade
 
@@ -164,32 +164,44 @@ class HowlerPlayer {
                     self.wave.container.style.display = 'block'
                     self.bar.style.display = 'none'
                     self.pauseBtn.style.display = 'block'
+
+                    if (typeof self.onPlay === 'function') self.onPlay()
                 },
                 onload: function () {
                     // Start the wave animation.
                     self.wave.container.style.display = 'block'
                     self.bar.style.display = 'none'
                     self.loading.style.display = 'none'
+                    
+                    if (typeof self.onLoad === 'function') self.onLoad()
                 },
                 onend: function () {
                     // Stop the wave animation.
                     self.wave.container.style.display = 'none'
                     self.bar.style.display = 'block'
                     self.skip('next')
+                    
+                    if (typeof self.onEnd === 'function') self.onEnd()
                 },
                 onpause: function () {
                     // Stop the wave animation.
                     self.wave.container.style.display = 'none'
                     self.bar.style.display = 'block'
+                    
+                    if (typeof self.onPause === 'function') self.onPause()
                 },
                 onstop: function () {
                     // Stop the wave animation.
                     self.wave.container.style.display = 'none'
                     self.bar.style.display = 'block'
+                    
+                    if (typeof self.onStop === 'function') self.onStop()
                 },
                 onseek: function () {
                     // Start updating the progress of the track.
                     requestAnimationFrame(self.step.bind(self))
+
+                    if (typeof self.onSeek === 'function') self.onSeek()
                 }
             })
         }

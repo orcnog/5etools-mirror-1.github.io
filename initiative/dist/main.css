@@ -324,6 +324,7 @@ select {
     font-family: 'Grenhil';
     font-size: 1.15em;
     height: 1.75em;
+    max-width: 100%;
     color: var(--main-text-color);
     background: var(--input-bg-color);
     -webkit-mask-image: var(--grungy-mask1), var(--grungy-mask4);
@@ -675,7 +676,8 @@ i.tooltip-icon.active + .settings-label-tooltip-text.expand-large {
 
 .lorem-ipsum {
     width: 50%;
-    min-width: 20rem;
+    min-width: 19rem;
+    max-width: 100%;
     padding: calc(3rem - 0.5em) 0.5em;
     text-align: center;
     text-transform: var(--adjustable-text-transform);

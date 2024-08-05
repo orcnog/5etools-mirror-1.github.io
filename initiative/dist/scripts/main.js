@@ -85,6 +85,7 @@ async function main() {
     await fetchSlideshowConfigs()
     mergeSlideshowDataWithHomebrew()
     await fetchAudioPlaylists()
+    setupAudioPlayer()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupDomAndEventListeners()
@@ -96,6 +97,22 @@ async function main() {
 
 async function fetchAudioPlaylists () {
     playlistJSON = await fetchJSON('./audio/playlists.json')
+}
+
+async function setupAudioPlayer () {
+    Audio = new HowlerPlayer()
+    Audio.onPlay = function(e) {
+        combatMusicOn = true
+        document.body.classList.add('music-on')
+    }
+    Audio.onPause = function(e) {
+        combatMusicOn = false
+        document.body.classList.remove('music-on')
+    }
+    Audio.onStop = function(e) {
+        combatMusicOn = false
+        document.body.classList.remove('music-on')
+    }
 }
 
 async function updateHowlPlaylist (playlistID) {
