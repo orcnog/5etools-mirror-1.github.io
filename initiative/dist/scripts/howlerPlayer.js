@@ -266,13 +266,21 @@ class HowlerPlayer {
         var self = this
         var sound = self.playlist[self.index].howl
 
-        if (sound) {
-            // Store the last volume
-            this.lastVolume = Howler.volume()
-
-            // Fade the volume down to 0.01 over 1 second
-            sound.fade(this.lastVolume, 0.01, 1000)
-        }
+        return new Promise((resolve) => {
+            if (sound) {
+                // Store the last volume
+                this.lastVolume = Howler.volume()
+    
+                // Fade the volume down to 0.01 over 1 second
+                sound.fade(this.lastVolume, 0.01, 1000)
+    
+                // Set a timeout to resolve the promise after the fade duration
+                setTimeout(resolve, 1000)
+            } else {
+                // Resolve immediately if no sound is playing
+                resolve()
+            }
+        });
     }
 
     /**
@@ -282,10 +290,18 @@ class HowlerPlayer {
         var self = this
         var sound = self.playlist[self.index].howl
 
-        if (sound) {
-            // Fade the volume back to the previous level over 1 second
-            sound.fade(0.01, this.lastVolume, 1000)
-        }
+        return new Promise((resolve) => {
+            if (sound) {
+                // Fade the volume back to the previous level over 1 second
+                sound.fade(0.01, this.lastVolume, 1000)
+    
+                // Set a timeout to resolve the promise after the fade duration
+                setTimeout(resolve, 1000)
+            } else {
+                // Resolve immediately if no sound is playing
+                resolve()
+            }
+        });
     }
 
     /**
@@ -417,9 +433,8 @@ class HowlerPlayer {
         }
     }
 
-    updatePlaylist(newPlaylist) {
+    async updatePlaylist(newPlaylist) {
         var self = this
-        var sound = self.playlist?.[self.index]?.howl
 
         // Stop the current track.
         self.stop()

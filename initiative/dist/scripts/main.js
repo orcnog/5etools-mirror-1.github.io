@@ -1150,10 +1150,11 @@ function settingsMenuReturn() {
     settingsSubMenus.forEach(sub => sub.classList.add('hide-right'))
 }
 
-function handleMusicBtnClick() {
+async function handleMusicBtnClick() {
     if (combatMusicOn) {
         combatMusicOn = false
         document.body.classList.remove('music-on')
+        await Audio.fadeDown()
         Audio.stop()
     } else {
         combatMusicOn = true
@@ -2366,6 +2367,7 @@ async function updateSlideBasedOnHash(e) {
         loadScreen('INITIATIVE')
         console.log('Loading Initiative board.')
         if (Audio && e) {
+            await Audio.fadeDown()
             await updateHowlPlaylist(combatPlaylist)
             if (combatMusicOn) {
                 await Audio.playRandom()
@@ -2389,6 +2391,7 @@ async function updateSlideBasedOnHash(e) {
                 })
             }
             if (playlistToLoad) {
+                await Audio.fadeDown()
                 await updateHowlPlaylist(playlistToLoad)
                 Audio.playRandom()
             }
