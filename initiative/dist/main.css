@@ -412,7 +412,7 @@ select {
     display: none;
 }
 .music .header-menu-btn#musicBtn {
-    display: block;
+    display: flex;
 }
 
 .header-menu-btn #musicOn {
@@ -432,7 +432,7 @@ select {
     display: none;
 }
 .slideshow .header-menu-btn#sceneBtn {
-    display: block;
+    display: flex;
     margin: 0 1rem 0 0;
 }
 .header-menu-btn#sceneBtn::after {
@@ -457,6 +457,7 @@ select {
 .header-menu-btn .fa-music,
 .header-menu-btn .fa-volume-xmark {
     font-size: 0.75em;
+    line-height: 1.2;
 }
 
 body:not(.menu-open) .settings-menu-open-ui {

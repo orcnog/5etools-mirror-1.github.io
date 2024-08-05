@@ -206,21 +206,23 @@ class HowlerPlayer {
             })
         }
 
-        // Begin playing the sound.
-        sound.play()
-        console.info(`Playing: ${data.title}`)
+        if (sound) {
+            // Begin playing the sound.
+            sound.play()
+            console.info(`Playing: ${data.title}`)
 
-        // Update the track display.
-        self.track.innerHTML = (index + 1) + '. ' + data.title
+            // Update the track display.
+            self.track.innerHTML = (index + 1) + '. ' + data.title
 
-        // Show the pause button.
-        if (sound.state() === 'loaded') {
-            self.playBtn.style.display = 'none'
-            self.pauseBtn.style.display = 'block'
-        } else {
-            self.loading.style.display = 'block'
-            self.playBtn.style.display = 'none'
-            self.pauseBtn.style.display = 'none'
+            // Show the pause button.
+            if (sound.state() === 'loaded') {
+                self.playBtn.style.display = 'none'
+                self.pauseBtn.style.display = 'block'
+            } else {
+                self.loading.style.display = 'block'
+                self.playBtn.style.display = 'none'
+                self.pauseBtn.style.display = 'none'
+            }
         }
 
         // Keep track of the index we are currently playing.
@@ -231,7 +233,7 @@ class HowlerPlayer {
         var self = this
 
         // Get the Howl we want to manipulate.
-        var sound = self.playlist[self.index].howl
+        var sound = self.playlist?.[self.index]?.howl
 
         // Pause the sound.
         sound.pause()
@@ -245,7 +247,7 @@ class HowlerPlayer {
         var self = this
 
         // Get the Howl we want to manipulate.
-        var sound = self.playlist[self.index].howl
+        var sound = self.playlist?.[self.index]?.howl
 
         if (sound) {
             // Pause the sound.
@@ -318,10 +320,11 @@ class HowlerPlayer {
     skipTo(index) {
         var self = this
 
+        // Get the Howl we want to manipulate.
+        var sound = self.playlist?.[self.index]?.howl
+
         // Stop the current track.
-        if (self.playlist[self.index].howl) {
-            self.playlist[self.index].howl.stop()
-        }
+        self.stop()
 
         // Reset progress.
         self.progress.style.width = '0%'
@@ -358,16 +361,18 @@ class HowlerPlayer {
         var self = this
 
         // Get the Howl we want to manipulate.
-        var sound = self.playlist[self.index].howl
+        var sound = self.playlist?.[self.index]?.howl
 
-        // Determine our current seek position.
-        var seek = sound.seek() || 0
-        self.timer.innerHTML = self.formatTime(Math.round(seek))
-        self.progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%'
+        if (sound) {
+            // Determine our current seek position.
+            var seek = sound?.seek() || 0
+            self.timer.innerHTML = self.formatTime(Math.round(seek))
+            self.progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%'
 
-        // If the sound is still playing, continue stepping.
-        if (sound.playing()) {
-            requestAnimationFrame(self.step.bind(self))
+            // If the sound is still playing, continue stepping.
+            if (sound.playing()) {
+                requestAnimationFrame(self.step.bind(self))
+            }
         }
     }
 
@@ -413,15 +418,24 @@ class HowlerPlayer {
     }
 
     updatePlaylist(newPlaylist) {
+        var self = this
+        var sound = self.playlist?.[self.index]?.howl
+
+        // Stop the current track.
+        self.stop()
+
         // Unload the current playlist first
-        this.unload();
+        self.unload();
+
+        // Reset progress.
+        self.progress.style.width = '0%'
 
         // Update to the new playlist
-        this.playlist = newPlaylist;
-        this.index = 0; // Reset the index
+        self.playlist = newPlaylist;
+        self.index = 0; // Reset the index
 
         // Update the playlist display
-        this.setupPlaylistDisplay();
+        self.setupPlaylistDisplay();
     }
 }
 

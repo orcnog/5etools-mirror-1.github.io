@@ -99,8 +99,8 @@ async function fetchAudioPlaylists () {
     playlistJSON = await fetchJSON('./audio/playlists.json')
 }
 
-async function setupAudioPlayer () {
-    Audio = new HowlerPlayer()
+async function setupAudioPlayer (playlistArray) {
+    Audio = new HowlerPlayer(playlistArray)
     Audio.onPlay = function(e) {
         combatMusicOn = true
         document.body.classList.add('music-on')
@@ -127,7 +127,7 @@ async function updateHowlPlaylist (playlistID) {
         if (Audio) {
             Audio.updatePlaylist(thisPlaylistArray)
         } else {
-            Audio = new HowlerPlayer(thisPlaylistArray)
+            setupAudioPlayer(thisPlaylistArray)
         }
     } else {
         console.warn('No playlist by that name in playlist JSON file(s).')
@@ -1124,6 +1124,7 @@ function openSettingsSubMenu(id) {
     const settingsSubMenu = document.getElementById(id)
     const mainAppBody = document.querySelector('.main')
     bodyElement.classList.add('menu-open', 'sub-menu-open')
+    bodyElement.setAttribute('data-submenu', id);
     mainAppBody.classList.add('hide-left')
     settingsMenu.classList.add('hide-left')
     settingsSubMenu.classList.remove('hide-right', 'hide-left', 'hide')
@@ -1137,6 +1138,7 @@ function settingsMenuReturn() {
     if (bodyElement.matches('.sub-menu-open')) {
         // Return from a sub menu to settings menu
         bodyElement.classList.remove('sub-menu-open')
+        bodyElement.removeAttribute('data-submenu');
         mainAppBody.classList.add('hide-left') // probly unnec
         settingsMenu.classList.remove('hide-right', 'hide-left', 'hide')
     } else {
@@ -1156,7 +1158,11 @@ function handleMusicBtnClick() {
     } else {
         combatMusicOn = true
         document.body.classList.add('music-on')
-        Audio.playRandom()
+        if (document.body.dataset.submenu === 'musicMenu') {
+            Audio.play()
+        } else {
+            Audio.playRandom()
+        }
     }
 }
 

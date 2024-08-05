@@ -48,13 +48,13 @@
             {
                 "image": "./slideshow/greatlibrary/greatlibrary.webp",
                 "caption": "The Great Library of Ven'Talor",
-                "playlist": ["./audio/music/starwars/victory/End_Game_-_Star_Wars_The_Throne_Room_End_Title-248ggPoK158-.ogg"]
+                "playlist": "sw_victory"
             },
             {
                 "image": "./slideshow/final/final.webp",
                 "caption": "THE END",
                 "subcap": "May the Force Be With You!",
-                "playlist": ["./audio/music/starwars/victory/End_Title_Music.ogg"]
+                "playlist": "sw_victory"
             }
         ]
     },
