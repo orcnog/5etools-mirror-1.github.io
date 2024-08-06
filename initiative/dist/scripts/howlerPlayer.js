@@ -65,6 +65,18 @@ class HowlerPlayer {
         })
         this.playlistBtn.addEventListener('click', function () {
             self.togglePlaylist()
+
+            // Add a click event listener on the document to detect clicks outside
+            const outsideClickListener = function (event) {
+                // Check if the click target is outside the playlist
+                if (!self.playlistmenu.contains(event.target) && !self.playlistBtn.contains(event.target)) {
+                    self.togglePlaylist() // Close the playlist
+                    document.removeEventListener('click', outsideClickListener) // Unbind the listener
+                }
+            };
+        
+            // Use a timeout to ensure the event listener is added after the toggle
+            setTimeout(() => document.addEventListener('click', outsideClickListener), 0)
         })
         this.volumeBtn.addEventListener('click', function () {
             self.toggleVolume()
@@ -202,11 +214,12 @@ class HowlerPlayer {
                     
                     if (typeof self.onLoad === 'function') self.onLoad()
                 },
-                onend: function () {
+                onend: async function () {
                     // Stop the wave animation.
                     self.wave.container.style.display = 'none'
                     self.bar.style.display = 'block'
-                    self.skip('next')
+                    await self.skip('next')
+                    self.play()
                     
                     if (typeof self.onEnd === 'function') self.onEnd()
                 },
@@ -320,13 +333,14 @@ class HowlerPlayer {
     /**
      * Play a random track from the playlist.
      */
-    playRandom() {
+    async playRandom() {
         var self = this
         var randomIndex = Math.floor(Math.random() * self.playlist.length)
-        self.skipTo(randomIndex)
+        await self.skipTo(randomIndex)
+        await self.play()
     }
 
-    skip(direction) {
+    async skip(direction) {
         var self = this
 
         // Get the next track based on the direction of the track.
@@ -343,7 +357,7 @@ class HowlerPlayer {
             }
         }
 
-        self.skipTo(index)
+        await self.skipTo(index)
     }
 
     async skipTo(index) {

@@ -1155,14 +1155,14 @@ async function handleMusicBtnClick() {
         combatMusicOn = false
         document.body.classList.remove('music-on')
         await Audio.fadeDown()
-        Audio.stop()
+        await Audio.stop()
     } else {
         combatMusicOn = true
         document.body.classList.add('music-on')
         if (document.body.dataset.submenu === 'musicMenu') {
-            Audio.play()
+            await Audio.play()
         } else {
-            Audio.playRandom()
+            await Audio.playRandom()
         }
     }
 }
@@ -2393,7 +2393,7 @@ async function updateSlideBasedOnHash(e) {
             if (playlistToLoad) {
                 await Audio.fadeDown()
                 await updateHowlPlaylist(playlistToLoad)
-                Audio.playRandom()
+                await Audio.playRandom()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
