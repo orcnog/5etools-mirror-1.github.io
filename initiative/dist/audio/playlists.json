@@ -17,7 +17,6 @@
     "dnd_chase": [
         "./audio/music/dnd/chase/Racing_the_Lava_-_Ori_and_the_Blind_Forest.mp3",
         "./audio/music/dnd/chase/Cloak_and_Dagger_-_The_Witcher_3.mp3",
-        "./audio/music/dnd/chase/Two_Teams_-_Vox_Machina.mp3",
         "./audio/music/dnd/chase/Fleeing_Kuro_-_Ori_and_the_Blind_Forest.mp3"
     ],
     "dnd_combat": [
@@ -29,7 +28,6 @@
         "./audio/music/dnd/combat/combat_heavy_slow_-_Witcher_3_-_Hunt_or_Be_Hunted.mp3",
         "./audio/music/dnd/combat/combat_heavy_slow_-_Witcher_3_-_Like_A_Wounded_Animal.mp3",
         "./audio/music/dnd/chase/Escaping_the_Ruins_-_Ori_and_the_Blind_Forest.mp3",
-        "./audio/music/dnd/chase/City_of_Intrigues_-_The_Witcher_3.mp3",
         "./audio/music/dnd/combat/Guild_Wars_2_OST_-_32._Michoti_Battle_March.mp3",
         "./audio/music/dnd/combat/Guild_Wars_2_OST_-_The_Origins_Of_Madness_-_Twisted_Marionette_Battle_Part_1.mp3"
     ],
@@ -42,6 +40,11 @@
         "./audio/music/dnd/exploration/Dark_Ambient_Cave_-_The_Witcher_3_-_Blood_and_Wine.mp3",
         "./audio/music/dnd/exploration/Syannas_Dream_-_The_Witcher_3_-_Blood_Wine.mp3",
         "./audio/music/dnd/exploration/In_The_Giants_Shadow_-_The_Witcher_3.mp3"
+    ],
+    "dnd_heist": [
+        "./audio/music/dnd/heist/City_of_Intrigues_-_The_Witcher_3.mp3",
+        "./audio/music/dnd/heist/Two_Teams_-_Vox_Machina.mp3",
+        "./audio/music/dnd/heist/Aen_Seidhe_-_The_Withcer_3.mp3"
     ],
     "dnd_metal": [
         "./audio/music/dnd/metal/Cowboys_from_Hell_-_Pantera.mp3",
