@@ -15,12 +15,10 @@
         "./audio/music/dnd/boss_fight/Warcraft_III_Reign_of_Chaos_Music_-_Doom.mp3"
     ],
     "dnd_chase": [
-        "./audio/music/dnd/chase/Cloak_and_Dagger_-_The_Witcher_3.mp3",
-        "./audio/music/dnd/chase/Escaping_the_Ruins_-_Ori_and_the_Blind_Forest.mp3",
-        "./audio/music/dnd/chase/Fleeing_Kuro_-_Ori_and_the_Blind_Forest.mp3",
-        "./audio/music/dnd/chase/Two_Teams_-_Vox_Machina.mp3",
         "./audio/music/dnd/chase/Racing_the_Lava_-_Ori_and_the_Blind_Forest.mp3",
-        "./audio/music/dnd/chase/City_of_Intrigues_-_The_Witcher_3.mp3"
+        "./audio/music/dnd/chase/Cloak_and_Dagger_-_The_Witcher_3.mp3",
+        "./audio/music/dnd/chase/Two_Teams_-_Vox_Machina.mp3",
+        "./audio/music/dnd/chase/Fleeing_Kuro_-_Ori_and_the_Blind_Forest.mp3"
     ],
     "dnd_combat": [
         "./audio/music/dnd/combat/Assassins_Creed_Rogue_OST_-_The_Guardian_Track_09.mp3",
@@ -30,6 +28,8 @@
         "./audio/music/dnd/combat/combat_heavy_quick_-_Witcher_3_-_The_Hunt_is_Coming.mp3",
         "./audio/music/dnd/combat/combat_heavy_slow_-_Witcher_3_-_Hunt_or_Be_Hunted.mp3",
         "./audio/music/dnd/combat/combat_heavy_slow_-_Witcher_3_-_Like_A_Wounded_Animal.mp3",
+        "./audio/music/dnd/chase/Escaping_the_Ruins_-_Ori_and_the_Blind_Forest.mp3",
+        "./audio/music/dnd/chase/City_of_Intrigues_-_The_Witcher_3.mp3",
         "./audio/music/dnd/combat/Guild_Wars_2_OST_-_32._Michoti_Battle_March.mp3",
         "./audio/music/dnd/combat/Guild_Wars_2_OST_-_The_Origins_Of_Madness_-_Twisted_Marionette_Battle_Part_1.mp3"
     ],
@@ -53,17 +53,24 @@
         "./audio/music/dnd/metal/Walk_-_Pantera.mp3"
     ],
     "dnd_special": [
-        "./audio/music/dnd/special/Girls_Just_Want_to_Have_Fun.mp3",
+        "./audio/music/dnd/special/A_Thousand_Miles_[Clip]_-_Vanessa_Carlton.mp3",
         "./audio/music/dnd/special/Survivor_-_Eye_of_the_Tiger.mp3",
         "./audio/music/dnd/special/Devil_Went_Down_to_Georgia_-_Charlie_Daniels_Band.mp3",
+        "./audio/music/dnd/special/Girls_Just_Want_to_Have_Fun.mp3",
+        "./audio/music/dnd/special/Never_Gonna_Dance_Again_-_George_Michael.mp3",
         "./audio/music/dnd/special/Lets_Get_It_On.mp3",
-        "./audio/music/dnd/special/Never_Gonna_Dnace_Again_-_George_Michael.mp3",
         "./audio/music/dnd/special/Im_Too_Sexy.mp3"
     ],
     "dnd_tavern": [
         "./audio/music/dnd/tavern/Hello_From_The_Magic_Tavern_Theme_-_Andy_Poland.mp3",
         "./audio/music/dnd/tavern/The_Musty_Scent_Of_Fresh_Pate_-_The_Witcher_3.mp3",
         "./audio/music/dnd/tavern/Pig_and_Whistle_-_Taverns_of_Azeroth_Soundtrack.mp3",
+        "./audio/music/dnd/tavern/Pillars_of_Eternity_Soundtrack_-_Inn_A_-_Justin_Bell.mp3",
+        "./audio/music/dnd/tavern/Pillars_of_Eternity_Soundtrack_-_Inn_B_-_Justin_Bell.mp3",
+        "./audio/music/dnd/tavern/manolin_irish_washerwoman.mp3",
+        "./audio/music/dnd/tavern/mandolin_whisky_before_breakfast.mp3",
+        "./audio/music/dnd/tavern/Cutlass_inn_-_Neverwinter_Nights.mp3",
+        "./audio/music/dnd/tavern/chill_mandolin.mp3",
         "./audio/music/dnd/tavern/A_Story_You_Wont_Believe_-_The_Witcher_3.mp3",
         "./audio/music/dnd/tavern/Skellige_Isle_Ambient_Music_2_-_The_Witcher_3.mp3",
         "./audio/music/dnd/tavern/Gwent_Unreleased_Track_-_The_Witcher_3.mp3"
