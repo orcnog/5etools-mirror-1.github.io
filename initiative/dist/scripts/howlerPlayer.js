@@ -15,7 +15,7 @@ class HowlerPlayer {
         this.elms = [
             'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn',
             'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading',
-            'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'
+            'playlistmenu', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'
         ]
         this.elms.forEach(function (elm) {
             this[elm] = document.getElementById(elm)
@@ -120,8 +120,8 @@ class HowlerPlayer {
     setupPlaylistDisplay() {
         var self = this
         if (self.playlist && self.playlist.length > 0) {
-            // Display the title of the first track.
-            self.track.innerHTML = '1. ' + self.playlist[0].title
+            // Display the first track.
+            self.loadTrack(0)
 
             // Setup the playlist display.
             self.playlist.forEach(function (song) {
@@ -129,7 +129,7 @@ class HowlerPlayer {
                 div.className = 'list-song'
                 div.innerHTML = song.title
                 div.onclick = function () {
-                    self.skipTo(playlist.indexOf(song))
+                    self.skipTo(self.playlist.indexOf(song))
                 }
                 self.list.appendChild(div)
             })
@@ -138,7 +138,36 @@ class HowlerPlayer {
         }
     }
 
-    play(index) {
+    async play(index) {
+        var self = this
+
+        // Get the Howl we want to manipulate.
+        var sound = self.playlist?.[self.index]?.howl
+
+        index = typeof index === 'number' ? index : self.index
+        var data = self.playlist[index]
+
+        if (sound) {
+            // Begin playing the sound.
+            sound.play()
+            console.info(`Playing: ${data.title}`)
+
+            // Update the track display.
+            self.track.innerHTML = (index + 1) + '. ' + data.title
+
+            // Show the pause button.
+            if (sound.state() === 'loaded') {
+                self.playBtn.style.display = 'none'
+                self.pauseBtn.style.display = 'block'
+            } else {
+                self.loading.style.display = 'block'
+                self.playBtn.style.display = 'none'
+                self.pauseBtn.style.display = 'none'
+            }
+        }
+    }
+
+    async loadTrack(index) {
         var self = this
         var sound
 
@@ -168,9 +197,7 @@ class HowlerPlayer {
                     if (typeof self.onPlay === 'function') self.onPlay()
                 },
                 onload: function () {
-                    // Start the wave animation.
-                    self.wave.container.style.display = 'block'
-                    self.bar.style.display = 'none'
+                    // Stop the loading blip animation
                     self.loading.style.display = 'none'
                     
                     if (typeof self.onLoad === 'function') self.onLoad()
@@ -207,22 +234,8 @@ class HowlerPlayer {
         }
 
         if (sound) {
-            // Begin playing the sound.
-            sound.play()
-            console.info(`Playing: ${data.title}`)
-
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
-
-            // Show the pause button.
-            if (sound.state() === 'loaded') {
-                self.playBtn.style.display = 'none'
-                self.pauseBtn.style.display = 'block'
-            } else {
-                self.loading.style.display = 'block'
-                self.playBtn.style.display = 'none'
-                self.pauseBtn.style.display = 'none'
-            }
         }
 
         // Keep track of the index we are currently playing.
@@ -333,11 +346,12 @@ class HowlerPlayer {
         self.skipTo(index)
     }
 
-    skipTo(index) {
+    async skipTo(index) {
         var self = this
 
         // Get the Howl we want to manipulate.
         var sound = self.playlist?.[self.index]?.howl
+        var wasPlaying = sound?.playing()
 
         // Stop the current track.
         self.stop()
@@ -345,8 +359,9 @@ class HowlerPlayer {
         // Reset progress.
         self.progress.style.width = '0%'
 
-        // Play the new track.
-        self.play(index)
+        // Load the new track.
+        await self.loadTrack(index)
+        if (wasPlaying) await self.play(index)
     }
 
     volume(val) {
@@ -394,12 +409,12 @@ class HowlerPlayer {
 
     togglePlaylist() {
         var self = this
-        var display = (self.playlist.style.display === 'block') ? 'none' : 'block'
+        var display = (self.playlistmenu.style.display === 'block') ? 'none' : 'block'
 
         setTimeout(function () {
-            self.playlist.style.display = display
+            self.playlistmenu.style.display = display
         }, (display === 'block') ? 0 : 500)
-        self.playlist.className = (display === 'block') ? 'fadein' : 'fadeout'
+        self.playlistmenu.className = (display === 'block') ? 'fadein' : 'fadeout'
     }
 
     toggleVolume() {
