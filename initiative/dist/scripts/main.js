@@ -1154,7 +1154,7 @@ async function handleMusicBtnClick() {
     if (combatMusicOn) {
         combatMusicOn = false
         document.body.classList.remove('music-on')
-        await Audio.fadeDown()
+        if (!isiOS) await Audio.fadeDown()
         await Audio.stop()
     } else {
         combatMusicOn = true
