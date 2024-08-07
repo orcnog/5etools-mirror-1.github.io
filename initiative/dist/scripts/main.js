@@ -18,6 +18,7 @@ let liveTextMode = true
 let players = []
 let currentTurn = 0
 let currentRound = 1
+let final_recognized_transcript
 let currentSlideshowID
 let slideshow = {}
 let slideshowConfig = {}
@@ -1619,14 +1620,14 @@ function beginCombat() {
     // set the state of the Previous buttton based on rehydrated round/turn state
     document.getElementById('prevTurn').disabled = (currentRound < 2 && currentTurn < 1)
     document.getElementById('nextTurn').disabled = false
-    document.getElementById('startButton').disabled = true
+    // document.getElementById('startButton').disabled = true
 }
 
 function endCombat() {
     document.body.classList.remove('active-turn')
     document.getElementById('prevTurn').disabled = true
     document.getElementById('nextTurn').disabled = true
-    document.getElementById('startButton').disabled = false
+    // document.getElementById('startButton').disabled = false
 }
 
 function advanceTurn() {
@@ -1759,11 +1760,10 @@ function clearAll() {
     document.querySelectorAll('.round-tally').forEach(el => el.remove())
 
     // Clearing cookies
-    document.cookie = "players=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    document.cookie = "turn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    document.cookie = "round=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    document.cookie = "turnStarted=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    document.cookie = "fontPreference=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    setCookie('players','')
+    setCookie('turn','')
+    setCookie('round','')
+    setCookie('turnStarted','')
 }
 
 /**
@@ -2341,7 +2341,7 @@ function fadeOut(el, duration = 1000, callback = () => {}) {
  */
 
 function setCookie(name, value) {
-    document.cookie = `${name}=${value};path=/`
+    document.cookie = `${name}=${value}; path=/`
 }
 
 function getCookie(name) {
