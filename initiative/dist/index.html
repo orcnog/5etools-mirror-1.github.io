@@ -239,7 +239,7 @@
                         <div class="btn" id="pauseBtn"></div>
                         <div class="btn" id="nextBtn"></div>
                         </div>
-                    <div class="btn" id="volumeBtn" style="visibility: hidden;"></div>
+                    <div class="btn" id="volumeBtn"></div>
                     </div>
                     <!-- Progress -->
                     <div id="waveform"></div>
@@ -250,15 +250,11 @@
                     <div id="list"></div>
                     </div>
                     <!-- Volume -->
-                    <div id="volume" class="fadeout">
-                    <div id="barFull" class="bar"></div>
-                    <div id="barEmpty" class="bar"></div>
-                    <div id="sliderBtn"></div>
+                    <div id="volumeOverlay" class="fadeout">
+                    <input id="volumeSlider" type="range" min="1" max="100" value="100">
                     </div>
                     <!-- Scripts -->
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-                    <!-- <script src="./scripts/siriwave.js"></script>
-                    <script src="./scripts/howlerPlayer.js"></script> -->
                 </div>
             </div>
         </div>

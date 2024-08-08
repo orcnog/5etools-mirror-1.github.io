@@ -15,7 +15,7 @@ class HowlerPlayer {
         this.elms = [
             'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn',
             'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading',
-            'playlistmenu', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'
+            'playlistmenu', 'list', 'volumeOverlay', 'volumeSlider'
         ]
         this.elms.forEach(function (elm) {
             this[elm] = document.getElementById(elm)
@@ -80,41 +80,26 @@ class HowlerPlayer {
         })
         this.volumeBtn.addEventListener('click', function () {
             self.toggleVolume()
+
+            // Add a click event listener on the document to detect clicks outside
+            const outsideClickListener = function (event) {
+                // Check if the click target is outside the volume overlay
+                if (!self.volumeOverlay.contains(event.target) && !self.volumeOverlay.contains(event.target)) {
+                    self.toggleVolume() // Close the volume overlay
+                    document.removeEventListener('click', outsideClickListener) // Unbind the listener
+                }
+            };
+        
+            // Use a timeout to ensure the event listener is added after the toggle
+            setTimeout(() => document.addEventListener('click', outsideClickListener), 0)
         })
-        this.volume.addEventListener('click', function () {
-            self.toggleVolume()
+        this.volumeOverlay.addEventListener('click', function () {
+            // self.toggleVolume()
         })
 
-        // Setup the event listeners to enable dragging of volume slider.
-        this.barEmpty.addEventListener('click', function (event) {
-            var per = event.layerX / parseFloat(self.barEmpty.scrollWidth)
-            self.volume(per)
+        this.volumeSlider.addEventListener('change', (e)=> {
+            self.volume(e.target.value / 100)
         })
-        this.sliderBtn.addEventListener('mousedown', function () {
-            window.sliderDown = true
-        })
-        this.sliderBtn.addEventListener('touchstart', function () {
-            window.sliderDown = true
-        })
-        this.volume.addEventListener('mouseup', function () {
-            window.sliderDown = false
-        })
-        this.volume.addEventListener('touchend', function () {
-            window.sliderDown = false
-        })
-
-        var move = function (event) {
-            if (window.sliderDown) {
-                var x = event.clientX || event.touches[0].clientX
-                var startX = window.innerWidth * 0.05
-                var layerX = x - startX
-                var per = Math.min(1, Math.max(0, layerX / parseFloat(self.barEmpty.scrollWidth)))
-                self.volume(per)
-            }
-        }
-
-        this.volume.addEventListener('mousemove', move)
-        this.volume.addEventListener('touchmove', move)
 
         // Setup the "waveform" animation.
         this.wave = new SiriWave({
@@ -385,9 +370,12 @@ class HowlerPlayer {
         Howler.volume(val)
 
         // Update the display on the slider.
-        var barWidth = (val * 90) / 100
-        self.barFull.style.width = (barWidth * 100) + '%'
-        self.sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px'
+        console.log(`Volume value: ${val}`)
+        // var barWidthPx = barEmpty.offsetWidth
+        // var barWidth = (val * 90) / 100 // kinda a volume percentage?
+        // self.barFull.style.width = (barWidth * 100) + '%'  
+        // console.log(barWidthPx * barWidth)
+        // self.sliderBtn.style.left = ((barWidthPx * barWidth))+ 'px'
     }
 
     seek(per) {
@@ -433,12 +421,12 @@ class HowlerPlayer {
 
     toggleVolume() {
         var self = this
-        var display = (self.volume.style.display === 'block') ? 'none' : 'block'
+        var display = (self.volumeOverlay.style.display === 'flex') ? 'none' : 'flex'
 
         setTimeout(function () {
-            self.volume.style.display = display
-        }, (display === 'block') ? 0 : 500)
-        self.volume.className = (display === 'block') ? 'fadein' : 'fadeout'
+            self.volumeOverlay.style.display = display
+        }, (display === 'flex') ? 0 : 500)
+        self.volumeOverlay.className = (display === 'flex') ? 'fadein' : 'fadeout'
     }
 
     formatTime(secs) {
