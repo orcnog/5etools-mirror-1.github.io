@@ -205,12 +205,10 @@ function rehydrateSettings() {
 
     /* Rehydrate combat music playlist selection */
     const combatPlaylistCookieValue = getCookie('combatPlaylist');
-    if (combatPlaylistCookieValue) {
-        combatPlaylist = combatPlaylistCookieValue
-        updateHowlPlaylist(combatPlaylistCookieValue)
-    }
+    if (combatPlaylistCookieValue) combatPlaylist = combatPlaylistCookieValue
+    if (combatPlaylist) updateHowlPlaylist(combatPlaylistCookieValue)
     populateSelectWithPlaylists()
-    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = combatPlaylistCookieValue)
+    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = combatPlaylist)
 
     /* Rehydrate the font capitalization preference */
     fontAllCaps = getCookie('fontAllCaps') || 'true'
@@ -551,13 +549,6 @@ function setupDomAndEventListeners() {
 
     async function handleCombatPlaylistChange(e) {
         const selectedCombatPlaylist = e.target.value
-        setCookie('combatPlaylist', selectedCombatPlaylist);
-        document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = selectedCombatPlaylist)
-        if (!selectedCombatPlaylist) {
-            document.getElementById('howlerPlayer').classList.remove('active')
-        } else {
-            document.getElementById('howlerPlayer').classList.add('active')
-        }
         updateCombatPlaylist(selectedCombatPlaylist)
     }
 
@@ -1430,6 +1421,13 @@ function updateSlideshowContext(selectedSlideshow) {
 }
 
 async function updateCombatPlaylist(playlistID) {
+    setCookie('combatPlaylist', playlistID);
+    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = playlistID)
+    if (!playlistID) {
+        document.getElementById('howlerPlayer').classList.remove('active')
+    } else {
+        document.getElementById('howlerPlayer').classList.add('active')
+    }
     if (playlistID) {
         await updateHowlPlaylist(playlistID)
         combatPlaylist = playlistID
@@ -1567,9 +1565,9 @@ function populateSelectWithPlaylists() {
             
             for (const [id] of Object.entries(playlistJSON)) {
                 const option = document.createElement('option')
-                // Convert theme data to option value and data attributes
+                // Convert playlist data to option value and data attributes
                 option.value = id
-                if (option.value == currentSlideshowID) {
+                if (option.value == combatPlaylist) {
                     option.selected = true
                 }
                 const name = id.replace(/^dnd_/, 'D&D ').replace(/^sw_/, 'Starwars ').replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())
