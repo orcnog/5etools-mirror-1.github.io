@@ -206,7 +206,7 @@ function rehydrateSettings() {
     /* Rehydrate combat music playlist selection */
     const combatPlaylistCookieValue = getCookie('combatPlaylist');
     if (combatPlaylistCookieValue) combatPlaylist = combatPlaylistCookieValue
-    if (combatPlaylist) updateHowlPlaylist(combatPlaylistCookieValue)
+    if (combatPlaylist) updateHowlPlaylist(combatPlaylist)
     populateSelectWithPlaylists()
     document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = combatPlaylist)
 
