@@ -193,7 +193,7 @@
                     </div>
                 </div>
                 <div class="settings-menu-group">
-                    <label class="settings-label" for="openMusicMenu">Audio Player</label>
+                    <label class="settings-label" for="openMusicMenu">Music Player</label>
                     <div class="settings-input">
                         <button id="openMusicMenu" class="btn"><i class="fas fas fa-ellipsis"></i></button>
                     </div>
@@ -219,41 +219,41 @@
                 <div class="settings-menu-group">
                     <label class="settings-label">Playlists</label>
                     <div class="settings-input">
-                        <select id="selectAudioPlayerPlaylist"></select>
+                        <select id="selectMusicPlayerPlaylist"></select>
                     </div>
                 </div>
-                <div id="howlerPlayer">
+                <div id="musicPlayer" class="howlerPlayer">
                     <!-- Top Info -->
-                    <div id="title">
-                    <div id="timer">0:00</div>
-                    <span id="track"></span>
-                    <div id="duration">0:00</div>
+                    <div class="title">
+                    <div class="timer">0:00</div>
+                    <span class="track"></span>
+                    <div class="duration">0:00</div>
                     </div>
                     <!-- Controls -->
                     <div class="controlsOuter">
-                        <div class="btn" id="playlistBtn"></div>
-                        <div class="btn" id="loopBtn"><i class="fa fa-rotate"></i></div>
+                        <div class="btn playlistBtn"></div>
+                        <div class="btn loopBtn"><i class="fa fa-rotate"></i></div>
                         <div class="controlsInner">
-                            <div id="loading"></div>
-                            <div class="btn" id="prevBtn"></div>
-                            <div class="btn" id="playBtn"></div>
-                            <div class="btn" id="pauseBtn"></div>
-                            <div class="btn" id="nextBtn"></div>
+                            <div class="loading"></div>
+                            <div class="btn prevBtn"></div>
+                            <div class="btn playBtn"></div>
+                            <div class="btn pauseBtn"></div>
+                            <div class="btn nextBtn"></div>
                         </div>
-                        <div class="btn" id="shuffleBtn"><i class="fa fa-shuffle"></i></div>
-                        <div class="btn" id="volumeBtn"></div>
+                        <div class="btn shuffleBtn"><i class="fa fa-shuffle"></i></div>
+                        <div class="btn volumeBtn"></div>
                     </div>
                     <!-- Progress -->
-                    <div id="waveform"></div>
-                    <div id="bar"></div>
-                    <div id="progress"></div>
+                    <div class="waveform"></div>
+                    <div class="bar"></div>
+                    <div class="progress"></div>
                     <!-- Playlist -->
-                    <div id="playlistmenu">
-                    <div id="list"></div>
+                    <div class="playlistmenu">
+                    <div class="list"></div>
                     </div>
                     <!-- Volume -->
-                    <div id="volumeOverlay" class="fadeout">
-                    <input id="volumeSlider" type="range" min="1" max="100" value="100">
+                    <div class="volumeOverlay fadeout">
+                    <input class="volumeSlider" type="range" min="1" max="100" value="100">
                     </div>
                     <!-- Scripts -->
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>

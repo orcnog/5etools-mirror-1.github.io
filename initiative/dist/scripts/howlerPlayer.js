@@ -10,7 +10,7 @@
 
 import './siriwave.js'
 class HowlerPlayer {
-    constructor(playlist) {
+    constructor(elementId, playlist) {
         // Cache references to DOM elements.
         this.elms = [
             'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'shuffleBtn',
@@ -18,12 +18,15 @@ class HowlerPlayer {
             'playlistmenu', 'list', 'volumeOverlay', 'volumeSlider'
         ]
         this.elms.forEach(function (elm) {
-            this[elm] = document.getElementById(elm)
+            const wrapper = document.getElementById(elementId)
+            const element = wrapper.querySelector(`.${elm}`)
+            this[elm] = element
         }, this)
 
         this.playlist = playlist || []
         this.index = 0
         this.lastVolume = 1 // Initialize to track the last volume before fade
+        this.isFading = false
         this.shuffleEnabled = false
         this.shuffledPlaylist = []
 
@@ -180,6 +183,9 @@ class HowlerPlayer {
         if (sound) {
             // Begin playing the sound.
             sound.play()
+            // var soundId = sound._sounds[0]?._id
+            // sound.volume(1, soundId)
+            // Howler.volume(1)
             console.info(`Playing: ${data.title}`)
 
             // Update the track display.
@@ -269,6 +275,13 @@ class HowlerPlayer {
                     requestAnimationFrame(self.step.bind(self))
 
                     if (typeof self.onSeek === 'function') self.onSeek()
+                },
+                onfade: function () {
+                    // Some fade just ended
+                    self.isFading = false
+
+                    if (typeof self.onFadeTempFn === 'function') self.onFadeTempFn()
+                    if (typeof self.onFade === 'function') self.onFade()
                 }
             })
         }
@@ -329,20 +342,26 @@ class HowlerPlayer {
     /**
      * Fade the current track down to a very low volume.
      */
-    fadeDown() {
+    async fadeDown() {
         var self = this
         var sound = self.playlist[self.index].howl
 
         return new Promise((resolve) => {
             if (sound) {
                 // Store the last volume
-                this.lastVolume = Howler.volume()
+                if (!self.isFading) self.lastVolume = Howler.volume()
+
+                // Mark that the sound is currently fading...
+                self.isFading = true
     
                 // Fade the volume down to 0.01 over 1 second
-                sound.fade(this.lastVolume, 0.01, 1000)
+                sound.fade(self.lastVolume, 0.01, 1000)
     
-                // Set a timeout to resolve the promise after the fade duration
-                setTimeout(resolve, 1000)
+                // After fade ends, resolve promise
+                self.onFadeTempFn = () => {
+                    self.onFadeTempFn = null
+                    setTimeout(resolve, 1)
+                }
             } else {
                 // Resolve immediately if no sound is playing
                 resolve()
@@ -351,19 +370,28 @@ class HowlerPlayer {
     }
 
     /**
-     * Fade the current track back up to the last known volume.
+     * DOESN'T WORK. EVEN IN DESKTOP. Fade the current track back up to the last known volume.
      */
-    fadeUp() {
+    async fadeUp() {
         var self = this
         var sound = self.playlist[self.index].howl
 
         return new Promise((resolve) => {
             if (sound) {
+                // Store the last volume
+                if (!self.isFading) self.lastVolume = Howler.volume()
+
+                // Mark that the sound is currently fading...
+                self.isFading = true
+
                 // Fade the volume back to the previous level over 1 second
-                sound.fade(0.01, this.lastVolume, 1000)
+                sound.fade(0.01, 1, 1000)
     
-                // Set a timeout to resolve the promise after the fade duration
-                setTimeout(resolve, 1000)
+                // After fade ends, resolve promise
+                self.onFadeTempFn = () => {
+                    self.onFadeTempFn = null
+                    setTimeout(resolve, 1)
+                }
             } else {
                 // Resolve immediately if no sound is playing
                 resolve()
@@ -380,10 +408,12 @@ class HowlerPlayer {
             await self.shuffle()
             
             // Reset the index
-            self.index = self.shuffleEnabled ? self.playlist.indexOf(self.shuffledPlaylist[0]) : 0
+            self.index = self.playlist.indexOf(self.shuffledPlaylist[0])
 
             // Update the playlist display
             await self.loadTrack(self.index)
+        } else {
+            self.skip()
         }
         await self.play()
     }

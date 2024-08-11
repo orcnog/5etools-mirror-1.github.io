@@ -414,6 +414,13 @@ select {
 .music .header-menu-btn#musicBtn {
     display: flex;
 }
+.header-menu-btn[disabled] {
+    opacity: 1;
+    background-color: #444;
+}
+.header-menu-btn[disabled] i {
+    color: #888;
+}
 
 .header-menu-btn #musicOn {
     display: inline;

@@ -9,7 +9,7 @@ let micAllowed = false
 let chosenFont
 let fontAllCaps = true
 let chosenTheme
-let Audio
+let Music
 let playlistJSON
 let combatPlaylist = 'dnd_combat'
 let combatMusicOn = false
@@ -86,7 +86,7 @@ async function main() {
     await fetchSlideshowConfigs()
     mergeSlideshowDataWithHomebrew()
     await fetchAudioPlaylists()
-    setupAudioPlayer()
+    setupMusicPlayer()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupDomAndEventListeners()
@@ -100,19 +100,19 @@ async function fetchAudioPlaylists () {
     playlistJSON = await fetchJSON('./audio/playlists.json')
 }
 
-async function setupAudioPlayer (playlistArray) {
-    Audio = new HowlerPlayer(playlistArray)
-    Audio.onPlay = function(e) {
+async function setupMusicPlayer (playlistArray) {
+    Music = new HowlerPlayer('musicPlayer', playlistArray)
+    Music.onPlay = function(e) {
         combatMusicOn = true
         document.body.classList.add('music-on')
     }
-    Audio.onPause = function(e) {
+    Music.onPause = function(e) {
         combatMusicOn = false
         document.body.classList.remove('music-on')
     }
-    Audio.onStop = function(e) {
-        combatMusicOn = false
-        document.body.classList.remove('music-on')
+    Music.onStop = function(e) {
+        // combatMusicOn = false
+        // document.body.classList.remove('music-on')
     }
 }
 
@@ -125,10 +125,10 @@ async function updateHowlPlaylist (playlistID) {
             file: filePath,
             howl: null
         }));
-        if (Audio) {
-            Audio.updatePlaylist(thisPlaylistArray)
+        if (Music) {
+            Music.updatePlaylist(thisPlaylistArray)
         } else {
-            setupAudioPlayer(thisPlaylistArray)
+            setupMusicPlayer(thisPlaylistArray)
         }
     } else {
         console.warn('No playlist by that name in playlist JSON file(s).')
@@ -208,7 +208,7 @@ function rehydrateSettings() {
     if (combatPlaylistCookieValue) combatPlaylist = combatPlaylistCookieValue
     if (combatPlaylist) updateHowlPlaylist(combatPlaylist)
     populateSelectWithPlaylists()
-    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = combatPlaylist)
+    document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist').forEach(sel => sel.value = combatPlaylist)
 
     /* Rehydrate the font capitalization preference */
     fontAllCaps = getCookie('fontAllCaps') || 'true'
@@ -375,7 +375,7 @@ function setupDomAndEventListeners() {
     document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
     document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
     document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
-    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.addEventListener('change', handleCombatPlaylistChange))
+    document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist').forEach(sel => sel.addEventListener('change', handleCombatPlaylistChange))
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -587,10 +587,10 @@ function setupDomAndEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
-            if (Audio && combatMusicOn) {
+            if (Music && combatMusicOn) {
                 // if music is playing, lower it or pause it before turning on the mic
-                if (isiOS) Audio.pause() // if we're in iOS, pause. there's an issue with Audio.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
-                else Audio.fadeDown()
+                if (isiOS) Music.pause() // if we're in iOS, pause. there's an issue with Music.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
+                else Music.fadeDown()
             }
                 
             document.getElementById('startDictation').classList.add('active')
@@ -607,10 +607,10 @@ function setupDomAndEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            if (Audio && combatMusicOn) {
+            if (Music && combatMusicOn) {
                 // if music was playing, fade it back in or unpause after turning off the mic
-                if (isiOS) Audio.play()
-                else Audio.fadeUp()
+                if (isiOS) Music.play()
+                else Music.fadeUp()
             }
             document.getElementById('startDictation').classList.remove('active')
             document.getElementById('startDictation').classList.add('thinking')
@@ -1146,12 +1146,16 @@ async function handleMusicBtnClick() {
     if (combatMusicOn) {
         combatMusicOn = false
         document.body.classList.remove('music-on')
-        if (!isiOS) await Audio.fadeDown()
-        await Audio.stop()
+        if (!isiOS) {
+            this.disabled = true
+            // await Music.fadeDown() // Fades are proving to be problematic in desktop when quickly toggled.
+            this.disabled = false
+        }
+        await Music.stop()
     } else {
         combatMusicOn = true
         document.body.classList.add('music-on')
-        await Audio.playRandom()
+        await Music.playRandom()
     }
 }
 
@@ -1418,18 +1422,18 @@ function updateSlideshowContext(selectedSlideshow) {
 
 async function updateCombatPlaylist(playlistID) {
     setCookie('combatPlaylist', playlistID);
-    document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist').forEach(sel => sel.value = playlistID)
+    document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist').forEach(sel => sel.value = playlistID)
     if (!playlistID) {
-        document.getElementById('howlerPlayer').classList.remove('active')
+        document.getElementById('musicPlayer').classList.remove('active')
     } else {
-        document.getElementById('howlerPlayer').classList.add('active')
+        document.getElementById('musicPlayer').classList.add('active')
     }
     if (playlistID) {
         await updateHowlPlaylist(playlistID)
         combatPlaylist = playlistID
         document.querySelector('body').classList.add('music')
     } else {
-        await Audio.stop()
+        await Music.stop()
         document.querySelector('body').classList.remove('music')
     }
 }
@@ -1549,7 +1553,7 @@ function populateSelectWithSlideNumbers() {
 
 function populateSelectWithPlaylists() {
     if (playlistJSON) {
-        const selectElements = document.querySelectorAll('#selectCombatPlaylist, #selectAudioPlayerPlaylist')
+        const selectElements = document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist')
         selectElements.forEach(selectElement => {
             selectElement.innerHTML = '' // empty it out first
 
@@ -2360,13 +2364,13 @@ async function updateSlideBasedOnHash(e) {
     if (/^$|^#0?$/.test(hash)) {
         loadScreen('INITIATIVE')
         console.log('Loading Initiative board.')
-        if (Audio && e) {
-            await Audio.fadeDown()
+        if (Music && e) {
+            await Music.fadeDown()
             await updateHowlPlaylist(combatPlaylist)
             if (combatMusicOn) {
-                await Audio.playRandom()
+                await Music.playRandom()
             } else {
-                await Audio.stop()
+                await Music.stop()
             }
         }
     } else {
@@ -2385,9 +2389,9 @@ async function updateSlideBasedOnHash(e) {
                 })
             }
             if (playlistToLoad) {
-                await Audio.fadeDown()
+                await Music.fadeDown()
                 await updateHowlPlaylist(playlistToLoad)
-                await Audio.playRandom()
+                await Music.playRandom()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
