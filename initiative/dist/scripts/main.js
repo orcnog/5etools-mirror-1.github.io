@@ -1151,11 +1151,7 @@ async function handleMusicBtnClick() {
     } else {
         combatMusicOn = true
         document.body.classList.add('music-on')
-        if (document.body.dataset.submenu === 'musicMenu') {
-            await Audio.play()
-        } else {
-            await Audio.playRandom()
-        }
+        await Audio.playRandom()
     }
 }
 

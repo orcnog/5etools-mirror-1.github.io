@@ -13,8 +13,8 @@ class HowlerPlayer {
     constructor(playlist) {
         // Cache references to DOM elements.
         this.elms = [
-            'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn',
-            'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading',
+            'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'shuffleBtn',
+            'loopBtn', 'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading',
             'playlistmenu', 'list', 'volumeOverlay', 'volumeSlider'
         ]
         this.elms.forEach(function (elm) {
@@ -24,6 +24,8 @@ class HowlerPlayer {
         this.playlist = playlist || []
         this.index = 0
         this.lastVolume = 1 // Initialize to track the last volume before fade
+        this.shuffleEnabled = false
+        this.shuffledPlaylist = []
 
         this.initDOM()
         this.setupPlaylistDisplay()
@@ -43,6 +45,12 @@ class HowlerPlayer {
         })
         this.nextBtn.addEventListener('click', function () {
             self.skip('next')
+        })
+        this.shuffleBtn.addEventListener('click', function () {
+            self.shuffle()
+        })
+        this.loopBtn.addEventListener('click', function () {
+            self.loop()
         })
         this.waveform.addEventListener('click', function (event) {
             // Get the bounding rectangle of the element
@@ -118,7 +126,7 @@ class HowlerPlayer {
         var self = this
         if (self.playlist && self.playlist.length > 0) {
             // Display the first track.
-            self.loadTrack(0)
+            self.loadTrack(self.index)
 
             // Setup the playlist display.
             self.playlist.forEach(function (song) {
@@ -132,6 +140,31 @@ class HowlerPlayer {
             })
         } else {
             console.warn ('Playlist is empty!')
+        }
+    }
+
+    shuffle() {
+        var self = this
+        self.shuffleEnabled = !self.shuffleEnabled
+        if (self.shuffleEnabled) {
+            self.shuffleBtn.classList.add('active')
+            self.setShuffledPlaylist()
+        } else {
+            self.shuffleBtn.classList.remove('active')
+        }
+    }
+
+    setShuffledPlaylist() {
+        var self = this
+        if (self.shuffleEnabled) {
+            // Clone the original playlist to avoid modifying it directly
+            self.shuffledPlaylist = [...self.playlist];
+
+            // Implementing the Fisher-Yates shuffle algorithm
+            for (let i = self.shuffledPlaylist.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [self.shuffledPlaylist[i], self.shuffledPlaylist[j]] = [self.shuffledPlaylist[j], self.shuffledPlaylist[i]];
+            }
         }
     }
 
@@ -152,7 +185,11 @@ class HowlerPlayer {
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
 
-            // Show the pause button.
+            //Update the loop control btn
+            if (sound._loop) self.loopBtn.classList.add('active')
+                else self.loopBtn.classList.remove('active')
+
+            // Update the pause button.
             if (sound.state() === 'loaded') {
                 self.playBtn.style.display = 'none'
                 self.pauseBtn.style.display = 'block'
@@ -183,6 +220,9 @@ class HowlerPlayer {
                     // Display the duration.
                     self.duration.innerHTML = self.formatTime(Math.round(sound.duration()))
 
+                    // Stop the loading blip animation
+                    self.loading.style.display = 'none'
+
                     // Start updating the progress of the track.
                     requestAnimationFrame(self.step.bind(self))
 
@@ -200,11 +240,13 @@ class HowlerPlayer {
                     if (typeof self.onLoad === 'function') self.onLoad()
                 },
                 onend: async function () {
-                    // Stop the wave animation.
-                    self.wave.container.style.display = 'none'
-                    self.bar.style.display = 'block'
-                    await self.skip('next')
-                    self.play()
+                    if (!this._loop) {
+                        // Stop the wave animation.
+                        self.wave.container.style.display = 'none'
+                        self.bar.style.display = 'block'
+                        await self.skip('next')
+                        self.play()
+                    }
                     
                     if (typeof self.onEnd === 'function') self.onEnd()
                 },
@@ -270,6 +312,20 @@ class HowlerPlayer {
         self.pauseBtn.style.display = 'none'
     }
 
+    loop() {
+        var self = this
+
+        // Get the Howl we want to manipulate.
+        var sound = self.playlist?.[self.index]?.howl
+
+        // Toggle loop for this sound.
+        sound.loop(!sound._loop)
+
+        // Check or uncheck the loop control button.
+        if (sound._loop) self.loopBtn.classList.add('active')
+            else self.loopBtn.classList.remove('active')
+    }
+
     /**
      * Fade the current track down to a very low volume.
      */
@@ -320,29 +376,48 @@ class HowlerPlayer {
      */
     async playRandom() {
         var self = this
-        var randomIndex = Math.floor(Math.random() * self.playlist.length)
-        await self.skipTo(randomIndex)
+        if (!this.shuffleEnabled) {
+            await self.shuffle()
+            
+            // Reset the index
+            self.index = self.shuffleEnabled ? self.playlist.indexOf(self.shuffledPlaylist[0]) : 0
+
+            // Update the playlist display
+            await self.loadTrack(self.index)
+        }
         await self.play()
     }
 
+    /**
+     * Get the next track based on the direction of the track, and whether playlist shuffle is enabled or not
+     */
     async skip(direction) {
         var self = this
 
-        // Get the next track based on the direction of the track.
-        var index = 0
+        // Determine the array to use: shuffled or normal playlist
+        var playlistToUse = self.shuffleEnabled ? self.shuffledPlaylist : self.playlist;
+        var currentIndex = self.shuffleEnabled ? self.shuffledPlaylist.indexOf(self.playlist[self.index]) : self.index;
+        var newIndex = 0;
+
+        // Calculate the new index based on the direction
         if (direction === 'prev') {
-            index = self.index - 1
-            if (index < 0) {
-                index = self.playlist.length - 1
+            newIndex = currentIndex - 1
+            if (newIndex < 0) {
+                newIndex = playlistToUse.length - 1
             }
         } else {
-            index = self.index + 1
-            if (index >= self.playlist.length) {
-                index = 0
+            newIndex = currentIndex + 1
+            if (newIndex >= playlistToUse.length) {
+                newIndex = 0
             }
         }
-
-        await self.skipTo(index)
+    
+        // Find the track in the original playlist
+        var newTrack = playlistToUse[newIndex]
+        var newSelfIndex = self.playlist.indexOf(newTrack)
+    
+        // Skip to the new track
+        await self.skipTo(newSelfIndex)
     }
 
     async skipTo(index) {
@@ -440,13 +515,13 @@ class HowlerPlayer {
         // Unload all Howl instances in the current playlist.
         this.playlist.forEach(song => {
         if (song.howl) {
-            song.howl.unload();
+            song.howl.unload()
         }
         });
 
         // Reset the playlist display if needed
         while (this.list.firstChild) {
-        this.list.removeChild(this.list.firstChild);
+        this.list.removeChild(this.list.firstChild)
         }
     }
 
@@ -457,17 +532,22 @@ class HowlerPlayer {
         self.stop()
 
         // Unload the current playlist first
-        self.unload();
+        self.unload()
 
         // Reset progress.
         self.progress.style.width = '0%'
 
         // Update to the new playlist
-        self.playlist = newPlaylist;
-        self.index = 0; // Reset the index
+        self.playlist = newPlaylist
+
+        // Set up shuffled playlist, in case Shuffle is On
+        self.setShuffledPlaylist()
+        
+        // Reset the index
+        self.index = self.shuffleEnabled ? self.playlist.indexOf(self.shuffledPlaylist[0]) : 0
 
         // Update the playlist display
-        self.setupPlaylistDisplay();
+        self.setupPlaylistDisplay()
     }
 }
 
