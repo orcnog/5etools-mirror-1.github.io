@@ -49,6 +49,15 @@
         "./audio/music/dnd/combat/Fighting_Back_-_Vox_Machina.mp3",
         "./audio/music/dnd/combat/Shadows_at_the_Gates_-_Vox_Machina.mp3"
     ],
+    "dnd_death_metal": [
+        "./audio/music/dnd/death_metal/Cowboys_from_Hell_-_Pantera.mp3",
+        "./audio/music/dnd/death_metal/My_Apocalypse_[Instrumental]_-_Metallica.mp3",
+        "./audio/music/dnd/death_metal/Raining_Blood_-_Slayer.mp3",
+        "./audio/music/dnd/death_metal/Ride_The_Lightning_-_Metallica.mp3",
+        "./audio/music/dnd/death_metal/Sad_But_True_[Instrumental]_-_Metallica.mp3",
+        "./audio/music/dnd/death_metal/The_God_That_Failed_[Instrumental]_-_Metallica.mp3",
+        "./audio/music/dnd/death_metal/Walk_-_Pantera.mp3"
+    ],
     "dnd_exploration": [
         "./audio/music/dnd/exploration/Sorry_Forge_[first_half]_-_D&D_Honor_Among_Thieves_-_Lorne_Balfe.mp3",
         "./audio/music/dnd/exploration/What_Lies_Unseen_-_The_Witcher_3_Blood_and_Wine.mp3",
@@ -166,7 +175,7 @@
         "./audio/music/starwars/exploration/MX_THEATTACKONJAKKU_QUIET.mp3",
         "./audio/music/starwars/exploration/on_the_inside_-_edited_-_low_intensity.mp3",
         "./audio/music/starwars/exploration/Secret_Bunker_-_edited.mp3",
-        "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHTdQ-.mp3"
+        "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHtDQ-.mp3"
     ],
     "sw_mission_briefing": [
         "./audio/music/starwars/mission_briefing/Rebel_Briefing_-_edited.mp3"
@@ -182,14 +191,14 @@
         "./audio/music/starwars/special/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.mp3"
     ],
     "sw_tense": [
-        "./audio/music/starwars/exploration/06_The_Trip_to_the_Naboo_Temple.mp3",
+        "./audio/music/starwars/tense/06_The_Trip_to_the_Naboo_Temple.mp3",
         "./audio/music/starwars/tense/Into_The_Trap_-_Medium_Intesnity_Part.mp3",
         "./audio/music/starwars/tense/Standing_By_-_edited.mp3",
         "./audio/music/starwars/tense/Star_Wars_-_Droid_Invasion_Trade_Federation_March_Suite_Theme-7LeN-3zQdQ0-.mp3",
         "./audio/music/starwars/tense/Star_Wars_-_Separatist_Droid_Army_Suite_Theme-qz2WOlbybL8-.mp3"
     ],
     "sw_victory": [
-        "./audio/music/starwars/victory/End_Game_-_Star_Wars_The_Throne_Room_End_Title-248ggPok158-.mp3",
+        "./audio/music/starwars/victory/End_Game_-_Star_Wars_The_Throne_Room_End_Title-248ggPoK158-.mp3",
         "./audio/music/starwars/victory/End_Title_Music.mp3"
     ]
 }

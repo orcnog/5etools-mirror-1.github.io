@@ -1,0 +1,60 @@
+{
+    "dnd_campsite": [
+        "./audio/ambience/dnd/campsite/Campsite.mp3"
+    ],
+    "dnd_crowd": [
+        "./audio/ambience/dnd/crowd/crowd_shouting.mp3",
+        "./audio/ambience/dnd/crowd/small_crowd_in_a_hall.mp3",
+        "./audio/ambience/dnd/crowd/stadium_crowd.mp3"
+    ],
+    "dnd_forest": [
+        "./audio/ambience/dnd/forest/Forest_Day.mp3",
+        "./audio/ambience/dnd/forest/Forest_Night.mp3"
+    ],
+    "dnd_tavern": [
+        "./audio/ambience/dnd/tavern/Mountain_Tavern_by_Tabletop_Audio.mp3",
+        "./audio/ambience/dnd/tavern/tavern ambience - Witcher 3 - Ambience - Taverns.mp3",
+        "./audio/ambience/dnd/tavern/tavern___crowded.mp3",
+        "./audio/ambience/dnd/tavern/tavern___rowdy.mp3",
+        "./audio/ambience/dnd/tavern/The_Bog_Standard.mp3"
+    ],
+    "dnd_town": [
+        "./audio/ambience/dnd/town/Medieval_Town.mp3",
+        "./audio/ambience/dnd/town/Secret_Garden.mp3",
+        "./audio/ambience/dnd/town/forge.mp3",
+        "./audio/ambience/dnd/town/sewer.mp3"
+    ],
+    "dnd_travel": [
+        "./audio/ambience/dnd/travel/Overland_with_Oxen.mp3"
+    ],
+    "dnd_water": [
+        "./audio/ambience/dnd/water/river_running_water.mp3",
+        "./audio/ambience/dnd/water/waterfall2.mp3",
+        "./audio/ambience/dnd/water/Bubbling.mp3",
+        "./audio/ambience/dnd/water/CaveAmbience.mp3",
+        "./audio/ambience/dnd/water/Cave_River.mp3",
+        "./audio/ambience/dnd/water/magicalwater.mp3",
+        "./audio/ambience/dnd/water/sewersoundscape.mp3",
+        "./audio/ambience/dnd/water/Streams_quietstream.mp3",
+        "./audio/ambience/dnd/water/Water_Drain_Sewer.mp3",
+        "./audio/ambience/dnd/water/whirlpool.mp3"
+    ],
+    "dnd_weather": [
+        "./audio/ambience/dnd/weather/rain_storm.mp3",
+        "./audio/ambience/dnd/weather/arctic_wind.mp3",
+        "./audio/ambience/dnd/weather/blizzard2_sfx.mp3",
+        "./audio/ambience/dnd/weather/blizzard_sfx.mp3"
+    ],
+    "dnd_fighting": [
+        "./audio/ambience/dnd/fighting/battle_horses_men_weapon_sounds.mp3",
+        "./audio/ambience/dnd/fighting/men_talking_with_sword_sparring_in_bg.mp3",
+        "./audio/ambience/dnd/fighting/swords_and_axes_clinking.mp3"
+    ],
+    "dnd_fire": [
+        "./audio/ambience/dnd/fire/fire_loop.mp3",
+        "./audio/ambience/dnd/fire/Torch.mp3"
+    ],
+    "dnd_swamp": [
+        "./audio/ambience/dnd/swamp/swamp.mp3"
+    ]
+}
