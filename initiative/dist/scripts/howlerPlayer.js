@@ -274,8 +274,11 @@ class HowlerPlayer {
                     
                     if (typeof self.onLoad === 'function') self.onLoad()
                 },
-                onloaderror: function (id, e) {
+                onloaderror: async function (id, e) {
                     console.error(`Load error! ${e}`)
+                    // Stop the loading blip animation
+                    self.loading.style.display = 'none'
+                    await self.skip('next', true)
                 },
                 onend: async function () {
                     if (!this._loop) {
@@ -449,7 +452,7 @@ class HowlerPlayer {
             // Update the playlist display
             await self.loadTrack(self.index)
         } else {
-            self.skip()
+            self.skip('next')
         }
         await self.play()
     }
@@ -457,7 +460,7 @@ class HowlerPlayer {
     /**
      * Get the next track based on the direction of the track, and whether playlist shuffle is enabled or not
      */
-    async skip(direction) {
+    async skip(direction, forcePlay = false) {
         var self = this
 
         // Determine the array to use: shuffled or normal playlist
@@ -483,15 +486,18 @@ class HowlerPlayer {
         var newSelfIndex = self.playlist.indexOf(newTrack)
     
         // Skip to the new track
-        await self.skipTo(newSelfIndex)
+        await self.skipTo(newSelfIndex, forcePlay)
     }
 
-    async skipTo(index) {
-        var self = this
+    async skipTo(index, forcePlay = false) {
+        const self = this
+        let playNext = forcePlay
 
-        // Get the Howl we want to manipulate.
-        var sound = self.playlist?.[self.index]?.howl
-        var wasPlaying = sound?.playing()
+        if (!playNext) {
+            // Get the Howl we want to manipulate.
+            const sound = self.playlist?.[self.index]?.howl
+            playNext = sound?.playing()
+        }
 
         // Stop the current track.
         self.stop()
@@ -501,7 +507,7 @@ class HowlerPlayer {
 
         // Load the new track.
         await self.loadTrack(index)
-        if (wasPlaying) await self.play(index)
+        if (playNext) await self.play(index)
     }
 
     volume(val, event) {
