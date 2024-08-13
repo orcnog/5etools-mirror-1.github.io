@@ -160,7 +160,15 @@ class HowlerPlayer {
                 self.list.appendChild(div)
             })
         } else {
-            console.warn ('Playlist is empty!')
+            console.info ('Playlist is empty.')
+            
+            // Clear the track display stuff
+            self.list.innerHTML = ''
+            self.track.innerHTML = ''
+            self.timer.innerHTML = '0:00'
+            self.duration.innerHTML = '0:00'
+            self.repeatBtn?.classList.remove('active')
+            self.shuffleBtn?.classList.remove('active')
         }
     }
 
@@ -319,7 +327,6 @@ class HowlerPlayer {
                     // Some fade just ended
                     self.isFading = false
 
-                    if (typeof self.onFadeTempFn === 'function') self.onFadeTempFn()
                     if (typeof self.onFade === 'function') self.onFade()
                 }
             })
@@ -393,6 +400,7 @@ class HowlerPlayer {
         var sound = self.playlist[self.index].howl
 
         return new Promise((resolve) => {
+            console.log('fadeDown Promise started')
             if (sound && sound.playing() && !self.isFading) {
                 // Store the current volume
                 self.fadeUpReturnToVolume = sound.volume()
@@ -408,10 +416,19 @@ class HowlerPlayer {
                 //     self.onFadeTempFn = null
                 //     setTimeout(resolve, 1)
                 // }
-                sound.once('fade', resolve)
-                setTimeout(resolve, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
+                sound.once('fade', ()=>{
+                    console.log('fade event. Promise resolving...')
+                    resolve()
+                    // return
+                })
+                setTimeout(()=> {
+                    console.log('fade circuitbreaker triggered')
+                    self.isFading = false
+                    resolve()
+                }, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
             } else {
                 // Resolve immediately if no sound is playing or if fade is already in progress.
+                console.log('no sound is playing or if fade is already in progress')
                 resolve()
             }
         });

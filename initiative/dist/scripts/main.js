@@ -156,6 +156,8 @@ async function updateMusicPlaylist (playlistID) {
         } else {
             setupMusicPlayer(thisPlaylistArray)
         }
+    } else if (playlistID === '') {
+        Music.updatePlaylist([])
     } else {
         console.warn('No playlist by that name in playlist JSON file(s).')
     }
@@ -175,6 +177,8 @@ async function updateAmbiencePlaylist (playlistID) {
         } else {
             setupAmbiencePlayer(thisPlaylistArray)
         }
+    } else if (playlistID === '') {
+        Ambience.updatePlaylist([])
     } else {
         console.warn('No playlist by that name in playlist JSON file(s).')
     }
@@ -1206,10 +1210,14 @@ async function handleMusicBtnClick() {
         document.body.classList.remove('music-on')
         if (!isiOS || !Music.html5) {
             this.disabled = true
-            await Promise.all([
-                Music.fadeDown(), // Fades are proving to be problematic in desktop when quickly toggled.
-                Ambience.fadeDown()
-            ])
+            try {
+                await Promise.all([
+                    Music.fadeDown(), // Fades are proving to be problematic in desktop when quickly toggled.
+                    Ambience.fadeDown()
+                ])
+            } catch (error) {
+                console.error("Error during fadeDown:", error)
+            }
             this.disabled = false
         }
         await Music.stop()
@@ -1491,8 +1499,8 @@ async function updateCombatPlaylist(playlistID) {
     } else {
         document.getElementById('musicPlayer').classList.add('active')
     }
+    await updateMusicPlaylist(playlistID)
     if (playlistID) {
-        await updateMusicPlaylist(playlistID)
         combatPlaylist = playlistID
         document.querySelector('body').classList.add('music')
     } else {
@@ -1509,8 +1517,8 @@ async function updateAmbientPlaylist(playlistID) {
     } else {
         document.getElementById('ambiencePlayer').classList.add('active')
     }
+    await updateAmbiencePlaylist(playlistID)
     if (playlistID) {
-        await updateAmbiencePlaylist(playlistID)
         combatPlaylist = playlistID
         document.querySelector('body').classList.add('ambience')
     } else {
