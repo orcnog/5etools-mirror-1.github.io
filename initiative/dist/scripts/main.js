@@ -10,9 +10,12 @@ let chosenFont
 let fontAllCaps = true
 let chosenTheme
 let Music
+let Ambience
 let playlistJSON
 let combatPlaylist = 'dnd_combat'
-let combatMusicOn = false
+let ambienceListJSON
+let ambiencePlaylist
+let musicOn = false
 let useOpenAI = true
 let liveTextMode = true
 let players = []
@@ -87,6 +90,7 @@ async function main() {
     mergeSlideshowDataWithHomebrew()
     await fetchAudioPlaylists()
     setupMusicPlayer()
+    setupAmbiencePlayer()
     rehydrateSettings()
     hydrateInitiativeFromQueryStr()
     setupDomAndEventListeners()
@@ -98,25 +102,42 @@ async function main() {
 
 async function fetchAudioPlaylists () {
     playlistJSON = await fetchJSON('./audio/playlists.json')
+    ambienceListJSON = await fetchJSON('./audio/ambience.json')
 }
 
 async function setupMusicPlayer (playlistArray) {
-    Music = new HowlerPlayer('musicPlayer', playlistArray)
-    Music.onPlay = function(e) {
-        combatMusicOn = true
+    Music = new HowlerPlayer({
+        id: 'musicPlayer',
+        playlist: playlistArray,
+        html5: false
+    })
+    Music.onPlay = function() {
+        musicOn = true
         document.body.classList.add('music-on')
     }
-    Music.onPause = function(e) {
-        combatMusicOn = false
+    Music.onPause = function() {
+        musicOn = false
         document.body.classList.remove('music-on')
-    }
-    Music.onStop = function(e) {
-        // combatMusicOn = false
-        // document.body.classList.remove('music-on')
     }
 }
 
-async function updateHowlPlaylist (playlistID) {
+async function setupAmbiencePlayer (playlistArray) {
+    Ambience = new HowlerPlayer({
+        id: 'ambiencePlayer',
+        playlist: playlistArray,
+        html5: false
+    })
+    Ambience.onPlay = function() {
+        musicOn = true
+        document.body.classList.add('music-on')
+    }
+    Ambience.onPause = function() {
+        musicOn = false
+        document.body.classList.remove('music-on')
+    }
+}
+
+async function updateMusicPlaylist (playlistID) {
     let thisPlaylistArray = playlistJSON[playlistID]
     if (thisPlaylistArray) {
         // Transform the playlist array into the desired JSON object format
@@ -129,6 +150,25 @@ async function updateHowlPlaylist (playlistID) {
             Music.updatePlaylist(thisPlaylistArray)
         } else {
             setupMusicPlayer(thisPlaylistArray)
+        }
+    } else {
+        console.warn('No playlist by that name in playlist JSON file(s).')
+    }
+}
+
+async function updateAmbiencePlaylist (playlistID) {
+    let thisPlaylistArray = ambienceListJSON[playlistID]
+    if (thisPlaylistArray) {
+        // Transform the playlist array into the desired JSON object format
+        thisPlaylistArray = thisPlaylistArray.map(filePath => ({
+            title: filePath.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
+            file: filePath,
+            howl: null
+        }));
+        if (Ambience) {
+            Ambience.updatePlaylist(thisPlaylistArray)
+        } else {
+            setupAmbiencePlayer(thisPlaylistArray)
         }
     } else {
         console.warn('No playlist by that name in playlist JSON file(s).')
@@ -206,9 +246,16 @@ function rehydrateSettings() {
     /* Rehydrate combat music playlist selection */
     const combatPlaylistCookieValue = getCookie('combatPlaylist');
     if (combatPlaylistCookieValue) combatPlaylist = combatPlaylistCookieValue
-    if (combatPlaylist) updateHowlPlaylist(combatPlaylist)
-    populateSelectWithPlaylists()
+    if (combatPlaylist) updateMusicPlaylist(combatPlaylist)
+    populateSelectsWithPlaylists(playlistJSON, ['#selectCombatPlaylist, #selectMusicPlayerPlaylist'])
     document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist').forEach(sel => sel.value = combatPlaylist)
+    
+    /* Rehydrate ambience playlist selection */
+    const ambiencePlaylistCookieValue = getCookie('ambiencePlaylist');
+    if (ambiencePlaylistCookieValue) ambiencePlaylist = ambiencePlaylistCookieValue
+    if (ambiencePlaylist) updateAmbiencePlaylist(ambiencePlaylist)
+    populateSelectsWithPlaylists(ambienceListJSON, ['#selectAmbiencePlaylist, #selectAmbiencePlayerPlaylist'])
+    document.querySelectorAll('#selectAmbiencePlaylist, #selectAmbiencePlayerPlaylist').forEach(sel => sel.value = ambiencePlaylist)
 
     /* Rehydrate the font capitalization preference */
     fontAllCaps = getCookie('fontAllCaps') || 'true'
@@ -376,6 +423,7 @@ function setupDomAndEventListeners() {
     document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
     document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
     document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist').forEach(sel => sel.addEventListener('change', handleCombatPlaylistChange))
+    document.querySelectorAll('#selectAmbiencePlaylist, #selectAmbiencePlayerPlaylist').forEach(sel => sel.addEventListener('change', handleAmbiencePlaylistChange))
     document.getElementById('speechForm').addEventListener('submit', handleManualInputSubmit)
     document.getElementById('addPlayer').addEventListener('click', addPlayer)
     document.getElementById('prevTurn').addEventListener('click', goBackOneTurn)
@@ -552,6 +600,11 @@ function setupDomAndEventListeners() {
         updateCombatPlaylist(selectedCombatPlaylist)
     }
 
+    async function handleAmbiencePlaylistChange(e) {
+        const selectedAmbiencePlaylist = e.target.value
+        updateAmbientPlaylist(selectedAmbiencePlaylist)
+    }
+
     function handleDictationToggle(e) {
         this.classList.toggle('active')
         if (this.classList.contains('active')) {
@@ -587,7 +640,7 @@ function setupDomAndEventListeners() {
 
     function handleMicOn() {
         if (micAllowed) {
-            if (Music && combatMusicOn) {
+            if (Music && musicOn) {
                 // if music is playing, lower it or pause it before turning on the mic
                 if (isiOS) Music.pause() // if we're in iOS, pause. there's an issue with Music.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
                 else Music.fadeDown()
@@ -607,7 +660,7 @@ function setupDomAndEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            if (Music && combatMusicOn) {
+            if (Music && musicOn) {
                 // if music was playing, fade it back in or unpause after turning off the mic
                 if (isiOS) Music.play()
                 else Music.fadeUp()
@@ -1143,8 +1196,8 @@ function settingsMenuReturn() {
 }
 
 async function handleMusicBtnClick() {
-    if (combatMusicOn) {
-        combatMusicOn = false
+    if (musicOn) {
+        musicOn = false
         document.body.classList.remove('music-on')
         if (!isiOS) {
             this.disabled = true
@@ -1153,7 +1206,7 @@ async function handleMusicBtnClick() {
         }
         await Music.stop()
     } else {
-        combatMusicOn = true
+        musicOn = true
         document.body.classList.add('music-on')
         await Music.playRandom()
     }
@@ -1429,12 +1482,30 @@ async function updateCombatPlaylist(playlistID) {
         document.getElementById('musicPlayer').classList.add('active')
     }
     if (playlistID) {
-        await updateHowlPlaylist(playlistID)
+        await updateMusicPlaylist(playlistID)
         combatPlaylist = playlistID
         document.querySelector('body').classList.add('music')
     } else {
         await Music.stop()
         document.querySelector('body').classList.remove('music')
+    }
+}
+
+async function updateAmbientPlaylist(playlistID) {
+    setCookie('ambiencePlaylist', playlistID);
+    document.querySelectorAll('#selectAmbiencePlaylist, #selectAmbiencePlayerPlaylist').forEach(sel => sel.value = playlistID)
+    if (!playlistID) {
+        document.getElementById('ambiencePlayer').classList.remove('active')
+    } else {
+        document.getElementById('ambiencePlayer').classList.add('active')
+    }
+    if (playlistID) {
+        await updateAmbiencePlaylist(playlistID)
+        combatPlaylist = playlistID
+        document.querySelector('body').classList.add('ambience')
+    } else {
+        await Ambience.stop()
+        document.querySelector('body').classList.remove('ambience')
     }
 }
 
@@ -1551,9 +1622,9 @@ function populateSelectWithSlideNumbers() {
     }
 }
 
-function populateSelectWithPlaylists() {
-    if (playlistJSON) {
-        const selectElements = document.querySelectorAll('#selectCombatPlaylist, #selectMusicPlayerPlaylist')
+function populateSelectsWithPlaylists(playlists, selectors) {
+    if (playlists) {
+        const selectElements = document.querySelectorAll(selectors)
         selectElements.forEach(selectElement => {
             selectElement.innerHTML = '' // empty it out first
 
@@ -1563,7 +1634,7 @@ function populateSelectWithPlaylists() {
             initialOption.textContent = 'None'
             selectElement.appendChild(initialOption)
             
-            for (const [id] of Object.entries(playlistJSON)) {
+            for (const [id] of Object.entries(playlists)) {
                 const option = document.createElement('option')
                 // Convert playlist data to option value and data attributes
                 option.value = id
@@ -2366,8 +2437,8 @@ async function updateSlideBasedOnHash(e) {
         console.log('Loading Initiative board.')
         if (Music && e) {
             await Music.fadeDown()
-            await updateHowlPlaylist(combatPlaylist)
-            if (combatMusicOn) {
+            await updateMusicPlaylist(combatPlaylist)
+            if (musicOn) {
                 await Music.playRandom()
             } else {
                 await Music.stop()
@@ -2377,6 +2448,7 @@ async function updateSlideBasedOnHash(e) {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
         const playlistToLoad = sceneToLaunch?.playlist ?? null
+        const ambienceToLoad = sceneToLaunch?.ambience ?? null
         if (sceneToLaunch) {
             if (sceneToLaunch.url) {
                 loadScreen(sceneToLaunch.url);
@@ -2390,8 +2462,13 @@ async function updateSlideBasedOnHash(e) {
             }
             if (playlistToLoad) {
                 await Music.fadeDown()
-                await updateHowlPlaylist(playlistToLoad)
+                await updateMusicPlaylist(playlistToLoad)
                 await Music.playRandom()
+            }
+            if (ambienceToLoad) {
+                await Ambience.fadeDown()
+                await updateAmbiencePlaylist(ambienceToLoad)
+                await Ambience.play()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);

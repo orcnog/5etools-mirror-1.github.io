@@ -9,8 +9,19 @@
  */
 
 import './siriwave.js'
+
 class HowlerPlayer {
-    constructor(elementId, playlist) {
+    constructor({ id, playlist = [], html5 = false, globalVolume = 0.4 } = {}) {
+        if (!id) {
+            console.error('HowlerPlayer must be instantiated with an element ID');
+            return;
+        }
+
+        this.id = id
+        this.playlist = playlist
+        this.html5 = html5
+        this.globalVolume = globalVolume
+
         // Cache references to DOM elements.
         this.elms = [
             'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'shuffleBtn',
@@ -18,14 +29,13 @@ class HowlerPlayer {
             'playlistmenu', 'list', 'volumeOverlay', 'volumeSlider'
         ]
         this.elms.forEach(function (elm) {
-            const wrapper = document.getElementById(elementId)
+            const wrapper = document.getElementById(this.id)
             const element = wrapper.querySelector(`.${elm}`)
             this[elm] = element
         }, this)
 
-        this.playlist = playlist || []
         this.index = 0
-        this.lastVolume = 1 // Initialize to track the last volume before fade
+        this.fadeUpReturnToVolume = 0.4
         this.isFading = false
         this.shuffleEnabled = false
         this.shuffledPlaylist = []
@@ -108,8 +118,9 @@ class HowlerPlayer {
             // self.toggleVolume()
         })
 
-        this.volumeSlider.addEventListener('change', (e)=> {
-            self.volume(e.target.value / 100)
+        this.volumeSlider.value = self.globalVolume * 100
+        this.volumeSlider.addEventListener('change', (e) => {
+            self.volume(e.target.value / 100, e)
         })
 
         // Setup the "waveform" animation.
@@ -182,11 +193,11 @@ class HowlerPlayer {
 
         if (sound) {
             // Begin playing the sound.
-            sound.play()
+            await sound.play()
+
             // var soundId = sound._sounds[0]?._id
             // sound.volume(1, soundId)
             // Howler.volume(1)
-            console.info(`Playing: ${data.title}`)
 
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
@@ -208,11 +219,11 @@ class HowlerPlayer {
     }
 
     async loadTrack(index) {
-        var self = this
-        var sound
+        const self = this
+        let sound
 
         index = typeof index === 'number' ? index : self.index
-        var data = self.playlist[index]
+        const data = self.playlist[index]
 
         // If we already loaded this track, use the current one.
         // Otherwise, setup and load a new Howl.
@@ -221,7 +232,8 @@ class HowlerPlayer {
         } else {
             sound = data.howl = new Howl({
                 src: [data.file],
-                html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
+                html5: this.html5, // Force to HTML5 so that the audio can stream in (best for large files).
+                volume: this.globalVolume,
                 onplay: function () {
                     // Display the duration.
                     self.duration.innerHTML = self.formatTime(Math.round(sound.duration()))
@@ -237,13 +249,23 @@ class HowlerPlayer {
                     self.bar.style.display = 'none'
                     self.pauseBtn.style.display = 'block'
 
+                    console.info(`Playing: ${data.title}`)
+
                     if (typeof self.onPlay === 'function') self.onPlay()
+                },
+                onplayerror: function (id, e) {
+                    console.error(`Play error! ${e}`)
                 },
                 onload: function () {
                     // Stop the loading blip animation
                     self.loading.style.display = 'none'
+
+                    console.info(`Loaded: ${data.title}`)
                     
                     if (typeof self.onLoad === 'function') self.onLoad()
+                },
+                onloaderror: function (id, e) {
+                    console.error(`Load error! ${e}`)
                 },
                 onend: async function () {
                     if (!this._loop) {
@@ -289,6 +311,8 @@ class HowlerPlayer {
         if (sound) {
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
+
+            console.info(`loading ${data.title}...`)
         }
 
         // Keep track of the index we are currently playing.
@@ -347,15 +371,15 @@ class HowlerPlayer {
         var sound = self.playlist[self.index].howl
 
         return new Promise((resolve) => {
-            if (sound) {
-                // Store the last volume
-                if (!self.isFading) self.lastVolume = Howler.volume()
+            if (sound && sound.playing() && !self.isFading) {
+                // Store the current volume
+                self.fadeUpReturnToVolume = sound.volume()
 
                 // Mark that the sound is currently fading...
                 self.isFading = true
     
                 // Fade the volume down to 0.01 over 1 second
-                sound.fade(self.lastVolume, 0.01, 1000)
+                sound.fade(self.fadeUpReturnToVolume, 0.01, 1000)
     
                 // After fade ends, resolve promise
                 self.onFadeTempFn = () => {
@@ -363,7 +387,7 @@ class HowlerPlayer {
                     setTimeout(resolve, 1)
                 }
             } else {
-                // Resolve immediately if no sound is playing
+                // Resolve immediately if no sound is playing or if fade is already in progress.
                 resolve()
             }
         });
@@ -377,15 +401,12 @@ class HowlerPlayer {
         var sound = self.playlist[self.index].howl
 
         return new Promise((resolve) => {
-            if (sound) {
-                // Store the last volume
-                if (!self.isFading) self.lastVolume = Howler.volume()
-
+            if (sound && !self.isFading) {
                 // Mark that the sound is currently fading...
                 self.isFading = true
 
                 // Fade the volume back to the previous level over 1 second
-                sound.fade(0.01, 1, 1000)
+                sound.fade(0.01, self.fadeUpReturnToVolume, 1000)
     
                 // After fade ends, resolve promise
                 self.onFadeTempFn = () => {
@@ -468,19 +489,23 @@ class HowlerPlayer {
         if (wasPlaying) await self.play(index)
     }
 
-    volume(val) {
+    volume(val, event) {
         var self = this
 
-        // Update the global volume (affecting all Howls).
-        Howler.volume(val)
+        // Get the Howl we want to manipulate.
+        var sound = self.playlist?.[self.index]?.howl
 
-        // Update the display on the slider.
+        // Update the global volume (affecting all Howls).
+        // Howler.volume(val) 
+
+        // Update the sound's individual volume
+        sound.volume(val)
+        self.globalVolume = val
+
+        // Update the display on the slider, unless it was the slider event itself that updated the vol in the first place.
+        if (!event) self.volumeSlider.value = val * 100
+
         console.log(`Volume value: ${val}`)
-        // var barWidthPx = barEmpty.offsetWidth
-        // var barWidth = (val * 90) / 100 // kinda a volume percentage?
-        // self.barFull.style.width = (barWidth * 100) + '%'  
-        // console.log(barWidthPx * barWidth)
-        // self.sliderBtn.style.left = ((barWidthPx * barWidth))+ 'px'
     }
 
     seek(per) {
@@ -521,7 +546,13 @@ class HowlerPlayer {
         setTimeout(function () {
             self.playlistmenu.style.display = display
         }, (display === 'block') ? 0 : 500)
-        self.playlistmenu.className = (display === 'block') ? 'fadein' : 'fadeout'
+        if (display === 'block') {
+            self.playlistmenu.classList.remove('fadeout');
+            self.playlistmenu.classList.add('fadein');
+        } else {
+            self.playlistmenu.classList.remove('fadein');
+            self.playlistmenu.classList.add('fadeout');
+        }
     }
 
     toggleVolume() {
@@ -531,7 +562,13 @@ class HowlerPlayer {
         setTimeout(function () {
             self.volumeOverlay.style.display = display
         }, (display === 'flex') ? 0 : 500)
-        self.volumeOverlay.className = (display === 'flex') ? 'fadein' : 'fadeout'
+        if (display === 'flex') {
+            self.volumeOverlay.classList.remove('fadeout');
+            self.volumeOverlay.classList.add('fadein');
+        } else {
+            self.volumeOverlay.classList.remove('fadein');
+            self.volumeOverlay.classList.add('fadeout');
+        }
     }
 
     formatTime(secs) {
