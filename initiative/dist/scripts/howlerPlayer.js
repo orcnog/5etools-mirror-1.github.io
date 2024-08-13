@@ -40,6 +40,7 @@ class HowlerPlayer {
         this.isFading = false
         this.shuffleEnabled = false
         this.shuffledPlaylist = []
+        this.playing = false
 
         this.initDOM()
         this.setupPlaylistDisplay()
@@ -202,11 +203,11 @@ class HowlerPlayer {
             await self.silence.play()
 
             // Begin playing the sound.
-            await sound.play()
+            const soundId = await sound.play()
 
-            // var soundId = sound._sounds[0]?._id
-            // sound.volume(1, soundId)
             // Howler.volume(1)
+            // var soundId = sound._sounds[0]?._id
+            sound.volume(self.volumeSlider.value / 100, soundId)
 
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
@@ -258,7 +259,7 @@ class HowlerPlayer {
                     self.wave.container.style.display = 'block'
                     self.bar.style.display = 'none'
                     self.pauseBtn.style.display = 'block'
-
+                    self.playing = true
                     console.info(`Playing: ${data.title}`)
 
                     if (typeof self.onPlay === 'function') self.onPlay()
@@ -285,6 +286,7 @@ class HowlerPlayer {
                         // Stop the wave animation.
                         self.wave.container.style.display = 'none'
                         self.bar.style.display = 'block'
+                        self.playing = false
                         await self.skip('next')
                         self.play()
                     }
@@ -295,6 +297,7 @@ class HowlerPlayer {
                     // Stop the wave animation.
                     self.wave.container.style.display = 'none'
                     self.bar.style.display = 'block'
+                    self.playing = false
                     
                     if (typeof self.onPause === 'function') self.onPause()
                 },
@@ -302,6 +305,7 @@ class HowlerPlayer {
                     // Stop the wave animation.
                     self.wave.container.style.display = 'none'
                     self.bar.style.display = 'block'
+                    self.playing = false
                     
                     if (typeof self.onStop === 'function') self.onStop()
                 },
@@ -400,10 +404,12 @@ class HowlerPlayer {
                 sound.fade(self.fadeUpReturnToVolume, 0.01, 1000)
     
                 // After fade ends, resolve promise
-                self.onFadeTempFn = () => {
-                    self.onFadeTempFn = null
-                    setTimeout(resolve, 1)
-                }
+                // self.onFadeTempFn = () => {
+                //     self.onFadeTempFn = null
+                //     setTimeout(resolve, 1)
+                // }
+                sound.once('fade', resolve)
+                setTimeout(resolve, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
             } else {
                 // Resolve immediately if no sound is playing or if fade is already in progress.
                 resolve()

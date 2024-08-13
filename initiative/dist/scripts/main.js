@@ -116,8 +116,10 @@ async function setupMusicPlayer (playlistArray) {
         document.body.classList.add('music-on')
     }
     Music.onPause = function() {
-        musicOn = false
-        document.body.classList.remove('music-on')
+        if (!Ambience.playing) {
+            musicOn = false
+            document.body.classList.remove('music-on')
+        }
     }
 }
 
@@ -133,8 +135,10 @@ async function setupAmbiencePlayer (playlistArray) {
         document.body.classList.add('music-on')
     }
     Ambience.onPause = function() {
-        musicOn = false
-        document.body.classList.remove('music-on')
+        if (!Music.playing) {
+            musicOn = false
+            document.body.classList.remove('music-on')
+        }
     }
 }
 
@@ -1202,14 +1206,19 @@ async function handleMusicBtnClick() {
         document.body.classList.remove('music-on')
         if (!isiOS || !Music.html5) {
             this.disabled = true
-            await Music.fadeDown() // Fades are proving to be problematic in desktop when quickly toggled.
+            await Promise.all([
+                Music.fadeDown(), // Fades are proving to be problematic in desktop when quickly toggled.
+                Ambience.fadeDown()
+            ])
             this.disabled = false
         }
         await Music.stop()
+        await Ambience.stop()
     } else {
         musicOn = true
         document.body.classList.add('music-on')
         await Music.playRandom()
+        await Ambience.play()
     }
 }
 
