@@ -234,7 +234,7 @@
                     <!-- Controls -->
                     <div class="controlsOuter">
                         <div class="btn playlistBtn"></div>
-                        <div class="btn loopBtn"><i class="fa fa-rotate"></i></div>
+                        <div class="btn repeatBtn"><i class="fa fa-rotate"></i></div>
                         <div class="controlsInner">
                             <div class="loading"></div>
                             <div class="btn prevBtn"></div>
@@ -259,45 +259,45 @@
                     </div>
                 </div>
 
-                <div class="settings-menu-group">
-                    <label class="settings-label">Ambience</label>
-                    <div class="settings-input">
-                        <select id="selectAmbiencePlayerPlaylist"></select>
-                    </div>
-                </div>
-
-                <div id="ambiencePlayer" class="howlerPlayer">
-                    <!-- Top Info -->
-                    <div class="title">
-                        <div class="timer">0:00</div>
-                        <span class="track"></span>
-                        <div class="duration">0:00</div>
-                    </div>
-                    <!-- Controls -->
-                    <div class="controlsOuter">
-                        <div class="btn playlistBtn"></div>
-                        <div class="btn loopBtn"><i class="fa fa-rotate"></i></div>
-                        <div class="controlsInner">
-                            <div class="loading"></div>
-                            <div class="btn prevBtn"></div>
-                            <div class="btn playBtn"></div>
-                            <div class="btn pauseBtn"></div>
-                            <div class="btn nextBtn"></div>
+                <div class="ambience-player">
+                    <div class="settings-menu-group">
+                        <label class="settings-label">Ambience</label>
+                        <div class="settings-input">
+                            <select id="selectAmbiencePlayerPlaylist"></select>
                         </div>
-                        <div class="btn shuffleBtn"><i class="fa fa-shuffle"></i></div>
-                        <div class="btn volumeBtn"></div>
                     </div>
-                    <!-- Progress -->
-                    <div class="waveform"></div>
-                    <div class="bar"></div>
-                    <div class="progress"></div>
-                    <!-- Playlist -->
-                    <div class="playlistmenu">
-                        <div class="list"></div>
-                    </div>
-                    <!-- Volume -->
-                    <div class="volumeOverlay fadeout">
-                        <input class="volumeSlider" type="range" min="1" max="100" value="100">
+
+                    <div id="ambiencePlayer" class="howlerPlayer">
+                        <!-- Top Info -->
+                        <div class="title">
+                            <div class="timer">0:00</div>
+                            <span class="track"></span>
+                            <div class="duration">0:00</div>
+                        </div>
+                        <!-- Controls -->
+                        <div class="controlsOuter">
+                            <div class="btn playlistBtn"></div>
+                            <div class="controlsInner">
+                                <div class="loading"></div>
+                                <div class="btn prevBtn"></div>
+                                <div class="btn playBtn"></div>
+                                <div class="btn pauseBtn"></div>
+                                <div class="btn nextBtn"></div>
+                            </div>
+                            <div class="btn volumeBtn"></div>
+                        </div>
+                        <!-- Progress -->
+                        <div class="waveform"></div>
+                        <div class="bar"></div>
+                        <div class="progress"></div>
+                        <!-- Playlist -->
+                        <div class="playlistmenu">
+                            <div class="list"></div>
+                        </div>
+                        <!-- Volume -->
+                        <div class="volumeOverlay fadeout">
+                            <input class="volumeSlider" type="range" min="1" max="100" value="100">
+                        </div>
                     </div>
                 </div>
             </div>

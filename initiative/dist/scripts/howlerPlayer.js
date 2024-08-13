@@ -11,7 +11,7 @@
 import './siriwave.js'
 
 class HowlerPlayer {
-    constructor({ id, playlist = [], html5 = false, globalVolume = 0.4 } = {}) {
+    constructor({ id, playlist = [], loop = false, html5 = false, globalVolume = 0.4 } = {}) {
         if (!id) {
             console.error('HowlerPlayer must be instantiated with an element ID');
             return;
@@ -19,17 +19,18 @@ class HowlerPlayer {
 
         this.id = id
         this.playlist = playlist
+        this.loop = loop
         this.html5 = html5
         this.globalVolume = globalVolume
 
         // Cache references to DOM elements.
         this.elms = [
             'track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'shuffleBtn',
-            'loopBtn', 'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading',
+            'repeatBtn', 'playlistBtn', 'volumeBtn', 'progress', 'bar', 'waveform', 'loading',
             'playlistmenu', 'list', 'volumeOverlay', 'volumeSlider'
         ]
+        const wrapper = document.getElementById(this.id)
         this.elms.forEach(function (elm) {
-            const wrapper = document.getElementById(this.id)
             const element = wrapper.querySelector(`.${elm}`)
             this[elm] = element
         }, this)
@@ -64,11 +65,11 @@ class HowlerPlayer {
         this.nextBtn.addEventListener('click', function () {
             self.skip('next')
         })
-        this.shuffleBtn.addEventListener('click', function () {
+        this.shuffleBtn?.addEventListener('click', function () {
             self.shuffle()
         })
-        this.loopBtn.addEventListener('click', function () {
-            self.loop()
+        this.repeatBtn?.addEventListener('click', function () {
+            self.repeat()
         })
         this.waveform.addEventListener('click', function (event) {
             // Get the bounding rectangle of the element
@@ -166,10 +167,10 @@ class HowlerPlayer {
         var self = this
         self.shuffleEnabled = !self.shuffleEnabled
         if (self.shuffleEnabled) {
-            self.shuffleBtn.classList.add('active')
+            self.shuffleBtn?.classList.add('active')
             self.setShuffledPlaylist()
         } else {
-            self.shuffleBtn.classList.remove('active')
+            self.shuffleBtn?.classList.remove('active')
         }
     }
 
@@ -210,9 +211,9 @@ class HowlerPlayer {
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
 
-            //Update the loop control btn
-            if (sound._loop) self.loopBtn.classList.add('active')
-                else self.loopBtn.classList.remove('active')
+            //Update the repeat control btn
+            if (sound._loop) self.repeatBtn?.classList.add('active')
+                else self.repeatBtn?.classList.remove('active')
 
             // Update the pause button.
             if (sound.state() === 'loaded') {
@@ -242,6 +243,7 @@ class HowlerPlayer {
                 src: [data.file],
                 html5: this.html5, // Force to HTML5 so that the audio can stream in (best for large files).
                 volume: this.globalVolume,
+                loop: this.loop,
                 onplay: function () {
                     // Display the duration.
                     self.duration.innerHTML = self.formatTime(Math.round(sound.duration()))
@@ -320,6 +322,9 @@ class HowlerPlayer {
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
 
+            // Update the repeatBtn
+            if (sound._loop) self.repeatBtn?.classList.add('active')
+                else self.repeatBtn?.classList.remove('active')
             console.info(`loading ${data.title}...`)
         }
 
@@ -359,7 +364,7 @@ class HowlerPlayer {
         self.pauseBtn.style.display = 'none'
     }
 
-    loop() {
+    repeat() {
         var self = this
 
         // Get the Howl we want to manipulate.
@@ -368,9 +373,9 @@ class HowlerPlayer {
         // Toggle loop for this sound.
         sound.loop(!sound._loop)
 
-        // Check or uncheck the loop control button.
-        if (sound._loop) self.loopBtn.classList.add('active')
-            else self.loopBtn.classList.remove('active')
+        // Check or uncheck the repeat control button.
+        if (sound._loop) self.repeatBtn?.classList.add('active')
+            else self.repeatBtn?.classList.remove('active')
     }
 
     /**

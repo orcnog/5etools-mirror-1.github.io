@@ -698,6 +698,11 @@ i.tooltip-icon.active + .settings-label-tooltip-text.expand-large {
     mask-position: left, right;
 }
 
+.ambience-player {
+    margin-top: 3em;
+    background-color: rgba(0,125,0,0.1)
+}
+
 /* Close (X) button */
 .clear-all {
     position: absolute;
