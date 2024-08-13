@@ -109,7 +109,7 @@ async function setupMusicPlayer (playlistArray) {
     Music = new HowlerPlayer({
         id: 'musicPlayer',
         playlist: playlistArray,
-        html5: false
+        html5: true
     })
     Music.onPlay = function() {
         musicOn = true
