@@ -148,7 +148,7 @@
     background-repeat: no-repeat;
   }
 
-  .howlerPlayer .loopBtn {
+  .howlerPlayer .repeatBtn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,12 +173,12 @@
     font-size: 28px;
   }
 
-  .ios .howlerPlayer .loopBtn {
+  .ios .howlerPlayer .repeatBtn {
     order: 5;
     margin-left: -4vw;
   }
 
-  .howlerPlayer .loopBtn.active,
+  .howlerPlayer .repeatBtn.active,
   .howlerPlayer .shuffleBtn.active {
     opacity: 1;
     color: #DDD;

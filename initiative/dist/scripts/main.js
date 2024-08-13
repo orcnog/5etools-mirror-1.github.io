@@ -125,6 +125,7 @@ async function setupAmbiencePlayer (playlistArray) {
     Ambience = new HowlerPlayer({
         id: 'ambiencePlayer',
         playlist: playlistArray,
+        loop: true,
         html5: false
     })
     Ambience.onPlay = function() {
