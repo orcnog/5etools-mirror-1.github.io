@@ -173,7 +173,7 @@
     font-size: 28px;
   }
 
-  .ios .howlerPlayer .loopBtn {
+  .ios .howlerPlayer[data-html5="true"] .loopBtn {
     order: 5;
     margin-left: -4vw;
   }
@@ -317,7 +317,7 @@
   }
   
   /* Volume */
-  .ios .howlerPlayer .volumeBtn {
+  .ios .howlerPlayer[data-html5="true"] .volumeBtn {
     display: none;
     /* visibility: hidden; */
   }

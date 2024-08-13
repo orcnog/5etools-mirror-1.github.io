@@ -642,7 +642,7 @@ function setupDomAndEventListeners() {
         if (micAllowed) {
             if (Music && musicOn) {
                 // if music is playing, lower it or pause it before turning on the mic
-                if (isiOS) Music.pause() // if we're in iOS, pause. there's an issue with Music.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
+                if (isiOS && Music.html5) Music.pause() // if we're in iOS, pause. there's an issue with Music.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
                 else Music.fadeDown()
             }
                 
@@ -662,7 +662,7 @@ function setupDomAndEventListeners() {
         if (micAllowed) {
             if (Music && musicOn) {
                 // if music was playing, fade it back in or unpause after turning off the mic
-                if (isiOS) Music.play()
+                if (isiOS && Music.html5) Music.play()
                 else Music.fadeUp()
             }
             document.getElementById('startDictation').classList.remove('active')
@@ -1199,9 +1199,9 @@ async function handleMusicBtnClick() {
     if (musicOn) {
         musicOn = false
         document.body.classList.remove('music-on')
-        if (!isiOS) {
+        if (!isiOS || !Music.html5) {
             this.disabled = true
-            // await Music.fadeDown() // Fades are proving to be problematic in desktop when quickly toggled.
+            await Music.fadeDown() // Fades are proving to be problematic in desktop when quickly toggled.
             this.disabled = false
         }
         await Music.stop()

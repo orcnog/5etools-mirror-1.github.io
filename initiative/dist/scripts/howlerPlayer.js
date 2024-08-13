@@ -48,7 +48,9 @@ class HowlerPlayer {
     }
     
     initDOM() {
-        var self = this
+        const self = this
+        const wrapper = document.getElementById(this.id)
+        wrapper.setAttribute('data-html5', self.html5);
         // Bind player controls.
         this.playBtn.addEventListener('click', function () {
             self.play()
