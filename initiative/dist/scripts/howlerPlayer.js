@@ -42,6 +42,9 @@ class HowlerPlayer {
 
         this.initDOM()
         this.setupPlaylistDisplay()
+
+        // A silent sound file that we can start streaming first with html5, which (somehow??) then allows iOS to control volume on other tracks.
+        this.silence = new Howl({src: ['./audio/empty_second.mp3'], loop: true, html5: true})
     }
     
     initDOM() {
@@ -192,6 +195,9 @@ class HowlerPlayer {
         var data = self.playlist[index]
 
         if (sound) {
+            // Before playing the sound, start playing/streaming a silent sound file first, which then allows iOS to control volume on other tracks. (don't ask!?)
+            await self.silence.play()
+
             // Begin playing the sound.
             await sound.play()
 
@@ -327,6 +333,7 @@ class HowlerPlayer {
 
         // Pause the sound.
         sound.pause()
+        self.silence.pause()
 
         // Show the play button.
         self.playBtn.style.display = 'block'
@@ -342,6 +349,7 @@ class HowlerPlayer {
         if (sound) {
             // Pause the sound.
             sound.stop()
+            self.silence.stop()
         }
 
         // Show the play button.
