@@ -2482,11 +2482,15 @@ async function updateSlideBasedOnHash(e) {
                 await Music.fadeDown()
                 await updateMusicPlaylist(playlistToLoad)
                 await Music.playRandom()
+            } else if (Music.playing) {
+                Music.fadeDown()
             }
             if (ambienceToLoad) {
                 await Ambience.fadeDown()
                 await updateAmbiencePlaylist(ambienceToLoad)
                 await Ambience.play()
+            } else if (Ambience.playing) {
+                Ambience.fadeDown()
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
