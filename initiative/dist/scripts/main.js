@@ -1556,17 +1556,17 @@ function populateSelectWithThemes() {
     const themes = [
         {
             name: 'D&D',
-            css: 'themes/dnd/dnd-theme.css',
+            css: './styles/themes/dnd/dnd-theme.css',
             font: 'font-eordeoghlakat',
         },
         {
             name: 'Kenobi',
-            css: 'themes/kenobi/kenobi-theme.css',
+            css: './styles/themes/kenobi/kenobi-theme.css',
             font: 'font-aurebesh',
         },
         {
             name: 'Empire',
-            css: 'themes/empire/empire-theme.css',
+            css: './styles/themes/empire/empire-theme.css',
             font: 'font-aurebesh',
         },
         // 'Star Wars Imperial Deck', 'Star Wars Destroyer View', 'Star Wars Computer Terminal', 'Star Wars Death Star', 'Star Wars Darth vs Luke', 'Star Wars Darth vs Asoka', 'Star Wars Rey vs Kylo', 'Star Wars Rise of Skywalker', 'Star Wars Evil Rey', 'Star Wars Retro'
@@ -1667,7 +1667,7 @@ function populateSelectsWithPlaylists(playlists, selectors) {
     }
 }
 
-// Function to remove all CSS files starting with /themes/
+// Function to remove all CSS files starting with /styles/themes/
 function removeThemeStyles() {
     // Get all link elements in the document
     const links = document.getElementsByTagName('link');
@@ -1676,8 +1676,8 @@ function removeThemeStyles() {
     for (let i = links.length - 1; i >= 0; i--) {
         const link = links[i];
 
-        // Check if the link element is a stylesheet and if its href starts with /themes/
-        if (link.rel === 'stylesheet' && link.href.startsWith(window.location.origin + '/themes/')) {
+        // Check if the link element is a stylesheet and if its href starts with /styles/themes/
+        if (link.rel === 'stylesheet' && link.href.startsWith(window.location.origin + '/styles/themes/')) {
             // Remove the link element from the document
             link.parentNode.removeChild(link);
         }

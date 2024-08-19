@@ -1,5 +1,5 @@
 :root {
-    --theme-bg-images: url('themes/kenobi/images/vader-versus3.webp');
+    --theme-bg-images: url('./themes/kenobi/images/vader-versus3.webp');
     --theme-bg-image-positions: top center;
     --theme-bg-image-sizes: cover;
     --button-bg-color: rgb(125, 16, 17);

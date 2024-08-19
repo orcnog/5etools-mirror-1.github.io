@@ -4,18 +4,18 @@
     --adjustable-chalkiness: 0;
     --brightness-level: 1;
     --body-color: #ddd;
-    --theme-bg-images: url('themes/dnd/images/dnd-wizards.webp');
+    --theme-bg-images: url('./themes/dnd/images/dnd-wizards.webp');
     --theme-bg-image-positions: center center;
     --theme-bg-image-sizes: cover;
     --main-text-color: #ddd;
     --main-text-color-alt: #fff;
     --header-menu-height: 3.125rem;
     --tablet-bg-color: transparent;
-    --tablet-bg-image: url('images/slate-bg-tiled.webp');
-    --tablet-bg-image-top: url('images/slate-bg-top.webp');
-    --tablet-bg-image-bottom: url('images/slate-bg-bottom.webp');
+    --tablet-bg-image: url('../images/slate-bg-tiled.webp');
+    --tablet-bg-image-top: url('../images/slate-bg-top.webp');
+    --tablet-bg-image-bottom: url('../images/slate-bg-bottom.webp');
     --tablet-bg-image-2: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGBAMAAACDAP+3AAAAGFBMVEUfHx8eHh4dHR0bGxshISEiIiIlJSUjIyM9IpsJAAAFjUlEQVR4AT3UuZLcOBaF4QuI2XJxboIhF/eQFe1WovoBAAqccpkaZpc5+4yrXa8/RGpx/lrIXPjFCYjTp9z8REqF4VYNWB3Av3zQJ6b6xBwlKB/9kRkCjXVwGH3ziK5UcjFHVkmgY6osiBsGDFfseqq2ZbTz7E00qBDpzOxnD7ToABeros1vM6MX0rBQaG1ith1A/HJkvkHxsPGJ82dP8vVCyWmbyPTaAfGzg40bgIdrv2f3pBVPycUcufx+BSUUWDuCZi6zBqdM50ElKYPODqtLDjc31rBb9CZ59lbN/JScuMxHLUBcGiy6QRH9zpwgZGhRj8qSydPVgNNVgbWqYX3HbM9K2rqTnKVmsmwKWzc1ffEd20+Zq3Ji65kl6TSjALNvzmJt4Pi2f1etytGJmy5erLAgbNY4bjykC3YCLIS3nSZMKgwRsBarWgjdeVzIEDzpTkoOUArTF4WFXYHwxY585sT0nmTYMxmXfs8fzwswfnam8TMU49bvqSRnyRPnqlno4tVQQiH2A9Za8tNTfXQ0lxbSxUaZna0uLlj9Q0XzD96CpsOZUftolINKBWJpAOoAJC0T6QqZnOtfvcfJFcDrD4Cuy5Hng316XrqzJ204HynyHwWed6i+XGF40Uw2T7Lc71HyssngEOrgONfBY7wvW0UZdVAma5xmSNjRp3xkvKJkW6aSg7PK4K0+mbKqYB0WYBgWwxCXiS74zBCVlEFpYQDEwjcA1qccb5yO6ZL8ozt/h3wHSCdWzLuqxU2ZZ9ev9MvRMbMvV9BQgN0qrFjlkzPQanI9nuaGCokVK2LV1Y2egyY1aFQGxjM9I7RBBAgyGEJtpKHP0lUySSeWCpyKHMT2pmM/vyP55u2Rw5lcSeabAfgiG5TPDX3uP3QvcoSipJXQByUCjS4C8VXqxEEZOJxzmJoyogFNJBRsCJs2XmoWWrWFqTsnbwtSn43gNFTTob9/SEpaPJNhUBKDGoZGCMINxvBv8vuKbb//lg/sK0wfPgBica/QsSk5F3KK4Ui6Yw+uv4+DWEOFbhdPOnbY5PLFpzrZMhakeqomY0Vz0TO+elQGTWdCk1IYFAOaoZg0IJQhT+YreXF+yia+O1cgtGufjXxQw28f85RPXfd15zv13ABoD15kB7FKJ/7pbHKP6+9TgNgkVj68NeV8Tp24f7OOndCgJzR3RNJBPNFReCmstMVqvjjzBoeK4GOFoBN32CPxu+4TwwBDa4DJTe/OU9c9ku7EGyfOVxh+fw9g/AATxPqKTEXJKEdCIBkB4iBUlO6MjUrWi6M5Kz31YAqFsYaCeB0KJC5d1+foo3LQWSfRaDrwdAQrMEC27yDZXJf7TlOJ2Bczr1di3OWvZB6XrvvqPuWJPDk9dAHgm7LvuZJTEdKqO3J3XgostArEnvkqgUznx0.1875rem7cSzz1FXZyvakTA4XVVMbCPFPK1cFj66S0WoqQI1XG2uoU7CMPquO2VaUDJFQMdVgXKD2bpz6ufzzxXbxszHQ9fGO/F7A998yBQG6cShE+P+Pk7t1FwfF1QHN1Eui1VapRxCdj8tCtI1bog1Fo011Sx9u3o6c9bufI6wAT26Av9xJ+WWpTKbbBPp3K/1LbC4Vuhv396RCbJw4untjxVPndj+dIB9dVD8z2dylZ+6vMeJwbYChHJkvHV2J3fdHsJPASeHhrXq6QheXu1nBhUr5u6ryT0I13BFKD01ViZ/n3oaziRG7c6Ayg7g1LPeztNdT36ueMqcN4XGv3finjfv+7I/kMJ4d046MUanOA1QtMH1kLlfFasm99NiutSw63yNDeH4zeL1Uu8XKHNfcThPSSNwchGMbgUETScwkCcK77pH2jsgrAssvVyB8FLJ7GrmwyD8eVqsHoY/FwIv9T7lPu9+Yf8/9+w4nS1ma78AAAAASUVORK5CYII=);
-    --main-bg-image-mask: url('images/bottom-splotch-mask.webp');
+    --main-bg-image-mask: url('../images/bottom-splotch-mask.webp');
     --main-text-shadow: -0.033em -0.033em rgba(0, 0, 0, 0.6);
     --playerlist-bg-img: none;
     --playerlist-shadow: none;
@@ -36,12 +36,12 @@
     --input-placeholder-color: #555;
     --highlighted-color: rgba(100, 150, 225, 0.4);
     --highlighted-text-color: #fff;
-    --grungy-mask1: url('images/grungy-mask4.webp');
-    --grungy-mask2: url('images/grungy-mask3.webp');
-    --grungy-mask3: url('images/grungy-mask2.webp');
-    --grungy-mask4: url('images/grungy-mask1.webp');
-    --grungy-mask5: url('images/grungy-mask5.webp');
-    --grungy-mask6: url('images/grungy-frame-mask4.webp');
+    --grungy-mask1: url('../images/grungy-mask4.webp');
+    --grungy-mask2: url('../images/grungy-mask3.webp');
+    --grungy-mask3: url('../images/grungy-mask2.webp');
+    --grungy-mask4: url('../images/grungy-mask1.webp');
+    --grungy-mask5: url('../images/grungy-mask5.webp');
+    --grungy-mask6: url('../images/grungy-frame-mask4.webp');
 }
 
 
@@ -49,7 +49,7 @@
     font-family: "Grenhil";
     font-style: normal;
     font-weight: 400;
-    src: local("Grenhil"), url("themes/dnd/fonts/Grenhil.otf") format("opentype");
+    src: local("Grenhil"), url("./themes/dnd/fonts/Grenhil.otf") format("opentype");
 }
 
 /* CSS Reset */
@@ -882,7 +882,7 @@ body.players-listed .microphone-msg {
     height: 100%;
     display: block;
     position: absolute;
-    background-image: url('images/sine.webp');
+    background-image: url('../images/sine.webp');
     background-size: 1em;
     background-repeat: repeat-x;
     background-position: center center;
@@ -964,23 +964,23 @@ input.speech-input {
 }
 
 .round-tally[data-marks="1"] {
-    background-image: url("images/tally-marks-1.webp");
+    background-image: url("../images/tally-marks-1.webp");
 }
 
 .round-tally[data-marks="2"] {
-    background-image: url("images/tally-marks-2.webp");
+    background-image: url("../images/tally-marks-2.webp");
 }
 
 .round-tally[data-marks="3"] {
-    background-image: url("images/tally-marks-3.webp");
+    background-image: url("../images/tally-marks-3.webp");
 }
 
 .round-tally[data-marks="4"] {
-    background-image: url("images/tally-marks-4.webp");
+    background-image: url("../images/tally-marks-4.webp");
 }
 
 .round-tally[data-marks="5"] {
-    background-image: url("images/tally-marks-5.webp");
+    background-image: url("../images/tally-marks-5.webp");
 }
 
 .add-a-player {

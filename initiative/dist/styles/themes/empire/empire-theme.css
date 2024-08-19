@@ -1,6 +1,6 @@
 :root {
     --theme-color: #ddd;
-    --theme-bg-images: url('themes/empire/images/death-star-view.webp');
+    --theme-bg-images: url('./themes/empire/images/death-star-view.webp');
     --theme-bg-image-positions: center center;
     --theme-bg-image-sizes: cover;
     --button-bg-color: rgb(125, 16, 17);
