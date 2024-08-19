@@ -2478,19 +2478,23 @@ async function updateSlideBasedOnHash(e) {
                     show_exotic_font: !!slideshow?.exoticfont
                 })
             }
-            if (playlistToLoad) {
-                await Music.fadeDown()
-                await updateMusicPlaylist(playlistToLoad)
-                await Music.playRandom()
-            } else if (Music.playing) {
-                Music.fadeDown()
+            if (Music.playing) {
+                if (playlistToLoad) {
+                    await Music.fadeDown()
+                    await updateMusicPlaylist(playlistToLoad)
+                    await Music.playRandom()
+                } else {
+                    Music.fadeDown()
+                }
             }
-            if (ambienceToLoad) {
-                await Ambience.fadeDown()
-                await updateAmbiencePlaylist(ambienceToLoad)
-                await Ambience.play()
-            } else if (Ambience.playing) {
-                Ambience.fadeDown()
+            if (Ambience.playing) {
+                if (ambienceToLoad) {
+                    await Ambience.fadeDown()
+                    await updateAmbiencePlaylist(ambienceToLoad)
+                    await Ambience.play()
+                } else  {
+                    Ambience.fadeDown()
+                }
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);

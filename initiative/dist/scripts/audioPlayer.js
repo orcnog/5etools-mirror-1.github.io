@@ -397,7 +397,7 @@ class HowlerPlayer {
      */
     async fadeDown() {
         var self = this
-        var sound = self.playlist[self.index].howl
+        var sound = self.playlist[self.index]?.howl
 
         return new Promise((resolve) => {
             console.log('fadeDown Promise started')
@@ -428,7 +428,7 @@ class HowlerPlayer {
                 }, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
             } else {
                 // Resolve immediately if no sound is playing or if fade is already in progress.
-                console.log('no sound is playing or if fade is already in progress')
+                console.log('no sound is playing or fade is already in progress')
                 resolve()
             }
         });
