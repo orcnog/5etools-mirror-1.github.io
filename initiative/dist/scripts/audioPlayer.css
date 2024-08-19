@@ -1,5 +1,4 @@
-
-  .howlerPlayer {
+  .audioPlayer {
     position: relative;
     margin: 1em 0;
     height: 16rem;
@@ -8,7 +7,7 @@
   }
   
   /* Top Info */
-  .howlerPlayer .title {
+  .audioPlayer .title {
     position: absolute;
     display: flex;
     flex-flow: row nowrap;
@@ -26,12 +25,12 @@
   }
 
   @media (min-width: 48rem) {
-    .howlerPlayer .title {
+    .audioPlayer .title {
       font-size: 1.5em;
     }
   }
 
-  .howlerPlayer .timer {
+  .audioPlayer .timer {
     flex: 0 0 2em;
     text-align: left;
     font-size: 0.75em;
@@ -41,7 +40,7 @@
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
   }
-  .howlerPlayer .duration {
+  .audioPlayer .duration {
     flex: 0 0 2em;
     text-align: right;
     font-size: 0.75em;
@@ -53,7 +52,7 @@
   }
   
   /* Controls */
-  .howlerPlayer .controlsOuter {
+  .audioPlayer .controlsOuter {
     position: absolute;
     display: flex;
     flex-flow: row nowrap;
@@ -64,7 +63,7 @@
     height: 70px;
     bottom: 5px;
   }
-  .howlerPlayer .controlsInner {
+  .audioPlayer .controlsInner {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
@@ -75,7 +74,7 @@
     height: 70px;
     left: 50%;
   }
-  .howlerPlayer .btn {
+  .audioPlayer .btn {
     cursor: pointer;
     opacity: 0.9;
     -webkit-filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.33));
@@ -90,17 +89,17 @@
   }
 
   @media (min-width: 48rem) {
-    .howlerPlayer .btn {
+    .audioPlayer .btn {
         margin: 0;
     }
   }
 
-  .howlerPlayer .btn:hover {
+  .audioPlayer .btn:hover {
     opacity: 1;
     color: #999;
   }
 
-  .howlerPlayer .playBtn {
+  .audioPlayer .playBtn {
     margin-right: 0;
     padding: 0;
     width: 25%;
@@ -110,7 +109,7 @@
     background-size: contain;
     background-repeat: no-repeat;
   }
-  .howlerPlayer .pauseBtn {
+  .audioPlayer .pauseBtn {
     display: none;
     padding: 0;
     width: 25%;
@@ -120,7 +119,7 @@
     background-size: contain;
     background-repeat: no-repeat;
   }
-  .howlerPlayer .prevBtn {
+  .audioPlayer .prevBtn {
     padding: 0;
     width: 16%;
     max-width: 7vw;
@@ -129,7 +128,7 @@
     background-size: contain;
     background-repeat: no-repeat;
   }
-  .howlerPlayer .nextBtn {
+  .audioPlayer .nextBtn {
     padding: 0;
     width: 16%;
     max-width: 7vw;
@@ -138,7 +137,7 @@
     background-size: contain;
     background-repeat: no-repeat;
   }
-  .howlerPlayer .playlistBtn {
+  .audioPlayer .playlistBtn {
     padding: 0;
     width: 8%;
     min-width: 20px;
@@ -148,7 +147,7 @@
     background-repeat: no-repeat;
   }
 
-  .howlerPlayer .repeatBtn {
+  .audioPlayer .repeatBtn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,7 +159,7 @@
     font-size: 28px;
   }
 
-  .howlerPlayer .shuffleBtn {
+  .audioPlayer .shuffleBtn {
     order: 6;
     display: flex;
     align-items: center;
@@ -173,18 +172,18 @@
     font-size: 28px;
   }
 
-  .ios .howlerPlayer[data-html5="true"] .repeatBtn {
+  .ios .audioPlayer[data-html5="true"] .repeatBtn {
     order: 5;
     margin-left: -4vw;
   }
 
-  .howlerPlayer .repeatBtn.active,
-  .howlerPlayer .shuffleBtn.active {
+  .audioPlayer .repeatBtn.active,
+  .audioPlayer .shuffleBtn.active {
     opacity: 1;
     color: #DDD;
   }
 
-  .howlerPlayer .volumeBtn {
+  .audioPlayer .volumeBtn {
     order: 7;
     padding: 0;
     width: 35px;
@@ -196,7 +195,7 @@
   }
   
   /* Progress */
-  .howlerPlayer .waveform {
+  .audioPlayer .waveform {
     position: absolute;
     left: 0;
     bottom: 80px;
@@ -209,10 +208,10 @@
     -webkit-user-select: none;
     user-select: none;
   }
-  .howlerPlayer .waveform:hover {
+  .audioPlayer .waveform:hover {
     opacity: 1;
   }
-  .howlerPlayer .bar {
+  .audioPlayer .bar {
     position: absolute;
     bottom: 129px;
     left: 0;
@@ -222,7 +221,7 @@
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
     opacity: 0.9;
   }
-  .howlerPlayer .progress {
+  .audioPlayer .progress {
     position: absolute;
     top: 0;
     left: 0;
@@ -233,7 +232,7 @@
   }
   
   /* Loading */
-  .howlerPlayer .loading {
+  .audioPlayer .loading {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -265,7 +264,7 @@
   }
   
   /* Plylist */
-  .howlerPlayer .playlistmenu {
+  .audioPlayer .playlistmenu {
     display: none;
     position: absolute;
     top: 0;
@@ -275,7 +274,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     overflow-y: auto;
   }
-  .howlerPlayer .list {
+  .audioPlayer .list {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -295,7 +294,7 @@
     -ms-flex-align: center;
     align-items: center;
   }
-  .howlerPlayer .list-song {
+  .audioPlayer .list-song {
     flex: 1 0 1.5em;
     display: flex;
     width: 100%;
@@ -311,17 +310,17 @@
     white-space: nowrap;
     overflow: hidden;
   }
-  .howlerPlayer .list-song:hover {
+  .audioPlayer .list-song:hover {
     background-color: rgba(255, 255, 255, 0.1);
     cursor: pointer;
   }
   
   /* Volume */
-  .ios .howlerPlayer[data-html5="true"] .volumeBtn {
+  .ios .audioPlayer[data-html5="true"] .volumeBtn {
     display: none;
   }
 
-  .howlerPlayer .volumeOverlay {
+  .audioPlayer .volumeOverlay {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -335,7 +334,7 @@
     align-items: center;
   }
 
-  .howlerPlayer .volumeSlider {
+  .audioPlayer .volumeSlider {
     -webkit-appearance: none;
     margin: auto;
     width: 90%;
@@ -350,11 +349,11 @@
     -webkit-mask-image: none;
   }
   
-  .howlerPlayer .volumeSlider:hover {
+  .audioPlayer .volumeSlider:hover {
     opacity: 1;
   }
   
-  .howlerPlayer .volumeSlider::-webkit-slider-thumb {
+  .audioPlayer .volumeSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 50px;
@@ -364,7 +363,7 @@
     cursor: pointer;
   }
   
-  .howlerPlayer .volumeSlider::-moz-range-thumb {
+  .audioPlayer .volumeSlider::-moz-range-thumb {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -373,12 +372,12 @@
   }
   
   /* Fade-In */
-  .howlerPlayer .fadeout {
+  .audioPlayer .fadeout {
     webkit-animation: fadeout 0.5s;
     -ms-animation: fadeout 0.5s;
     animation: fadeout 0.5s;
   }
-  .howlerPlayer .fadein {
+  .audioPlayer .fadein {
     webkit-animation: fadein 0.5s;
     -ms-animation: fadein 0.5s;
     animation: fadein 0.5s;

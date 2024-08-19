@@ -21,11 +21,12 @@
     <!-- Link to local CSS files -->
     <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="./slideshow/slideshow.css">
-    <link rel="stylesheet" type="text/css" href="./scripts/howlerDemo.css"/>
+    <link rel="stylesheet" type="text/css" href="./scripts/audioPlayer.css"/>
 
     <!-- Link to JavaScript files -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/howler-with-buffer@2.2.5/src/howler.core.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script type="module" src="scripts/youTubeAudio.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </head>
 
@@ -224,7 +225,7 @@
                         <select id="selectMusicPlayerPlaylist"></select>
                     </div>
                 </div>
-                <div id="musicPlayer" class="howlerPlayer">
+                <div id="musicPlayer" class="audioPlayer">
                     <!-- Top Info -->
                     <div class="title">
                         <div class="timer">0:00</div>
@@ -267,7 +268,7 @@
                         </div>
                     </div>
 
-                    <div id="ambiencePlayer" class="howlerPlayer">
+                    <div id="ambiencePlayer" class="audioPlayer">
                         <!-- Top Info -->
                         <div class="title">
                             <div class="timer">0:00</div>

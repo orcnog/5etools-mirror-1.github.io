@@ -63,7 +63,8 @@
         "exoticfont": "Aurebesh",
         "scenes": [
             {
-                "image": "./slideshow/opening/01 game_background_image.webp"
+                "image": "./slideshow/opening/01 game_background_image.webp",
+                "youtube": "https://www.youtube.com/watch?v=vK5VwVyxkbI"
             },
             {
                 "image": "./slideshow/imperialfacility/imperial-facility.webp",

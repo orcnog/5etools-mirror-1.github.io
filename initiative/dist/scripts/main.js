@@ -1,4 +1,4 @@
-import HowlerPlayer from './howlerPlayer.js'
+import HowlerPlayer from './audioPlayer.js'
 
 /**
  * Declarations
