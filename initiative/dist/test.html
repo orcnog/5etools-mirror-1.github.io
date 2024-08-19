@@ -1,0 +1,184 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: #333;
+                color: white;
+            }
+            #ytplayer {
+                display: block;
+                margin: 2em auto 20px;
+                height: 340px;
+                width: 600px;
+                display: none;
+            }
+
+            iframe {
+                /* width: 100%;
+                height: calc(100% - 10em);
+                position: absolute;
+                top: 0;
+                left: 0; */
+            }
+        </style>
+    </head>
+</html>
+
+<div id="ytplayer"></div>
+<p>Hit PLAY to start the music.</p>
+<button id="playPause">PLAY</button>
+<button id="mute">Mute</button>
+<button id="unmute">Unmute</button>
+<input id="volume" type="range" min="1" max="100" value="40">
+<p>Load new videos:</p>
+<p>
+    <button class="load" value="vK5VwVyxkbI">vK5VwVyxkbI</button>
+    <button class="load" value="t3B802PIuB0">t3B802PIuB0</button>
+    <button class="load" value="AXH5hVVYe28">AXH5hVVYe28</button>
+</p>
+<p id="log"></p>
+<br/>
+
+<!-- <p>Try pasting in these youtube video ID values:</p> -->
+<!-- Input field to enter video ID -->
+<!-- <input type="text" id="video-id-input" placeholder="Enter YouTube Video ID"/> -->
+
+<script>
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var ytplayer;
+    function onYouTubeIframeAPIReady() {
+        ytplayer = new YT.Player('ytplayer', {
+            height: '1',
+            width: '1',
+            videoId: 'AXH5hVVYe28',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onAutoPlayBlocked': onPlayerAutoPlayBlocked
+            },
+            playerVars: {
+                'autoplay': 1,
+                'origin': 'https://d20.orcnog.com'
+            },
+        });
+    }
+
+    // 4. The API will call this function when the video player is ready.
+    // function onPlayerReady(event) {
+    //     event.target.playVideo();
+    //     ytplayer.mute();
+    //     ytplayer.setVolume(40)
+    //     ytplayer.unMute();
+    //     setTimeout(()=>{ytplayer.mute()}, 50);
+    // }
+    function onPlayerReady(event) {
+        console.log('onPlayerReady fired')
+        // var embedCode = event.target.getVideoEmbedCode();
+
+        // event.target.mute();
+        // event.target.unMute();
+        // event.target.playVideo();
+
+        setTimeout(()=>{
+            console.log('calling playVideo()...')
+            playVideo()
+        }, 1000)
+
+        // if (document.getElementById('embed-code')) {
+        //     document.getElementById('embed-code').innerHTML = embedCode;
+        // }
+    }
+
+    let tempStateChangeFn = null
+    // 5. The API calls this function when the player's state changes.
+    //    The function indicates that when playing a video (state=1),
+    //    the player should play for 12 seconds and then stop.
+    function onPlayerStateChange(event) {
+        console.log('onPlayerStateChange fired - ' + event.data)
+        document.getElementById('log').innerHTML += '<br/>'+event.data;
+        if (event.data === YT.PlayerState.PLAYING) {
+            document.getElementById('playPause').innerHTML = 'Pause'
+        }
+        if (event.data === YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED || event.data === -1) {
+            document.getElementById('playPause').innerHTML = 'PLAY'
+        }
+        if (typeof tempStateChangeFn === 'function') tempStateChangeFn(event)
+    }
+
+    function onPlayerAutoPlayBlocked(event) {
+        console.log('onPlayerAutoPlayBlocked fired')
+        console.error(event)
+    }
+    function muteVideo() {
+        ytplayer.mute();
+    }
+    function unMuteVideo() {
+        ytplayer.unMute();
+    }
+    function playPause(e) {
+        let state = ytplayer.getPlayerState()
+        if (state === YT.PlayerState.PAUSED || state === -1) {
+            let test = ytplayer.playVideo();
+            let state = ytplayer.getPlayerState()
+        } else {
+            ytplayer.pauseVideo();
+        }
+    }
+    function playVideo() {
+        try {
+            ytplayer.playVideo()
+        } catch(er) {
+            console.error(er)
+        }
+    }
+    function pauseVideo() {
+        ytplayer.pauseVideo();
+    }
+    function stopVideo() {
+        ytplayer.stopVideo();
+    }
+    function changeVolume(e) {
+        ytplayer.setVolume(e.target.value)
+    }
+    async function loadVideo(e) {
+        if (e.target.value) {
+            var newVideoUrl = `https://www.youtube.com/v/${e.target.value}?enablejsapi=1&html5=1&autoplay=1&origin=https://d20.orcnog.com`;
+            setTimeout(playVideo, 700)
+            // tempStateChangeFn = (e) => {
+            //     if (e.data === -1) {
+            //         document.getElementById('log').innerHTML += '<br/>temp fn -1';
+            //         tempStateChangeFn = (e) => {
+            //             if (e.data === 2) {
+            //                 document.getElementById('log').innerHTML += '<br/>temp fn 2';
+            //                 console.log('playing...')
+            //                 setTimeout(playVideo, 600)
+            //                 tempStateChangeFn = null
+            //             } else if (e.data === 1) {
+            //                 document.getElementById('log').innerHTML += '<br/>temp fn 1';
+            //                 tempStateChangeFn = null
+            //             }
+            //         }
+            //     }
+            // }
+            await ytplayer.loadVideoByUrl(newVideoUrl);
+        }
+    }
+
+    // document.getElementById('playBtn').addEventListener('click', playVideo)
+    document.getElementById('playPause').addEventListener('click', playPause)
+    document.getElementById('mute').addEventListener('click', muteVideo)
+    document.getElementById('unmute').addEventListener('click', unMuteVideo)
+    document.getElementById('volume').addEventListener('click', changeVolume)
+    // document.getElementById('video-id-input').addEventListener('keyup', loadVideo)
+    // document.getElementById('video-id-input').addEventListener('paste', loadVideo)
+    document.querySelectorAll('button.load').forEach((element) => {
+        element.addEventListener('click', loadVideo)
+    });
+</script>
