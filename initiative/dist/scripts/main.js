@@ -145,12 +145,6 @@ async function setupAmbiencePlayer (playlistArray) {
 async function updateMusicPlaylist (playlistID) {
     let thisPlaylistArray = playlistJSON[playlistID]
     if (thisPlaylistArray) {
-        // Transform the playlist array into the desired JSON object format
-        thisPlaylistArray = thisPlaylistArray.map(filePath => ({
-            title: filePath.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
-            file: filePath,
-            howl: null
-        }));
         if (Music) {
             Music.updatePlaylist(thisPlaylistArray)
         } else {
@@ -2478,23 +2472,20 @@ async function updateSlideBasedOnHash(e) {
                     show_exotic_font: !!slideshow?.exoticfont
                 })
             }
-            if (Music.playing) {
-                if (playlistToLoad) {
-                    await Music.fadeDown()
-                    await updateMusicPlaylist(playlistToLoad)
-                    await Music.playRandom()
-                } else {
-                    Music.fadeDown()
-                }
-            }
             if (Ambience.playing) {
-                if (ambienceToLoad) {
-                    await Ambience.fadeDown()
-                    await updateAmbiencePlaylist(ambienceToLoad)
-                    await Ambience.play()
-                } else  {
-                    Ambience.fadeDown()
-                }
+                await Ambience.fadeDown()
+            }
+            if (ambienceToLoad) {
+                await updateAmbiencePlaylist(ambienceToLoad)
+                Ambience.play()
+            }
+            if (Music.playing) {
+                await Music.fadeDown()
+            }
+            if (playlistToLoad) {
+                await updateMusicPlaylist(playlistToLoad)
+                Music.playRandom()
+                
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);

@@ -204,9 +204,9 @@ class HowlerPlayer {
         var sound = self.playlist?.[self.index]?.howl
 
         index = typeof index === 'number' ? index : self.index
-        var data = self.playlist[index]
+        var data = self.playlist?.[index]
 
-        if (sound) {
+        if (data) {
             // Before playing the sound, start playing/streaming a silent sound file first, which then allows iOS to control volume on other tracks. (don't ask!?)
             await self.silence.play()
 
@@ -350,7 +350,8 @@ class HowlerPlayer {
         var self = this
 
         // Get the Howl we want to manipulate.
-        var sound = self.playlist?.[self.index]?.howl
+        var data = self.playlist?.[self.index]
+        var sound = data?.howl
 
         // Pause the sound.
         sound.pause()
@@ -639,6 +640,25 @@ class HowlerPlayer {
     async updatePlaylist(newPlaylist) {
         var self = this
 
+        // Transform the playlist array into the desired JSON object format
+        let formattedPlaylistArray = newPlaylist.map(path => {
+            if (ytPlayer.isYouTubeURL(path) || ytPlayer.isYouTubeID(path)) {
+                // Extract the YouTube ID if it's a URL
+                const videoID = ytPlayer.isYouTubeURL(path) ? ytPlayer.extractYouTubeID(path) : path;
+                return { 
+                    title: null,
+                    youtubeid: videoID
+                };
+            } else {
+                // Normal file path handling
+                return {
+                    title: path.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
+                    file: path,
+                    howl: null
+                };
+            }
+        });
+
         // Stop the current track.
         self.stop()
 
@@ -649,7 +669,7 @@ class HowlerPlayer {
         self.progress.style.width = '0%'
 
         // Update to the new playlist
-        self.playlist = newPlaylist
+        self.playlist = formattedPlaylistArray
 
         // Set up shuffled playlist, in case Shuffle is On
         self.setShuffledPlaylist()
