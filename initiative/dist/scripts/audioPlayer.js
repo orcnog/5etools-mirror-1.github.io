@@ -642,21 +642,11 @@ class HowlerPlayer {
 
         // Transform the playlist array into the desired JSON object format
         let formattedPlaylistArray = newPlaylist.map(path => {
-            if (ytPlayer.isYouTubeURL(path) || ytPlayer.isYouTubeID(path)) {
-                // Extract the YouTube ID if it's a URL
-                const videoID = ytPlayer.isYouTubeURL(path) ? ytPlayer.extractYouTubeID(path) : path;
-                return { 
-                    title: null,
-                    youtubeid: videoID
-                };
-            } else {
-                // Normal file path handling
-                return {
-                    title: path.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
-                    file: path,
-                    howl: null
-                };
-            }
+            return {
+                title: path.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
+                file: path,
+                howl: null
+            };
         });
 
         // Stop the current track.
