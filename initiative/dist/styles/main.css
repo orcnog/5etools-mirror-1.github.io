@@ -702,26 +702,6 @@ i.tooltip-icon.active + .settings-label-tooltip-text.expand-large {
     margin-top: 1em;
     background-color: rgba(0,125,0,0.1)
 }
-.ambience-player #selectAmbiencePlayerPlaylist {
-    padding-left: 0.25em;
-}
-.ambience-player .howlerPlayer {
-    margin: 0;
-    height: 6.5em;
-    min-height: 6.5em;
-}
-.ambience-player .timer,
-.ambience-player .duration,
-.ambience-player .prevBtn,
-.ambience-player .nextBtn {
-    display: none;
-}
-.ambience-player .bar {
-    visibility: hidden;
-}
-.ambience-player .howlerPlayer .waveform {
-    bottom: 2.25em;
-}
 
 /* Close (X) button */
 .clear-all {

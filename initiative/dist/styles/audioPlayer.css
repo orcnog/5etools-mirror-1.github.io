@@ -1,9 +1,36 @@
+  :root {
+    --audioPlayerHeight: 16rem;
+    --audioPlayerCondensedHeight: 10rem;
+  }
+
   .audioPlayer {
     position: relative;
     margin: 1em 0;
-    height: 16rem;
-    min-height: 16rem;
+    height: var(--audioPlayerHeight);
+    min-height: var(--audioPlayerHeight);
     z-index: 1;
+  }
+
+  .audioPlayer.condensed {
+    margin: 0;
+    height: var(--audioPlayerCondensedHeight);
+    min-height: var(--audioPlayerCondensedHeight);
+  }
+  /* .audioPlayer.condensed .timer,
+  .audioPlayer.condensed .duration, */
+  .audioPlayer.condensed .prevBtn,
+  .audioPlayer.condensed .nextBtn {
+      display: none;
+  }
+  .audioPlayer.condensed .bar {
+      visibility: hidden;
+  }
+  .audioPlayer.condensed .waveform {
+      bottom: 2.25em;
+  }
+
+  .select-audio-player-playlist {
+    padding-left: 1em;
   }
   
   /* Top Info */
