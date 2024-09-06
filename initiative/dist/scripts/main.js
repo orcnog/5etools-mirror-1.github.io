@@ -160,12 +160,6 @@ async function updateMusicPlaylist (playlistID) {
 async function updateAmbiencePlaylist (playlistID) {
     let thisPlaylistArray = ambienceListJSON[playlistID]
     if (thisPlaylistArray) {
-        // Transform the playlist array into the desired JSON object format
-        thisPlaylistArray = thisPlaylistArray.map(filePath => ({
-            title: filePath.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
-            file: filePath,
-            howl: null
-        }));
         if (Ambience) {
             Ambience.updatePlaylist(thisPlaylistArray)
         } else {
