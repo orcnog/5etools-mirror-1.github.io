@@ -611,38 +611,23 @@ function setupDomAndEventListeners() {
         }
     }
 
-    // function handleDictationMouseDown(e) {
-    //     e.preventDefault()
-    //     handleMicOn()
-    //     this.classList.add('active')
-    // }
-    
-    // function handleDictationMouseUp(e) {
-    //     e.preventDefault()
-    //     handleMicOff()
-    //     this.classList.remove('active')
-    // }
-    
-    // function handleDictationTouchStart(e) {
-    //     e.preventDefault()
-    //     handleMicOn()
-    //     this.classList.add('active')
-    // }
-    
-    // function handleDictationTouchEnd(e) {
-    //     e.preventDefault()
-    //     handleMicOff()
-    //     this.classList.remove('active')
-    // }
-
     function handleMicOn() {
         if (micAllowed) {
-            if (Music && musicOn) {
-                // if music is playing, lower it or pause it before turning on the mic
-                if (isiOS && Music.html5) Music.pause() // if we're in iOS, pause. there's an issue with Music.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
-                else Music.fadeDown()
-            }
+            if (musicOn && Music.playing) {
                 
+                // TODO: If I can get this to work, go for it... otherwise, I think the fade-down might just be a little ambitious.
+                // if music is playing, lower it or pause it before turning on the mic
+                // if (isiOS && Music.html5) Music.pause(false) // if we're in iOS, pause. there's an issue with Music.fadeDown() causing iOS to bump the volume WAY UP... TOFIX
+                // else Music.fadeDown()
+
+                // If music is playing, pause it before turning on the mic - TODO: keep the audio icon in an active state during this pause? Its the onPause handler that is turning it to an inactive state.
+                Music.pause(false)
+            }
+            if (musicOn && Ambience.playing) {
+                // If ambience is playing, pause it before turning on the mic - TODO: keep the audio icon in an active state during this pause? Its the onPause handler that is turning it to an inactive state.
+                Ambience.pause(false)
+            }
+            
             document.getElementById('startDictation').classList.add('active')
             if (!useOpenAI && 'start' in recognition) {
                 recognition.start()
@@ -657,19 +642,27 @@ function setupDomAndEventListeners() {
     
     function handleMicOff() {
         if (micAllowed) {
-            if (Music && musicOn) {
-                // if music was playing, fade it back in or unpause after turning off the mic
-                if (isiOS && Music.html5) Music.play()
-                else Music.fadeUp()
-            }
-            document.getElementById('startDictation').classList.remove('active')
-            document.getElementById('startDictation').classList.add('thinking')
-            document.getElementById('startDictation').disabled = true
             if (!useOpenAI && 'stop' in recognition) {
                 recognition.stop()
             } else {
                 stopRecording()
             }
+            if (Music && musicOn) {
+
+                // TODO: If I can get this to work, go for it... otherwise, I think the fade-down might just be a little ambitious.
+                // if music was playing, fade it back in or unpause after turning off the mic
+                // if (isiOS && Music.html5) Music.play()
+                // else Music.fadeUp()
+
+                // if music was playing, fade it back in or unpause after turning off the mic
+                Music.play()
+            }
+            if (Ambience && musicOn) {
+                Ambience.play()
+            }
+            document.getElementById('startDictation').classList.remove('active')
+            document.getElementById('startDictation').classList.add('thinking')
+            document.getElementById('startDictation').disabled = true
         }
         console.debug('Mic button released, or toggled off')
     }
@@ -765,11 +758,19 @@ function stopRecording() {
 
         if (duration < minRecordingTime) {
             console.warn(`Speech duration is less than ${minRecordingTime} seconds. Will not submit.`)
+            document.getElementById('finalTranscript').textContent = ''
+            document.getElementById('interimOutput').classList.remove('active')
+            document.getElementById('startDictation').classList.remove('thinking', 'active', 'disabled')
+            document.getElementById('startDictation').disabled = false
             return;
         }
 
         if (duration > maxRecordingTime) {
             console.warn(`Speech duration is greater than ${maxRecordingTime} seconds. Will not submit.`)
+            document.getElementById('finalTranscript').textContent = ''
+            document.getElementById('interimOutput').classList.remove('active')
+            document.getElementById('startDictation').classList.remove('thinking', 'active', 'disabled')
+            document.getElementById('startDictation').disabled = false
             return;
         }
 
@@ -804,6 +805,11 @@ function stopRecording() {
             let results = data.text
             console.log(`"${results}"`)
             
+            if (results === 'Thank you for watching!') {
+                // handle a specific result that seems to occur when OpenAI transcribed no text.
+                console.error('no words detected by openai')
+                return
+            }
             let interpretedTranscript = parseInput(results)
             interpretedTranscript = trimIncompletePattern(interpretedTranscript)
             console.info(`Parsed results: ${interpretedTranscript}`)

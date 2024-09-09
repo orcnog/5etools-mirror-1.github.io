@@ -307,7 +307,11 @@ class HowlerPlayer {
                     self.bar.style.display = 'block'
                     self.playing = false
                     
-                    if (typeof self.onPause === 'function') self.onPause()
+                    if (!self.preventCustomPauseHandler && typeof self.onPause === 'function') {
+                        self.onPause()
+                    } else {
+                        self.preventCustomPauseHandler = false
+                    }
                 },
                 onstop: function () {
                     // Stop the wave animation.
@@ -346,16 +350,20 @@ class HowlerPlayer {
         self.index = index
     }
 
-    pause() {
+    async pause(allowCustomPauseHandler) {
         var self = this
-
+        const preventPauseHandler = allowCustomPauseHandler === false // param must be explicitly false
         // Get the Howl we want to manipulate.
         var data = self.playlist?.[self.index]
         var sound = data?.howl
 
-        // Pause the sound.
-        sound.pause()
-        self.silence.pause()
+        if (sound) {
+            self.preventCustomPauseHandler = preventPauseHandler 
+            // Pause the sound.
+            await sound.pause()
+            await self.silence.pause()
+            //preventCustomPauseHandler will be reset to false in the onPause() pause handler.
+        }
 
         // Show the play button.
         self.playBtn.style.display = 'block'
@@ -369,7 +377,7 @@ class HowlerPlayer {
         var sound = self.playlist?.[self.index]?.howl
 
         if (sound) {
-            // Pause the sound.
+            // Stop the sound.
             sound.stop()
             self.silence.stop()
         }
