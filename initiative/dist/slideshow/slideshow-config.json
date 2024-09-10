@@ -30,15 +30,45 @@
                 "playlist": "sw_exploration"
             },
             {
+                "image": "./slideshow/ventalor/alien-jungle.webp",
+                "caption": "Unnamed Planet",
+                "subcap": "At the coordinates of the lost temple",
+                "playlist": "sw_exploration"
+            },
+            {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
                 "caption": "Ancient Hieroglyphs",
                 "subcap": "Meaning: unknown",
                 "playlist": "sw_exploration"
             },
             {
-                "image": "./slideshow/ventalor/ventalor.webp",
+                "image": "./slideshow/ventalor/jungle-stones-in-a-row.webp",
+                "caption": "Mysterious Stones",
+                "subcap": "In the jungles of the unnamed planet",
+                "playlist": "sw_exploration"
+            },
+            {
+                "image": "./slideshow/ventalor/rodent-fruit.webp",
+                "playlist": "sw_exploration"
+            },
+            {
+                "image": "./slideshow/ventalor/motes-rising-from-stone.webp",
+                "playlist": "sw_exploration"
+            },
+            {
+                "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
+                "playlist": "sw_exploration"
+            },
+            {
+                "image": "./slideshow/ventalor/temple-with-symbols2.webp",
                 "caption": "Ven'Talor",
                 "subcap": "The Lost Jedi Temple",
+                "playlist": "sw_mission_briefing"
+            },
+            {
+                "image": "./slideshow/ventalor/ventalor2.webp",
+                "caption": "Ven'Talor",
+                "subcap": "The Lost Jedi Temple: Interior",
                 "playlist": "sw_exploration"
             },
             {
