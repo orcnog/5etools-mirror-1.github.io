@@ -308,7 +308,6 @@ function rehydrateSettings() {
 
     /* Rehydrate the next slide to show from cookie */
     const cookieNextSlideToShowValue = getCookie('slideshowNextSlidePreference') || '1'
-    document.getElementById('slideshowNextSlide').value = parseInt(cookieNextSlideToShowValue)
     populateSelectWithSlideNumbers()
     updateNextSlideToShow(cookieNextSlideToShowValue)
 
@@ -2187,6 +2186,7 @@ async function fetchJSON(url) {
 function updateNextSlideToShow (newVal) {
     document.getElementById('sceneBtn').href = `#${newVal}`
     document.getElementById('sceneBtn').dataset.slide = newVal
+    document.getElementById('slideshowNextSlide').value = parseInt(newVal)
     setCookie('slideshowNextSlidePreference', newVal)
 }
 
