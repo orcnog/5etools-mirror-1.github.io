@@ -18,13 +18,21 @@
                 "caption": "Unknown Planet",
                 "subcap": "Location of the Lost Jedi Temple",
                 "playlist": "sw_dogfight",
-                "ambience": "sw_chatter_dogfight"
+                "ambience": {
+                    "playlist": "sw_chatter_dogfight",
+                    "initialVolume": 0.3
+                }
             },
             {
                 "image": "./slideshow/derelictship/half-destroyed-derelict-ship.webp",
                 "caption": "Destroyed Ship",
                 "subcap": "Corellian CR90 Stealth Corvette",
-                "playlist": "sw_exploration"
+                "playlist": "sw_exploration",
+                "ambience": {
+                    "playlist": "sw_dogfight",
+                    "initialVolume": 0.5,
+                    "track": 3
+                }
             },
             {
                 "url": "./slideshow/shipconsole",
@@ -35,7 +43,9 @@
                 "caption": "Unnamed Planet",
                 "subcap": "At the coordinates of the lost temple",
                 "playlist": "sw_exploration",
-                "ambience": "dnd_swamp"
+                "ambience": {
+                    "playlist": "dnd_swamp"
+                }
             },
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
@@ -48,17 +58,23 @@
                 "caption": "Mysterious Stones",
                 "subcap": "In the jungles of the unnamed planet",
                 "playlist": "sw_exploration",
-                "ambience": "dnd_swamp"
+                "ambience": {
+                    "playlist": "dnd_swamp"
+                }
             },
             {
                 "image": "./slideshow/ventalor/rodent-fruit.webp",
                 "playlist": "sw_exploration",
-                "ambience": "dnd_swamp"
+                "ambience": {
+                    "playlist": "dnd_swamp"
+                }
             },
             {
                 "image": "./slideshow/ventalor/motes-rising-from-stone.webp",
                 "playlist": "sw_exploration",
-                "ambience": "dnd_swamp"
+                "ambience": {
+                    "playlist": "dnd_swamp"
+                }
             },
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",

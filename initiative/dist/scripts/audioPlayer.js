@@ -11,7 +11,7 @@
 import './siriwave.js'
 
 class HowlerPlayer {
-    constructor({ id, playlist = [], loop = false, html5 = false, globalVolume = 0.4 } = {}) {
+    constructor({ id, playlist = [], startingTrack = 0, loop = false, html5 = false, globalVolume = 0.4 } = {}) {
         if (!id) {
             console.error('HowlerPlayer must be instantiated with an element ID');
             return;
@@ -35,7 +35,7 @@ class HowlerPlayer {
             this[elm] = element
         }, this)
 
-        this.index = 0
+        this.index = startingTrack
         this.fadeUpReturnToVolume = 0.4
         this.isFading = false
         this.shuffleEnabled = false
@@ -215,6 +215,7 @@ class HowlerPlayer {
 
             // Begin playing the sound.
             const soundId = await sound.play()
+            sound.id = soundId // store it in case we need it later (which we do, for volume)
 
             // Set the initial volume, defaulting to the current volume slider value if not provided.
             initialVolume = initialVolume !== null ? initialVolume : self.volumeSlider.value / 100;
@@ -223,6 +224,7 @@ class HowlerPlayer {
                 // If fadeIn is set, start volume at 0 and fade to initialVolume over the given duration.
                 await sound.volume(0, soundId); // Start volume at 0
                 setTimeout(() => { sound.fade(0, initialVolume, fadeIn, soundId) }, delay); // Fade from 0 to initialVolume
+
             } else {
                 // If fadeIn is 0, just set the volume directly.
                 sound.volume(initialVolume, soundId);
@@ -419,35 +421,30 @@ class HowlerPlayer {
     /**
      * Fade the current track down to a very low volume.
      */
-    async fadeDown() {
+    async fadeDown(doAfter) {
         var self = this
         var sound = self.playlist[self.index]?.howl
 
         return new Promise((resolve) => {
-            console.log('fadeDown Promise started')
             if (sound && sound.playing() && !self.isFading) {
                 // Store the current volume
-                self.fadeUpReturnToVolume = sound.volume()
+                self.fadeUpReturnToVolume = sound.volume(sound.id)
 
                 // Mark that the sound is currently fading...
                 self.isFading = true
     
+                console.debug('VOL before fade: '+sound.volume(sound.id))
                 // Fade the volume down to 0.01 over 1 second
                 sound.fade(self.fadeUpReturnToVolume, 0.01, 1000)
     
-                // After fade ends, resolve promise
-                // self.onFadeTempFn = () => {
-                //     self.onFadeTempFn = null
-                //     setTimeout(resolve, 1)
-                // }
                 sound.once('fade', ()=>{
-                    console.log('fade event. Promise resolving...')
+                    console.debug('VOL after fade: '+sound.volume(sound.id))
+                    if (typeof doAfter === 'function') doAfter(sound)
                     resolve()
-                    // return
                 })
                 setTimeout(()=> {
-                    console.log('fade circuitbreaker triggered')
                     self.isFading = false
+                    if (typeof doAfter === 'function') doAfter(sound)
                     resolve()
                 }, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
             } else {
@@ -660,7 +657,7 @@ class HowlerPlayer {
         }
     }
 
-    async updatePlaylist(newPlaylist) {
+    async updatePlaylist(newPlaylist, trackIndex) {
         var self = this
 
         // Transform the playlist array into the desired JSON object format
@@ -684,11 +681,13 @@ class HowlerPlayer {
         // Update to the new playlist
         self.playlist = formattedPlaylistArray
 
+        const index = trackIndex || 0
+
         // Set up shuffled playlist, in case Shuffle is On
         self.setShuffledPlaylist()
         
         // Reset the index
-        self.index = self.shuffleEnabled ? self.playlist.indexOf(self.shuffledPlaylist[0]) : 0
+        self.index = self.shuffleEnabled ? self.playlist.indexOf(self.shuffledPlaylist[index]) : index
 
         // Update the playlist display
         self.setupPlaylistDisplay()

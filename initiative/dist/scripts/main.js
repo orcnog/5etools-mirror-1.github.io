@@ -123,10 +123,11 @@ async function setupMusicPlayer (playlistArray) {
     }
 }
 
-async function setupAmbiencePlayer (playlistArray) {
+async function setupAmbiencePlayer (playlistArray, startingTrackNum) {
     Ambience = new HowlerPlayer({
         id: 'ambiencePlayer',
         playlist: playlistArray,
+        startingTrack: startingTrackNum,
         loop: true,
         html5: false
     })
@@ -157,13 +158,14 @@ async function updateMusicPlaylist (playlistID) {
     }
 }
 
-async function updateAmbiencePlaylist (playlistID) {
+async function updateAmbiencePlaylist (playlistID, trackNum) {
     let thisPlaylistArray = ambienceListJSON[playlistID]
+    let startingTrackNum = trackNum || 0
     if (thisPlaylistArray) {
         if (Ambience) {
-            Ambience.updatePlaylist(thisPlaylistArray)
+            Ambience.updatePlaylist(thisPlaylistArray, startingTrackNum)
         } else {
-            setupAmbiencePlayer(thisPlaylistArray)
+            setupAmbiencePlayer(thisPlaylistArray, startingTrackNum)
         }
     } else if (playlistID === '') {
         Ambience.updatePlaylist([])
@@ -2481,9 +2483,10 @@ async function updateSlideBasedOnHash(e) {
             if (Ambience.playing) {
                 await Ambience.fadeDown()
             }
-            if (ambienceToLoad) {
-                await updateAmbiencePlaylist(ambienceToLoad)
-                Ambience.play({fadeIn: 5000, delay: 1000, allowCustomPlayHandler: false})
+            if (ambienceToLoad && ambienceToLoad.playlist) {
+                await updateAmbiencePlaylist(ambienceToLoad.playlist, ambienceToLoad.track)
+                const initialVolume = ambienceToLoad.initialVolume
+                Ambience.play({delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
             }
             if (Music.playing) {
                 await Music.fadeDown()
