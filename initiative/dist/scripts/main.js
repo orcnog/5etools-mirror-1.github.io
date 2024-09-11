@@ -2483,7 +2483,7 @@ async function updateSlideBasedOnHash(e) {
             }
             if (ambienceToLoad) {
                 await updateAmbiencePlaylist(ambienceToLoad)
-                Ambience.play({fadeIn: 5000, delay: 1000})
+                Ambience.play({fadeIn: 5000, delay: 1000, allowCustomPlayHandler: false})
             }
             if (Music.playing) {
                 await Music.fadeDown()
