@@ -11,6 +11,10 @@
     --mic-outline-focus: rgba(255, 16, 17, 0.5);
 }
 
+.ambience-player {
+    background-color: rgba(25, 0, 0, 0.5);
+}
+
 @font-face {
     font-family: "Space Frigate";
     font-style: normal;
