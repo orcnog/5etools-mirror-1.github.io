@@ -56,5 +56,24 @@
     ],
     "dnd_swamp": [
         "./audio/ambience/dnd/swamp/swamp.mp3"
+    ],
+    "sw_chatter_dogfight": [
+        "./audio/ambience/starwars/chatter_dogfight/garbled_radio_chatter.mp3"
+    ],
+    "sw_chatter_stormtrooper": [
+        "./audio/ambience/starwars/chatter_stormtrooper/stormtrooper_chatter_long.mp3"
+    ],
+    "sw_dogfight": [
+        "./audio/ambience/starwars/dogfight/dogfight_intense_1.mp3",
+        "./audio/ambience/starwars/dogfight/dogfight_intense_2.mp3",
+        "./audio/ambience/starwars/dogfight/tie_fighter_flybys.mp3",
+        "./audio/ambience/starwars/dogfight/x-wing_startup_and_flight.mp3"
+    ],
+    "sw_fighting_blasters": [
+        "./audio/ambience/starwars/fighting_blasters/blaster_fighting_sounds.mp3"
+    ],
+    "sw_fighting_lightsabers": [
+        "./audio/ambience/starwars/fighting_lightsabers/jedi_duel.mp3"
     ]
+
 }
