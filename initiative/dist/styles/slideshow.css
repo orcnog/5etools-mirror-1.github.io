@@ -57,12 +57,13 @@ figure.slideshow-image {
 }
 
 figure.slideshow-image img {
-    width: 1000vw; /* ensure it's more than big enough */
-    max-width: 100%; /* then, cap its max width and height to no bigger than the screen */
-    max-height: 100%;
     display: block;
     -webkit-user-select: none;
     margin: auto;
+    width: 1000vw; /* ensure it's more than big enough */
+    max-width: 100%; /* then, cap its max width and height to no bigger than the screen */
+    max-height: 100%;
+    object-fit: cover;
 }
 
 .illegible-text,
