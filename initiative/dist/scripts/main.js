@@ -1219,7 +1219,7 @@ async function handleMusicBtnClick() {
         musicOn = true
         document.body.classList.add('music-on')
         await Music.playRandom()
-        await Ambience.play()
+        await Ambience.play({fadeIn: 5000})
     }
 }
 
@@ -2447,13 +2447,19 @@ async function updateSlideBasedOnHash(e) {
     if (/^$|^#0?$/.test(hash)) {
         loadScreen('INITIATIVE')
         console.log('Loading Initiative board.')
-        if (Music && e) {
-            await Music.fadeDown()
-            await updateMusicPlaylist(combatPlaylist)
-            if (musicOn) {
-                await Music.playRandom()
-            } else {
-                await Music.stop()
+        if (e) {
+            if (Music) {
+                await Music.fadeDown()
+                await updateMusicPlaylist(combatPlaylist)
+                if (musicOn) {
+                    await Music.playRandom()
+                } else {
+                    await Music.stop()
+                }
+            }
+            if (Ambience) {
+                await Ambience.fadeDown()
+                await Ambience.stop()
             }
         }
     } else {
@@ -2477,14 +2483,14 @@ async function updateSlideBasedOnHash(e) {
             }
             if (ambienceToLoad) {
                 await updateAmbiencePlaylist(ambienceToLoad)
-                Ambience.play()
+                Ambience.play({fadeIn: 5000, delay: 1000})
             }
             if (Music.playing) {
                 await Music.fadeDown()
             }
             if (playlistToLoad) {
                 await updateMusicPlaylist(playlistToLoad)
-                Music.playRandom()
+                Music.playRandom({ allowCustomPlayHandler: false })
                 
             }
         } else {

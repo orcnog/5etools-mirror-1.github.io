@@ -197,8 +197,9 @@ class HowlerPlayer {
         }
     }
 
-    async play(index) {
+    async play({index = 0, initialVolume = null, fadeIn = 0, delay = 0, allowCustomPlayHandler = true} = {}) {
         var self = this
+        const preventPlayHandler = allowCustomPlayHandler === false // param must be explicitly false
 
         // Get the Howl we want to manipulate.
         var sound = self.playlist?.[self.index]?.howl
@@ -210,12 +211,22 @@ class HowlerPlayer {
             // Before playing the sound, start playing/streaming a silent sound file first, which then allows iOS to control volume on other tracks. (don't ask!?)
             await self.silence.play()
 
+            self.preventCustomPlayHandler = preventPlayHandler 
+
             // Begin playing the sound.
             const soundId = await sound.play()
 
-            // Howler.volume(1)
-            // var soundId = sound._sounds[0]?._id
-            sound.volume(self.volumeSlider.value / 100, soundId)
+            // Set the initial volume, defaulting to the current volume slider value if not provided.
+            initialVolume = initialVolume !== null ? initialVolume : self.volumeSlider.value / 100;
+
+            if (fadeIn > 0) {
+                // If fadeIn is set, start volume at 0 and fade to initialVolume over the given duration.
+                await sound.volume(0, soundId); // Start volume at 0
+                setTimeout(() => { sound.fade(0, initialVolume, fadeIn, soundId) }, delay); // Fade from 0 to initialVolume
+            } else {
+                // If fadeIn is 0, just set the volume directly.
+                sound.volume(initialVolume, soundId);
+            }
 
             // Update the track display.
             self.track.innerHTML = (index + 1) + '. ' + data.title
@@ -269,8 +280,12 @@ class HowlerPlayer {
                     self.pauseBtn.style.display = 'block'
                     self.playing = true
                     console.info(`Playing: ${data.title}`)
-
-                    if (typeof self.onPlay === 'function') self.onPlay()
+                    
+                    if (!self.preventCustomPlayHandler && typeof self.onPlay === 'function') {
+                        self.onPlay()
+                    } else {
+                        self.preventCustomPlayHandler = false
+                    }
                 },
                 onplayerror: function (id, e) {
                     console.error(`Play error! ${e}`)
@@ -473,7 +488,7 @@ class HowlerPlayer {
     /**
      * Play a random track from the playlist.
      */
-    async playRandom() {
+    async playRandom({index = 0, initialVolume = null, fadeIn = 0, delay = 0, allowCustomPlayHandler = true} = {}) {
         var self = this
         if (!this.shuffleEnabled) {
             await self.shuffle()
@@ -486,7 +501,7 @@ class HowlerPlayer {
         } else {
             self.skip('next')
         }
-        await self.play()
+        await self.play({index, initialVolume, fadeIn, delay, allowCustomPlayHandler})
     }
 
     /**
@@ -539,7 +554,7 @@ class HowlerPlayer {
 
         // Load the new track.
         await self.loadTrack(index)
-        if (playNext) await self.play(index)
+        if (playNext) await self.play({index})
     }
 
     volume(val, event) {
