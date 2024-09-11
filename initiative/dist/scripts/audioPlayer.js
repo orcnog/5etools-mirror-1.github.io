@@ -200,12 +200,14 @@ class HowlerPlayer {
     async play({index = 0, initialVolume = null, fadeIn = 0, delay = 0, allowCustomPlayHandler = true} = {}) {
         var self = this
         const preventPlayHandler = allowCustomPlayHandler === false // param must be explicitly false
+        
+        index = typeof index === 'number' ? index : self.index
+        self.index = index
+        await self.loadTrack(self.index)
 
         // Get the Howl we want to manipulate.
         var sound = self.playlist?.[self.index]?.howl
-
-        index = typeof index === 'number' ? index : self.index
-        var data = self.playlist?.[index]
+        var data = self.playlist?.[self.index]
 
         if (data) {
             // Before playing the sound, start playing/streaming a silent sound file first, which then allows iOS to control volume on other tracks. (don't ask!?)

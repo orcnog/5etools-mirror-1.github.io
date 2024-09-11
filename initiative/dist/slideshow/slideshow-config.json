@@ -5,19 +5,25 @@
         "scenes": [
             {
                 "image": "./slideshow/opening/01 game_background_image.webp",
-                "playlist": "sw_opening"
+                "music": {
+                    "playlist": "sw_opening"
+                }
             },
             {
                 "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
                 "caption": "Mission Briefing",
                 "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
-                "playlist": "sw_mission_briefing"
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
             },
             {
                 "image": "./slideshow/planetapproach/ringed-planet-approach.webp",
                 "caption": "Unknown Planet",
                 "subcap": "Location of the Lost Jedi Temple",
-                "playlist": "sw_dogfight",
+                "music": {
+                    "playlist": "sw_dogfight"
+                },
                 "ambience": {
                     "playlist": "sw_chatter_dogfight",
                     "initialVolume": 0.3
@@ -27,7 +33,9 @@
                 "image": "./slideshow/derelictship/half-destroyed-derelict-ship.webp",
                 "caption": "Destroyed Ship",
                 "subcap": "Corellian CR90 Stealth Corvette",
-                "playlist": "sw_exploration",
+                "music": {
+                    "playlist": "sw_exploration"
+                },
                 "ambience": {
                     "playlist": "sw_dogfight",
                     "initialVolume": 0.5,
@@ -36,13 +44,17 @@
             },
             {
                 "url": "./slideshow/shipconsole",
-                "playlist": "sw_exploration"
+                "music": {
+                    "playlist": "sw_exploration"
+                }
             },
             {
                 "image": "./slideshow/ventalor/alien-jungle.webp",
                 "caption": "Unnamed Planet",
                 "subcap": "At the coordinates of the lost temple",
-                "playlist": "sw_exploration",
+                "music": {
+                    "playlist": "sw_exploration"
+                },
                 "ambience": {
                     "playlist": "dnd_swamp"
                 }
@@ -51,61 +63,83 @@
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
                 "caption": "Ancient Hieroglyphs",
                 "subcap": "Meaning: unknown",
-                "playlist": "sw_exploration"
+                "music": {
+                    "playlist": "sw_exploration"
+                }
             },
             {
                 "image": "./slideshow/ventalor/jungle-stones-in-a-row.webp",
                 "caption": "Mysterious Stones",
                 "subcap": "In the jungles of the unnamed planet",
-                "playlist": "sw_exploration",
+                "music": {
+                    "playlist": "sw_exploration"
+                },
                 "ambience": {
                     "playlist": "dnd_swamp"
                 }
             },
             {
                 "image": "./slideshow/ventalor/rodent-fruit.webp",
-                "playlist": "sw_exploration",
+                "music": {
+                    "playlist": "sw_exploration"
+                },
                 "ambience": {
                     "playlist": "dnd_swamp"
                 }
             },
             {
                 "image": "./slideshow/ventalor/motes-rising-from-stone.webp",
-                "playlist": "sw_exploration",
+                "music": {
+                    "playlist": "sw_exploration"
+                },
                 "ambience": {
                     "playlist": "dnd_swamp"
                 }
             },
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
-                "playlist": "sw_exploration"
+                "music": {
+                    "playlist": "sw_exploration"
+                }
             },
             {
                 "image": "./slideshow/ventalor/temple-with-symbols2.webp",
                 "caption": "Ven'Talor",
                 "subcap": "The Lost Jedi Temple",
-                "playlist": "sw_mission_briefing"
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
             },
             {
                 "image": "./slideshow/ventalor/ventalor2.webp",
                 "caption": "Ven'Talor",
                 "subcap": "The Lost Jedi Temple: Interior",
-                "playlist": "sw_exploration"
+                "music": {
+                    "playlist": "sw_exploration"
+                }
             },
             {
                 "url": "./slideshow/templeconsole",
-                "playlist": "sw_exploration"
+                "music": {
+                    "playlist": "sw_exploration"
+                }
             },
             {
                 "image": "./slideshow/greatlibrary/greatlibrary.webp",
                 "caption": "The Great Library of Ven'Talor",
-                "playlist": "sw_victory"
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 0
+                }
             },
             {
                 "image": "./slideshow/final/final.webp",
                 "caption": "THE END",
                 "subcap": "May the Force Be With You!",
-                "playlist": "sw_victory"
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 1
+                }
             }
         ]
     },

@@ -158,14 +158,13 @@ async function updateMusicPlaylist (playlistID) {
     }
 }
 
-async function updateAmbiencePlaylist (playlistID, trackNum) {
+async function updateAmbiencePlaylist (playlistID) {
     let thisPlaylistArray = ambienceListJSON[playlistID]
-    let startingTrackNum = trackNum || 0
     if (thisPlaylistArray) {
         if (Ambience) {
-            Ambience.updatePlaylist(thisPlaylistArray, startingTrackNum)
+            Ambience.updatePlaylist(thisPlaylistArray)
         } else {
-            setupAmbiencePlayer(thisPlaylistArray, startingTrackNum)
+            setupAmbiencePlayer(thisPlaylistArray)
         }
     } else if (playlistID === '') {
         Ambience.updatePlaylist([])
@@ -2467,7 +2466,7 @@ async function updateSlideBasedOnHash(e) {
     } else {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
-        const playlistToLoad = sceneToLaunch?.playlist ?? null
+        const musicToLoad = sceneToLaunch?.music ?? null
         const ambienceToLoad = sceneToLaunch?.ambience ?? null
         if (sceneToLaunch) {
             if (sceneToLaunch.url) {
@@ -2484,16 +2483,21 @@ async function updateSlideBasedOnHash(e) {
                 await Ambience.fadeDown()
             }
             if (ambienceToLoad && ambienceToLoad.playlist) {
-                await updateAmbiencePlaylist(ambienceToLoad.playlist, ambienceToLoad.track)
+                await updateAmbiencePlaylist(ambienceToLoad.playlist)
                 const initialVolume = ambienceToLoad.initialVolume
-                Ambience.play({delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
+                Ambience.play({index: ambienceToLoad.track, delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
             }
             if (Music.playing) {
                 await Music.fadeDown()
             }
-            if (playlistToLoad) {
-                await updateMusicPlaylist(playlistToLoad)
-                Music.playRandom({ allowCustomPlayHandler: false })
+            if (musicToLoad && musicToLoad.playlist) {
+                await updateMusicPlaylist(musicToLoad.playlist)
+                const initialVolume = musicToLoad.initialVolume
+                if (musicToLoad.track ) {
+                    Music.play({index: musicToLoad.track, initialVolume, allowCustomPlayHandler: false })
+                } else {
+                    Music.playRandom({ initialVolume, allowCustomPlayHandler: false })
+                }
                 
             }
         } else {
