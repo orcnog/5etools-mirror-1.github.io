@@ -153,7 +153,7 @@ async function updateMusicPlaylist (playlistID) {
     } else if (playlistID === '') {
         Music.updatePlaylist([])
     } else {
-        console.warn('No playlist by that name in playlist JSON file(s).')
+        console.warn(`No playlist by the name ${playlistID} in playlist JSON file(s).`)
     }
 }
 
@@ -168,7 +168,7 @@ async function updateAmbiencePlaylist (playlistID) {
     } else if (playlistID === '') {
         Ambience.updatePlaylist([])
     } else {
-        console.warn('No playlist by that name in playlist JSON file(s).')
+        console.warn(`No playlist by the name ${playlistID} in ambience JSON file(s).`)
     }
 }
 
