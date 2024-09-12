@@ -35,11 +35,6 @@
                 "subcap": "Corellian CR90 Stealth Corvette",
                 "music": {
                     "playlist": "sw_exploration"
-                },
-                "ambience": {
-                    "playlist": "sw_dogfight",
-                    "initialVolume": 0.5,
-                    "track": 3
                 }
             },
             {
