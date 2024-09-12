@@ -105,10 +105,11 @@ async function fetchAudioPlaylists () {
     ambienceListJSON = await fetchJSON('./audio/ambience.json')
 }
 
-async function setupMusicPlayer (playlistArray) {
+async function setupMusicPlayer (playlistArray, playlistID) {
     Music = new HowlerPlayer({
         id: 'musicPlayer',
         playlist: playlistArray,
+        playlistId: playlistID,
         html5: false
     })
     Music.onPlay = function() {
@@ -147,9 +148,9 @@ async function updateMusicPlaylist (playlistID) {
     let thisPlaylistArray = playlistJSON[playlistID]
     if (thisPlaylistArray) {
         if (Music) {
-            Music.updatePlaylist(thisPlaylistArray)
+            Music.updatePlaylist(thisPlaylistArray, playlistID)
         } else {
-            setupMusicPlayer(thisPlaylistArray)
+            setupMusicPlayer(thisPlaylistArray, playlistID)
         }
     } else if (playlistID === '') {
         Music.updatePlaylist([])
@@ -162,9 +163,9 @@ async function updateAmbiencePlaylist (playlistID) {
     let thisPlaylistArray = ambienceListJSON[playlistID]
     if (thisPlaylistArray) {
         if (Ambience) {
-            Ambience.updatePlaylist(thisPlaylistArray)
+            Ambience.updatePlaylist(thisPlaylistArray, playlistID)
         } else {
-            setupAmbiencePlayer(thisPlaylistArray)
+            setupAmbiencePlayer(thisPlaylistArray, playlistID)
         }
     } else if (playlistID === '') {
         Ambience.updatePlaylist([])
@@ -2450,7 +2451,8 @@ async function updateSlideBasedOnHash(e) {
         console.log('Loading Initiative board.')
         if (e) {
             if (Music) {
-                await Music.fadeDown()
+                await Music.fadeTo(0)
+                await Music.stop(false)
                 await updateMusicPlaylist(combatPlaylist)
                 if (musicOn) {
                     await Music.playRandom()
@@ -2459,15 +2461,17 @@ async function updateSlideBasedOnHash(e) {
                 }
             }
             if (Ambience) {
-                await Ambience.fadeDown()
-                await Ambience.stop()
+                await Ambience.fadeTo(0)
+                await Ambience.stop(false)
             }
         }
     } else {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
         const musicToLoad = sceneToLaunch?.music ?? null
+        const musicToLoadIsAlreadyPlaying = Music.playing && Music.playlistId === musicToLoad?.playlist
         const ambienceToLoad = sceneToLaunch?.ambience ?? null
+        const ambienceToLoadIsAlreadyPlaying = Ambience.playing && Ambience.playlistId === ambienceToLoad?.playlist
         if (sceneToLaunch) {
             if (sceneToLaunch.url) {
                 loadScreen(sceneToLaunch.url);
@@ -2479,26 +2483,31 @@ async function updateSlideBasedOnHash(e) {
                     show_exotic_font: !!slideshow?.exoticfont
                 })
             }
-            if (Ambience.playing) {
-                await Ambience.fadeDown()
-            }
-            if (ambienceToLoad && ambienceToLoad.playlist) {
-                await updateAmbiencePlaylist(ambienceToLoad.playlist)
-                const initialVolume = ambienceToLoad.initialVolume
-                Ambience.play({index: ambienceToLoad.track, delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
-            }
-            if (Music.playing) {
-                await Music.fadeDown()
-            }
-            if (musicToLoad && musicToLoad.playlist) {
-                await updateMusicPlaylist(musicToLoad.playlist)
-                const initialVolume = musicToLoad.initialVolume
-                if (musicToLoad.track ) {
-                    Music.play({index: musicToLoad.track, initialVolume, allowCustomPlayHandler: false })
-                } else {
-                    Music.playRandom({ initialVolume, allowCustomPlayHandler: false })
+            if (!ambienceToLoadIsAlreadyPlaying) {
+                if (Ambience.playing) {
+                    await Ambience.fadeTo(0)
+                    Ambience.stop(false)
                 }
-                
+                if (ambienceToLoad?.playlist) {
+                    await updateAmbiencePlaylist(ambienceToLoad.playlist)
+                    const initialVolume = ambienceToLoad.initialVolume
+                    Ambience.play({index: ambienceToLoad.track, delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
+                }
+            }
+            if (!musicToLoadIsAlreadyPlaying) {
+                if (Music.playing) {
+                    await Music.fadeDown()
+                    Music.stop(false)
+                }
+                if (musicToLoad?.playlist) {
+                    await updateMusicPlaylist(musicToLoad.playlist)
+                    const initialVolume = musicToLoad.initialVolume
+                    if (musicToLoad.track ) {
+                        Music.play({index: musicToLoad.track, initialVolume, allowCustomPlayHandler: false })
+                    } else {
+                        Music.playRandom({ initialVolume, allowCustomPlayHandler: false })
+                    }
+                }
             }
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);

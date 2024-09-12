@@ -11,7 +11,7 @@
 import './siriwave.js'
 
 class HowlerPlayer {
-    constructor({ id, playlist = [], startingTrack = 0, loop = false, html5 = false, globalVolume = 0.4 } = {}) {
+    constructor({ id, playlist = [], playlistId = '', startingTrack = 0, loop = false, html5 = false, globalVolume = 0.4 } = {}) {
         if (!id) {
             console.error('HowlerPlayer must be instantiated with an element ID');
             return;
@@ -19,6 +19,7 @@ class HowlerPlayer {
 
         this.id = id
         this.playlist = playlist
+        this.playlistId = playlistId
         this.loop = loop
         this.html5 = html5
         this.globalVolume = globalVolume
@@ -338,7 +339,11 @@ class HowlerPlayer {
                     self.bar.style.display = 'block'
                     self.playing = false
                     
-                    if (typeof self.onStop === 'function') self.onStop()
+                    if (!self.preventCustomStopHandler && typeof self.onStop === 'function') {
+                        self.onStop()
+                    } else {
+                        self.preventCustomStopHandler = false
+                    }
                 },
                 onseek: function () {
                     // Start updating the progress of the track.
@@ -373,11 +378,11 @@ class HowlerPlayer {
         var self = this
         const preventPauseHandler = allowCustomPauseHandler === false // param must be explicitly false
         // Get the Howl we want to manipulate.
-        var data = self.playlist?.[self.index]
-        var sound = data?.howl
+
+        var sound = self.playlist?.[self.index]?.howl
 
         if (sound) {
-            self.preventCustomPauseHandler = preventPauseHandler 
+            self.preventCustomPauseHandler = preventPauseHandler
             // Pause the sound.
             await sound.pause()
             await self.silence.pause()
@@ -388,14 +393,16 @@ class HowlerPlayer {
         self.playBtn.style.display = 'block'
         self.pauseBtn.style.display = 'none'
     }
-
-    stop() {
+    
+    stop(allowCustomStopHandler) {
         var self = this
+        const preventStopHandler = allowCustomStopHandler === false // param must be explicitly false
 
         // Get the Howl we want to manipulate.
         var sound = self.playlist?.[self.index]?.howl
 
         if (sound) {
+            self.preventCustomStopHandler = preventStopHandler
             // Stop the sound.
             sound.stop()
             self.silence.stop()
@@ -426,27 +433,36 @@ class HowlerPlayer {
     async fadeDown(doAfter) {
         var self = this
         var sound = self.playlist[self.index]?.howl
+        
+        // Store the current volume
+        self.fadeUpReturnToVolume = sound.volume(sound.id)
+
+        await this.fadeTo(0.01)
+        if (typeof doAfter === 'function') doAfter(sound)
+    }
+
+    /**
+     * Fade the current track to a specified volume between 0.0 and 1.0.
+     */
+    async fadeTo(fadeToVolume) {
+        var self = this
+        var sound = self.playlist[self.index]?.howl
 
         return new Promise((resolve) => {
             if (sound && sound.playing() && !self.isFading) {
-                // Store the current volume
-                self.fadeUpReturnToVolume = sound.volume(sound.id)
-
                 // Mark that the sound is currently fading...
                 self.isFading = true
     
                 console.debug('VOL before fade: '+sound.volume(sound.id))
                 // Fade the volume down to 0.01 over 1 second
-                sound.fade(self.fadeUpReturnToVolume, 0.01, 1000)
+                sound.fade(self.fadeUpReturnToVolume, fadeToVolume, 1000)
     
                 sound.once('fade', ()=>{
                     console.debug('VOL after fade: '+sound.volume(sound.id))
-                    if (typeof doAfter === 'function') doAfter(sound)
                     resolve()
                 })
                 setTimeout(()=> {
                     self.isFading = false
-                    if (typeof doAfter === 'function') doAfter(sound)
                     resolve()
                 }, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
             } else {
@@ -461,27 +477,9 @@ class HowlerPlayer {
      * DOESN'T WORK. EVEN IN DESKTOP. Fade the current track back up to the last known volume.
      */
     async fadeUp() {
-        var self = this
-        var sound = self.playlist[self.index].howl
-
-        return new Promise((resolve) => {
-            if (sound && !self.isFading) {
-                // Mark that the sound is currently fading...
-                self.isFading = true
-
-                // Fade the volume back to the previous level over 1 second
-                sound.fade(0.01, self.fadeUpReturnToVolume, 1000)
-    
-                // After fade ends, resolve promise
-                self.onFadeTempFn = () => {
-                    self.onFadeTempFn = null
-                    setTimeout(resolve, 1)
-                }
-            } else {
-                // Resolve immediately if no sound is playing
-                resolve()
-            }
-        });
+        await this.fadeTo(self.fadeUpReturnToVolume)
+        
+        if (typeof doAfter === 'function') doAfter(sound)
     }
 
     /**
@@ -659,7 +657,7 @@ class HowlerPlayer {
         }
     }
 
-    async updatePlaylist(newPlaylist, trackIndex) {
+    async updatePlaylist(newPlaylist, playlistID, trackIndex) {
         var self = this
 
         // Transform the playlist array into the desired JSON object format
@@ -682,6 +680,7 @@ class HowlerPlayer {
 
         // Update to the new playlist
         self.playlist = formattedPlaylistArray
+        self.playlistId = playlistID
 
         const index = trackIndex || 0
 
