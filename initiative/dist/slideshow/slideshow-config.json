@@ -34,13 +34,15 @@
                 "caption": "Destroyed Ship",
                 "subcap": "Corellian CR90 Stealth Corvette",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 6
                 }
             },
             {
                 "url": "./slideshow/shipconsole",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 4
                 }
             },
             {
@@ -48,7 +50,8 @@
                 "caption": "Unnamed Planet",
                 "subcap": "At the coordinates of the lost temple",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 6
                 },
                 "ambience": {
                     "playlist": "dnd_swamp"
@@ -59,7 +62,8 @@
                 "caption": "Ancient Hieroglyphs",
                 "subcap": "Meaning: unknown",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 0
                 }
             },
             {
@@ -67,7 +71,8 @@
                 "caption": "Mysterious Stones",
                 "subcap": "In the jungles of the unnamed planet",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 1
                 },
                 "ambience": {
                     "playlist": "dnd_swamp"
@@ -94,7 +99,8 @@
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 0
                 }
             },
             {
@@ -110,13 +116,14 @@
                 "caption": "Ven'Talor",
                 "subcap": "The Lost Jedi Temple: Interior",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_calm"
                 }
             },
             {
                 "url": "./slideshow/templeconsole",
                 "music": {
-                    "playlist": "sw_exploration"
+                    "playlist": "sw_exploration",
+                    "track": 0
                 }
             },
             {

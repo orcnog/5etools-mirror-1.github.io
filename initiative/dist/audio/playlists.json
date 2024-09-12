@@ -124,6 +124,9 @@
         "./audio/music/starwars/boss_fight/BOSS-starwars-battlefront-end-credits-fight-music.mp3",
         "./audio/music/starwars/boss_fight/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.mp3"
     ],
+    "sw_calm": [
+        "./audio/music/starwars/dogfight/Anakins_Destiny.mp3"
+    ],
     "sw_chase": [
         "./audio/music/starwars/chase/05_The_Sith_Spacecraft_and_The_Droid.mp3",
         "./audio/music/starwars/chase/09_Anakin_Defeats_Sebulba.mp3",
@@ -175,7 +178,8 @@
         "./audio/music/starwars/exploration/MX_THEATTACKONJAKKU_QUIET.mp3",
         "./audio/music/starwars/exploration/on_the_inside_-_edited_-_low_intensity.mp3",
         "./audio/music/starwars/exploration/Secret_Bunker_-_edited.mp3",
-        "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHtDQ-.mp3"
+        "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHtDQ-.mp3",
+        "./audio/music/starwars/exploration/The_Desert.mp3"
     ],
     "sw_mission_briefing": [
         "./audio/music/starwars/mission_briefing/Rebel_Briefing_-_edited.mp3"
