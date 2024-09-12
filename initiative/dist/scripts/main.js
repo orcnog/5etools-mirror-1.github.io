@@ -2469,9 +2469,7 @@ async function updateSlideBasedOnHash(e) {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
         const musicToLoad = sceneToLaunch?.music ?? null
-        const musicToLoadIsAlreadyPlaying = Music.playing && Music.playlistId === musicToLoad?.playlist
         const ambienceToLoad = sceneToLaunch?.ambience ?? null
-        const ambienceToLoadIsAlreadyPlaying = Ambience.playing && Ambience.playlistId === ambienceToLoad?.playlist
         if (sceneToLaunch) {
             if (sceneToLaunch.url) {
                 loadScreen(sceneToLaunch.url);
@@ -2483,7 +2481,7 @@ async function updateSlideBasedOnHash(e) {
                     show_exotic_font: !!slideshow?.exoticfont
                 })
             }
-            if (!ambienceToLoadIsAlreadyPlaying) {
+            if (!isSoundAlreadyPlaying(Ambience, ambienceToLoad)) {
                 if (Ambience.playing) {
                     await Ambience.fadeTo(0)
                     Ambience.stop(false)
@@ -2494,7 +2492,7 @@ async function updateSlideBasedOnHash(e) {
                     Ambience.play({index: ambienceToLoad.track, delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
                 }
             }
-            if (!musicToLoadIsAlreadyPlaying) {
+            if (!isSoundAlreadyPlaying(Music, musicToLoad)) {
                 if (Music.playing) {
                     await Music.fadeDown()
                     Music.stop(false)
@@ -2513,6 +2511,13 @@ async function updateSlideBasedOnHash(e) {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
         }
     }
+}
+
+function isSoundAlreadyPlaying (playingSound, nextSound) {
+    const playlistIsAlreadyActive = playingSound?.playlistId === nextSound?.playlist
+    const nextTrackIsSpecified = typeof nextSound?.track === 'number'
+    const nextTrackIsAlreadyPlaying = playingSound?.index === nextSound?.track
+    return playlistIsAlreadyActive && (!nextTrackIsSpecified || nextTrackIsAlreadyPlaying)
 }
 
 // Update the link when the hash changes
