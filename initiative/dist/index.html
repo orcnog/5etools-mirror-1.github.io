@@ -105,22 +105,24 @@
                         <select id="selectCombatPlaylist"></select>
                     </div>
                 </div>
-                <div class="settings-menu-group">
-                    <label class="settings-label" for="toggleUseOpenAI">Use OpenAI
-                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
-                        <p class="settings-label-tooltip-text">Use OpenAI's Whisper AI model to transcribe your speech, instead of native browser Web Speech API. It's a bit slower, but it is usually far more accurate (especially on iOS). But hey, it <em>does</em> allow cuss words ;)</p>
-                    </label>
-                    <div class="settings-input">
-                        <input id="toggleUseOpenAI" type="checkbox" />
+                <div style="display: none;">
+                    <div class="settings-menu-group">
+                        <label class="settings-label" for="toggleUseOpenAI">Use OpenAI
+                            <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                            <p class="settings-label-tooltip-text">Use OpenAI's Whisper AI model to transcribe your speech, instead of native browser Web Speech API. It's a bit slower, but it is usually far more accurate (especially on iOS). But hey, it <em>does</em> allow cuss words ;)</p>
+                        </label>
+                        <div class="settings-input">
+                            <input id="toggleUseOpenAI" type="checkbox" />
+                        </div>
                     </div>
-                </div>
-                <div class="settings-menu-group collapsible">
-                    <label class="settings-label" for="toggleLiveText">Live Text
-                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
-                        <p class="settings-label-tooltip-text expand-small">Available only when not using OpenAI transcription. Displays your speech as it is heard by the browser, in real time.</p>
-                    </label>
-                    <div class="settings-input">
-                        <input id="toggleLiveText" type="checkbox" />
+                    <div class="settings-menu-group collapsible">
+                        <label class="settings-label" for="toggleLiveText">Live Text
+                            <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                            <p class="settings-label-tooltip-text expand-small">Available only when not using OpenAI transcription. Displays your speech as it is heard by the browser, in real time.</p>
+                        </label>
+                        <div class="settings-input">
+                            <input id="toggleLiveText" type="checkbox" />
+                        </div>
                     </div>
                 </div>
                 <div class="settings-menu-group collapsible">
@@ -322,6 +324,15 @@
                     <div class="settings-input">
                         <select id="slideshowNextSlide">
                         </select>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label" for="toggleSlideBtnShowsNext">Slideshow Button Always Advances to <em>Next</em> Slide
+                        <i class="tooltip-icon fa-regular fa-circle-question"></i>
+                        <p class="settings-label-tooltip-text expand-small">If <em>unchecked</em>, the slideshow button (<i class="fas fa-image" aria-hidden="true"></i> top right) will load the last viewed slide, on click. If checked, it always loads the next (not yet viewed) slide.</p>
+                    </label>
+                    <div class="settings-input">
+                        <input id="toggleSlideBtnShowsNext" type="checkbox" />
                     </div>
                 </div>
                 <div class="settings-menu-group settings-menu-grow">

@@ -25,6 +25,7 @@ let final_recognized_transcript
 let currentSlideshowID
 let slideshow = {}
 let slideshowConfig = {}
+let slideBtnShowsNext = false
 let allTranscripts = []
 let singleDigitRegexPatterns
 let promptNames = []
@@ -257,18 +258,18 @@ function rehydrateSettings() {
     document.querySelectorAll('#selectAmbiencePlaylist, #selectAmbiencePlayerPlaylist').forEach(sel => sel.value = ambiencePlaylist)
 
     /* Rehydrate the font capitalization preference */
-    fontAllCaps = getCookie('fontAllCaps') || 'true'
+    fontAllCaps = getCookie('fontAllCaps') === 'true'
     const fontToggleElem = document.getElementById('toggleFontAllCaps')
     if (fontToggleElem) fontToggleElem.checked = fontAllCaps === 'true'
     document.documentElement.style.setProperty('--adjustable-text-transform', fontAllCaps === 'true' ? 'uppercase' : 'capitalize')
-    
+
     /* Rehydrate the live text preference */
-    liveTextMode = getCookie('liveTextMode') || 'true'
-    document.getElementById('toggleLiveText').checked = liveTextMode === 'true'
-    
+    liveTextMode = getCookie('liveTextMode') !== 'false'
+    document.getElementById('toggleLiveText').checked = liveTextMode
+
     /* Rehydrate the useOpenAI preference */
-    useOpenAI = getCookie('useOpenAI') || 'true'
-    document.getElementById('toggleUseOpenAI').checked = useOpenAI === 'true'
+    useOpenAI = getCookie('useOpenAI') !== 'false'
+    document.getElementById('toggleUseOpenAI').checked = useOpenAI
     if (useOpenAI) {
         document.getElementById('promptNames')?.closest('.settings-menu-group')?.classList.add('active')
         document.getElementById('toggleLiveText')?.closest('.settings-menu-group')?.classList.remove('active')
@@ -312,6 +313,10 @@ function rehydrateSettings() {
     const cookieNextSlideToShowValue = getCookie('slideshowNextSlidePreference') || '1'
     populateSelectWithSlideNumbers()
     updateNextSlideToShow(cookieNextSlideToShowValue)
+
+    /* Rehydrate the slideBtnShowsNext preference */
+    slideBtnShowsNext = getCookie('slideBtnShowsNext') === 'true'
+    document.getElementById('toggleSlideBtnShowsNext').checked = slideBtnShowsNext
 
     /* Rehydrate slideshow JSON textarea from cookie */
     const savedHomebrewObj = parseHomebrewSlideshowCookie()
@@ -395,6 +400,7 @@ function setupDomAndEventListeners() {
     document.getElementById('musicBtn').addEventListener('click', handleMusicBtnClick)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
+    document.getElementById('toggleSlideBtnShowsNext').addEventListener('change', toggleSlideBtnShowsNext)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
     document.getElementById('toggleUseOpenAI').addEventListener('change', toggleUseOpenAI)
     document.getElementById('promptNames').addEventListener('keydown', (e)=> {handlePromptNamesKeyDown(e)})
@@ -1270,6 +1276,11 @@ function handleThemeChange(event) {
 function toggleLiveTextMode() {
     setCookie('liveTextMode', this.checked)
     liveTextMode = this.checked
+}
+
+function toggleSlideBtnShowsNext() {
+    setCookie('slideBtnShowsNext', this.checked)
+    slideBtnShowsNext = this.checked
 }
 
 function toggleUseOpenAI() {
@@ -2172,6 +2183,7 @@ function renderPlayers() {
         allTranscripts = [generatedPlayersTranscript(players)]
         if (doRerender) renderPlayers()
         setCookie('players', JSON.stringify(players))
+        // Replace the current query string with a blank one, so if the player refreshes, it doesn't wipe out any changes.
         clearQueryString()
     }
 }
@@ -2193,11 +2205,21 @@ function updateNextSlideToShow (newVal) {
 }
 
 function handleSlideControlClick(e) {
-    if (!e.target.closest('.prev-slide')) {
-        const nextHash = getNextHash()
-        const newSceneBtnHash = nextHash !== '' ? nextHash : '1'
-        updateNextSlideToShow(newSceneBtnHash)
+    let newSceneBtnHash = getCurrentHashNumber()
+    if (e.target.closest('.prev-slide')) {
+        const prevHash = getPrevHash()
+        newSceneBtnHash = prevHash !== '' ? prevHash : '1'
+        if (slideBtnShowsNext) newSceneBtnHash++
     }
+    if (e.target.closest('.next-slide')) {
+        const nextHash = getNextHash()
+        newSceneBtnHash = nextHash !== '' ? nextHash : '1'
+    }
+    if (slideBtnShowsNext && e.target.closest('.return-to-initiative')) {
+        const nextHash = getNextHash()
+        newSceneBtnHash = nextHash !== '' ? nextHash : '1'
+    }
+    updateNextSlideToShow(newSceneBtnHash)
 }
 
 function getCurrentHashNumber() {
@@ -2206,10 +2228,10 @@ function getCurrentHashNumber() {
     return currentNumber
 }
 
-function getNextHash(hashVal) {
+function getPrevHash(hashVal) {
     const hashNum = hashVal ? parseInt(hashVal) : null
     const currentNumber = getCurrentHashNumber()
-    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) + 1
+    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
     
     if (slideshow?.scenes?.[nextNumber - 1]) {
         return `${nextNumber}`
@@ -2218,10 +2240,10 @@ function getNextHash(hashVal) {
     }
 }
 
-function getPrevHash(hashVal) {
+function getNextHash(hashVal) {
     const hashNum = hashVal ? parseInt(hashVal) : null
     const currentNumber = getCurrentHashNumber()
-    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
+    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) + 1
     
     if (slideshow?.scenes?.[nextNumber - 1]) {
         return `${nextNumber}`
@@ -2442,7 +2464,6 @@ function refreshPage() {
  */
 
 async function updateSlideBasedOnHash(e) {
-    console.log('UpdateSlideBasedOnHash executed')
     // Get the current hash value without the leading #
     const hash = window.location.hash.substring(1)
     // If no slide number hash or 0, go back to initiative tracker scene.
@@ -2524,7 +2545,6 @@ function isSoundAlreadyPlaying (playingSound, nextSound) {
 window.onhashchange = updateSlideBasedOnHash
 
 function clearQueryString() {
-    // Replace the current query string with a blank one, so if the player refreshes, it doesn't wipe out any changes.
     const url = window.location.origin + window.location.pathname
     window.history.replaceState({}, document.title, url)
 }
