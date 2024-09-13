@@ -440,10 +440,12 @@ function setupDomAndEventListeners() {
         const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
         if (AudioInstance) {
             const tempOnPlayHandler = function() {
-                musicOn = false
-                document.body.classList.remove('music-on')
-                clearTimeout(circuitbreaker)
-                AudioInstance.onPause = null // unbind this when done
+                if (!Music.playing && !Ambience.playing) {
+                    musicOn = false
+                    document.body.classList.remove('music-on')
+                    clearTimeout(circuitbreaker)
+                    AudioInstance.onPause = null // unbind this when done
+                }
             }
             const circuitbreaker = setTimeout(()=> {
                 AudioInstance.onPause = null // unbind this on timeout, if the pause event never fires
@@ -2407,14 +2409,14 @@ function fadeIn(el, duration = 1000, callback = () => {}) {
             el.animationFrameId = requestAnimationFrame(fade)
         } else {
             // Animation complete
-            console.debug('faded in!')
+            console.debug('screen faded in!')
             stopAnimation(el)
             el.classList.add('faded-in')
             if (typeof callback === 'function') callback()
         }
     }
 
-    console.debug('beginning fade in...')
+    console.debug('beginning screen fade in...')
     el.animationFrameId = requestAnimationFrame(fade)
 }
 
@@ -2440,7 +2442,7 @@ function fadeOut(el, duration = 1000, callback = () => {}) {
             el.animationFrameId = requestAnimationFrame(fade)
         } else {
             // Animation complete
-            console.debug('faded out')
+            console.debug('screen faded out')
             stopAnimation(el)
             el.classList.remove('active')
             el.classList.add('faded-out')
@@ -2448,7 +2450,7 @@ function fadeOut(el, duration = 1000, callback = () => {}) {
         }
     }
 
-    console.debug('beginning fade out...')
+    console.debug('beginning screen fade out...')
     el.animationFrameId = requestAnimationFrame(fade)
 }
 
@@ -2482,19 +2484,17 @@ async function updateSlideBasedOnHash(e) {
         loadScreen('INITIATIVE')
         console.log('Loading Initiative board.')
         if (e) {
+            if (Ambience) {
+                await Ambience.fadeTo(0)
+                await Ambience.stop()
+            }
             if (Music) {
                 await Music.fadeTo(0)
-                await Music.stop(false)
+                await Music.stop()
                 await updateMusicPlaylist(combatPlaylist)
                 if (musicOn) {
                     await Music.playRandom()
-                } else {
-                    await Music.stop()
                 }
-            }
-            if (Ambience) {
-                await Ambience.fadeTo(0)
-                await Ambience.stop(false)
             }
         }
     } else {
@@ -2516,7 +2516,7 @@ async function updateSlideBasedOnHash(e) {
             if (!isSoundAlreadyPlaying(Ambience, ambienceToLoad)) {
                 if (Ambience.playing) {
                     await Ambience.fadeTo(0)
-                    Ambience.stop(false)
+                    await Ambience.stop()
                 }
                 if (ambienceToLoad?.playlist) {
                     await updateAmbiencePlaylist(ambienceToLoad.playlist)
@@ -2526,8 +2526,8 @@ async function updateSlideBasedOnHash(e) {
             }
             if (!isSoundAlreadyPlaying(Music, musicToLoad)) {
                 if (Music.playing) {
-                    await Music.fadeDown()
-                    Music.stop(false)
+                    await Music.fadeTo(0)
+                    await Music.stop()
                 }
                 if (musicToLoad?.playlist) {
                     await updateMusicPlaylist(musicToLoad.playlist)
@@ -2546,10 +2546,11 @@ async function updateSlideBasedOnHash(e) {
 }
 
 function isSoundAlreadyPlaying (playingSound, nextSound) {
-    const playlistIsAlreadyActive = playingSound?.playlistId === nextSound?.playlist
+    const soundIsPlaying = playingSound.playing
+    const nextPlaylistIsAlreadyActive = playingSound?.playlistId === nextSound?.playlist
     const nextTrackIsSpecified = typeof nextSound?.track === 'number'
     const nextTrackIsAlreadyPlaying = playingSound?.index === nextSound?.track
-    return playlistIsAlreadyActive && (!nextTrackIsSpecified || nextTrackIsAlreadyPlaying)
+    return soundIsPlaying && nextPlaylistIsAlreadyActive && (!nextTrackIsSpecified || nextTrackIsAlreadyPlaying)
 }
 
 // Update the link when the hash changes
