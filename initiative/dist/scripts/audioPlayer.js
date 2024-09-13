@@ -668,7 +668,7 @@ class HowlerPlayer {
         // Transform the playlist array into the desired JSON object format
         let formattedPlaylistArray = newPlaylist.map(path => {
             return {
-                title: path.split('/').pop().replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
+                title: path.split('/').pop().replace(/\.[^/.]+$/, '').replaceAll(/_s_/g, '\'s ').replaceAll(/_m_/g, '\'m ').replaceAll(/_t_/g, '\'t ').replaceAll(/_d_/g, '\'d ').replaceAll(/_/g, ' '),
                 file: path,
                 howl: null
             };
