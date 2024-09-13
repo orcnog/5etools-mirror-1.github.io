@@ -211,6 +211,7 @@ class HowlerPlayer {
         var data = self.playlist?.[self.index]
 
         if (data) {
+            self.preventCustomPlayHandler = true 
             // Before playing the sound, start playing/streaming a silent sound file first, which then allows iOS to control volume on other tracks. (don't ask!?)
             await self.silence.play()
 
@@ -449,7 +450,15 @@ class HowlerPlayer {
         var sound = self.playlist[self.index]?.howl
 
         return new Promise((resolve) => {
-            if (sound && sound.playing() && !self.isFading) {
+            if (!sound || !sound.playing()) {
+                console.log('no sound is playing')
+                // Resolve immediately if no sound is playing.
+                resolve()
+            } else if (self.isFading) {
+                console.log('fade is already in progress')
+                // Resolve immediately if fade is already in progress.
+                resolve()
+            } else {
                 // Mark that the sound is currently fading...
                 self.isFading = true
     
@@ -465,10 +474,6 @@ class HowlerPlayer {
                     self.isFading = false
                     resolve()
                 }, 1250) // circuitbreaker, if the fade event never fires (which i've seen happen)
-            } else {
-                // Resolve immediately if no sound is playing or if fade is already in progress.
-                console.log('no sound is playing or fade is already in progress')
-                resolve()
             }
         });
     }

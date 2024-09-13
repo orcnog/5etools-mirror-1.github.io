@@ -113,16 +113,6 @@ async function setupMusicPlayer (playlistArray, playlistID) {
         playlistId: playlistID,
         html5: false
     })
-    Music.onPlay = function() {
-        musicOn = true
-        document.body.classList.add('music-on')
-    }
-    Music.onPause = function() {
-        if (!Ambience.playing) {
-            musicOn = false
-            document.body.classList.remove('music-on')
-        }
-    }
 }
 
 async function setupAmbiencePlayer (playlistArray, startingTrackNum) {
@@ -133,16 +123,6 @@ async function setupAmbiencePlayer (playlistArray, startingTrackNum) {
         loop: true,
         html5: false
     })
-    Ambience.onPlay = function() {
-        musicOn = true
-        document.body.classList.add('music-on')
-    }
-    Ambience.onPause = function() {
-        if (!Music.playing) {
-            musicOn = false
-            document.body.classList.remove('music-on')
-        }
-    }
 }
 
 async function updateMusicPlaylist (playlistID) {
@@ -436,11 +416,42 @@ function setupDomAndEventListeners() {
     document.getElementById('startDictation').addEventListener('click', handleDictationToggle)
     document.body.addEventListener('click', e => e.target.closest('.slide-control') && handleSlideControlClick(e))
     document.body.addEventListener('click', e => e.target.matches('label i.tooltip-icon') && handleTooltipIconClick(e))
-    document.getElementById('sceneBtn').addEventListener('click', e => console.log(e.target.closest('#sceneBtn').href)) // updates the page url hash naturally. handled by updateSlideBasedOnHash().
-    // document.getElementById('startDictation').addEventListener('mousedown', handleDictationMouseDown)
-    // document.getElementById('startDictation').addEventListener('touchstart', handleDictationTouchStart)
-    // document.getElementById('startDictation').addEventListener('mouseup', handleDictationMouseUp)
-    // document.getElementById('startDictation').addEventListener('touchend', handleDictationTouchEnd)
+    // Audio Player Event handling
+    document.querySelectorAll('.audioPlayer .playBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerPlayBtn))
+    document.querySelectorAll('.audioPlayer .pauseBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerPauseBtn))
+    
+    function handleAudioPlayerPlayBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        if (AudioInstance) {
+            const tempOnPlayHandler = function() {
+                musicOn = true
+                document.body.classList.add('music-on')
+                clearTimeout(circuitbreaker)
+                AudioInstance.onPlay = null // unbind this when done
+            }
+            const circuitbreaker = setTimeout(()=> {
+                AudioInstance.onPlay = null // unbind this on timeout, if the play event never fires
+            }, 500)
+            AudioInstance.onPlay = tempOnPlayHandler
+        }
+    }
+    
+    function handleAudioPlayerPauseBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        if (AudioInstance) {
+            const tempOnPlayHandler = function() {
+                musicOn = false
+                document.body.classList.remove('music-on')
+                clearTimeout(circuitbreaker)
+                AudioInstance.onPause = null // unbind this when done
+            }
+            const circuitbreaker = setTimeout(()=> {
+                AudioInstance.onPause = null // unbind this on timeout, if the pause event never fires
+            }, 500)
+            AudioInstance.onPause = tempOnPlayHandler
+        }
+    }
+
 
     if (isiOS) {
         document.body.classList.add('ios')
@@ -2510,7 +2521,7 @@ async function updateSlideBasedOnHash(e) {
                 if (ambienceToLoad?.playlist) {
                     await updateAmbiencePlaylist(ambienceToLoad.playlist)
                     const initialVolume = ambienceToLoad.initialVolume
-                    Ambience.play({index: ambienceToLoad.track, delay: 1000, fadeIn: 5000, initialVolume, allowCustomPlayHandler: false})
+                    Ambience.play({index: ambienceToLoad.track, delay: 1000, fadeIn: 5000, initialVolume})
                 }
             }
             if (!isSoundAlreadyPlaying(Music, musicToLoad)) {
@@ -2522,9 +2533,9 @@ async function updateSlideBasedOnHash(e) {
                     await updateMusicPlaylist(musicToLoad.playlist)
                     const initialVolume = musicToLoad.initialVolume
                     if (musicToLoad.track ) {
-                        Music.play({index: musicToLoad.track, initialVolume, allowCustomPlayHandler: false })
+                        Music.play({index: musicToLoad.track, initialVolume})
                     } else {
-                        Music.playRandom({ initialVolume, allowCustomPlayHandler: false })
+                        Music.playRandom({ initialVolume})
                     }
                 }
             }
