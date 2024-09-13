@@ -125,7 +125,7 @@
         "./audio/music/starwars/boss_fight/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.mp3"
     ],
     "sw_calm": [
-        "./audio/music/starwars/dogfight/Anakins_Destiny.mp3"
+        "./audio/music/starwars/calm/Anakins_Destiny.mp3"
     ],
     "sw_chase": [
         "./audio/music/starwars/chase/05_The_Sith_Spacecraft_and_The_Droid.mp3",

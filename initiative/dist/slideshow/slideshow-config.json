@@ -120,6 +120,14 @@
                 }
             },
             {
+                "image": "./slideshow/ventalor/jedi-temple-riddle-door5.webp",
+                "caption": "Ven'Talor",
+                "subcap": "A locked door...",
+                "music": {
+                    "playlist": "sw_calm"
+                }
+            },
+            {
                 "url": "./slideshow/templeconsole",
                 "music": {
                     "playlist": "sw_exploration",
