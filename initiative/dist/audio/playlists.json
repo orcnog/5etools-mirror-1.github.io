@@ -19,6 +19,12 @@
         "./audio/music/dnd/boss_fight/Vox_Machina_-_Blinded_By_The_Light.mp3",
         "./audio/music/dnd/boss_fight/Warcraft_III_Reign_of_Chaos_Music_-_Doom.mp3"
     ],
+    "dnd_calm": [
+        "./audio/music/dnd/calm/Far Horizons - Skyrim - Jeremy Soule.mp3",
+        "./audio/music/dnd/calm/After the Storm - Witcher 3.mp3",
+        "./audio/music/dnd/calm/Ard Skellig Village - Witcher 3.mp3",
+        "./audio/music/dnd/calm/King Bran's Final Voyage - Witcher 3.mp3"
+    ],
     "dnd_chase": [
         "./audio/music/dnd/chase/Market Chase [edited] - Shadow and Bone Season 2 - Joseph Trapanese.mp3",
         "./audio/music/dnd/chase/Let the Chase Begin - Assassin's Creed Revelations - Lorne Balfe.mp3",
@@ -117,6 +123,11 @@
         "./audio/music/dnd/tavern/Lion's Pride - Taverns of Azeroth Soundtrack.mp3",
         "./audio/music/dnd/tavern/chill_mandolin.mp3",
         "./audio/music/dnd/tavern/Gwent_Unreleased_Track_-_The_Witcher_3.mp3"
+    ],
+    "dnd_tavern_brawl": [
+        "./audio/music/dnd/tavern_brawl/Drink Up There's More - Witcher 3 - Wild Hunt OST.mp3",
+        "./audio/music/dnd/tavern_brawl/Widow Maker - Witcher 3.mp3",
+        "./audio/music/dnd/tavern_brawl/Vox Machina - Tavern Brawl.mp3"
     ],
     "sw_boss_fight": [
         "./audio/music/starwars/boss_fight/Duel_of_the_Fates.mp3",

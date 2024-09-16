@@ -1,4 +1,131 @@
 {
+    "halcyon_remnant": {
+        "name": "The Halcyon Remnant",
+        "exoticfont": "Aurebesh",
+        "scenes": [
+            {
+                "image": "./slideshow/halcyon_remnant/01 game_background_image.webp",
+                "music": {
+                    "playlist": "sw_opening"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/04 mission-briefing-swrebelion.webp",
+                "caption": "Mission Briefing",
+                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/x-wings-asteroid-field.webp",
+                "caption": "Asteroid Field",
+                "subcap": "Velcar Sector, Tython's Anomaly binary system",
+                "music": {
+                    "playlist": "sw_dogfight"
+                },
+                "ambience": {
+                    "playlist": "sw_chatter_dogfight",
+                    "initialVolume": 0.3
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/halcyon-remnant.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Abandoned Chiss Cruiser",
+                "music": {
+                    "playlist": "sw_exploration",
+                    "track": 6
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/hangar2.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Hangar Bay",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/dark-corridor.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Corridors",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/rancor5.webp",
+                "caption": "Rancor",
+                "subcap": "wwwuh-oh",
+                "music": {
+                    "playlist": "sw_combat"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/dark-corridor.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Corridors",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/control-room3.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Control Room",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/final-approach1.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Jedi and Mandalorian Inscriptions...",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/artifact-room.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Artifact Room",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/holocube-1.webp",
+                "caption": "Ancient Jedi Artifact",
+                "subcap": "A holocube, emblazoned with the symbols of the Jedi and the Mandalorians",
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/halcyon_remnant/x-wings-asteroid-field.webp",
+                "caption": "Asteroid Field",
+                "subcap": "Velcar Sector, Tython's Anomaly binary system",
+                "music": {
+                    "playlist": "sw_dogfight"
+                },
+                "ambience": {
+                    "playlist": "sw_chatter_dogfight",
+                    "initialVolume": 0.3
+                }
+            },
+            {
+                "image": "./slideshow/final/final.webp",
+                "caption": "THE END",
+                "subcap": "May the Force Be With You!",
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 1
+                }
+            }
+        ]
+    },
     "lost-temple": {
         "name": "The Lost Jedi Temple",
         "exoticfont": "Aurebesh",
@@ -135,6 +262,14 @@
                 }
             },
             {
+                "image": "./slideshow/ventalor/man-in-bacta-tank18.webp",
+                "caption": "Bacta Tank Chamber",
+                "subcap": "Inside the Lost Jedi Temple of Ven'Talor",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
                 "image": "./slideshow/greatlibrary/greatlibrary.webp",
                 "caption": "The Great Library of Ven'Talor",
                 "music": {
@@ -159,22 +294,43 @@
         "scenes": [
             {
                 "image": "./slideshow/opening/01 game_background_image.webp",
-                "youtube": "https://www.youtube.com/watch?v=vK5VwVyxkbI"
+                "music": {
+                    "playlist": "sw_opening"
+                }
+            },
+            {
+                "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
+                "caption": "Mission Briefing",
+                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
             },
             {
                 "image": "./slideshow/imperialfacility/imperial-facility.webp",
                 "caption": "Imperial Archives Facility",
-                "subcap": "On the remote moon of Raxus"
+                "subcap": "On the remote moon of Raxus",
+                "music": {
+                    "playlist": "sw_tense",
+                    "track": 0
+                }
             },
             {
                 "image": "./slideshow/platoonblockade/platoon-blockade.webp",
                 "caption": "Room Full of Stormtroopers",
-                "subcap": "Piece of Cake"
+                "subcap": "Piece of Cake",
+                "music": {
+                    "playlist": "sw_tense"
+                }
             },
             {
                 "image": "./slideshow/final/final.webp",
                 "caption": "THE END",
-                "subcap": "May the Force Be With You!"
+                "subcap": "May the Force Be With You!",
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 1
+                }
             }
         ]
     }
