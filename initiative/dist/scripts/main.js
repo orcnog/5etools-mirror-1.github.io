@@ -1265,6 +1265,7 @@ function openFullscreen() {
     } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
     }
+    document.body.classList.add('fullscreen')
 }
 
 /* Close fullscreen */
@@ -1276,6 +1277,7 @@ function closeFullscreen() {
     } else if (document.msExitFullscreen) { /* IE11 */
         document.msExitFullscreen();
     }
+    document.body.classList.remove('fullscreen')
 }
 
 function handleThemeChange(event) {

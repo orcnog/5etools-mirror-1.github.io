@@ -400,6 +400,9 @@ select {
     flex-flow: row nowrap;
     align-items: center;
 }
+.ios.fullscreen .header-menu-left-side {
+    margin-left: 5em;
+}
 
 .header-menu-right-side {
     margin-left: auto;
