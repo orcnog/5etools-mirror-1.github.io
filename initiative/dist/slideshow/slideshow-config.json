@@ -1,5 +1,5 @@
 {
-    "halcyon_remnant": {
+    "halcyon-remnant": {
         "name": "The Halcyon Remnant",
         "exoticfont": "Aurebesh",
         "scenes": [
@@ -121,6 +121,76 @@
                 "ambience": {
                     "playlist": "sw_chatter_dogfight",
                     "initialVolume": 0.3
+                }
+            },
+            {
+                "image": "./slideshow/final/final.webp",
+                "caption": "THE END",
+                "subcap": "May the Force Be With You!",
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 1
+                }
+            }
+        ]
+    },
+    "imperial-decryptor": {
+        "name": "The Imperial Decryptor",
+        "exoticfont": "Aurebesh",
+        "scenes": [
+            {
+                "image": "./slideshow/opening/01 game_background_image.webp",
+                "music": {
+                    "playlist": "sw_opening"
+                }
+            },
+            {
+                "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
+                "caption": "Mission Briefing",
+                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/imperial_decryptor/raxus2.webp",
+                "caption": "The Remote Moon of Raxus",
+                "subcap": "Tion Hegemony Sector",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/imperial_decryptor/imperial-facility.webp",
+                "caption": "Imperial Archives Facility",
+                "subcap": "On the remote moon of Raxus",
+                "music": {
+                    "playlist": "sw_tense",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/imperial_decryptor/stormtroopers-in-a-hallway1.webp",
+                "caption": "Corridor",
+                "subcap": "Imperial Archives Facility on the Moon of Raxus",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
+                "image": "./slideshow/imperial_decryptor/central-archives2.webp",
+                "caption": "Loading Dock",
+                "subcap": "Imperial Archives Facility on the Moon of Raxus",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
+                "image": "./slideshow/platoonblockade/platoon-blockade.webp",
+                "caption": "Room Full of Stormtroopers",
+                "subcap": "Piece of Cake",
+                "music": {
+                    "playlist": "sw_tense"
                 }
             },
             {
@@ -283,52 +353,6 @@
                 "music": {
                     "playlist": "sw_victory",
                     "track": 0
-                }
-            },
-            {
-                "image": "./slideshow/final/final.webp",
-                "caption": "THE END",
-                "subcap": "May the Force Be With You!",
-                "music": {
-                    "playlist": "sw_victory",
-                    "track": 1
-                }
-            }
-        ]
-    },
-    "imperial-decryptor": {
-        "name": "The Imperial Decryptor",
-        "exoticfont": "Aurebesh",
-        "scenes": [
-            {
-                "image": "./slideshow/opening/01 game_background_image.webp",
-                "music": {
-                    "playlist": "sw_opening"
-                }
-            },
-            {
-                "image": "./slideshow/briefing/04 mission-briefing-swrebelion.webp",
-                "caption": "Mission Briefing",
-                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
-                "music": {
-                    "playlist": "sw_mission_briefing"
-                }
-            },
-            {
-                "image": "./slideshow/imperialfacility/imperial-facility.webp",
-                "caption": "Imperial Archives Facility",
-                "subcap": "On the remote moon of Raxus",
-                "music": {
-                    "playlist": "sw_tense",
-                    "track": 0
-                }
-            },
-            {
-                "image": "./slideshow/platoonblockade/platoon-blockade.webp",
-                "caption": "Room Full of Stormtroopers",
-                "subcap": "Piece of Cake",
-                "music": {
-                    "playlist": "sw_tense"
                 }
             },
             {
