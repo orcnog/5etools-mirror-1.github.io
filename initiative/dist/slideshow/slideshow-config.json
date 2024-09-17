@@ -55,6 +55,14 @@
                 }
             },
             {
+                "image": "./slideshow/halcyon_remnant/galley.webp",
+                "caption": "The Halcyon Remnant",
+                "subcap": "Destroyed Galley",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
                 "image": "./slideshow/halcyon_remnant/rancor5.webp",
                 "caption": "Rancor",
                 "subcap": "wwwuh-oh",
