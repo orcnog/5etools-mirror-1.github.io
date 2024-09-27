@@ -32,7 +32,7 @@
     justify-content: center;
     align-items: center;
     margin: 0;
-    /* width: 100%; */
+    width: 100%;
     height: 100vh;
     background-color: rgb(14, 14, 14);
 }
@@ -44,32 +44,36 @@
     align-items: center;
     justify-content: center;
     margin: 0px;
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
 }
 
 figure.slideshow-image {
     position: relative;
-    flex: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0;
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
-figure.slideshow-image img {
-    display: block;
+figure.slideshow-image img,
+figure.slideshow-image video {
     -webkit-user-select: none;
-    margin: auto;
-    width: 1000vw; /* ensure it's more than big enough */
-    max-width: 100%; /* then, cap its max width and height to no bigger than the screen */
-    max-height: 100%;
+    margin: 0;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .illegible-text,
 .legible-text {
     position: absolute;
     bottom: 0;
+    left: 0;
     padding: 1vw 2vw;
 }
 

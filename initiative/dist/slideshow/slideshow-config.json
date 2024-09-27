@@ -5,6 +5,7 @@
         "scenes": [
             {
                 "image": "./slideshow/halcyon_remnant/01 game_background_image.webp",
+                "focalPointDistanceFromTop": "60%",
                 "music": {
                     "playlist": "sw_opening"
                 }
@@ -48,6 +49,7 @@
             },
             {
                 "image": "./slideshow/halcyon_remnant/dark-corridor.webp",
+                "focalPointDistanceFromLeft": "42%",
                 "caption": "The Halcyon Remnant",
                 "subcap": "Corridors",
                 "music": {
@@ -56,6 +58,7 @@
             },
             {
                 "image": "./slideshow/halcyon_remnant/galley.webp",
+                "focalPointDistanceFromLeft": "40%",
                 "caption": "The Halcyon Remnant",
                 "subcap": "Destroyed Galley",
                 "music": {
@@ -64,6 +67,7 @@
             },
             {
                 "image": "./slideshow/halcyon_remnant/rancor5.webp",
+                "focalPointDistanceFromTop": "20%",
                 "caption": "Rancor",
                 "subcap": "wwwuh-oh",
                 "music": {
@@ -72,6 +76,7 @@
             },
             {
                 "image": "./slideshow/halcyon_remnant/dark-corridor.webp",
+                "focalPointDistanceFromLeft": "42%",
                 "caption": "The Halcyon Remnant",
                 "subcap": "Corridors",
                 "music": {
@@ -104,6 +109,7 @@
             },
             {
                 "image": "./slideshow/halcyon_remnant/holocube-1.webp",
+                "fit": "contain",
                 "caption": "Ancient Jedi Artifact",
                 "subcap": "A holocube, emblazoned with the symbols of the Jedi and the Mandalorians",
                 "music": {
@@ -125,6 +131,7 @@
             },
             {
                 "image": "./slideshow/final/final.webp",
+                "focalPointDistanceFromLeft": "20%",
                 "caption": "THE END",
                 "subcap": "May the Force Be With You!",
                 "music": {
@@ -140,6 +147,7 @@
         "scenes": [
             {
                 "image": "./slideshow/opening/01 game_background_image.webp",
+                "focalPointDistanceFromTop": "60%",
                 "music": {
                     "playlist": "sw_opening"
                 }
@@ -154,6 +162,7 @@
             },
             {
                 "image": "./slideshow/imperial_decryptor/raxus2.webp",
+                "focalPointDistanceFromLeft": "80%",
                 "caption": "The Remote Moon of Raxus",
                 "subcap": "Tion Hegemony Sector",
                 "music": {
@@ -162,6 +171,7 @@
             },
             {
                 "image": "./slideshow/imperial_decryptor/imperial-facility.webp",
+                "fit": "contain",
                 "caption": "Imperial Archives Facility",
                 "subcap": "On the remote moon of Raxus",
                 "music": {
@@ -171,6 +181,7 @@
             },
             {
                 "image": "./slideshow/imperial_decryptor/stormtroopers-in-a-hallway1.webp",
+                "focalPointDistanceFromLeft": "35%",
                 "caption": "Corridor",
                 "subcap": "Imperial Archives Facility on the Moon of Raxus",
                 "music": {
@@ -195,6 +206,7 @@
             },
             {
                 "image": "./slideshow/final/final.webp",
+                "focalPointDistanceFromLeft": "20%",
                 "caption": "THE END",
                 "subcap": "May the Force Be With You!",
                 "music": {
@@ -210,6 +222,7 @@
         "scenes": [
             {
                 "image": "./slideshow/opening/01 game_background_image.webp",
+                "focalPointDistanceFromTop": "60%",
                 "music": {
                     "playlist": "sw_opening"
                 }
@@ -224,6 +237,7 @@
             },
             {
                 "image": "./slideshow/planetapproach/ringed-planet-approach.webp",
+                "focalPointDistanceFromLeft": "40%",
                 "caption": "Unknown Planet",
                 "subcap": "Location of the Lost Jedi Temple",
                 "music": {
@@ -236,6 +250,7 @@
             },
             {
                 "image": "./slideshow/derelictship/half-destroyed-derelict-ship.webp",
+                "focalPointDistanceFromLeft": "80%",
                 "caption": "Destroyed Ship",
                 "subcap": "Corellian CR90 Stealth Corvette",
                 "music": {
@@ -264,6 +279,7 @@
             },
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
+                "fit": "contain",
                 "caption": "Ancient Hieroglyphs",
                 "subcap": "Meaning: unknown",
                 "music": {
@@ -294,6 +310,7 @@
             },
             {
                 "image": "./slideshow/ventalor/motes-rising-from-stone.webp",
+                "focalPointDistanceFromTop": "10%",
                 "music": {
                     "playlist": "sw_exploration"
                 },
@@ -303,6 +320,7 @@
             },
             {
                 "image": "./slideshow/hieroglyphics/hieroglyphics.webp",
+                "fit": "contain",
                 "music": {
                     "playlist": "sw_exploration",
                     "track": 0
@@ -310,6 +328,7 @@
             },
             {
                 "image": "./slideshow/ventalor/temple-with-symbols2.webp",
+                "focalPointDistanceFromLeft": "53%",
                 "caption": "Ven'Talor",
                 "subcap": "The Lost Jedi Temple",
                 "music": {
@@ -326,6 +345,7 @@
             },
             {
                 "image": "./slideshow/ventalor/jedi-temple-riddle-door5.webp",
+                "focalPointDistanceFromLeft": "62%",
                 "caption": "Ven'Talor",
                 "subcap": "A locked door...",
                 "music": {
@@ -349,6 +369,7 @@
             },
             {
                 "image": "./slideshow/greatlibrary/greatlibrary.webp",
+                "focalPointDistanceFromTop": "80%",
                 "caption": "The Great Library of Ven'Talor",
                 "music": {
                     "playlist": "sw_victory",
@@ -357,6 +378,7 @@
             },
             {
                 "image": "./slideshow/final/final.webp",
+                "focalPointDistanceFromLeft": "20%",
                 "caption": "THE END",
                 "subcap": "May the Force Be With You!",
                 "music": {

@@ -2304,15 +2304,18 @@ async function loadScreen(url, pageObj) {
     let html = '';
 
     // Determine if the URL is for an image
-    const isImage = !url && !!pageObj && pageObj.image && ['.webp', '.jpg', '.jpeg', '.png'].some(ext => pageObj.image.toLowerCase().endsWith(ext))
+    const isImage = !url && pageObj?.image && ['.webp', '.jpg', '.jpeg', '.png'].some(ext => pageObj.image.toLowerCase().endsWith(ext))
+    const isVideo = !url && pageObj?.video?.toLowerCase().endsWith('.mp4')
 
-    if (isImage) {
+    if (isImage || isVideo) {
         // Construct HTML for the next slide, if it was just an image with optional caption texts
         html = `
             <div class="slideshow-content">
                 <div class="slideshow-wrapper">
-                    <figure class="slideshow-image">
-                        <img src="${pageObj.image}" alt="Slide Image"/>
+                    <figure class="slideshow-image">`
+        if (isImage) html += `<img src="${pageObj.image}" alt="Slide Image" style="${getImageFitAndPosition(pageObj)}"/>`
+        if (isVideo)  html += `<video id="fullscreenVideo" autoplay style="${getImageFitAndPosition(pageObj)}"><source src="${pageObj.video}" type="video/mp4">Your browser does not support the video tag.</video>`
+        html += `
                         ${pageObj.caption ? `
                         ${pageObj.show_exotic_font ? `
                         <figcaption class="illegible-text">
@@ -2341,6 +2344,18 @@ async function loadScreen(url, pageObj) {
             console.warn('Error loading page:', err);
             return;
         }
+    }
+
+    function getImageFitAndPosition (pageObj) {
+        if (!pageObj) return ''
+        let style = ''
+        let fromLeft = pageObj.fromLeft || '50%'
+        let fromTop = pageObj.fromTop || '50%'
+        if (pageObj.fit) {
+            style += `object-fit: ${pageObj.fit};`
+        }
+        style += `object-position: ${fromLeft} ${fromTop};`
+        return style
     }
 
     // Load up the next slide, and fade it in.
@@ -2510,6 +2525,10 @@ async function updateSlideBasedOnHash(e) {
             } else {
                 loadScreen(null, {
                     image: sceneToLaunch.image,
+                    video: sceneToLaunch.video,
+                    fit: sceneToLaunch.fit,
+                    fromLeft: sceneToLaunch.focalPointDistanceFromLeft,
+                    fromTop: sceneToLaunch.focalPointDistanceFromTop,
                     caption: sceneToLaunch.caption,
                     subcap: sceneToLaunch.subcap,
                     show_exotic_font: !!slideshow?.exoticfont
