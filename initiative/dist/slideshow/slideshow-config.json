@@ -387,5 +387,327 @@
                 }
             }
         ]
+    },
+    "rugosa": {
+        "name": "Disruption on Rugosa",
+        "exoticfont": "Aurebesh",
+        "scenes": [
+            {
+                "image": "./slideshow/rugosa/01 game_background_image.webp",
+                "focalPointDistanceFromTop": "60%",
+                "music": {
+                    "playlist": "sw_opening",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/02 sith-execution.webp",
+                "fit": "contain",
+                "music": {
+                    "playlist": "sw_evil",
+                    "track": 1
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/03 Vader's-Apprentice.webp",
+                "fit": "contain",
+                "music": {
+                    "playlist": "sw_evil"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/04 mission-briefing-swrebelion.webp",
+                "caption": "Mission Briefing",
+                "subcap": "Aboard the Nebulon-B Frigate: The Resurgence",
+                "music": {
+                    "playlist": "sw_mission_briefing",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/05 orcnog_a_red_moon_with_two_stars_in_the_background_764c84d6-4387-4d28-b2ad-e75370bc92f8.webp",
+                "caption": "RUGOSA",
+                "subcap": "Toydarian System<br/>Velcar Sector",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/06 Galaxy-Map.webp",
+                "caption": "Galaxy Map",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/07 Crix_Madine-LotDS.webp",
+                "fit": "contain",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/08 orcnog_Star_Wars_imperial_research_scientist_standing_in_an_imp_ced10b98-b30f-4b8d-bb10-80f15e8aa089.webp",
+                "fit": "contain",
+                "focalPointDistanceFromTop": "10%",
+                "caption": "Dr. Keene Valthir",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/09 mission-briefing-swrebelion - Copy.webp",
+                "music": {
+                    "playlist": "sw_mission_briefing"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/10 valthir-results1.webp",
+                "focalPointDistanceFromTop": "0%",
+                "caption": "Imperial Research Laboratory",
+                "subcap": "Somewhere on the Planet Rugosa",
+                "music": {
+                    "playlist": "sw_tense",
+                    "track": 2
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/11 valthir-results.webp",
+                "focalPointDistanceFromTop": "0%",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/12 entering atmosphere.webp",
+                "caption": "Rebel Squadron",
+                "subcap": "Exiting hyperspace above the Planet Rugosa",
+                "music": {
+                    "playlist": "sw_heroic",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/13 Rugosa from Orbit.webp",
+                "caption": "Planet Rugosa",
+                "subcap": "View from orbit",
+                "music": {
+                    "playlist": "sw_heroic"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/14 landing2.webp",
+                "focalPointDistanceFromLeft": "25%",
+                "focalPointDistanceFromTop": "75%",
+                "caption": "Planet Rugosa",
+                "subcap": "Touchdown in a remote location...",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/15 sarlacc-pit.webp",
+                "focalPointDistanceFromLeft": "30%",
+                "focalPointDistanceFromTop": "70%",
+                "music": {
+                    "playlist": "sw_surprised"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/16 landspeeders.webp",
+                "focalPointDistanceFromTop": "70%",
+                "music": {
+                    "playlist": "sw_exploration",
+                    "track": 5
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/17 holoprojector.webp",
+                "fit": "contain",
+                "caption": "Imperial Blacksite Facility",
+                "subcap": "Somewhere on the Planet Rugosa",
+                "music": {
+                    "playlist": "sw_evil",
+                    "track": 4
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/18 imperial-base3.webp",
+                "caption": "Imperial Blacksite Facility",
+                "subcap": "On the Planet Rugosa",
+                "music": {
+                    "playlist": "sw_exploration",
+                    "track": 3
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/19 dewback.webp",
+                "focalPointDistanceFromTop": "45%",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/20 hallway.webp",
+                "caption": "Imperial Blacksite Facility",
+                "subcap": "Main corridor",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/21 valthir-results1 - Copy.webp",
+                "focalPointDistanceFromTop": "0%",
+                "caption": "Dr. Keene Valthir",
+                "subcap": "Target secured.",
+                "music": {
+                    "playlist": "sw_exploration"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/22 interrogation-better.webp",
+                "fit": "contain",
+                "caption": "Interrogation Room",
+                "subcap": "Somewhere within the Imperial Blacksite Facility...",
+                "music": {
+                    "playlist": "sw_evil",
+                    "track": 1
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/23 hallway - Copy.webp",
+                "caption": "Imperial Blacksite Facility",
+                "subcap": "Main corridor",
+                "music": {
+                    "playlist": "sw_exploration",
+                    "track": 2
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/24 Blast Door lg.webp",
+                "focalPointDistanceFromTop": "70%",
+                "caption": "Imperial Blacksite Facility",
+                "subcap": "Guarded blast door",
+                "music": {
+                    "playlist": "sw_tense",
+                    "track": 4
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/25 X-Wings.webp",
+                "fit": "contain",
+                "caption": "Rebel Squadron",
+                "subcap": "Above the Planet Rugosa",
+                "music": {
+                    "playlist": "sw_dogfight"
+                },
+                "ambience": {
+                    "playlist": "sw_chatter_dogfight",
+                    "initialVolume": 0.3
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/26 reactor.webp",
+                "focalPointDistanceFromTop": "70%",
+                "caption": "The Reactor Core",
+                "music": {
+                    "playlist": "sw_exploration",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/27 darth_ensys_appears.webp",
+                "fit": "contain",
+                "music": {
+                    "playlist": "sw_boss_fight",
+                    "track": 0,
+                    "initialVolume": 0.4
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/25 X-Wings.webp",
+                "fit": "contain",
+                "caption": "Rebel Squadron",
+                "subcap": "Above the Planet Rugosa",
+                "music": {
+                    "playlist": "sw_dogfight"
+                },
+                "ambience": {
+                    "playlist": "sw_chatter_dogfight",
+                    "initialVolume": 0.3
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/28 Brick's last stand.webp",
+                "fit": "contain",
+                "caption": "Lt. Thaddeus Brick",
+                "music": {
+                    "playlist": "sw_combat",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/29b control-panel3.webp",
+                "music": {
+                    "playlist": "sw_tense"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/29 y-wings-bombing-run.webp",
+                "caption": "Rebel Y-Wing Bomber Squadron",
+                "music": {
+                    "playlist": "sw_dogfight"
+                },
+                "ambience": {
+                    "playlist": "sw_chatter_dogfight",
+                    "initialVolume": 0.3
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/30 hallway-red-alert2.webp",
+                "caption": "Red Alert!",
+                "subcap": "Imperial Blacksite Facility, Planet Rugosa",
+                "music": {
+                    "playlist": "sw_chase",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/31 stormtroopers-standing-outside2.webp",
+                "music": {
+                    "playlist": "sw_boss_fight",
+                    "track": 0
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/32 x-wing-cavalry.webp",
+                "fit": "contain",
+                "music": {
+                    "playlist": "sw_heroic",
+                    "track": 0
+                }
+            },
+            {
+                "video": "./slideshow/rugosa/Rugosa Explosion.mp4",
+                "music": {
+                    "playlist": "sw_heroic"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/33 explosion.webp",
+                "music": {
+                    "playlist": "sw_heroic"
+                }
+            },
+            {
+                "image": "./slideshow/rugosa/34 sky.webp",
+                "caption": "The End",
+                "subcap": "May the Force be with you!",
+                "music": {
+                    "playlist": "sw_victory",
+                    "track": 0
+                }
+            }
+        ]
     }
 }

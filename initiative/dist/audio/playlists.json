@@ -155,9 +155,11 @@
         "./audio/music/starwars/combat/Destroying_The_Shield_-_edited.mp3",
         "./audio/music/starwars/combat/Father_vs._Son_-_edited.mp3",
         "./audio/music/starwars/combat/I_Am_the_Senate.mp3",
+        "./audio/music/starwars/combat/Imperial Attack - Star Wars Episode IV - John Williams.mp3",
         "./audio/music/starwars/combat/Infiltrating_the_Junk_Temple.mp3",
         "./audio/music/starwars/combat/Into_the_Death_Star_-_edited.mp3",
         "./audio/music/starwars/combat/Into_the_Trap_-_edited_-_high_intensity_part.mp3",
+        "./audio/music/starwars/combat/Jango's Escape (edited) - Star Wars Episode II - John Williams.mp3",
         "./audio/music/starwars/combat/Kylo_ren_arrives_at_the_battle_-_edited.mp3",
         "./audio/music/starwars/combat/Rancor_Dungeon_Fight_-_edited.mp3",
         "./audio/music/starwars/combat/Star_Wars_VI_-_Sail_Barge_Assault_-_edited.mp3",
@@ -192,6 +194,10 @@
         "./audio/music/starwars/exploration/Star_Wars_VI_The_Complete_Score_-_Rebel_Briefing-IaA-26EHtDQ-.mp3",
         "./audio/music/starwars/exploration/The_Desert.mp3"
     ],
+    "sw_heroic": [
+        "./audio/music/starwars/combat/Star_Wars_VI_-_Sail_Barge_Assault_-_edited.mp3",
+        "./audio/music/starwars/combat/98._Panaka_and_the_Queen_s_Protectors.mp3"
+    ],
     "sw_mission_briefing": [
         "./audio/music/starwars/mission_briefing/Rebel_Briefing_-_edited.mp3"
     ],
@@ -204,6 +210,12 @@
         "./audio/music/starwars/special/Party_-_Star_Wars_Cantina_Band-x70b3qgQYtU-.mp3",
         "./audio/music/starwars/special/Success_-_Trials_Hoth_Bright_Hope_Transport_Out_02.mp3",
         "./audio/music/starwars/special/Vader_-_Star_Wars-_The_Imperial_March_Darth_Vader_s_Theme--bzWSJG93P8-.mp3"
+    ],
+    "sw_surprised": [
+        "./audio/music/starwars/combat/Imperial Attack - Star Wars Episode IV - John Williams.mp3",
+        "./audio/music/starwars/combat/The_Sith_Spacecraft_and_The_Droid_-_edited.mp3",
+        "./audio/music/starwars/combat/09_Anakin_Defeats_Sebulba_-_edited.mp3",
+        "./audio/music/starwars/combat/Jango's Escape (edited) - Star Wars Episode II - John Williams.mp3"
     ],
     "sw_tense": [
         "./audio/music/starwars/tense/06_The_Trip_to_the_Naboo_Temple.mp3",
