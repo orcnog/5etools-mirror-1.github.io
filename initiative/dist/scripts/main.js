@@ -401,8 +401,8 @@ function setupDomAndEventListeners() {
     document.getElementById('incrChalkiness').addEventListener('click', increaseChalkiness)
     document.getElementById('openMusicMenu').addEventListener('click', ()=> openSettingsSubMenu('musicMenu'))
     document.getElementById('openSlideshowMenu').addEventListener('click', ()=> openSettingsSubMenu('slideshowMenu'))
-    document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowChange)
-    document.getElementById('slideshowNextSlide').addEventListener('change', handleSlideshowSlideChange)
+    document.getElementById('selectSlideshow').addEventListener('change', handleSlideshowSelectChange)
+    document.getElementById('slideshowNextSlide').addEventListener('change', handleSlideshowNextSlideChange)
     document.getElementById('homebrewSlideshowJSON').addEventListener('input', handleHomebrewSlideshowJsonChange, {once: true})
     document.getElementById('homebrewSlideshowJSON').addEventListener('keydown', handleHomebrewSlideshowJsonTab)
     document.getElementById('homebrewSlideshowSave').addEventListener('click', handleHomebrewSlideshowSave)
@@ -513,13 +513,13 @@ function setupDomAndEventListeners() {
     }    
 
     // Slideshow Handler
-    function handleSlideshowChange(e) {
+    function handleSlideshowSelectChange(e) {
         const selectedSlideshow = e.target.value
         updateSlideshowContext(selectedSlideshow)
     }
 
     // Slideshow Slide Handler
-    function handleSlideshowSlideChange(e) {
+    function handleSlideshowNextSlideChange(e) {
         const selectedSlide = e.target.value
         updateNextSlideToShow(selectedSlide)
     }
@@ -1464,6 +1464,7 @@ function updateSlideshowContext(selectedSlideshow) {
         if (selectedSlideshow) {
             document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.add('active')
             populateSelectWithSlideNumbers()
+            updateNextSlideToShow('1')
         }
         // Load font if necessary
         if (slideshow?.exoticfont) {
