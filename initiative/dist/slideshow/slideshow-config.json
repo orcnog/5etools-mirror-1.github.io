@@ -426,8 +426,8 @@
             },
             {
                 "image": "./slideshow/rugosa/05 orcnog_a_red_moon_with_two_stars_in_the_background_764c84d6-4387-4d28-b2ad-e75370bc92f8.webp",
-                "caption": "RUGOSA",
-                "subcap": "Toydarian System<br/>Velcar Sector",
+                "caption": "PLANET: RUGOSA",
+                "subcap": "SYSTEM: TOYDARIA<br/>SECTOR: VELCAR",
                 "music": {
                     "playlist": "sw_mission_briefing"
                 }
@@ -450,7 +450,8 @@
                 "image": "./slideshow/rugosa/08 orcnog_Star_Wars_imperial_research_scientist_standing_in_an_imp_ced10b98-b30f-4b8d-bb10-80f15e8aa089.webp",
                 "fit": "contain",
                 "focalPointDistanceFromTop": "10%",
-                "caption": "Dr. Keene Valthir",
+                "caption": "NAME: Dr. Keene Valthir",
+                "subcap": "OCCUPATION: Ionic Graviton Physicist<br/>LOCATION: Rugosa",
                 "music": {
                     "playlist": "sw_mission_briefing"
                 }
