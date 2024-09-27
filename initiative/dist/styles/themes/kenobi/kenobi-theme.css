@@ -2,6 +2,10 @@
     --theme-bg-images: url('./themes/kenobi/images/vader-versus3.webp');
     --theme-bg-image-positions: top center;
     --theme-bg-image-sizes: cover;
+    --main-text-color: #ddd;
+    --main-text-color-alt: #fff;
+    --text-color-accent-1: rgb(190, 80, 82);
+    --text-color-accent-2: rgb(160, 70, 72);
     --button-bg-color: rgb(125, 16, 17);
     --button-bg-color--hover: rgb(105, 16, 17);
     --button-outline-focus: rgba(255, 16, 17, 0.5);

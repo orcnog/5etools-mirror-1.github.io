@@ -68,7 +68,8 @@
             </tr>
             <tr>
                 <td>
-                    <div id="receiver-id" style="font-weight: bold;" title="Copy this ID to the input on send.html.">ID:</div>
+                    <div style="font-weight: bold;" title="Copy this ID to the input on send.html.">ID: <span id="p2p-receiver-id"></span></div>
+                    <button id="p2p-reset-button" class="">↺</button>
                 </td>
                 <td>
                     <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
@@ -77,7 +78,7 @@
                 </td>
             </tr>
             <tr>
-                <td><div id="status" class="status"></div></td>
+                <td><div id="p2p-receiver-status" class="status"></div></td>
                 <td><div class="message" id="message"></div></td>
             </tr>
             <tr>

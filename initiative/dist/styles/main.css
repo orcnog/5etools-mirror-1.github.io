@@ -9,6 +9,10 @@
     --theme-bg-image-sizes: cover;
     --main-text-color: #ddd;
     --main-text-color-alt: #fff;
+    --text-color-accent-1: rgb(180 110 63);
+    --text-color-accent-2: rgb(165 85 33);
+    --text-color-subtle-1: rgb(145 145 145);
+    --text-color-subtle-2: rgb(115 115 115);
     --header-menu-height: 3.125rem;
     --tablet-bg-color: transparent;
     --tablet-bg-image: url('../images/slate-bg-tiled.webp');
@@ -242,6 +246,13 @@ textarea {
     transition: background-color 0.2s;
 }
 
+.btn.btn-small {
+    margin: 0.125rem;
+    padding: 0.3em 0.5em;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+}
+
 .btn:hover,
 .btn:focus,
 .btn:active {
@@ -342,6 +353,22 @@ select {
 .select::-ms-expand {
     /* Hide the default arrow of the select box */
     display: none;
+}
+
+.text-accent-1 {
+    color: var(--text-color-accent-1) !important;
+}
+
+.text-accent-2 {
+    color: var(--text-color-accent-2) !important;
+}
+
+.text-subtle-1 {
+    color: var(--text-color-subtle-1) !important;
+}
+
+.text-subtle-2 {
+    color: var(--text-color-subtle-2) !important;
 }
 
 /* Slide show takeover */
@@ -581,6 +608,11 @@ body.menu-open .settings-menu-closed-ui {
     mask-size: 120%;
     mask-position: 50%;
 }
+.settings-menu .btn.btn-small,
+.settings-sub-menu .btn.btn-small {
+    margin: 0.125rem;
+    padding: 0.3em 0.5em;
+}
 
 /* Settings menu */
 .settings-menu-group {
@@ -593,7 +625,7 @@ body.menu-open .settings-menu-closed-ui {
 
 /* Settings label, tooltip */
 .settings-label {
-    font-size: 1em;
+    font-size: 1.15em;
 }
 
 .settings-label i.tooltip-icon {
@@ -606,6 +638,11 @@ body.menu-open .settings-menu-closed-ui {
 .settings-label-tooltip-text {
     font-size: 0.8em;
     font-family: math, 'Courier New', Courier, monospace;
+}
+
+.settings-menu-group-inner {
+    margin-left: 1em;
+    margin-bottom: 0.5em;
 }
 
 /* expand/collapse animation */
