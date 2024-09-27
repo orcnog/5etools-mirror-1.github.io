@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width">
+        <title>Peer-to-Peer Cue System --- Sender</title>
+        <style>
+            body {
+                font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+                background-color: white;
+                min-width: 450px;
+            }
+            h1 { font-size: 1.75em; }
+            h2 {
+                text-align: center;
+                font-size: 4em; 
+            }
+            td { width: 50%; }
+            input { margin-bottom: 5px; }
+            a:visited{ color: blue; }
+            .display {
+                width: 100%;
+                min-height: 400px;
+                padding-bottom: 20px;
+            }
+            .control {
+                width: 100%;
+                padding-bottom: 20px;
+            }
+            .control-button {
+                width: 100%;
+                min-height: 50px;
+            }
+            .display-box { border: 2px solid black; }
+            .title { vertical-align: top; }
+            .standby { background-color: red; }
+            .go { background-color: green; }
+            .fade { background-color: yellow; }
+            .off { background-color: gray; }
+            .hidden { visibility: hidden; }
+            .no-display { display: none; }
+            .status {
+                height: 125px;
+                vertical-align: text-top;
+                font-weight: bold;
+                margin-bottom: 10px;
+                border-bottom: 2px solid black;
+                
+            }
+            .message {
+                height: 125px;
+                max-height: 125px;
+                margin-bottom: 10px;
+                border-bottom: 2px solid black;
+                overflow: auto;
+            }
+            .msg-time { color: blue; }
+            .cueMsg { color: orange; }
+            .selfMsg { color: green; }
+            .peerMsg { color: red; }
+        </style>
+    </head>
+    <body>
+        <h1>Peer-to-Peer Cue System --- Sender</h1>
+
+        <table class="control">
+            <tr>
+                <td class="title">Status:</td>
+                <td class="title">Messages:</td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="font-weight: bold">ID: </span>
+                    <input type="text" id="receiver-id" title="Input the ID from receive.html">
+                    <button id="connect-button">Connect</button>
+                </td>
+                <td>
+                    <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
+                    <button type="button" id="sendButton">Send</button>
+                    <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
+                </td>
+            </tr>
+            <tr>
+                <td><div id="status" class="status"></div></td>
+                <td><div class="message" id="message"></div></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="control-button" id="resetButton">Reset</button>
+                </td>
+                <td>
+                    <button type="button" class="control-button" id="goButton">Go</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="control-button" id="fadeButton">Fade</button>
+                </td>
+                <td>
+                    <button type="button" class="control-button" id="offButton">Off</button>
+                </td>
+            </tr>
+        </table>
+
+        <script src="https://unpkg.com/peerjs@1.5.0/dist/peerjs.min.js"></script>
+        <script src="../scripts/p2pSender.js"></script> <!-- External JS script -->
+    </body>
+</html>
