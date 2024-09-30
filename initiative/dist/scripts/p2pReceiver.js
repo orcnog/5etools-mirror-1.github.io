@@ -61,6 +61,8 @@
                 case 'Fade': fade(); addMessage(cueString + data); break;
                 case 'Off': off(); addMessage(cueString + data); break;
                 case 'Reset': reset(); addMessage(cueString + data); break;
+                case 'next_slide': nextSlide(); break;
+                case 'back_to_initiative': initiative(); break;
                 default: addMessage("<span class=\"peerMsg\">Peer: </span>" + data); break;
             };
         });
@@ -74,6 +76,15 @@
     function fade() { changeDisplay("fade"); }
     function off() { changeDisplay("off"); }
     function reset() { changeDisplay("standby"); }
+    function nextSlide() {
+        let nextSlideBtn = document.querySelector('.next-slide')
+        nextSlideBtn.click();
+        // window.history.pushState(null, null, window.location.pathname + hashtag);
+    }
+    function initiative() {
+        let returnToInitBtn = document.querySelector('.return-to-initiative')
+        returnToInitBtn.click();
+    }
 
     function changeDisplay(state) {
         standbyBox.className = state === "standby" ? "display-box standby" : "display-box hidden";
@@ -121,7 +132,7 @@
         const phraseArray = [
             "sword", "magic", "dragon", "goblin", "jedi", "xwing", "vader", "orc", "drow",
             "yoda", "force", "blaster", "clone", "sith", "saber", "hutt", "ewok", "jabba",
-            "elf", "halfling", "ogre", "droid", "admiral", "laser", "wand", "dwarf", "base",
+            "elf", "halfling", "ogre", "droid", "admiral", "laser-brain", "dwarf", "base",
             "bow", "blight", "staff", "rogue", "monk", "troop", "tie", "paladin", "boba",
             "bard", "wizard", "wookiee", "pilot", "mando", "padawan", "squire", "griffon",
             "golem", "flame", "kylo", "tank", "knight", "guard", "akbar", "cave", "gravity",
@@ -131,22 +142,22 @@
             "obiwan", "galaxy", "dagger", "bounty", "armor", "cloak", "phantom", "empire",
             "robin", "light", "c3po", "droids", "redrook", "r2d2", "skywalker", "sidious",
             "luke", "coruscant", "captain", "ion", "witch", "rancor", "ice", "coin", "darth",
-            "dark", "cannon", "logan", "moon", "pirate", "drake", "copper", "asoka", "jawa",
+            "dark", "cannon", "logan", "moon", "harper", "drake", "copper", "asoka", "jawa",
             "black", "master", "quarren", "bantha", "womprat", "falcon", "harpoon", "sand",
             "bowcaster", "deathstar", "gungan",  "wampa", "shield", "demigod", "spaceport",
             "nerf", "anvil", "hammer", "naboo", "temple", "beastmaster", "clan", "tauntaun",
-            "dawn", "siege", "podracer", "realm", "gate", "kessel", "imperial", "scroll",
+            "dawn", "siege", "podracer", "realm", "gauntlet", "kessel", "imperial", "scroll",
             "luck", "darkside", "fire", "hunt", "han", "padme", "walker", "gold", "giant",
             "java", "spice", "glaive", "engine", "longbow", "mine", "trap", "silver", "poe",
             "rune", "relic", "fate", "nebulon", "grom", "mimic", "deity", "void", "lion",
             "stone", "grim", "nova", "tome", "helm", "ring", "travel", "wyvern", "druid",
             "crypt", "chest", "rapier", "sorcerer", "guide", "barbarian", "scout", "hoth",
-            "kenobi", "star", "sage", "necromancer", "vader", "fireball", "dusk", "rey",
+            "kenobi", "thay", "sage", "necromancer", "vader", "fireball", "dusk", "rey",
             "blade", "arrow", "mynock", "champion", "trooper", "clan", "steel", "senate",
             "axe", "spectre", "elven", "dwarven", "scarif", "arcana", "warlock", "kamino",
             "frost", "alliance", "waterdeep", "longsword", "neverwinter", "troll", "potion",
             "organa", "leia", "windu", "mace", "dooku", "grievous", "palpatine", "tarkin",
-            "sarlacc", "parsec", "millenium-falcon", "stormtrooper", "andor"
+            "sarlacc", "parsec", "millenium-falcon", "stormtrooper", "andor", "zhentarim"
         ];
         const diceTypes = [4, 6, 8, 10, 12, 20]; // Dice types
         const consonants = ['','b','d','f','g','h','j','m','n','p','r','t','v','y','z'];

@@ -1,5 +1,5 @@
 import HowlerPlayer from './audioPlayer.js'
-
+import * as peer from './p2pReceiverModule.js';
 /**
  * Declarations
 */
@@ -99,6 +99,8 @@ async function main() {
     if (!useOpenAI) await setupSpeechDicatation()
     updateSlideBasedOnHash(false)
     outputLogsToSettingsPage()
+    peer.initialize()
+    peer.onData(onPeerData)
 }
 
 async function fetchAudioPlaylists () {
@@ -2494,6 +2496,13 @@ function refreshPage() {
  * URL management
  */
 
+async function gotoSlide(hashtag) {    
+    if (typeof hashtag === 'number' || parseInt(hashtag) || hashtag === '') {
+        window.location.hash = hashtag;
+        updateNextSlideToShow(hashtag)
+    }
+}
+
 async function updateSlideBasedOnHash(e) {
     // Get the current hash value without the leading #
     const hash = window.location.hash.substring(1)
@@ -2627,4 +2636,77 @@ function outputLogsToSettingsPage() {
 
     // If you want to stop logging to the <p> element, use:
     // toggleLogOutput(false)
+}
+
+function getPrevSlideNumber () {
+    let prevSlideToShow = parseInt(getCookie('slideshowNextSlidePreference'))
+    if (!slideBtnShowsNext) prevSlideToShow = prevSlideToShow - 1
+    else prevSlideToShow = prevSlideToShow - 2
+    if (prevSlideToShow < 1) prevSlideToShow = 0
+    return prevSlideToShow
+}
+
+function getCurrentSlideNumber () {
+    let currentSlideToShow = parseInt(getCookie('slideshowNextSlidePreference'))
+    if (slideBtnShowsNext) currentSlideToShow = currentSlideToShow - 1
+    if (currentSlideToShow < 1) currentSlideToShow = 0
+    return currentSlideToShow
+}
+
+function getNextSlideNumber () {
+    // console.log(getPrevHash())
+    // console.log(getCurrentHashNumber())
+    // console.log(getNextHash())
+    // window.history.pushState(null, null, window.location.pathname + hashtag);
+
+    // let nextSlideBtn = document.querySelector('.next-slide')
+    // nextSlideBtn.click();
+
+    let nextSlideToShow = parseInt(getCookie('slideshowNextSlidePreference'))
+    if (!slideBtnShowsNext) nextSlideToShow = nextSlideToShow + 1
+    if (nextSlideToShow < 1) nextSlideToShow = 0
+    return nextSlideToShow
+}
+
+const onPeerData = (data) => {
+    console.log("Received data:", data);
+    if (data === 'prev_slide') {
+        clientPrevSlide()
+    } else if (data === 'show_current_slide') {
+        clientCurrentSlide()
+    } else if (data === 'next_slide') {
+        clientNextSlide()
+    } else if (data === 'back_to_initiative') {
+        clientInitiative()
+    } else if (data.startsWith('go_to_slide:')) {
+        const slideNum = parseInt(data.split(':')[1])
+        if (slideNum) gotoSlide(slideNum)
+    } else if (data.startsWith('updateSlideshowContext:')) {
+        const slideShowContext = data.split(':')[1]
+        updateSlideshowContext(slideShowContext)
+    } else if (data.startsWith('updateNextSlideToShow:')) {
+        const nextSlideToShow = data.split(':')[1]
+        updateNextSlideToShow(nextSlideToShow)
+    } else if (data.startsWith('updateTheme:')) {
+        const newTheme = data.split(':')[1]
+        updateTheme(newTheme)
+    }
+    
+    function clientPrevSlide() {
+        gotoSlide(getPrevSlideNumber())
+    }
+
+    function clientCurrentSlide() {
+        gotoSlide(getCurrentSlideNumber())
+    }
+
+    function clientNextSlide() {
+        gotoSlide(getNextSlideNumber())
+    }
+    
+    function clientInitiative() {
+        // gotoSlide('')
+        let returnToInitBtn = document.querySelector('.return-to-initiative')
+        returnToInitBtn.click();
+    }
 }

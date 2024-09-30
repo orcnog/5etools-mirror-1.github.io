@@ -6,10 +6,6 @@ var send;
     var recvIdInput = document.getElementById("receiver-id");
     var status = document.getElementById("status");
     var message = document.getElementById("message");
-    var goButton = document.getElementById("goButton");
-    var resetButton = document.getElementById("resetButton");
-    var fadeButton = document.getElementById("fadeButton");
-    var offButton = document.getElementById("offButton");
     var sendMessageBox = document.getElementById("sendMessageBox");
     var sendButton = document.getElementById("sendButton");
     var clearMsgsButton = document.getElementById("clearMsgsButton");
@@ -44,6 +40,7 @@ var send;
         peer.on('error', function (err) {
             alert('' + err);
         });
+        recvIdInput.focus()
     };
 
     function join() {
@@ -64,13 +61,11 @@ var send;
         if (conn && conn.open) {
             conn.send(sigName);
             addMessage(cueString + sigName);
+        } else {
+            console.error('No connection found.');
+            alert('No connection found.');
         }
     }
-
-    goButton.addEventListener('click', function () { signal("Go"); });
-    resetButton.addEventListener('click', function () { signal("Reset"); });
-    fadeButton.addEventListener('click', function () { signal("Fade"); });
-    offButton.addEventListener('click', function () { signal("Off"); });
 
     function addMessage(msg) {
         var now = new Date();
@@ -102,6 +97,9 @@ var send;
 
     clearMsgsButton.addEventListener('click', clearMessages);
     connectButton.addEventListener('click', join);
+    recvIdInput.addEventListener('keypress', function (e) {
+        if (e.key == 'Enter') connectButton.click();
+    });
     initialize();
 })();
 

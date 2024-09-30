@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Voice Initiative Peer-to-Peer Cue System --- Controller</title>
+    <style>
+        body {
+            font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+            background-color: #222;
+            color: #eee;
+            min-width: 450px;
+        }
+
+        h1 {
+            font-size: 1.75em;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 4em;
+        }
+
+        td {
+            width: 50%;
+        }
+
+        input {
+            margin-bottom: 5px;
+        }
+
+        a:visited {
+            color: lightblue;
+        }
+
+        .display {
+            width: 100%;
+            min-height: 400px;
+            padding-bottom: 20px;
+        }
+
+        .control {
+            width: 100%;
+            padding-bottom: 20px;
+        }
+
+        .control-button {
+            width: 100%;
+            min-height: 50px;
+        }
+
+        .display-box {
+            border: 2px solid #444;
+        }
+
+        .title {
+            vertical-align: top;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .no-display {
+            display: none;
+        }
+
+        .status {
+            height: 125px;
+            vertical-align: text-top;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #444;
+
+        }
+
+        .message {
+            height: 125px;
+            max-height: 125px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #444;
+            overflow: auto;
+        }
+
+        .msg-time {
+            color: lightblue;
+        }
+
+        .cueMsg {
+            color: lightsalmon;
+        }
+
+        .selfMsg {
+            color: lightgreen;
+        }
+
+        .peerMsg {
+            color: lightcoral;
+        }
+
+        .sender-btns-wrapper {
+            display: flex;
+            flex-flow: row nowrap;
+            column-gap: 5px;
+            margin-bottom: 1em;
+        }
+
+        .prev-slide-btn {
+            flex-basis: 20%;
+        }
+
+        .current-slide-btn {
+            flex-basis: 20%;
+        }
+
+        .next-slide-btn {
+            flex-basis: 30%;
+            background-color: lightskyblue;
+        }
+
+        .return-to-initiative-btn {
+            flex-basis: 30%;
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Voice Initiative Peer-to-Peer Cue System --- Controller</h1>
+
+    <table class="control">
+        <tr>
+            <td class="title">Status:</td>
+            <td class="title">Messages:</td>
+        </tr>
+        <tr>
+            <td>
+                <span style="font-weight: bold">ID: </span>
+                <input type="text" id="receiver-id" title="Input the ID from receive.html">
+                <button id="connect-button">Connect</button>
+            </td>
+            <td>
+                <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
+                <button type="button" id="sendButton">Send</button>
+                <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="status" class="status"></div>
+            </td>
+            <td>
+                <div class="message" id="message"></div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="sender-btns-wrapper">
+        <button type="button" class="control-button prev-slide-btn" onclick="signal('prev_slide');">&#10094; Prev
+            Slide</button>
+        <button type="button" class="control-button current-slide-btn" onclick="signal('show_current_slide');">Current
+            Slide</button>
+        <button type="button" class="control-button next-slide-btn" onclick="signal('next_slide');">Next Slide
+            &#10095;</button>
+        <button type="button" class="control-button return-to-initiative-btn"
+            onclick="signal('back_to_initiative');">Initiative &#9876;</button>
+    </div>
+    <div class="sender-btns-wrapper">
+        <div>
+            <label for="updateTheme">Update Theme</label>
+            <select id="updateTheme" class="control-dropdown update-theme" onchange="signal('updateTheme:'+event.target.value)">
+                <option value="D&D">D&D</option>
+                <option value="Empire">Empire</option>
+                <option value="Kenobi">Kenobi</option>
+            </select>
+        </div>
+        <div>
+            <label for="updateSlideshowContext">Update Slideshow</label>
+            <select id="updateSlideshowContext" class="control-dropdown update-slideshow-context"
+                onchange="signal('updateSlideshowContext:'+event.target.value)">
+                <option value="">None</option>
+                <option value="halcyon-remnant">The Halcyon Remnant</option>
+                <option value="imperial-decryptor">The Imperial Decryptor</option>
+                <option value="lost-temple">The Lost Jedi Temple</option>
+                <option value="rugosa">Disruption on Rugosa</option>
+            </select>
+        </div>
+        <div>
+            <label for="updateNextSlideToShow">Assign Next-Up Slide</label>
+            <input id="updateNextSlideToShow" type="text" class="control-input update-next-slide"
+                onchange="signal('updateNextSlideToShow:'+event.target.value)" />
+        </div>
+        <div>
+            <label for="go_to_slide">Go to Slide...</label>
+            <input id="go_to_slide" type="text" class="control-input go-to-slide" onchange="signal('go_to_slide:'+event.target.value)" />
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.0/dist/peerjs.min.js"></script>
+    <script src="../scripts/controller.js"></script> <!-- External JS script -->
+</body>
+
+</html>
