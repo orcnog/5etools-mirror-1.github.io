@@ -26,7 +26,8 @@
     <!-- Link to JavaScript files -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/howler-with-buffer@2.2.5/src/howler.core.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <!-- <script type="module" src="scripts/youTubeAudio.js"></script> -->
+    <script src="https://unpkg.com/peerjs@1.5.0/dist/peerjs.min.js"></script>
+    <script type="module" src="scripts/p2pReceiver.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </head>
 
@@ -80,6 +81,19 @@
                         <button id="copyQueryStringToClipboard" class="btn btn-alt">
                             <i class="fas fa-link"></i>
                         </button>
+                    </div>
+                </div>
+                <div class="settings-menu-group">
+                    <label class="settings-label">Peer-2-Peer Connection Key</label>
+                    <div class="settings-menu-group-inner">
+                        <div title="Copy this ID to the input on sender app.">ID : <span id="p2p-receiver-id" class="text-accent-1"></span></div>
+                        <div>Status : <span id="p2p-receiver-status" class="text-subtle-2"></span></div>
+                        <div class="settings-input">
+                            <span>Regenerate Key</span>
+                            <button id="p2p-reset-button" class="btn btn-alt btn-small">
+                                <i class="fas fa-refresh"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="settings-menu-group">
