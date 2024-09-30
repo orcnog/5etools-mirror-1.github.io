@@ -219,11 +219,8 @@ function rehydrateSettings() {
 
     /* Rehydrate the chosen theme */
     chosenTheme = getCookie('themePreference') || 'D&D'
-    setCookie('themePreference', chosenTheme)
+    updateTheme(chosenTheme)
     populateSelectWithThemes()
-    const themeOptionElem = document.querySelector(`#selectTheme option[value="${chosenTheme}"]`)
-    loadCSS(themeOptionElem?.dataset.css)
-    updateFont(themeOptionElem?.dataset.font)
 
     /* Rehydrate combat music playlist selection */
     const combatPlaylistCookieValue = getCookie('combatPlaylist');
@@ -1284,10 +1281,42 @@ function closeFullscreen() {
 
 function handleThemeChange(event) {
     const selectedTheme = event.target.value
-    const themeOptionElem = event.target.options[event.target.selectedIndex]
-    loadCSS(themeOptionElem?.dataset.css)
-    updateFont(themeOptionElem?.dataset.font)
-    setCookie('themePreference', selectedTheme)
+    // const themeOptionElem = event.target.options[event.target.selectedIndex]
+    // const cssPath = themeOptionElem?.dataset.css
+    // const fontName = themeOptionElem?.dataset.font
+    updateTheme(selectedTheme)
+}
+
+async function updateTheme(theme) {
+    if (!theme) return false
+
+    try {
+        // Fetch the JSON data
+        const themeArray = await fetchJSON('./styles/themes/themes.json');
+
+        // Find the theme object in the array based on the provided theme name
+        const selectedTheme = themeArray.find(t => t.name === theme);
+
+        if (!selectedTheme) {
+            console.error(`Theme "${theme}" not found`);
+            return false;  // Return false if the theme is not found
+        }
+
+        // Use the selected theme's properties
+        const { css, font } = selectedTheme;
+
+        // If cssPath exists, load the corresponding CSS
+        if (css) loadCSS(css);
+
+        // If fontName exists, update the font
+        if (font) updateFont(font);
+
+        // Save the user's theme preference in a cookie
+        setCookie('themePreference', theme);
+
+    } catch (error) {
+        console.error('Error updating theme:', error);
+    }
 }
 
 function toggleLiveTextMode() {
@@ -1576,25 +1605,9 @@ function populateSelectWithFonts() {
     })
 }
 
-function populateSelectWithThemes() {
-    const themes = [
-        {
-            name: 'D&D',
-            css: './styles/themes/dnd/dnd-theme.css',
-            font: 'font-eordeoghlakat',
-        },
-        {
-            name: 'Kenobi',
-            css: './styles/themes/kenobi/kenobi-theme.css',
-            font: 'font-aurebesh',
-        },
-        {
-            name: 'Empire',
-            css: './styles/themes/empire/empire-theme.css',
-            font: 'font-aurebesh',
-        },
-        // 'Star Wars Imperial Deck', 'Star Wars Destroyer View', 'Star Wars Computer Terminal', 'Star Wars Death Star', 'Star Wars Darth vs Luke', 'Star Wars Darth vs Asoka', 'Star Wars Rey vs Kylo', 'Star Wars Rise of Skywalker', 'Star Wars Evil Rey', 'Star Wars Retro'
-    ]
+async function populateSelectWithThemes() {
+    const themes = await fetchJSON('./styles/themes/themes.json')
+    // 'Star Wars Imperial Deck', 'Star Wars Destroyer View', 'Star Wars Computer Terminal', 'Star Wars Death Star', 'Star Wars Darth vs Luke', 'Star Wars Darth vs Asoka', 'Star Wars Rey vs Kylo', 'Star Wars Rise of Skywalker', 'Star Wars Evil Rey', 'Star Wars Retro'
 
     const selectElement = document.querySelector('#selectTheme')
     themes.forEach(theme => {
@@ -2249,10 +2262,10 @@ function getCurrentHashNumber() {
 function getPrevHash(hashVal) {
     const hashNum = hashVal ? parseInt(hashVal) : null
     const currentNumber = getCurrentHashNumber()
-    const nextNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
+    const prevNumber = (typeof hashNum === 'number' ? hashNum : currentNumber) - 1
     
-    if (slideshow?.scenes?.[nextNumber - 1]) {
-        return `${nextNumber}`
+    if (slideshow?.scenes?.[prevNumber - 1]) {
+        return `${prevNumber}`
     } else {
         return '' // return to initiative tracker view
     }
