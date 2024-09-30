@@ -1,0 +1,17 @@
+[
+    {
+        "name": "D&D",
+        "css": "./styles/themes/dnd/dnd-theme.css",
+        "font": "font-eordeoghlakat"
+    },
+    {
+        "name": "Empire",
+        "css": "./styles/themes/empire/empire-theme.css",
+        "font": "font-aurebesh"
+    },
+    {
+        "name": "Kenobi",
+        "css": "./styles/themes/kenobi/kenobi-theme.css",
+        "font": "font-aurebesh"
+    }
+]
