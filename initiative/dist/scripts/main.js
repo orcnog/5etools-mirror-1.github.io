@@ -1321,6 +1321,7 @@ async function updateTheme(theme) {
 
         // Save the user's theme preference in a cookie
         setCookie('themePreference', theme);
+        broadcast({'currentTheme': theme})
 
     } catch (error) {
         console.error('Error updating theme:', error);

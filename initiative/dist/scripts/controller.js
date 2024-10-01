@@ -1,251 +1,298 @@
 var send;
 (function () {
-    var lastPeerId = null;
-    var peer = null; // Own peer object
-    var conn = null;
-    var recvIdInput = document.getElementById("receiver-id");
-    var status = document.getElementById("status");
-    var message = document.getElementById("message");
-    var sendMessageBox = document.getElementById("sendMessageBox");
-    var sendButton = document.getElementById("sendButton");
-    var clearMsgsButton = document.getElementById("clearMsgsButton");
-    var connectButton = document.getElementById("connect-button");
-    var cueString = "<span class=\"cueMsg\">Cue: </span>";
+    var lastPeerId = null
+    var peer = null // Own peer object
+    var conn = null
+    var recvIdInput = document.getElementById("receiver-id")
+    var status = document.getElementById("status")
+    var message = document.getElementById("message")
+    var sendMessageBox = document.getElementById("sendMessageBox")
+    var sendButton = document.getElementById("sendButton")
+    var clearMsgsButton = document.getElementById("clearMsgsButton")
+    var connectButton = document.getElementById("connect-button")
+    var cueString = "<span class=\"cueMsg\">Cue: </span>"
 
     function initialize() {
-        peer = new Peer(null, { debug: 2 });
+        peer = new Peer(null, { debug: 2 })
         peer.on('open', function (id) {
             if (peer.id === null) {
-                peer.id = lastPeerId;
+                peer.id = lastPeerId
             } else {
-                lastPeerId = peer.id;
+                lastPeerId = peer.id
             }
-        });
+        })
         peer.on('connection', function (c) {
-            c.on('open', function() {
-                c.send("Sender does not accept incoming connections");
-                setTimeout(function() { c.close(); }, 500);
-            });
-        });
+            c.on('open', function () {
+                c.send("Sender does not accept incoming connections")
+                setTimeout(function () { c.close() }, 500)
+            })
+        })
         peer.on('disconnected', function () {
-            status.innerHTML = "Connection lost. Please reconnect";
-            peer.id = lastPeerId;
-            peer._lastServerId = lastPeerId;
-            peer.reconnect();
-        });
-        peer.on('close', function() {
-            conn = null;
-            status.innerHTML = "Connection destroyed. Please refresh";
-        });
+            status.innerHTML = "Connection lost. Please reconnect"
+            peer.id = lastPeerId
+            peer._lastServerId = lastPeerId
+            peer.reconnect()
+        })
+        peer.on('close', function () {
+            conn = null
+            status.innerHTML = "Connection destroyed. Please refresh"
+        })
         peer.on('error', function (err) {
-            alert('' + err);
-        });
+            alert('' + err)
+        })
         recvIdInput.focus()
     };
 
     function join() {
-        if (conn) { conn.close(); }
-        conn = peer.connect(recvIdInput.value, { label: 'CONTROLLER', reliable: true });
+        if (conn) { conn.close() }
+        conn = peer.connect(recvIdInput.value, { label: 'CONTROLLER', reliable: true })
         conn.on('open', function () {
-            status.innerHTML = "Connected to: " + conn.peer;
-        });
+            status.innerHTML = "Connected to: " + conn.peer
+        })
         conn.on('data', function (data) {
             if (typeof data === 'object') {
-                handleDataObject(data);
+                handleDataObject(data)
             } else {
-                addMessage("<span class=\"peerMsg\">Peer:</span> " + data);
+                addMessage("<span class=\"peerMsg\">Peer:</span> " + data)
             }
-        });
+        })
         conn.on('close', function () {
-            status.innerHTML = "Connection closed";
-        });
+            status.innerHTML = "Connection closed"
+        })
     };
 
     signal = function (sigName) {
         if (conn && conn.open) {
-            conn.send(sigName);
-            addMessage(cueString + sigName);
+            conn.send(sigName)
+            addMessage(cueString + sigName)
         } else {
-            console.error('No connection found.');
-            alert('No connection found.');
+            console.error('No connection found.')
+            alert('No connection found.')
         }
     }
 
     async function handleDataObject(data) {
         if (data.controllerData) {
-            const obj = data.controllerData;
-            if (obj.hasOwnProperty('currentTheme')) document.getElementById('updateTheme').value = obj.currentTheme;
-            if (obj.hasOwnProperty('currentSlideshow')) {
-                await createRadioButtons('go_to_slide', 'goToSlideGroup', obj.currentSlideshow);
-            }
-            if (obj.hasOwnProperty('currentSlideshowId')) {
-                document.getElementById('updateSlideshowContext').value = obj.currentSlideshowId;
-            }
-            if (obj.hasOwnProperty('currentSlideNum') && typeof obj.currentSlideNum === 'number') {
-                // Find the radio button with the value equal to obj.currentSlideNum
-                const radioToCheck = document.querySelector(`input[name="goToSlideGroup"][value="${obj.currentSlideNum}"]`);
-                
-                if (radioToCheck) {
-                    // Set the radio button as checked
-                    radioToCheck.checked = true;
-                }
-                if (obj.currentSlideNum > 0) {
-                    document.getElementById('back_to_initiative').classList.remove('active');
-                    document.getElementById('go_to_slide').classList.add('active');
-                }
-            }
-            if (obj.hasOwnProperty('initiativeActive') && obj.initiativeActive === true) {
-                document.getElementById('back_to_initiative').classList.add('active');
-                document.getElementById('go_to_slide').classList.remove('active');
-            }
-            if (obj.hasOwnProperty('currentPlayers')) {
-                // Assuming obj.currentPlayers is your JSON array
-                const players = obj.currentPlayers;
+            const obj = data.controllerData
 
-                const table = document.getElementById('initiative_order').querySelector('table');
-
-                // Clear the table before inserting new rows
-                table.innerHTML = '';
-
-                // Loop through each player and create a row
-                players.forEach(player => {
-                    // Create a new row
-                    const row = document.createElement('tr');
-
-                    // Create and append the "name" cell
-                    const nameCell = document.createElement('td');
-                    nameCell.textContent = player.name;
-                    row.appendChild(nameCell);
-
-                    // Create and append the "order" cell
-                    const orderCell = document.createElement('td');
-                    orderCell.textContent = player.order;
-                    row.appendChild(orderCell);
-
-                    // Create and append the "badge" cell (if it exists)
-                    const badgeCell = document.createElement('td');
-                    badgeCell.textContent = player.badge || '-'; // Show a dash if no badge
-                    row.appendChild(badgeCell);
-
-                    // Create and append the "status" cell (for dead/bloodied)
-                    const statusCell = document.createElement('td');
-                    if (player.dead) {
-                        statusCell.textContent = 'Dead';
-                    } else if (player.bloodied) {
-                        statusCell.textContent = 'Bloodied';
-                    } else {
-                        statusCell.textContent = 'Healthy';
-                    }
-                    row.appendChild(statusCell);
-
-                    // Append the row to the table
-                    table.appendChild(row);
-                });
-            }
+            if (obj.hasOwnProperty('themes')) handleThemesData(obj)
+            if (obj.hasOwnProperty('currentTheme')) handleCurrentThemeData(obj)
+            if (obj.hasOwnProperty('slideshows')) handleSlideshowsData(obj)
+            if (obj.hasOwnProperty('currentSlideshow')) await handleCurrentSlideshowData(obj)
+            if (obj.hasOwnProperty('currentSlideshowId')) handleCurrentSlideshowIdData(obj)
+            if (obj.hasOwnProperty('currentSlideNum') && typeof obj.currentSlideNum === 'number') handleCurrentSlideNumData(obj)
+            if (obj.hasOwnProperty('initiativeActive') && obj.initiativeActive === true) handleInitiativeActiveData()
+            if (obj.hasOwnProperty('currentPlayers')) handleCurrentPlayersData(obj)
         }
     }
 
+    // Function to populate theme selectbox with received data
+    function handleThemesData(obj) {
+        const selectElement = document.getElementById('updateTheme')
+        selectElement.innerHTML = '' // empty it out first
+        obj.themes.forEach(theme => {
+            const option = document.createElement('option')
+            option.value = theme.name
+            option.textContent = theme.name
+            option.setAttribute('data-image', theme.img);
+            selectElement.appendChild(option)
+        })
+    }
+
+    // Function to handle currentTheme data
+    function handleCurrentThemeData(obj) {
+        document.getElementById('updateTheme').value = obj.currentTheme
+        const themeImage = document.getElementById('updateTheme').selectedOptions[0].getAttribute('data-image');
+        document.getElementById('back_to_initiative').style.backgroundImage = `url("${themeImage}")`
+    }
+
+    // Function to populate slideshows selectbox with received data
+    function handleSlideshowsData(obj) {
+        const selectElement = document.getElementById('updateSlideshowContext')
+        selectElement.innerHTML = '' // empty it out first
+        for (const [id, config] of Object.entries(obj.slideshows)) {
+            const option = document.createElement('option')
+            option.value = id
+            option.textContent = config.name
+            selectElement.appendChild(option)
+        }
+    }
+
+    // Function to handle currentSlideshow data and create radio buttons
+    async function handleCurrentSlideshowData(obj) {
+        await createRadioButtons('go_to_slide', 'goToSlideGroup', obj.currentSlideshow)
+    }
+
+    // Function to handle currentSlideshowId data
+    function handleCurrentSlideshowIdData(obj) {
+        document.getElementById('updateSlideshowContext').value = obj.currentSlideshowId
+    }
+
+    // Function to handle currentSlideNum data
+    function handleCurrentSlideNumData(obj) {
+        const radioToCheck = document.querySelector(`input[name="goToSlideGroup"][value="${obj.currentSlideNum}"]`)
+
+        if (radioToCheck) {
+            radioToCheck.checked = true
+        }
+
+        if (obj.currentSlideNum > 0) {
+            document.getElementById('back_to_initiative').classList.remove('active')
+            document.getElementById('go_to_slide').classList.add('active')
+        }
+    }
+
+    // Function to handle initiativeActive data
+    function handleInitiativeActiveData() {
+        document.getElementById('back_to_initiative').classList.add('active')
+        document.getElementById('go_to_slide').classList.remove('active')
+    }
+
+    // Function to handle currentPlayers data and populate the table
+    function handleCurrentPlayersData(obj) {
+        const players = obj.currentPlayers
+
+        const table = document.getElementById('initiative_order').querySelector('table')
+
+        // Clear the table before inserting new rows
+        table.innerHTML = ''
+
+        // Loop through each player and create a row
+        players.forEach(player => {
+            const row = document.createElement('tr')
+
+            // Create and append the "name" cell
+            const nameCell = document.createElement('td')
+            nameCell.textContent = player.name
+            row.appendChild(nameCell)
+
+            // Create and append the "order" cell
+            const orderCell = document.createElement('td')
+            orderCell.textContent = player.order
+            row.appendChild(orderCell)
+
+            // Create and append the "badge" cell (if it exists)
+            const badgeCell = document.createElement('td')
+            badgeCell.textContent = player.badge || '-' // Show a dash if no badge
+            row.appendChild(badgeCell)
+
+            // Create and append the "status" cell (for dead/bloodied)
+            const statusCell = document.createElement('td')
+            if (player.dead) {
+                statusCell.textContent = 'Dead'
+            } else if (player.bloodied) {
+                statusCell.textContent = 'Bloodied'
+            } else {
+                statusCell.textContent = 'Healthy'
+            }
+            row.appendChild(statusCell)
+
+            // Append the row to the table
+            table.appendChild(row)
+        })
+    }
+
     async function createRadioButtons(containerId, groupName, currentSlideshow) {
-        if (!currentSlideshow) return false;
-        const container = document.getElementById(containerId);
-        const totalSlides = currentSlideshow.scenes?.length;
-        container.innerHTML = ''; // Clear previous radio buttons
-    
+        if (!currentSlideshow) return false
+        const container = document.getElementById(containerId)
+        const totalSlides = currentSlideshow.scenes?.length
+        container.innerHTML = '' // Clear previous radio buttons
+
         for (let i = 1; i <= totalSlides; i++) {
-            const radioInput = document.createElement('input');
-            radioInput.type = 'radio';
-            radioInput.id = `${groupName}_${i}`;
-            radioInput.name = groupName;
-            radioInput.value = i;
-    
+            const radioInput = document.createElement('input')
+            radioInput.type = 'radio'
+            radioInput.id = `${groupName}_${i}`
+            radioInput.name = groupName
+            radioInput.value = i
+
             // Add the click event listener to the radio input
-            radioInput.onclick = function(event) {
-                signal(containerId + ':' + event.target.value);
-            };
-    
-            const radioLabel = document.createElement('label');
-            radioLabel.htmlFor = radioInput.id;
-            radioLabel.textContent = i;
-            radioLabel.classList.add('radio-button');
-    
+            radioInput.onclick = function (event) {
+                signal(containerId + ':' + event.target.value)
+            }
+
+            const radioLabel = document.createElement('label')
+            radioLabel.htmlFor = radioInput.id
+            radioLabel.textContent = i
+            radioLabel.classList.add('radio-button')
+
             // Check if the currentSlideshow contains images, and set the background-image
             if (currentSlideshow.scenes[i - 1]) {
-                const config = currentSlideshow.scenes[i - 1];
-                let imageUrl;
-                const fromTop = config.focalPointDistanceFromTop ?? '50%';
-                const fromLeft = config.focalPointDistanceFromLeft ?? '50%';
-                let title;
+                const config = currentSlideshow.scenes[i - 1]
+                let imageUrl
+                const fromTop = config.focalPointDistanceFromTop ?? '50%'
+                const fromLeft = config.focalPointDistanceFromLeft ?? '50%'
+                let title
                 if (config.image) {
-                    imageUrl = `../${config.image}`;
+                    imageUrl = `../${config.image}`
                 } else if (config.url) {
-                    const url = config.url;
-                    const response = await fetch('../' + url);
-                    const htmlString = await response.text(); // Get HTML as text
+                    const url = config.url
+                    const response = await fetch('../' + url)
+                    const htmlString = await response.text() // Get HTML as text
 
                     // Create a temporary DOM element to parse the HTML string
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = htmlString;
+                    const tempDiv = document.createElement('div')
+                    tempDiv.innerHTML = htmlString
 
                     // Check if there is an <img> tag in the parsed HTML
                     if (tempDiv.querySelector('.slideshow-content img')) {
-                        imageUrl = `../${tempDiv.querySelector('img').getAttribute('src')}`;
-                        console.log('Image URL:', imageUrl);
+                        imageUrl = `../${tempDiv.querySelector('img').getAttribute('src')}`
+                        console.log('Image URL:', imageUrl)
                     }
                 }
                 if (config.caption) {
-                    title = config.caption;
+                    title = config.caption
                     if (config.subcap) {
                         title += `\n${config.subcap}`
                     }
                 }
-                radioLabel.style.backgroundImage = `url("${imageUrl}")`;
-                radioLabel.style.backgroundSize = 'cover';
-                radioLabel.style.backgroundPosition = `${fromLeft} ${fromTop}`;
-                if (title) radioLabel.title = title;
+                radioLabel.style.backgroundImage = `url("${imageUrl}")`
+                radioLabel.style.backgroundSize = 'cover'
+                radioLabel.style.backgroundPosition = `${fromLeft} ${fromTop}`
+                if (title) radioLabel.title = title
             }
-    
-            container.appendChild(radioInput);
-            container.appendChild(radioLabel);
+
+            container.appendChild(radioInput)
+            container.appendChild(radioLabel)
         }
     }
 
     function addMessage(msg) {
-        var now = new Date();
-        var h = now.getHours();
-        var m = addZero(now.getMinutes());
-        var s = addZero(now.getSeconds());
-        if (h > 12) h -= 12; else if (h === 0) h = 12;
-        function addZero(t) { if (t < 10) t = "0" + t; return t; };
-        message.innerHTML = `${message.innerHTML}<span class="msg-time">${h}:${m}:${s}</span> - ${msg}<br/>`;
+        var now = new Date()
+        var h = now.getHours()
+        var m = addZero(now.getMinutes())
+        var s = addZero(now.getSeconds())
+        if (h > 12) h -= 12; else if (h === 0) h = 12
+        function addZero(t) { if (t < 10) t = "0" + t; return t };
+        message.innerHTML = `${message.innerHTML}<span class="msg-time">${h}:${m}:${s}</span> - ${msg}<br/>`
         message.scrollTo({
             top: message.scrollHeight,
             behavior: 'smooth'
-        });
+        })
     }
 
     function clearMessages() {
-        message.innerHTML = "";
-        addMessage("Msgs cleared");
+        message.innerHTML = ""
+        addMessage("Msgs cleared")
     }
 
     sendMessageBox.addEventListener('keypress', function (e) {
-        if (e.key == 'Enter') sendButton.click();
-    });
+        if (e.key == 'Enter') sendButton.click()
+    })
 
     sendButton.addEventListener('click', function () {
         if (conn && conn.open) {
-            var msg = sendMessageBox.value;
-            sendMessageBox.value = "";
-            conn.send(msg);
-            addMessage("<span class=\"selfMsg\">Self: </span>" + msg);
+            var msg = sendMessageBox.value
+            sendMessageBox.value = ""
+            conn.send(msg)
+            addMessage("<span class=\"selfMsg\">Self: </span>" + msg)
         }
-    });
+    })
 
-    clearMsgsButton.addEventListener('click', clearMessages);
-    connectButton.addEventListener('click', join);
+    clearMsgsButton.addEventListener('click', clearMessages)
+    connectButton.addEventListener('click', join)
     recvIdInput.addEventListener('keypress', function (e) {
-        if (e.key == 'Enter') connectButton.click();
-    });
-    initialize();
+        if (e.key == 'Enter') connectButton.click()
+    })
+    initialize()
 })();
 

@@ -2,16 +2,25 @@
     {
         "name": "D&D",
         "css": "./styles/themes/dnd/dnd-theme.css",
-        "font": "font-eordeoghlakat"
+        "font": "font-eordeoghlakat",
+        "img": "../styles/themes/dnd/images/dnd-wizards.webp"
     },
     {
         "name": "Empire",
         "css": "./styles/themes/empire/empire-theme.css",
-        "font": "font-aurebesh"
+        "font": "font-aurebesh",
+        "img": "../styles/themes/empire/images/death-star-view.webp"
     },
     {
         "name": "Kenobi",
         "css": "./styles/themes/kenobi/kenobi-theme.css",
-        "font": "font-aurebesh"
+        "font": "font-aurebesh",
+        "img": "../styles/themes/kenobi/images/vader-versus3.webp"
+    },
+    {
+        "name": "Imperial Deck",
+        "css": "./styles/themes/empire/imperial-deck.css",
+        "font": "font-aurebesh",
+        "img": "../styles/themes/empire/images/imperial-deck.webp"
     }
 ]
