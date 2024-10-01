@@ -1,8 +1,9 @@
 let lastPeerId = null;
 let peer = null; // Own peer object
-let conn = null;
 let connections = [];
 let dataCallback = null; // Placeholder for the external data handler
+let controller = null;
+let controllerCallback = null; // Placeholder for the external control-connection callback
 
 // DOM elements
 const recvId = document.getElementById("p2p-receiver-id");
@@ -25,17 +26,22 @@ export function initialize() {
         status.innerHTML = "Awaiting connection...";
     });
     peer.on('connection', c => {
-        if (conn && conn.open) {
-            c.on('open', function() {
-                c.send("Already connected to another client");
-                //setTimeout(function() { c.close(); }, 500);
-            });
-            return;
+        // Add the new connection to the array of connections
+        connections.push(c);
+        console.log(`Connection established with peer: ${c.peer}`);
+        updateConnectionStatus(connections);
+
+        // Check if the connection is from the controller
+        if (c.label === 'CONTROLLER') {
+            controller = c;
+            // Use external controller-connect callback, if provided
+            if (typeof controllerCallback === 'function') {
+                controllerCallback(c);
+            }
         }
-        connections.push(c)
-        conn = c;
-        status.innerHTML = "Connected";
-        ready();
+
+        // Call the ready function for each new connection
+        ready(c);
     });
     peer.on('disconnected', function () {
         status.innerHTML = "Connection lost. Please reconnect";
@@ -44,25 +50,43 @@ export function initialize() {
         peer.reconnect();
     });
     peer.on('close', function() {
-        conn = null;
         status.innerHTML = "Connection destroyed. Please refresh";
     });
     peer.on('error', function (err) {
-        alert('' + err);
+        alert('Error: ' + err);
     });
     makeCopiable(recvId);
 };
 
-function ready() {
+function updateConnectionStatus(connections) {
+    const controllerConnection = connections.find(conn => conn.label === 'CONTROLLER');
+    const peerCount = connections.length;
+
+    if (controllerConnection && peerCount === 1) {
+        status.innerHTML = "Connected to controller.";
+    } else if (controllerConnection && peerCount > 1) {
+        const otherPeerCount = peerCount - 1; // Subtract 1 for the controller
+        status.innerHTML = `Connected to controller plus ${otherPeerCount} peer${otherPeerCount > 1 ? 's' : ''}.`;
+    } else if (!controllerConnection && peerCount > 0) {
+        status.innerHTML = `Connected to ${peerCount} peer${peerCount > 1 ? 's' : ''}.`;
+    } else {
+        status.innerHTML = "No connections.";
+    }
+}
+
+function ready(conn) {
+    // When data is received...
     conn.on('data', function (data) {
-        // Handle internal logic or let the external callback handle the data
-        if (dataCallback) {
-            dataCallback(data); // Call the external callback
+        // Handle data or use external callback if provided
+        if (typeof dataCallback === 'function') {
+            dataCallback(data, conn.peer); // Pass peer ID for tracking
         }
+        addMessage(`Peer ${conn.peer}: ${data}`);
     });
+
     conn.on('close', function () {
-        status.innerHTML = "Connection reset<br>Awaiting connection...";
-        conn = null;
+        status.innerHTML = `Connection with peer ${conn.peer} closed. ${connections.length - 1} remaining`;
+        connections = connections.filter(c => c !== conn); // Remove closed connection
     });
 }
 
@@ -71,9 +95,11 @@ function addMessage(msg) {
     var h = now.getHours();
     var m = addZero(now.getMinutes());
     var s = addZero(now.getSeconds());
-    if (h > 12) h -= 12; else if (h === 0) h = 12;
-    function addZero(t) { if (t < 10) t = "0" + t; return t; };
-    message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + s + "</span>  -  " + msg + message.innerHTML;
+    const formattedTime = h > 12 ? h - 12 : h === 0 ? 12 : h;
+    
+    function addZero(t) { return t < 10 ? "0" + t : t; }
+    
+    message.innerHTML = `<br><span class="msg-time">${formattedTime}:${m}:${s}</span> - ${msg}` + message.innerHTML;
 }
 
 function clearMessages() {
@@ -82,28 +108,24 @@ function clearMessages() {
 }
 
 export function resetPeerConnection() {
-    // Close the current connection if it exists
-    if (conn) {
-        conn.close();
-        conn = null;
-    }
+    // Close all existing connections
+    connections.forEach(conn => conn.close());
+    connections = [];
 
-    // Destroy the current peer connection
     if (peer) {
         peer.destroy();
     }
 
     status.innerHTML = "Connection reset.";
 
-    setTimeout(()=>{
-        // Re-initialize a new peer connection with a new ID
-        initialize(); 
+    setTimeout(() => {
+        initialize();
     }, 600);
 }
 
 function generatePassphrase() {
     const phraseArray = [
-        "sword", "magic", "dragon", "goblin", "jedi", "xwing", "vader", "orc", "drow",
+        "sword", "magic", "dragon", "goblin", "jedi", "x-wing", "vader", "orc", "drow",
         "yoda", "force", "blaster", "clone", "sith", "saber", "hutt", "ewok", "jabba",
         "elf", "halfling", "ogre", "droid", "admiral", "laser", "wand", "dwarf", "base",
         "bow", "blight", "staff", "rogue", "monk", "troop", "tie", "paladin", "boba",
@@ -112,25 +134,32 @@ function generatePassphrase() {
         "creature", "cleric", "speeder", "mandalor", "ghost", "blacksmith", "ranger",
         "jango", "destroyer", "starship", "kyber", "inquisitor", "hyperspace", "rebel",
         "republic", "fighter", "battle", "dagobah", "tatooine", "solo", "lando", "maul",
-        "obiwan", "galaxy", "dagger", "bounty", "armor", "cloak", "phantom", "empire",
+        "obi-wan", "galaxy", "dagger", "bounty", "armor", "cloak", "phantom", "empire",
         "robin", "light", "c3po", "droids", "redrook", "r2d2", "skywalker", "sidious",
-        "luke", "coruscant", "captain", "ion", "witch", "rancor", "ice", "coin", "darth",
-        "dark", "cannon", "logan", "moon", "pirate", "drake", "copper", "asoka", "jawa",
-        "black", "master", "quarren", "bantha", "womprat", "falcon", "harpoon", "sand",
+        "luke", "coruscant", "captain", "ion", "witch", "rancor", "platemail", "coin", "darth",
+        "dark", "cannon", "chainmail", "moon", "y-wing", "drake", "copper", "asoka", "jawa",
+        "black", "master", "quarren", "bantha", "womprat", "falcon", "harpoon", "splint",
         "bowcaster", "deathstar", "gungan",  "wampa", "shield", "demigod", "spaceport",
-        "nerf", "anvil", "hammer", "naboo", "temple", "beastmaster", "clan", "tauntaun",
-        "dawn", "siege", "podracer", "realm", "gate", "kessel", "imperial", "scroll",
-        "luck", "darkside", "fire", "hunt", "han", "padme", "walker", "gold", "giant",
-        "java", "spice", "glaive", "engine", "longbow", "mine", "trap", "silver", "poe",
-        "rune", "relic", "turbo", "nebulon", "grom", "mimic", "deity", "void", "lion",
-        "stone", "grim", "nova", "tome", "helm", "ring", "travel", "wyvern", "druid",
-        "crypt", "chest", "rapier", "sorcerer", "guide", "barbarian", "scout", "hoth",
-        "kenobi", "star", "sage", "necromancer", "vader", "fireball", "dusk", "rey",
-        "blade", "arrow", "mynock", "champion", "trooper", "clan", "steel", "senate",
-        "axe", "spectre", "elven", "dwarven", "scarif", "arcana", "warlock", "kamino",
+        "nerf", "anvil", "hammer", "naboo", "temple", "pilot", "icewind", "tauntaun", "grim",
+        "dawn", "siege", "podracer", "realm", "gate", "kessel", "imperial", "scroll", "sigil",
+        "sabacc", "darkside", "fire", "hunt", "han", "padme", "walker", "gold", "giant",
+        "qui-gon", "spice", "glaive", "engine", "longbow", "mine", "trap", "silver", "poe",
+        "rune", "relic", "turbo", "nebulon", "grom", "mimic", "deity", "void", "youngling",
+        "stone", "wookie", "nova", "tome", "helm", "ring", "travel", "wyvern", "druid",
+        "crypt", "chest", "rapier", "sorcerer", "health-potion", "barbarian", "scout", "hoth",
+        "kenobi", "star", "sage", "necromancer", "vader", "fireball", "goblet", "anakin",
+        "blade", "arrow", "mynock", "champion", "trooper", "clan", "steel", "senate", "leia",
+        "axe", "spectre", "elven", "dwarven", "scarif", "arcana", "warlock", "kamino", "orb",
         "frost", "alliance", "waterdeep", "longsword", "neverwinter", "troll", "potion",
-        "organa", "leia", "windu", "mace", "dooku", "grievous", "palpatine", "tarkin",
-        "sarlacc", "parsec", "millenium-falcon", "stormtrooper", "andor", "bespin"
+        "organa", "windu", "mace", "dooku", "grievous", "palpatine", "tarkin", "order-66",
+        "sarlacc", "parsec", "millenium-falcon", "stormtrooper", "andor", "bespin", "yavin",
+        "bronze", "adamantine", "construct", "sector", "shortbow", "crossbow", "soldier",
+        "daggerford", "triboar", "baldurs-gate", "half-elf", "tiefling", "elemental", "rey",
+        "mithril", "shortsword", "eldritch", "lich", "underdark", "beholder", "mindflayer",
+        "kobold", "hobgoblin", "bugbear", "gnome", "steed", "undead", "warrior", "kraken",
+        "planeswalker", "amulet", "greatsword", "greataxe", "scimitar", "plastoid", "relic",
+        "chalice", "ethereal", "fey", "shadowfell", "archmage", "vorpal", "astral", "gemstone"
+
     ];
     const diceTypes = [4, 6, 8, 10, 12, 20]; // Dice types
     const consonants = ['','b','d','f','g','h','j','m','n','p','r','t','v','y','z'];
@@ -169,26 +198,39 @@ function copyTextToClipboard(e) {
         });
 }    
 
-sendMessageBox?.addEventListener('keypress', function (e) {
-    if (e.key == 'Enter') sendButton.click();
+// Send message to all connected peers
+sendButton?.addEventListener('click', function () {
+    if (connections.length > 0) {
+        const msg = sendMessageBox.value;
+        sendMessageBox.value = "";
+        
+        // Send message to all connections
+        connections.forEach(conn => {
+            if (conn.open) {
+                conn.send(msg);
+                addMessage(`<span class="selfMsg">Self: </span>${msg}`);
+            }
+        });
+    } else {
+        console.error('No connections available');
+    }
 });
 
-sendButton?.addEventListener('click', function () {
-    if (conn && conn.open) {
-        var msg = sendMessageBox.value;
-        sendMessageBox.value = "";
-        conn.send(msg);
-        addMessage("<span class=\"selfMsg\">Self: </span>" + msg);
-    } else {
-        console.error('Connection not found')
-    }
+sendMessageBox?.addEventListener('keypress', function (e) {
+    if (e.key == 'Enter') sendButton.click();
 });
 
 clearMsgsButton?.addEventListener('click', clearMessages);
 
 resetButton?.addEventListener('click', resetPeerConnection);
 
-// Function to set the external data handler
+// Set external data handler
 export function onData(callback) {
     dataCallback = callback; // Assign the callback provided by the external module
+}
+
+// Export the controller connection
+export { controller };
+export function onControllerConnection(callback) {
+    controllerCallback = callback; // Assign the callback provided by the external module
 }

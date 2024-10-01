@@ -7,55 +7,25 @@
     <title>Voice Initiative Peer-to-Peer Cue System --- Controller</title>
     <style>
         body {
-            font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background-color: #222;
             color: #eee;
-            min-width: 450px;
         }
 
         h1 {
-            font-size: 1.75em;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 4em;
-        }
-
-        td {
-            width: 50%;
+            color: #6AF;
+            font-size: 1.1rem;
+            @media screen and (min-width: 768px) {
+                font-size: 1.5rem;
+            }
         }
 
         input {
             margin-bottom: 5px;
         }
 
-        a:visited {
-            color: lightblue;
-        }
-
-        .display {
-            width: 100%;
-            min-height: 400px;
-            padding-bottom: 20px;
-        }
-
-        .control {
-            width: 100%;
-            padding-bottom: 20px;
-        }
-
-        .control-button {
-            width: 100%;
-            min-height: 50px;
-        }
-
-        .display-box {
-            border: 2px solid #444;
-        }
-
-        .title {
-            vertical-align: top;
+        hr {
+            border: solid 1px #444;
         }
 
         .hidden {
@@ -67,18 +37,40 @@
         }
 
         .status {
-            height: 125px;
-            vertical-align: text-top;
+            padding: 0 0 15px;
             font-weight: bold;
-            margin-bottom: 10px;
             border-bottom: 2px solid #444;
+        }
 
+        .control-container {
+            display: flex;
+            flex-flow: row wrap;
+            /* background: #333; */
+            column-gap: 5px;
+            padding: 5px;
+            margin: 0 0 15px;
+        }
+
+        .control {
+            flex: 1 1 380px;
+            padding-bottom: 20px;
+            width: 100%;
+            background-color: #222;
+        }
+
+        .title {
+            margin-bottom: 5px;
+            color: #bbb;
+        }
+
+        .control-section {
+            margin-left: 10px;
         }
 
         .message {
             height: 125px;
             max-height: 125px;
-            margin-bottom: 10px;
+            margin: -1em 0 10px;
             border-bottom: 2px solid #444;
             overflow: auto;
         }
@@ -106,22 +98,63 @@
             margin-bottom: 1em;
         }
 
-        .prev-slide-btn {
-            flex-basis: 20%;
-        }
-
-        .current-slide-btn {
-            flex-basis: 20%;
-        }
-
-        .next-slide-btn {
-            flex-basis: 30%;
-            background-color: lightskyblue;
-        }
-
         .return-to-initiative-btn {
-            flex-basis: 30%;
-            background-color: lightcoral;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-basis: 150px;
+            aspect-ratio: 16 / 9;
+            background-color: transparent;
+            background-image: url(.././styles/themes/kenobi/images/vader-versus3.webp);
+            background-size: cover;
+            text-shadow: 0 0 5px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 15px black;
+            color: white;
+            letter-spacing: 0.15em;
+            font-weight: bold;
+        }
+
+        .return-to-initiative-btn.active {
+            outline: solid yellow;
+            outline-offset: 1px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .radio-button {
+            display: inline-flex;
+            width: 80px;
+            height: 45px;
+            border: 2px solid lightgray;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 4px;
+            filter: blur(0.5px);
+            text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black;
+            font-weight: 700;
+            box-sizing: border-box;
+            align-items: flex-end;
+            line-height: 1;
+            padding: 0.05em .25em;
+        }
+
+        input[type="radio"] {
+            display: none;
+            color: white;
+        }
+
+        input[type="radio"]:checked+label {
+            outline: solid rgba(255, 255, 0, 0.5);
+            outline-offset: 1px;
+        }
+
+        .active input[type="radio"]:checked+label {
+            background-color: lightgray;
+            outline-color: yellow;
         }
     </style>
 </head>
@@ -129,47 +162,33 @@
 <body>
     <h1>Voice Initiative Peer-to-Peer Cue System --- Controller</h1>
 
-    <table class="control">
-        <tr>
-            <td class="title">Status:</td>
-            <td class="title">Messages:</td>
-        </tr>
-        <tr>
-            <td>
+    <div class="control-container">
+        <div class="control">
+            <div class="title">Status:</div>
+            <div class="control-section">
                 <span style="font-weight: bold">ID: </span>
                 <input type="text" id="receiver-id" title="Input the ID from receive.html">
                 <button id="connect-button">Connect</button>
-            </td>
-            <td>
-                <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
-                <button type="button" id="sendButton">Send</button>
-                <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <div id="status" class="status"></div>
-            </td>
-            <td>
-                <div class="message" id="message"></div>
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+    </div>
+
+    <label for="go_to_slide">Go to Slide...</label>
+    <div class="sender-btns-wrapper">
+        <div id="go_to_slide" class="radio-group"></div>
+    </div>
 
     <div class="sender-btns-wrapper">
-        <button type="button" class="control-button prev-slide-btn" onclick="signal('prev_slide');">&#10094; Prev
-            Slide</button>
-        <button type="button" class="control-button current-slide-btn" onclick="signal('show_current_slide');">Current
-            Slide</button>
-        <button type="button" class="control-button next-slide-btn" onclick="signal('next_slide');">Next Slide
-            &#10095;</button>
-        <button type="button" class="control-button return-to-initiative-btn"
-            onclick="signal('back_to_initiative');">Initiative &#9876;</button>
+        <button id="back_to_initiative" type="button" class="control-button return-to-initiative-btn"
+            onclick="signal('back_to_initiative');">Initiative Tracker</button>
     </div>
+
     <div class="sender-btns-wrapper">
         <div>
             <label for="updateTheme">Update Theme</label>
-            <select id="updateTheme" class="control-dropdown update-theme" onchange="signal('updateTheme:'+event.target.value)">
+            <select id="updateTheme" class="control-dropdown update-theme"
+                onchange="signal('updateTheme:'+event.target.value)">
                 <option value="D&D">D&D</option>
                 <option value="Empire">Empire</option>
                 <option value="Kenobi">Kenobi</option>
@@ -186,14 +205,24 @@
                 <option value="rugosa">Disruption on Rugosa</option>
             </select>
         </div>
-        <div>
-            <label for="updateNextSlideToShow">Assign Next-Up Slide</label>
-            <input id="updateNextSlideToShow" type="text" class="control-input update-next-slide"
-                onchange="signal('updateNextSlideToShow:'+event.target.value)" />
+    </div>
+
+    <div class="sender-btns-wrapper">
+        <div id="initiative_order">
+            <table>
+            </table>
         </div>
-        <div>
-            <label for="go_to_slide">Go to Slide...</label>
-            <input id="go_to_slide" type="text" class="control-input go-to-slide" onchange="signal('go_to_slide:'+event.target.value)" />
+    </div>
+
+    <hr />
+
+    <div class="control">
+        <div class="title">Log:</div>
+        <div class="control-section">
+            <div class="message" id="message"></div>
+            <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
+            <button type="button" id="sendButton">Send</button>
+            <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
         </div>
     </div>
 

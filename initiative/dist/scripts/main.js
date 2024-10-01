@@ -99,8 +99,6 @@ async function main() {
     if (!useOpenAI) await setupSpeechDicatation()
     updateSlideBasedOnHash(false)
     outputLogsToSettingsPage()
-    peer.initialize()
-    peer.onData(onPeerData)
 }
 
 async function fetchAudioPlaylists () {
@@ -371,13 +369,14 @@ function hydrateInitiativeFromQueryStr() {
 }
 
 function setupDomAndEventListeners() {
-    document.getElementById('copyQueryStringToClipboard').addEventListener('click', copyInitiativeOrderToClipboard)
-    document.getElementById('initiativeUrlPasteAndGo').addEventListener('click', reloadWithPastedInitiativeUrl)
+    document.getElementById('settingsMenuReturnBtn').addEventListener('click', settingsMenuReturn)
     document.getElementById('refreshPageBtn').addEventListener('click', refreshPage)
     document.getElementById('settingsMenuOpenBtn').addEventListener('click', openSettingsMenu)
-    document.getElementById('settingsMenuReturnBtn').addEventListener('click', settingsMenuReturn)
-    document.getElementById('musicBtn').addEventListener('click', handleMusicBtnClick)
     document.getElementById('toggleFullScreenBtn').addEventListener('change', toggleFullScreenMode)
+    document.getElementById('togglePeer2PeerControls').addEventListener('change', togglePeer2PeerControls)
+    document.getElementById('copyQueryStringToClipboard').addEventListener('click', copyInitiativeOrderToClipboard)
+    document.getElementById('initiativeUrlPasteAndGo').addEventListener('click', reloadWithPastedInitiativeUrl)
+    document.getElementById('musicBtn').addEventListener('click', handleMusicBtnClick)
     document.getElementById('selectTheme').addEventListener('change', handleThemeChange)
     document.getElementById('toggleSlideBtnShowsNext').addEventListener('change', toggleSlideBtnShowsNext)
     document.getElementById('toggleLiveText').addEventListener('change', toggleLiveTextMode)
@@ -1279,6 +1278,14 @@ function closeFullscreen() {
     document.body.classList.remove('fullscreen')
 }
 
+/* Peer-2-Peer Init and Show Controls */
+function togglePeer2PeerControls() {
+    peer.initialize()
+    peer.onData(onPeerData)
+    peer.onControllerConnection(onControllerConnection)
+    document.getElementById('peer2PeerControls').classList.toggle('active')
+}
+
 function handleThemeChange(event) {
     const selectedTheme = event.target.value
     // const themeOptionElem = event.target.options[event.target.selectedIndex]
@@ -1542,6 +1549,7 @@ function updateSlideshowContext(selectedSlideshow) {
         document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
     }
     setCookie('slideshowPreference', selectedSlideshow)
+    broadcast({'currentSlideshowId': currentSlideshowID, 'currentSlideNum': 1, 'slideshowConfig': slideshow})
 }
 
 async function updateCombatPlaylist(playlistID) {
@@ -1885,6 +1893,7 @@ function clearAll() {
 
     // Clearing cookies
     setCookie('players','')
+    broadcast({'currentPlayers': []})
     setCookie('turn','')
     setCookie('round','')
     setCookie('turnStarted','')
@@ -2051,6 +2060,8 @@ function addPlayer() {
 
 function addPlayersAndGo() {    
     setCookie('players', JSON.stringify(players))
+    broadcast({'currentPlayers': players})
+
     if (players.length) {
         renderPlayers()
         startTurnCounter()
@@ -2214,6 +2225,7 @@ function renderPlayers() {
         allTranscripts = [generatedPlayersTranscript(players)]
         if (doRerender) renderPlayers()
         setCookie('players', JSON.stringify(players))
+        broadcast({'currentPlayers': players})
         // Replace the current query string with a blank one, so if the player refreshes, it doesn't wipe out any changes.
         clearQueryString()
     }
@@ -2233,6 +2245,7 @@ function updateNextSlideToShow (newVal) {
     document.getElementById('sceneBtn').dataset.slide = newVal
     document.getElementById('slideshowNextSlide').value = parseInt(newVal)
     setCookie('slideshowNextSlidePreference', newVal)
+    broadcast({'currentSlideNum': parseInt(newVal)})
 }
 
 function handleSlideControlClick(e) {
@@ -2501,6 +2514,13 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift()
 }
 
+function broadcast(obj) {
+    if (!!peer && peer.controller && peer.controller._open) {
+        const controllerData = obj
+        peer.controller.send({"controllerData": controllerData})
+    }
+}
+
 function refreshPage() {
     location.reload()
 }
@@ -2537,6 +2557,7 @@ async function updateSlideBasedOnHash(e) {
                 }
             }
         }
+        broadcast({'initiativeActive': true})
     } else {
         const sceneIndex = parseInt(hash) - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
@@ -2721,5 +2742,24 @@ const onPeerData = (data) => {
         // gotoSlide('')
         let returnToInitBtn = document.querySelector('.return-to-initiative')
         returnToInitBtn.click();
+    }
+}
+
+function onControllerConnection() {
+    if (peer.controller) {
+        peer.controller.on('open', ()=> {
+            broadcast({
+                "currentTheme": chosenTheme,
+                "currentSlideshowId": currentSlideshowID,
+                "slideshowConfig": slideshow,
+                "currentSlideNum": getCurrentSlideNumber(),
+                "initiativeActive": 0 === getCurrentHashNumber(),
+                // currentMusicTrack,
+                // currentAmbiencePlaylist,
+                // currentAmbienceTrack,
+                "currentPlayers": players
+            })
+            peer.controller.send(controllerData)
+        })
     }
 }
