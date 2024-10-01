@@ -75,8 +75,8 @@ var send;
         if (data.controllerData) {
             const obj = data.controllerData;
             if (obj.hasOwnProperty('currentTheme')) document.getElementById('updateTheme').value = obj.currentTheme;
-            if (obj.hasOwnProperty('slideshowConfig')) {
-                await createRadioButtons('go_to_slide', 'goToSlideGroup', obj.slideshowConfig);
+            if (obj.hasOwnProperty('currentSlideshow')) {
+                await createRadioButtons('go_to_slide', 'goToSlideGroup', obj.currentSlideshow);
             }
             if (obj.hasOwnProperty('currentSlideshowId')) {
                 document.getElementById('updateSlideshowContext').value = obj.currentSlideshowId;
@@ -145,10 +145,10 @@ var send;
         }
     }
 
-    async function createRadioButtons(containerId, groupName, slideshowConfig) {
-        if (!slideshowConfig) return false;
+    async function createRadioButtons(containerId, groupName, currentSlideshow) {
+        if (!currentSlideshow) return false;
         const container = document.getElementById(containerId);
-        const totalSlides = slideshowConfig.scenes?.length;
+        const totalSlides = currentSlideshow.scenes?.length;
         container.innerHTML = ''; // Clear previous radio buttons
     
         for (let i = 1; i <= totalSlides; i++) {
@@ -168,16 +168,17 @@ var send;
             radioLabel.textContent = i;
             radioLabel.classList.add('radio-button');
     
-            // Check if the slideshowConfig contains images, and set the background-image
-            if (slideshowConfig.scenes[i - 1]) {
+            // Check if the currentSlideshow contains images, and set the background-image
+            if (currentSlideshow.scenes[i - 1]) {
+                const config = currentSlideshow.scenes[i - 1];
                 let imageUrl;
-                const fromTop = slideshowConfig.scenes[i - 1]?.focalPointDistanceFromTop ?? '50%';
-                const fromLeft = slideshowConfig.scenes[i - 1]?.focalPointDistanceFromLeft ?? '50%';
+                const fromTop = config.focalPointDistanceFromTop ?? '50%';
+                const fromLeft = config.focalPointDistanceFromLeft ?? '50%';
                 let title;
-                if (slideshowConfig.scenes[i - 1].image) {
-                    imageUrl = `../${slideshowConfig.scenes[i - 1].image}`;
-                } else if (slideshowConfig.scenes[i - 1].url) {
-                    const url = slideshowConfig.scenes[i - 1].url;
+                if (config.image) {
+                    imageUrl = `../${config.image}`;
+                } else if (config.url) {
+                    const url = config.url;
                     const response = await fetch('../' + url);
                     const htmlString = await response.text(); // Get HTML as text
 
@@ -191,10 +192,10 @@ var send;
                         console.log('Image URL:', imageUrl);
                     }
                 }
-                if (slideshowConfig.scenes[i - 1].caption) {
-                    title = slideshowConfig.scenes[i - 1].caption;
-                    if (slideshowConfig.scenes[i - 1].subcap) {
-                        title += `\n${slideshowConfig.scenes[i - 1].subcap}`
+                if (config.caption) {
+                    title = config.caption;
+                    if (config.subcap) {
+                        title += `\n${config.subcap}`
                     }
                 }
                 radioLabel.style.backgroundImage = `url("${imageUrl}")`;
@@ -215,7 +216,11 @@ var send;
         var s = addZero(now.getSeconds());
         if (h > 12) h -= 12; else if (h === 0) h = 12;
         function addZero(t) { if (t < 10) t = "0" + t; return t; };
-        message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + s + "</span>  -  " + msg + message.innerHTML;
+        message.innerHTML = `${message.innerHTML}<span class="msg-time">${h}:${m}:${s}</span> - ${msg}<br/>`;
+        message.scrollTo({
+            top: message.scrollHeight,
+            behavior: 'smooth'
+        });
     }
 
     function clearMessages() {

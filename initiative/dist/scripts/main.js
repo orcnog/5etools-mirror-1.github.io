@@ -8,6 +8,7 @@ let grammarList // SpeechGrammarList object
 let micAllowed = false
 let chosenFont
 let fontAllCaps = true
+let themes = []
 let chosenTheme
 let Music
 let Ambience
@@ -1299,10 +1300,10 @@ async function updateTheme(theme) {
 
     try {
         // Fetch the JSON data
-        const themeArray = await fetchJSON('./styles/themes/themes.json');
+        themes = await fetchJSON('./styles/themes/themes.json');
 
         // Find the theme object in the array based on the provided theme name
-        const selectedTheme = themeArray.find(t => t.name === theme);
+        const selectedTheme = themes.find(t => t.name === theme);
 
         if (!selectedTheme) {
             console.error(`Theme "${theme}" not found`);
@@ -1549,7 +1550,7 @@ function updateSlideshowContext(selectedSlideshow) {
         document.getElementById('selectSlideshow')?.closest('.settings-menu-group')?.classList.remove('active')
     }
     setCookie('slideshowPreference', selectedSlideshow)
-    broadcast({'currentSlideshowId': currentSlideshowID, 'currentSlideNum': 1, 'slideshowConfig': slideshow})
+    broadcast({'currentSlideshowId': currentSlideshowID, 'currentSlideNum': 1, 'currentSlideshow': slideshow, "initiativeActive": 0 === getCurrentHashNumber()})
 }
 
 async function updateCombatPlaylist(playlistID) {
@@ -1614,7 +1615,7 @@ function populateSelectWithFonts() {
 }
 
 async function populateSelectWithThemes() {
-    const themes = await fetchJSON('./styles/themes/themes.json')
+    themes = await fetchJSON('./styles/themes/themes.json')
     // 'Star Wars Imperial Deck', 'Star Wars Destroyer View', 'Star Wars Computer Terminal', 'Star Wars Death Star', 'Star Wars Darth vs Luke', 'Star Wars Darth vs Asoka', 'Star Wars Rey vs Kylo', 'Star Wars Rise of Skywalker', 'Star Wars Evil Rey', 'Star Wars Retro'
 
     const selectElement = document.querySelector('#selectTheme')
@@ -2559,7 +2560,8 @@ async function updateSlideBasedOnHash(e) {
         }
         broadcast({'initiativeActive': true})
     } else {
-        const sceneIndex = parseInt(hash) - 1
+        const slideNumber = parseInt(hash)
+        const sceneIndex = slideNumber - 1
         const sceneToLaunch = slideshow?.scenes?.[sceneIndex] ?? null;
         const musicToLoad = sceneToLaunch?.music ?? null
         const ambienceToLoad = sceneToLaunch?.ambience ?? null
@@ -2604,6 +2606,7 @@ async function updateSlideBasedOnHash(e) {
                     }
                 }
             }
+            broadcast({'initiativeActive': false, 'currentSlideNum': slideNumber})
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
         }
@@ -2718,6 +2721,7 @@ const onPeerData = (data) => {
     } else if (data.startsWith('updateSlideshowContext:')) {
         const slideShowContext = data.split(':')[1]
         updateSlideshowContext(slideShowContext)
+        populateSelectWithSlideshows()
     } else if (data.startsWith('updateNextSlideToShow:')) {
         const nextSlideToShow = data.split(':')[1]
         updateNextSlideToShow(nextSlideToShow)
@@ -2749,9 +2753,11 @@ function onControllerConnection() {
     if (peer.controller) {
         peer.controller.on('open', ()=> {
             broadcast({
+                "themes": themes, // JSON
                 "currentTheme": chosenTheme,
+                "slideshows": slideshowConfig, // JSON
                 "currentSlideshowId": currentSlideshowID,
-                "slideshowConfig": slideshow,
+                "currentSlideshow": slideshow,
                 "currentSlideNum": getCurrentSlideNumber(),
                 "initiativeActive": 0 === getCurrentHashNumber(),
                 // currentMusicTrack,

@@ -8,7 +8,7 @@ let controllerCallback = null; // Placeholder for the external control-connectio
 // DOM elements
 const recvId = document.getElementById("p2p-receiver-id");
 const status = document.getElementById("p2p-receiver-status");
-const message = document.getElementById("message");
+const message = document.getElementById("eventlog");
 const sendMessageBox = document.getElementById("sendMessageBox");
 const sendButton = document.getElementById("sendButton");
 const clearMsgsButton = document.getElementById("clearMsgsButton");      
@@ -99,7 +99,7 @@ function addMessage(msg) {
     
     function addZero(t) { return t < 10 ? "0" + t : t; }
     
-    message.innerHTML = `<br><span class="msg-time">${formattedTime}:${m}:${s}</span> - ${msg}` + message.innerHTML;
+    message.innerHTML = `${message.innerHTML}<span class="msg-time">${formattedTime}:${m}:${s}</span> - ${msg}<br/>`;
 }
 
 function clearMessages() {
