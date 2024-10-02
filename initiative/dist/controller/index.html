@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width">
     <title>Voice Initiative Peer-to-Peer Cue System --- Controller</title>
     <style>
+        :root {
+            --music-icon-color: lightsalmon;
+            --ambience-icon-color: lightblue;
+        }
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #222;
@@ -22,6 +26,11 @@
 
         input {
             margin-bottom: 5px;
+        }
+
+        select {
+            background: #444;
+            color: white;
         }
 
         hr {
@@ -156,6 +165,66 @@
             background-color: lightgray;
             outline-color: yellow;
         }
+
+        .audio {
+            display: flex;
+            margin: 15px 0;
+            border-top: solid 2px #444;
+        }
+        .music-player,
+        .ambience-player {
+            display: flex;
+            align-items: center;
+            flex-flow: row wrap;
+        }
+        .audio-player-controls {
+            display: flex;
+            align-items: center;
+            flex-flow: row nowrap;
+        }
+        .audio button {
+            border: none;
+            padding: 4px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: none;
+        }
+        .audio button > svg {
+            box-sizing: border-box;
+            padding: 2px;
+            height: 24px;
+            overflow: visible;
+        }
+        .audio button.bigger > svg {
+            height: 32px;
+        }
+        .music-player #play_music,
+        .ambience-player #play_ambience,
+        .music-player.playing #pause_music,
+        .ambience-player.playing #pause_ambience {
+            display: inline;
+        }
+        .music-player #pause_music,
+        .ambience-player #pause_ambience,
+        .music-player.playing #play_music,
+        .ambience-player.playing #play_ambience {
+            display: none;
+        }
+        .music-player.looping #repeat_music svg,
+        .music-player.shuffling #shuffle_music svg {
+            border-bottom: solid 2px var(--music-icon-color);
+        }
+        #volume_music,
+        #volume_ambience {
+            width: 90px;
+        }
+        .music-selection {
+            flex: 1 0 100%;
+            margin-bottom: 5px;
+        }
+        .music-selection select {
+            max-width: 250px;
+        }
     </style>
 </head>
 
@@ -187,23 +256,11 @@
     <div class="sender-btns-wrapper">
         <div>
             <label for="updateTheme">Update Theme</label>
-            <select id="updateTheme" class="control-dropdown update-theme"
-                onchange="signal('updateTheme:'+event.target.value)">
-                <option value="D&D">D&D</option>
-                <option value="Empire">Empire</option>
-                <option value="Kenobi">Kenobi</option>
-            </select>
+            <select id="updateTheme" class="control-dropdown update-theme" onchange="signal('updateTheme:'+event.target.value)"></select>
         </div>
         <div>
             <label for="updateSlideshowContext">Update Slideshow</label>
-            <select id="updateSlideshowContext" class="control-dropdown update-slideshow-context"
-                onchange="signal('updateSlideshowContext:'+event.target.value)">
-                <option value="">None</option>
-                <option value="halcyon-remnant">The Halcyon Remnant</option>
-                <option value="imperial-decryptor">The Imperial Decryptor</option>
-                <option value="lost-temple">The Lost Jedi Temple</option>
-                <option value="rugosa">Disruption on Rugosa</option>
-            </select>
+            <select id="updateSlideshowContext" class="control-dropdown update-slideshow-context" onchange="signal('updateSlideshowContext:'+event.target.value)"></select>
         </div>
     </div>
 
@@ -223,6 +280,47 @@
             <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
             <button type="button" id="sendButton">Send</button>
             <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
+        </div>
+    </div>
+
+    <div class="audio">
+        <div class="music-player">
+            <label>Music</label>
+            <div class="audio-player-controls">
+                <button id="repeat_music" onclick="signal('repeat_music');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="var(--music-icon-color)" d="M142.9 142.9c-17.5 17.5-30.1 38-37.8 59.8c-5.9 16.7-24.2 25.4-40.8 19.5s-25.4-24.2-19.5-40.8C55.6 150.7 73.2 122 97.6 97.6c87.2-87.2 228.3-87.5 315.8-1L455 55c6.9-6.9 17.2-8.9 26.2-5.2s14.8 12.5 14.8 22.2l0 128c0 13.3-10.7 24-24 24l-8.4 0c0 0 0 0 0 0L344 224c-9.7 0-18.5-5.8-22.2-14.8s-1.7-19.3 5.2-26.2l41.1-41.1c-62.6-61.5-163.1-61.2-225.3 1zM16 312c0-13.3 10.7-24 24-24l7.6 0 .7 0L168 288c9.7 0 18.5 5.8 22.2 14.8s1.7 19.3-5.2 26.2l-41.1 41.1c62.6 61.5 163.1 61.2 225.3-1c17.5-17.5 30.1-38 37.8-59.8c5.9-16.7 24.2-25.4 40.8-19.5s25.4 24.2 19.5 40.8c-10.8 30.6-28.4 59.3-52.9 83.8c-87.2 87.2-228.3 87.5-315.8 1L57 457c-6.9 6.9-17.2 8.9-26.2 5.2S16 449.7 16 440l0-119.6 0-.7 0-7.6z"/></svg></button>
+                <button id="prev_track_music" onclick="signal('prev_track_music');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="var(--music-icon-color)" d="M267.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29l0-320c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160L64 241 64 96c0-17.7-14.3-32-32-32S0 78.3 0 96L0 416c0 17.7 14.3 32 32 32s32-14.3 32-32l0-145 11.5 9.6 192 160z"/></svg></button>
+                <button id="play_music" class="bigger" onclick="signal('play_music');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="var(--music-icon-color)" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9l0 176c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg></button>
+                <button id="pause_music" class="bigger" onclick="signal('pause_music');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="var(--music-icon-color)" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM224 192l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128c0-17.7 14.3-32 32-32s32 14.3 32 32z"/></svg></button>
+                <button id="next_track_music" onclick="signal('next_track_music');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="var(--music-icon-color)" d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416L0 96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4l192 160L256 241l0-145c0-17.7 14.3-32 32-32s32 14.3 32 32l0 320c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-145-11.5 9.6-192 160z"/></svg></button>
+                <button id="shuffle_music" onclick="signal('shuffle_music');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="var(--music-icon-color)" d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-32-32 0c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96l32 0 0-32c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C154.7 401.8 126.2 416 96 416l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-32-32 0c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8l32 0 0-32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z"/></svg></button>
+            </div>
+            <input id="volume_music" type="range" min="0" max="100" value="40" step="1" onclick="signal('volume_music:' + event.target.value/100);"/>
+            <div class="music-selection">
+                <small>Playlist:</small>
+                <select id="update_music_playlist" onchange="signal('update_music:' + event.target.value);"></select>
+            </div>
+            <div class="music-selection">
+                <small>Track:</small>
+                <select id="update_music_track" onchange="signal('update_music_track:' + event.target.value)"></select>
+            </div>
+        </div>
+        <div class="ambience-player">
+            <label>Ambience</label>
+            <div class="audio-player-controls">
+                <button id="prev_track_ambience" onclick="signal('prev_track_ambience');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="var(--ambience-icon-color)" d="M267.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29l0-320c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160L64 241 64 96c0-17.7-14.3-32-32-32S0 78.3 0 96L0 416c0 17.7 14.3 32 32 32s32-14.3 32-32l0-145 11.5 9.6 192 160z"/></svg></button>
+                <button id="play_ambience" class="bigger" onclick="signal('play_ambience');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="var(--ambience-icon-color)" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c7.6-4.2 16.8-4.1 24.3 .5l144 88c7.1 4.4 11.5 12.1 11.5 20.5s-4.4 16.1-11.5 20.5l-144 88c-7.4 4.5-16.7 4.7-24.3 .5s-12.3-12.2-12.3-20.9l0-176c0-8.7 4.7-16.7 12.3-20.9z"/></svg></button>
+                <button id="pause_ambience" class="bigger" onclick="signal('pause_ambience');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="var(--ambience-icon-color)" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm224-72l0 144c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-144c0-13.3 10.7-24 24-24s24 10.7 24 24zm112 0l0 144c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-144c0-13.3 10.7-24 24-24s24 10.7 24 24z"/></svg></button>
+                <button id="next_track_ambience" onclick="signal('next_track_ambience');"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="var(--ambience-icon-color)" d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416L0 96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4l192 160L256 241l0-145c0-17.7 14.3-32 32-32s32 14.3 32 32l0 320c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-145-11.5 9.6-192 160z"/></svg></button>
+            </div>
+            <input id="volume_ambience" type="range" min="0" max="100" value="40" step="1" onclick="signal('volume_ambience:' + event.target.value/100);"/>
+            <div class="music-selection">
+                <small>Playlist:</small>
+                <select id="update_ambience_playlist" onchange="signal('update_ambience:' + event.target.value);"></select>
+            </div>
+            <div class="music-selection">
+                <small>Track:</small>
+                <select id="update_ambience_track" onchange="signal('update_ambience_track:' + event.target.value)"></select>
+            </div>
         </div>
     </div>
 

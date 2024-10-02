@@ -14,8 +14,10 @@ let Music
 let Ambience
 let playlistJSON
 let combatPlaylist = 'dnd_combat'
+let musicPlaylistID
 let ambienceListJSON
 let ambiencePlaylist
+let ambiencePlaylistID
 let musicOn = false
 let useOpenAI = true
 let liveTextMode = true
@@ -114,6 +116,9 @@ async function setupMusicPlayer (playlistArray, playlistID) {
         playlistId: playlistID,
         html5: false
     })
+    Music.onLoad = ()=> {
+        broadcast({'currentMusicTrack':Music.index})
+    }
 }
 
 async function setupAmbiencePlayer (playlistArray, startingTrackNum) {
@@ -124,6 +129,9 @@ async function setupAmbiencePlayer (playlistArray, startingTrackNum) {
         loop: true,
         html5: false
     })
+    Ambience.onLoad = ()=> {
+        broadcast({'currentAmbienceTrack':Ambience.index})
+    }
 }
 
 async function updateMusicPlaylist (playlistID) {
@@ -134,11 +142,14 @@ async function updateMusicPlaylist (playlistID) {
         } else {
             setupMusicPlayer(thisPlaylistArray, playlistID)
         }
+        musicPlaylistID = playlistID
     } else if (playlistID === '') {
         Music.updatePlaylist([])
+        musicPlaylistID = null
     } else {
         console.warn(`No playlist by the name ${playlistID} in playlist JSON file(s).`)
     }
+    broadcast({'currentMusicPlaylist':musicPlaylistID})
 }
 
 async function updateAmbiencePlaylist (playlistID) {
@@ -149,11 +160,14 @@ async function updateAmbiencePlaylist (playlistID) {
         } else {
             setupAmbiencePlayer(thisPlaylistArray, playlistID)
         }
+        ambiencePlaylistID = playlistID
     } else if (playlistID === '') {
         Ambience.updatePlaylist([])
+        ambiencePlaylistID = null
     } else {
         console.warn(`No playlist by the name ${playlistID} in ambience JSON file(s).`)
     }
+    broadcast({'currentAmbiencePlaylist':ambiencePlaylistID})
 }
 
 function calculateGlobalVars() {
@@ -418,41 +432,46 @@ function setupDomAndEventListeners() {
     // Audio Player Event handling
     document.querySelectorAll('.audioPlayer .playBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerPlayBtn))
     document.querySelectorAll('.audioPlayer .pauseBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerPauseBtn))
-    
+    document.querySelectorAll('.audioPlayer .prevBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerPrevBtn))
+    document.querySelectorAll('.audioPlayer .nextBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerNextBtn))
+    document.querySelectorAll('.audioPlayer .repeatBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerRepeatBtn))
+    document.querySelectorAll('.audioPlayer .shuffleBtn').forEach(btn => btn.addEventListener('click', handleAudioPlayerShuffleBtn))
+    document.querySelectorAll('.audioPlayer .volumeSlider').forEach(btn => btn.addEventListener('change', handleAudioPlayerVolumeChange))
+
     function handleAudioPlayerPlayBtn (e) {
         const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
-        if (AudioInstance) {
-            const tempOnPlayHandler = function() {
-                musicOn = true
-                document.body.classList.add('music-on')
-                clearTimeout(circuitbreaker)
-                AudioInstance.onPlay = null // unbind this when done
-            }
-            const circuitbreaker = setTimeout(()=> {
-                AudioInstance.onPlay = null // unbind this on timeout, if the play event never fires
-            }, 500)
-            AudioInstance.onPlay = tempOnPlayHandler
-        }
-    }
-    
-    function handleAudioPlayerPauseBtn (e) {
-        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
-        if (AudioInstance) {
-            const tempOnPlayHandler = function() {
-                if (!Music.playing && !Ambience.playing) {
-                    musicOn = false
-                    document.body.classList.remove('music-on')
-                    clearTimeout(circuitbreaker)
-                    AudioInstance.onPause = null // unbind this when done
-                }
-            }
-            const circuitbreaker = setTimeout(()=> {
-                AudioInstance.onPause = null // unbind this on timeout, if the pause event never fires
-            }, 500)
-            AudioInstance.onPause = tempOnPlayHandler
-        }
+        audioPlayerPlay(AudioInstance)
     }
 
+    function handleAudioPlayerPauseBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        audioPlayerPause(AudioInstance)
+    }
+    function handleAudioPlayerPrevBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        audioPlayerPrev(AudioInstance)
+    }
+
+    function handleAudioPlayerNextBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        audioPlayerNext(AudioInstance)
+    }
+
+    function handleAudioPlayerRepeatBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        audioPlayerRepeat(AudioInstance)
+    }
+
+    function handleAudioPlayerShuffleBtn (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        audioPlayerShuffle(AudioInstance)
+    }
+
+    function handleAudioPlayerVolumeChange (e) {
+        const AudioInstance = e.target.closest('#musicPlayer') ? Music : Ambience
+        const newVol = e.target.value / 100
+        audioPlayerVolume(AudioInstance, newVol, e)
+    }
 
     if (isiOS) {
         document.body.classList.add('ios')
@@ -695,6 +714,71 @@ function setupDomAndEventListeners() {
         document.getElementById('speechForm').classList.add('show')
     }
 }
+
+/* Audio Player Handling */
+
+async function audioPlayerPlay (audioInstance) {
+    if (audioInstance) {
+        const tempOnPlayHandler = function() {
+            musicOn = true
+            document.body.classList.add('music-on')
+            if (audioInstance == Music) broadcast({'musicIsPlaying': true})
+            if (audioInstance == Ambience) broadcast({'ambienceIsPlaying': true})
+            clearTimeout(circuitbreaker)
+            audioInstance.onPlay = null // unbind this when done
+        }
+        const circuitbreaker = setTimeout(()=> {
+            audioInstance.onPlay = null // unbind this on timeout, if the play event never fires
+        }, 500)
+        audioInstance.onPlay = tempOnPlayHandler
+        await audioInstance.play()
+    }
+}
+
+async function audioPlayerPause (audioInstance) {
+    if (audioInstance) {
+        const tempOnPlayHandler = function() {
+            if (!Music.playing && !Ambience.playing) {
+                musicOn = false
+                document.body.classList.remove('music-on')
+            }
+            if (audioInstance == Music) broadcast({'musicIsPlaying': false})
+            if (audioInstance == Ambience) broadcast({'ambienceIsPlaying': false})
+            clearTimeout(circuitbreaker)
+            audioInstance.onPause = null // unbind this when done
+        }
+        const circuitbreaker = setTimeout(()=> {
+            audioInstance.onPause = null // unbind this on timeout, if the pause event never fires
+        }, 500)
+        audioInstance.onPause = tempOnPlayHandler
+        await audioInstance.pause()
+    }
+}
+
+async function audioPlayerPrev (audioInstance) {
+    await audioInstance.skip('prev')
+}
+
+async function audioPlayerNext (audioInstance) {
+    await audioInstance.skip('next')
+}
+
+function audioPlayerRepeat (audioInstance) {
+    audioInstance.repeat()
+    if (audioInstance == Music) broadcast({'musicIsLooping': Music.loop})
+    if (audioInstance == Ambience) broadcast({'ambienceIsLooping': Ambience.loop})
+}
+
+function audioPlayerShuffle (audioInstance) {
+    audioInstance.shuffle()
+    if (audioInstance == Music) broadcast({'musicIsShuffling': Music.shuffleEnabled})
+    if (audioInstance == Ambience) broadcast({'ambienceIsShuffling': Ambience.shuffleEnabled})
+}
+
+function audioPlayerVolume (audioInstance, newVol, e = null) {
+    audioInstance.volume(newVol, e)
+}
+
 
 /**
  * Speech handling
@@ -1235,11 +1319,15 @@ async function handleMusicBtnClick() {
         }
         await Music.stop()
         await Ambience.stop()
+        broadcast({'musicIsPlaying': false, 'ambienceIsPlaying': false})
     } else {
         musicOn = true
         document.body.classList.add('music-on')
-        await Music.playRandom()
-        await Ambience.play({fadeIn: 5000})
+        if (Music?.playlistId?.length > 0) await Music.playRandom()
+        if (Ambience?.playlistId?.length > 0) await Ambience.play({fadeIn: 5000})
+        setTimeout(()=>{
+            broadcast({'musicIsPlaying': Music.playing, 'ambienceIsPlaying': Ambience.playing})
+        }, 10);
     }
 }
 
@@ -1568,6 +1656,7 @@ async function updateCombatPlaylist(playlistID) {
         document.querySelector('body').classList.add('music')
     } else {
         await Music.stop()
+        broadcast({'musicIsPlaying': false})
         document.querySelector('body').classList.remove('music')
     }
 }
@@ -2607,7 +2696,7 @@ async function updateSlideBasedOnHash(e) {
                     }
                 }
             }
-            broadcast({'initiativeActive': false, 'currentSlideNum': slideNumber})
+            broadcast({'initiativeActive': false, 'currentSlideNum': slideNumber, 'musicIsPlaying': Music.playing, 'ambienceIsPlaying': Ambience.playing})
         } else {
             console.warn(`There is no slide #${hash} available for slideshow '${currentSlideshowID}'`);
         }
@@ -2708,13 +2797,7 @@ function getNextSlideNumber () {
 
 const onPeerData = (data) => {
     console.log("Received data:", data);
-    if (data === 'prev_slide') {
-        clientPrevSlide()
-    } else if (data === 'show_current_slide') {
-        clientCurrentSlide()
-    } else if (data === 'next_slide') {
-        clientNextSlide()
-    } else if (data === 'back_to_initiative') {
+    if (data === 'back_to_initiative') {
         clientInitiative()
     } else if (data.startsWith('go_to_slide:')) {
         const slideNum = parseInt(data.split(':')[1])
@@ -2723,12 +2806,47 @@ const onPeerData = (data) => {
         const slideShowContext = data.split(':')[1]
         updateSlideshowContext(slideShowContext)
         populateSelectWithSlideshows()
-    } else if (data.startsWith('updateNextSlideToShow:')) {
-        const nextSlideToShow = data.split(':')[1]
-        updateNextSlideToShow(nextSlideToShow)
     } else if (data.startsWith('updateTheme:')) {
         const newTheme = data.split(':')[1]
         updateTheme(newTheme)
+    } else if (data.startsWith('play_music')) {
+        audioPlayerPlay(Music)
+    } else if (data.startsWith('pause_music')) {
+        audioPlayerPause(Music)
+    } else if (data.startsWith('prev_track_music')) {
+        audioPlayerPrev(Music)
+    } else if (data.startsWith('next_track_music')) {
+        audioPlayerNext(Music)
+    } else if (data.startsWith('volume_music:')) {
+        const newVol = Number(data.split(':')[1])
+        audioPlayerVolume(Music, newVol)
+    } else if (data.startsWith('repeat_music')) {
+        audioPlayerRepeat(Music)
+    } else if (data.startsWith('shuffle_music')) {
+        audioPlayerShuffle(Music)
+    } else if (data.startsWith('play_ambience')) {
+        audioPlayerPlay(Ambience)
+    } else if (data.startsWith('pause_ambience')) {
+        audioPlayerPause(Ambience)
+    } else if (data.startsWith('prev_track_ambience')) {
+        audioPlayerPrev(Ambience)
+    } else if (data.startsWith('next_track_ambience')) {
+        audioPlayerNext(Ambience)
+    } else if (data.startsWith('volume_ambience:')) {
+        const newVol = Number(data.split(':')[1])
+        audioPlayerVolume(Ambience, newVol)
+    } else if (data.startsWith('update_music:')) {
+        const newPlaylist = data.split(':')[1]
+        updateMusicPlaylist(newPlaylist)
+    } else if (data.startsWith('update_music_track:')) {
+        const newTrackNum = Number(data.split(':')[1])
+        Music.skipTo(newTrackNum)
+    } else if (data.startsWith('update_ambience:')) {
+        const newPlaylist = data.split(':')[1]
+        updateAmbiencePlaylist(newPlaylist)
+    } else if (data.startsWith('update_ambience_track:')) {
+        const newTrackNum = Number(data.split(':')[1])
+        Ambience.skipTo(newTrackNum)
     }
     
     function clientPrevSlide() {
@@ -2754,19 +2872,23 @@ function onControllerConnection() {
     if (peer.controller) {
         peer.controller.on('open', ()=> {
             broadcast({
-                "themes": themes, // JSON
                 "currentTheme": chosenTheme,
-                "slideshows": slideshowConfig, // JSON
                 "currentSlideshowId": currentSlideshowID,
                 "currentSlideshow": slideshow,
                 "currentSlideNum": getCurrentSlideNumber(),
                 "initiativeActive": 0 === getCurrentHashNumber(),
-                // currentMusicTrack,
-                // currentAmbiencePlaylist,
-                // currentAmbienceTrack,
+                'currentMusicPlaylist':musicPlaylistID,
+                "currentMusicTrack": Music?.index,
+                "currentMusicVolume":Music.globalVolume,
+                "musicIsPlaying": musicOn && Music.playing,
+                "musicIsLooping": Music.loop,
+                "musicIsShuffling":Music.shuffleEnabled,
+                "currentAmbiencePlaylist": ambiencePlaylistID,
+                "currentAmbienceTrack": Ambience?.index,
+                "currentAmbienceVolume":Ambience.globalVolume,
+                "ambienceIsPlaying": musicOn && Ambience.playing,
                 "currentPlayers": players
             })
-            peer.controller.send(controllerData)
         })
     }
 }

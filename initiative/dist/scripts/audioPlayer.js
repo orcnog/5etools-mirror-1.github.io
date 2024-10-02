@@ -55,24 +55,24 @@ class HowlerPlayer {
         const wrapper = document.getElementById(this.id)
         wrapper.setAttribute('data-html5', self.html5);
         // Bind player controls.
-        this.playBtn.addEventListener('click', function () {
-            self.play()
-        })
-        this.pauseBtn.addEventListener('click', function () {
-            self.pause()
-        })
-        this.prevBtn.addEventListener('click', function () {
-            self.skip('prev')
-        })
-        this.nextBtn.addEventListener('click', function () {
-            self.skip('next')
-        })
-        this.shuffleBtn?.addEventListener('click', function () {
-            self.shuffle()
-        })
-        this.repeatBtn?.addEventListener('click', function () {
-            self.repeat()
-        })
+        // this.playBtn.addEventListener('click', function () {
+        //     self.play()
+        // })
+        // this.pauseBtn.addEventListener('click', function () {
+        //     self.pause()
+        // })
+        // this.prevBtn.addEventListener('click', function () {
+        //     self.skip('prev')
+        // })
+        // this.nextBtn.addEventListener('click', function () {
+        //     self.skip('next')
+        // })
+        // this.shuffleBtn?.addEventListener('click', function () {
+        //     self.shuffle()
+        // })
+        // this.repeatBtn?.addEventListener('click', function () {
+        //     self.repeat()
+        // })
         this.waveform.addEventListener('click', function (event) {
             // Get the bounding rectangle of the element
             var rect = self.waveform.getBoundingClientRect()
@@ -127,9 +127,9 @@ class HowlerPlayer {
         })
 
         this.volumeSlider.value = self.globalVolume * 100
-        this.volumeSlider.addEventListener('change', (e) => {
-            self.volume(e.target.value / 100, e)
-        })
+        // this.volumeSlider.addEventListener('change', (e) => {
+        //     self.volume(e.target.value / 100, e)
+        // })
 
         // Setup the "waveform" animation.
         this.wave = new SiriWave({
@@ -198,7 +198,7 @@ class HowlerPlayer {
         }
     }
 
-    async play({index = 0, initialVolume = null, fadeIn = 0, delay = 0, allowCustomPlayHandler = true} = {}) {
+    async play({index = null, initialVolume = null, fadeIn = 0, delay = 0, allowCustomPlayHandler = true} = {}) {
         var self = this
         const preventPlayHandler = allowCustomPlayHandler === false // param must be explicitly false
         
@@ -424,8 +424,13 @@ class HowlerPlayer {
         sound.loop(!sound._loop)
 
         // Check or uncheck the repeat control button.
-        if (sound._loop) self.repeatBtn?.classList.add('active')
-            else self.repeatBtn?.classList.remove('active')
+        if (sound._loop) {
+            self.repeatBtn?.classList.add('active')
+            self.loop = true
+        } else {
+            self.repeatBtn?.classList.remove('active')
+            self.loop = false
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 var send;
-(function () {
+(async function () {
     var lastPeerId = null
     var peer = null // Own peer object
     var conn = null
@@ -11,6 +11,16 @@ var send;
     var clearMsgsButton = document.getElementById("clearMsgsButton")
     var connectButton = document.getElementById("connect-button")
     var cueString = "<span class=\"cueMsg\">Cue: </span>"
+
+    const themes = await fetchJSON('../styles/themes/themes.json')
+    const slideshows = await fetchJSON('../slideshow/slideshow-config.json')
+    const musicPlaylists = await fetchJSON('../audio/playlists.json')
+    const ambiencePlaylists = await fetchJSON('../audio/ambience.json')
+
+    populateThemesData(themes)
+    populateSlideshowsData(slideshows)
+    populatePlaylistData(musicPlaylists, 'update_music_playlist')
+    populatePlaylistData(ambiencePlaylists, 'update_ambience_playlist')
 
     function initialize() {
         peer = new Peer(null, { debug: 2 })
@@ -42,6 +52,142 @@ var send;
         })
         recvIdInput.focus()
     };
+
+    // Function to populate theme selectbox with received data
+    function populateThemesData(themes) {
+        const selectElement = document.getElementById('updateTheme')
+        selectElement.innerHTML = '' // empty it out first
+        themes.forEach(theme => {
+            const option = document.createElement('option')
+            option.value = theme.name
+            option.textContent = theme.name
+            option.setAttribute('data-image', theme.img)
+            selectElement.appendChild(option)
+        })
+    }
+
+    // Function to populate slideshows selectbox with received data
+    function populateSlideshowsData(slideshows) {
+        const selectElement = document.getElementById('updateSlideshowContext')
+        selectElement.innerHTML = '' // empty it out first
+        for (const [id, config] of Object.entries(slideshows)) {
+            const option = document.createElement('option')
+            option.value = id
+            option.textContent = config.name
+            selectElement.appendChild(option)
+        }
+    }
+
+    // Function to populate slideshows selectbox with received data
+    function populatePlaylistData(playlist, elemId) {
+        const selectElement = document.getElementById(elemId)
+        selectElement.innerHTML = '' // empty it out first
+        for (const [id] of Object.entries(playlist)) {
+            const option = document.createElement('option')
+            option.value = id
+            const name = id.replace(/^dnd_/, 'D&D ').replace(/^sw_/, 'Starwars ').replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())
+            option.textContent = name
+            selectElement.appendChild(option)
+        }
+    }
+
+    function populateTrackData(playlistId, musicOrAmbience) {
+        // Find the selected playlist based on the playlistId
+        const selectedPlaylist = musicOrAmbience === 'ambience' ? ambiencePlaylists[playlistId] : musicPlaylists[playlistId] // Access the playlist based on its ID (e.g., 'dnd_calm')
+
+        // Clear the current select options
+        const selectElement = document.getElementById(`update_${musicOrAmbience}_track`)
+        selectElement.innerHTML = '' // Clear existing options
+
+        // If the playlist is found and contains tracks, loop through them
+        if (selectedPlaylist) {
+            let i = 0;
+            selectedPlaylist.forEach(trackPath => {
+                // Extract the file name and format it using the replacements
+                const title = trackPath
+                    .split('/').pop() // Get the file name
+                    .replace(/\.[^/.]+$/, '') // Remove file extension
+                    .replace(/_s_/g, '\'s ')
+                    .replace(/_m_/g, '\'m ')
+                    .replace(/_t_/g, '\'t ')
+                    .replace(/_d_/g, '\'d ')
+                    .replace(/_/g, ' ') // Replace underscores with spaces
+
+                // Create a new option element for the select dropdown
+                const optionElement = document.createElement('option')
+                optionElement.value = i // Set the value to the track number (starting at 0)
+                optionElement.textContent = title // Set the displayed text to the formatted title
+
+                // Append the option to the select element
+                selectElement.appendChild(optionElement)
+                i++;
+            })
+        }
+    }
+
+    async function createRadioButtons(containerId, groupName, currentSlideshow) {
+        if (!currentSlideshow) return false
+        const container = document.getElementById(containerId)
+        const totalSlides = currentSlideshow.scenes?.length
+        container.innerHTML = '' // Clear previous radio buttons
+
+        for (let i = 1; i <= totalSlides; i++) {
+            const radioInput = document.createElement('input')
+            radioInput.type = 'radio'
+            radioInput.id = `${groupName}_${i}`
+            radioInput.name = groupName
+            radioInput.value = i
+
+            // Add the click event listener to the radio input
+            radioInput.onclick = function (event) {
+                signal(containerId + ':' + event.target.value)
+            }
+
+            const radioLabel = document.createElement('label')
+            radioLabel.htmlFor = radioInput.id
+            radioLabel.textContent = i
+            radioLabel.classList.add('radio-button')
+
+            // Check if the currentSlideshow contains images, and set the background-image
+            if (currentSlideshow.scenes[i - 1]) {
+                const config = currentSlideshow.scenes[i - 1]
+                let imageUrl
+                const fromTop = config.focalPointDistanceFromTop ?? '50%'
+                const fromLeft = config.focalPointDistanceFromLeft ?? '50%'
+                let title
+                if (config.image) {
+                    imageUrl = `../${config.image}`
+                } else if (config.url) {
+                    const url = config.url
+                    const response = await fetch('../' + url)
+                    const htmlString = await response.text() // Get HTML as text
+
+                    // Create a temporary DOM element to parse the HTML string
+                    const tempDiv = document.createElement('div')
+                    tempDiv.innerHTML = htmlString
+
+                    // Check if there is an <img> tag in the parsed HTML
+                    if (tempDiv.querySelector('.slideshow-content img')) {
+                        imageUrl = `../${tempDiv.querySelector('img').getAttribute('src')}`
+                        console.log('Image URL:', imageUrl)
+                    }
+                }
+                if (config.caption) {
+                    title = config.caption
+                    if (config.subcap) {
+                        title += `\n${config.subcap}`
+                    }
+                }
+                radioLabel.style.backgroundImage = `url("${imageUrl}")`
+                radioLabel.style.backgroundSize = 'cover'
+                radioLabel.style.backgroundPosition = `${fromLeft} ${fromTop}`
+                if (title) radioLabel.title = title
+            }
+
+            container.appendChild(radioInput)
+            container.appendChild(radioLabel)
+        }
+    }
 
     function join() {
         if (conn) { conn.close() }
@@ -75,47 +221,30 @@ var send;
         if (data.controllerData) {
             const obj = data.controllerData
 
-            if (obj.hasOwnProperty('themes')) handleThemesData(obj)
             if (obj.hasOwnProperty('currentTheme')) handleCurrentThemeData(obj)
-            if (obj.hasOwnProperty('slideshows')) handleSlideshowsData(obj)
             if (obj.hasOwnProperty('currentSlideshow')) await handleCurrentSlideshowData(obj)
             if (obj.hasOwnProperty('currentSlideshowId')) handleCurrentSlideshowIdData(obj)
             if (obj.hasOwnProperty('currentSlideNum') && typeof obj.currentSlideNum === 'number') handleCurrentSlideNumData(obj)
             if (obj.hasOwnProperty('initiativeActive') && obj.initiativeActive === true) handleInitiativeActiveData()
+            if (obj.hasOwnProperty('currentMusicPlaylist')) handleCurrentMusicPlaylistData(obj)
+            if (obj.hasOwnProperty('currentMusicTrack')) handleCurrentMusicTrackData(obj)
+            if (obj.hasOwnProperty('currentMusicVolume')) handleCurrentMusicVolumeData(obj)
+            if (obj.hasOwnProperty('musicIsPlaying')) handleMusicIsPlayingData(obj.musicIsPlaying)
+            if (obj.hasOwnProperty('musicIsLooping')) handleMusicIsLoopingData(obj.musicIsLooping)
+            if (obj.hasOwnProperty('musicIsShuffling')) handleMusicIsShufflingData(obj.musicIsShuffling)
+            if (obj.hasOwnProperty('ambienceIsPlaying')) handleAmbienceIsPlayingData(obj.ambienceIsPlaying)
+            if (obj.hasOwnProperty('currentAmbienceVolume')) handleCurrentAmbienceVolumeData(obj)
+            if (obj.hasOwnProperty('currentAmbiencePlaylist')) handleCurrentAmbiencePlaylistData(obj)
+            if (obj.hasOwnProperty('currentAmbienceTrack')) handleCurrentAmbienceTrackData(obj)
             if (obj.hasOwnProperty('currentPlayers')) handleCurrentPlayersData(obj)
         }
-    }
-
-    // Function to populate theme selectbox with received data
-    function handleThemesData(obj) {
-        const selectElement = document.getElementById('updateTheme')
-        selectElement.innerHTML = '' // empty it out first
-        obj.themes.forEach(theme => {
-            const option = document.createElement('option')
-            option.value = theme.name
-            option.textContent = theme.name
-            option.setAttribute('data-image', theme.img);
-            selectElement.appendChild(option)
-        })
     }
 
     // Function to handle currentTheme data
     function handleCurrentThemeData(obj) {
         document.getElementById('updateTheme').value = obj.currentTheme
-        const themeImage = document.getElementById('updateTheme').selectedOptions[0].getAttribute('data-image');
+        const themeImage = document.getElementById('updateTheme').selectedOptions[0].getAttribute('data-image')
         document.getElementById('back_to_initiative').style.backgroundImage = `url("${themeImage}")`
-    }
-
-    // Function to populate slideshows selectbox with received data
-    function handleSlideshowsData(obj) {
-        const selectElement = document.getElementById('updateSlideshowContext')
-        selectElement.innerHTML = '' // empty it out first
-        for (const [id, config] of Object.entries(obj.slideshows)) {
-            const option = document.createElement('option')
-            option.value = id
-            option.textContent = config.name
-            selectElement.appendChild(option)
-        }
     }
 
     // Function to handle currentSlideshow data and create radio buttons
@@ -192,68 +321,52 @@ var send;
         })
     }
 
-    async function createRadioButtons(containerId, groupName, currentSlideshow) {
-        if (!currentSlideshow) return false
-        const container = document.getElementById(containerId)
-        const totalSlides = currentSlideshow.scenes?.length
-        container.innerHTML = '' // Clear previous radio buttons
+    function handleCurrentMusicVolumeData(obj) {
+        const newVol = obj.currentMusicVolume
+        if (typeof newVol === 'number') document.getElementById('volume_music').value = newVol * 100
+    }
 
-        for (let i = 1; i <= totalSlides; i++) {
-            const radioInput = document.createElement('input')
-            radioInput.type = 'radio'
-            radioInput.id = `${groupName}_${i}`
-            radioInput.name = groupName
-            radioInput.value = i
+    function handleCurrentMusicPlaylistData(obj) {
+        document.getElementById('update_music_playlist').value = obj.currentMusicPlaylist
+        populateTrackData(obj.currentMusicPlaylist, 'music')
+    }
+    
+    function handleCurrentMusicTrackData(obj) {
+        document.getElementById('update_music_track').value = obj.currentMusicTrack
+    }
 
-            // Add the click event listener to the radio input
-            radioInput.onclick = function (event) {
-                signal(containerId + ':' + event.target.value)
-            }
+    function handleMusicIsPlayingData(isPlaying) {
+        if (isPlaying) document.querySelector('.music-player').classList.add('playing')
+        else document.querySelector('.music-player').classList.remove('playing')
+    }
 
-            const radioLabel = document.createElement('label')
-            radioLabel.htmlFor = radioInput.id
-            radioLabel.textContent = i
-            radioLabel.classList.add('radio-button')
+    function handleMusicIsLoopingData(isLooping) {
+        if (isLooping) document.querySelector('.music-player').classList.add('looping')
+        else document.querySelector('.music-player').classList.remove('looping')
+    }
 
-            // Check if the currentSlideshow contains images, and set the background-image
-            if (currentSlideshow.scenes[i - 1]) {
-                const config = currentSlideshow.scenes[i - 1]
-                let imageUrl
-                const fromTop = config.focalPointDistanceFromTop ?? '50%'
-                const fromLeft = config.focalPointDistanceFromLeft ?? '50%'
-                let title
-                if (config.image) {
-                    imageUrl = `../${config.image}`
-                } else if (config.url) {
-                    const url = config.url
-                    const response = await fetch('../' + url)
-                    const htmlString = await response.text() // Get HTML as text
+    function handleMusicIsShufflingData(isShuffling) {
+        if (isShuffling) document.querySelector('.music-player').classList.add('shuffling')
+        else document.querySelector('.music-player').classList.remove('shuffling')
+    }
 
-                    // Create a temporary DOM element to parse the HTML string
-                    const tempDiv = document.createElement('div')
-                    tempDiv.innerHTML = htmlString
+    function handleAmbienceIsPlayingData(isPlaying) {
+        if (isPlaying) document.querySelector('.ambience-player').classList.add('playing')
+        else document.querySelector('.ambience-player').classList.remove('playing')
+    }
 
-                    // Check if there is an <img> tag in the parsed HTML
-                    if (tempDiv.querySelector('.slideshow-content img')) {
-                        imageUrl = `../${tempDiv.querySelector('img').getAttribute('src')}`
-                        console.log('Image URL:', imageUrl)
-                    }
-                }
-                if (config.caption) {
-                    title = config.caption
-                    if (config.subcap) {
-                        title += `\n${config.subcap}`
-                    }
-                }
-                radioLabel.style.backgroundImage = `url("${imageUrl}")`
-                radioLabel.style.backgroundSize = 'cover'
-                radioLabel.style.backgroundPosition = `${fromLeft} ${fromTop}`
-                if (title) radioLabel.title = title
-            }
+    function handleCurrentAmbienceVolumeData(obj) {
+        const newVol = obj.currentAmbienceVolume
+        if (typeof newVol === 'number') document.getElementById('volume_ambience').value = newVol * 100
+    }
 
-            container.appendChild(radioInput)
-            container.appendChild(radioLabel)
-        }
+    function handleCurrentAmbiencePlaylistData(obj) {
+        document.getElementById('update_ambience_playlist').value = obj.currentAmbiencePlaylist
+        populateTrackData(obj.currentAmbiencePlaylist, 'ambience')
+    }
+    
+    function handleCurrentAmbienceTrackData(obj) {
+        document.getElementById('update_ambience_track').value = obj.currentAmbienceTrack
     }
 
     function addMessage(msg) {
@@ -274,6 +387,18 @@ var send;
         message.innerHTML = ""
         addMessage("Msgs cleared")
     }
+
+    async function fetchJSON(url) {
+        const response = await fetch(url)
+        return response.json()
+    }
+
+    document.getElementById('update_music_playlist').addEventListener('change', function (e) {
+        populateTrackData(e.target.value, 'music')
+    })
+    document.getElementById('update_ambience_playlist').addEventListener('change', function (e) {
+        populateTrackData(e.target.value, 'ambience')
+    })
 
     sendMessageBox.addEventListener('keypress', function (e) {
         if (e.key == 'Enter') sendButton.click()
